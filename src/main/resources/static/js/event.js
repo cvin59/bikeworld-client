@@ -1,115 +1,25 @@
-$(function () {
-
-    //load all event
-    const loadData = (events) => {
-        let table = $('#dataTables-example').DataTable({
-            data: events,
-            columns: [
-                {data: "id"},
-                {data: "name"},
-                {
-                    data: "status",
-                    render: function (data, type, row) {
-                        let ret;
-                        switch (row.status) {
-                            case 0 :
-                                ret = 'Pending';
-                                break;
-                            case 1 :
-                                ret = 'Not Approved';
-                                break;
-                            case 2 :
-                                ret = 'Approved';
-                                break;
-                            case 3 :
-                                ret = 'Processing';
-                                break;
-                            case 4 :
-                                ret = 'Ongoing';
-                                break;
-                            case 5 :
-                                ret = 'Canceled';
-                                break;
-                            case 6 :
-                                ret = 'End';
-                                break;
-                        }
-                        return ret;
-                    }
-                },
-                {
-                    data: null,
-                    render: function (data, type, row) {
-                        console.log(row.status);
-                        switch (row.status) {
-                            case 0 :
-                                ret = '<button class="btn btn-warning">Approve</button>';
-                                break;
-                            case 1 :
-                                ret = 'Not Approved';
-                                break;
-                            case 2 :
-                                ret = 'Approved';
-                                break;
-                            case 3 :
-                                ret = 'Processing';
-                                break;
-                            case 4 :
-                                ret = 'Ongoing';
-                                break;
-                            case 5 :
-                                ret = 'Canceled';
-                                break;
-                            case 6 :
-                                ret = 'End';
-                                break;
-                        }
-                        return ret;
-                        // if (row.status == 1 ) {
-                        //     return '<button class="btn btn-warning">Delete</button>';
-                        // } else if (row.status == 2) {
-                        //     return 'Approved';
-                        // }
-                    }
-                }
-            ],
-            responsive: true
-        });
-
-    };
-
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/event",
-        dataType: 'json',
-        success: function (data, status) {
-            console.log(data);
-            console.log(status);
-            loadData(data);
-        },
-        error: function (data, status) {
-            alert(status);
-        }
-    });
+$(function (){
 
     //propose event
     $('#formProposeEvent').submit((e) => {
         e.preventDefault();
         let json = convertFormToJSON($('#formProposeEvent'));
+        console.log(json);
         let formData = new FormData();
         formData.append('consumeEventString', JSON.stringify(json));
         let image = $("#image").get(0).files[0];
         formData.append('image', image);
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/event",
+            url: "http://localhost:8080/api/proposal-event",
             dataType: 'json',
             data: formData,
             contentType: false,
             processData: false
 
-        }).done(() => {
-            console.log('propose-success');
+        }).done((res) => {
+            console.log(res.data);
+            console.log(JSON.stringify(res.data.accountUsename));
         }).fail(() => {
             console.log('propose-fail');
         });
@@ -125,25 +35,58 @@ $(function () {
         return json;
     }
 
-    //get event detail
 
-    const loadEventDetail = () => {
-        let id = $("#eventId").val();
-        console.log(id);
+    //start end date
+    $('#datetimepickerStart').datetimepicker({
+        format: 'DD/MM/YYYY HH:mm'
+    });
+    $('#datetimepickerEnd').datetimepicker({
+        useCurrent: false,
+        format: 'DD/MM/YYYY HH:mm'
+    });
+    $("#datetimepickerStart").on("dp.change", function (e) {
+        $('#datetimepickerEnd').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepickerEnd").on("dp.change", function (e) {
+        $('#datetimepickerStart').data("DateTimePicker").maxDate(e.date);
+    });
 
+    //start end register date
+    $('#datetimepickerRegiStart').datetimepicker({
+        format: 'DD/MM/YYYY HH:mm'
+    });
+    $('#datetimepickerRegiEnd').datetimepicker({
+        useCurrent: false,
+        format: 'DD/MM/YYYY HH:mm'
+    });
+    $("#datetimepickerRegiStart").on("dp.change", function (e) {
+        $('#datetimepickerRegiEnd').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepickerRegiEnd").on("dp.change", function (e) {
+        $('#datetimepickerRegiStart').data("DateTimePicker").maxDate(e.date);
+    });
+
+    $('#formCreateEvent').submit((e) => {
+        e.preventDefault();
+        let json = convertFormToJSON($('#formCreateEvent'));
+        console.log(json);
+        let formData = new FormData();
+        formData.append('consumeEventString', JSON.stringify(json));
+        let image = $("#image").get(0).files[0];
+        formData.append('image', image);
         $.ajax({
-            type: "GET",
-            url: `http://localhost:8080/event/${id}`,
-            dataType: 'json'
-        }).done((data) => {
-            console.log(data);
-            $("#eventName").val(data.name);
-            $('#imgAva').attr('src', `http://localhost:8080/event${data.imageUrl}`);
-            console.log('load event detail success');
-        }).fail(() => {
-            console.log('fail to load event detail');
-        })
-    }
+            type: "POST",
+            url: "http://localhost:8080/api/event",
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false
 
-    loadEventDetail();
-});
+        }).done((res) => {
+            console.log(res.data);
+        }).fail((res) => {
+            console.log(res.message);
+        });
+
+    });
+})
