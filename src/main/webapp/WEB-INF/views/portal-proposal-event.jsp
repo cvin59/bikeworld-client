@@ -111,7 +111,7 @@
             function approveEvent(id) {
                 console.log(id);
                 $.ajax({
-                    type: "PUT",
+                    type: "GET",
                     url: backendServer + `/api/proposal-event/approve-event/` + id,
                     dataType: 'json',
                     contentType: false,
@@ -129,7 +129,7 @@
             function notApproveEvent(id) {
                 console.log(id);
                 $.ajax({
-                    type: "PUT",
+                    type: "GET",
                     url: `http://localhost:8080/api/proposal-event/not-approve-event/` + id,
                     dataType: 'json',
                     contentType: false,

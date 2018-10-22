@@ -9,4 +9,5 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/event")
 public class EventController {
+
 }

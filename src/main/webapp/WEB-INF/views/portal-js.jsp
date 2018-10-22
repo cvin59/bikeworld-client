@@ -6,7 +6,7 @@
 
 <!-- Metis Menu Plugin JavaScript -->
 
-    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+<script src="/vendor/metisMenu/metisMenu.min.js"></script>
 
 <!-- Morris Charts JavaScript -->
 <script src="/vendor/raphael/raphael.min.js"></script>
@@ -23,23 +23,32 @@
 <!--My JavaScript-->
 <script src="/dist/js/moment.js"></script>
 <script src="/dist/js/bootstrap-datetimepicker.js"></script>
-
+<script src="/dist/js/jquery.formautofill.min.js"></script>
+<script src="/dist/js/dropzone.min.js"></script>
+<script src="/dist/js/dropzone-amd-module.min.js"></script>
 <script>
     $(function () {
-    var JWT = window.localStorage.getItem('JWT');
-    $.ajax({
-    url: 'http://localhost:8080/auth',
-    method: 'GET',
-    headers: {
-    'Authorization': JWT
-    },
-    success: function (JWT) {
+        var JWT = window.localStorage.getItem('JWT');
         console.log(JWT);
-    },
-    error: function (xhr, status, error) {
-    window.location.href = 'http://localhost:8084/login';
-    }
-    });
+        $.ajax({
+            url: 'http://localhost:8080/auth',
+            method: 'GET',
+            headers: {
+                'Authorization': JWT
+            },
+            success: function (JWT) {
+                console.log(JWT);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                window.location.href = 'http://localhost:8084/portal/login';
+            }
+        })
+
+        $('#logoutBtn').click(function () {
+            JWT = window.localStorage.setItem('JWT', '');
+            window.location = '/portal/login';
+        });
     });
 
 

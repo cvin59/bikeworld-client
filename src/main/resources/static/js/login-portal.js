@@ -7,14 +7,14 @@ $(function () {
         var password = $('#signin-password');
 
         $('#signin-button').click(function () {
-            $.ajax({
+            let resp = $.ajax({
                 url: backendServer + '/login',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({username: username.val(), password: password.val()}),
-                success: function (JWT) {
+                success: function (xhr, status, error) {
                     console.log('123');
-                    window.localStorage.setItem('JWT', JWT);
+                    window.localStorage.setItem('JWT', xhr);
                     window.location.href = frontendServer + '/portal';
                 },
                 error: function (xhr, status, error) {

@@ -9,7 +9,6 @@
     <meta title="viewport" content="width=device-width, initial-scale=1">
     <meta title="description" content="">
     <meta title="author" content="">
-
     <title>Manage Event</title>
 </head>
 
@@ -39,9 +38,15 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
+                                <form action="/file-upload"
+                                      class="dropzone needsclick"
+                                      id="my-dropzone">
+                                <div id="dropzonePreview"></div>
+                                </form>
                                 <form role="form" id="formCreateEvent" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label>Title</label>
+                                        <input class="form-control" name="id" id="id" value="${id}" type="hidden">
                                         <input class="form-control" name="title">
                                     </div>
                                     <div class="form-group">
@@ -59,7 +64,7 @@
                                                 <div class="form-group">
                                                     <label>Start Register Date</label>
                                                     <div class='input-group date' id='datetimepickerRegiStart'>
-                                                        <input type='text' name="startRegiDate" class="form-control"/>
+                                                        <input type='text' name="startRegisterDate" class="form-control"/>
                                                         <span class="input-group-addon">
                                         <span class="fa fa-calendar"></span>
                                          </span>
@@ -68,7 +73,7 @@
                                                 <div class="form-group">
                                                     <label>End Register Date</label>
                                                     <div class='input-group date' id='datetimepickerRegiEnd'>
-                                                        <input type='text' name="endRegiDate" class="form-control"/>
+                                                        <input type='text' name="endRegisterDate" class="form-control"/>
                                                         <span class="input-group-addon">
                                          <span class="fa fa-calendar"></span>
                                         </span>
@@ -109,11 +114,11 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Min Slots</label>
-                                                <input class="form-control" name="minSlots">
+                                                <input class="form-control" name="minSlot">
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Max Slots</label>
-                                                <input class="form-control" name="maxSlots">
+                                                <input class="form-control" name="maxSlot">
                                             </div>
                                         </div>
                                     </div>
@@ -121,10 +126,15 @@
                                         <label>Description</label>
                                         <textarea class="form-control" name="description"></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Image</label>
-                                        <input class="form-control" type="file" id="image">
-                                    </div>
+
+                                    <%--<div class="form-group">--%>
+                                        <%--<label>Image</label>--%>
+                                        <%--<input class="form-control" type="file" id="image">--%>
+                                    <%--</div>--%>
+                                    <%--<div class="cover-photo">--%>
+                                        <%--<img id="eventDetailImg" style="width: 100%">--%>
+                                        <%--<div class="trans-bg"></div>--%>
+                                    <%--</div>--%>
                                     <button type="submit" class="btn btn-default">Submit</button>
                                     <button type="reset" class="btn btn-default">Reset</button>
                                 </form>
@@ -141,6 +151,40 @@
 </div>
 <jsp:include page="portal-js.jsp"/>
 <script src="/js/event.js"></script>
+<script>
+    // myDropzone is the configuration for the element that has an id attribute
+    // with the value my-dropzone (or myDropzone)
+    Dropzone.options.myDropzone = {
+        maxFiles: 3,
+        init: function() {
+            this.on("addedfile", function(file) {
+
+                // Create the remove button
+                var removeButton = Dropzone.createElement("<button>Remove file</button>");
+
+
+                // Capture the Dropzone instance as closure.
+                var _this = this;
+
+                // Listen to the click event
+                removeButton.addEventListener("click", function(e) {
+                    // Make sure the button click doesn't submit the form:
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Remove the file preview.
+                    _this.removeFile(file);
+                    // If you want to the delete the file on the server as well,
+                    // you can do the AJAX request here.
+                });
+
+                // Add the button to the file preview element.
+                file.previewElement.appendChild(removeButton);
+            });
+        }
+    };
+
+</script>
 </body>
 
 </html>

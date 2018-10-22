@@ -106,7 +106,7 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        let ret = '<button class="btn btn-info">Update</button> <button class="btn btn-danger">Delete</button>';
+                        let ret = '<a href="event/' + row.id + '" class="btn btn-info">Update</a> <button class="btn btn-danger">Delete</button>';
                         return ret;
                     }
                 }

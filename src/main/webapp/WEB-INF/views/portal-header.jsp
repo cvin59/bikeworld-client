@@ -35,7 +35,8 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <!-- fileupload -->
+    <link type="text/css" rel="stylesheet" href="/dist/css/dropzone.min.css"/>
 
 
 
@@ -54,7 +55,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../portal">Bike World</a>
+            <a class="navbar-brand" href="/portal">Bike World</a>
         </div>
         <!-- /.navbar-portal-header.jsp -->
 
@@ -65,12 +66,12 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <%--<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>--%>
+                    <%--</li>--%>
+                    <%--<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>--%>
+                    <%--</li>--%>
+                    <%--<li class="divider"></li>--%>
+                    <li><a href="#" id="logoutBtn"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -107,8 +108,6 @@
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
-        </div>
-
         <!-- /.navbar-static-side -->
     </nav>
 </div>
