@@ -1,7 +1,7 @@
 $(function (){
 
-    const backendServer = "http://localhost:8080";
-
+    const frontendServer = 'http://localhost:8084';
+    const backendServer = 'http://localhost:8080';
     //propose event
     $('#formProposeEvent').submit((e) => {
         e.preventDefault();
@@ -69,9 +69,12 @@ $(function (){
         $('#datetimepickerRegiStart').data("DateTimePicker").maxDate(e.date);
     });
 
+    CKEDITOR.replace( 'editor' );
+    CKEDITOR.config.extraPlugins = 'uploadimage';
+
     let id = $("#id").val();
     console.log(id);
-    if (id != null) {
+    if (id != "") {
         $.ajax({
 
             type: "GET",
@@ -91,7 +94,7 @@ $(function (){
             }).fail((res) => {
                 console.log(res.message);
             });
-
+            CKEDITOR.instances.editor.setData(res.data.description);
             $("#formCreateEvent").autofill(res.data);
         }).fail((res) => {
             console.log(res.message);
@@ -100,9 +103,10 @@ $(function (){
     }
 
     $('#formCreateEvent').submit((e) => {
-        if (id === null){
+        if (id === ""){
             e.preventDefault();
             let json = convertFormToJSON($('#formCreateEvent'));
+            json['description'] = CKEDITOR.instances.editor.getData();
             console.log(json);
             let formData = new FormData();
             formData.append('consumeEventString', JSON.stringify(json));
@@ -118,12 +122,14 @@ $(function (){
 
             }).done((res) => {
                 console.log(res.data);
+                window.location.href = frontendServer + '/portal/event';
             }).fail((res) => {
                 console.log(res.message);
             });
         } else {
             e.preventDefault();
             let json = convertFormToJSON($('#formCreateEvent'));
+            json['description'] = CKEDITOR.instances.editor.getData();
             console.log(json);
             let formData = new FormData();
             formData.append('consumeEventString', JSON.stringify(json));
@@ -139,6 +145,7 @@ $(function (){
 
             }).done((res) => {
                 console.log(res.data);
+                window.location.href = frontendServer + '/portal/event';
             }).fail((res) => {
                 console.log(res.message);
             });
