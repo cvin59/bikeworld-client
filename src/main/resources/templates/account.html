@@ -5,15 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>Account Info</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
-    <link href="../../../resources/static/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="../../../resources/static/dist/css/mdb.min.css" rel="stylesheet">
+    <link href="../static/dist/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    <link href="../../../resources/static/dist/css/style.css" rel="stylesheet">
+    <link href="../static/dist/css/style.css" rel="stylesheet">
 </head>
 
 <body class="hidden-sn">
@@ -303,26 +303,115 @@
 
             <div class="row">
                 <div class="col-2">
-                    <div class="row border">
-                        <div class="col-12 border-bottom">
-                            <a class="text-capitalize">Account info</a>
-                        </div>
-                        <div class="col-12 border-bottom">
-                            <a class="text-capitalize">Joined Events</a>
-                        </div>
-                        <div class="col-12 border-bottom">
-                            <a class="text-capitalize">Proposed Events</a>
-                        </div>
-                        <div class="col-12 border-bottom">
-                            <a class="text-capitalize">Buy History</a>
-                        </div>
-                        <div class="col-12 border-bottom">
-                            <a class="text-capitalize">Sell History</a>
-                        </div>
-                        <div class="col-12">
-                            <a>asadasdasd</a>
-                        </div>
+                    <div class="side-nav elegant-color-dark">
+                        <ul class="custom-scrollbar">
+                            <!-- Logo -->
+                            <li>
+                                <div class="logo-wrapper waves-light">
+                                    <a href="#">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7NJDLI2uPFBJN_dsOCavkJObbQf5kn1myxcHqIAgGOu5SMYGq"
+                                            class="img-fluid flex-center">
+                                    </a>
+                                </div>
+                            </li>
+                            <!--/. Logo -->
+            
+                            <!-- Side navigation links -->
+                            <li>
+                                <ul class="collapsible collapsible-accordion">
+                                    <!--Account is only visible after logged in-->
+                                    <li>
+                                        <a class="collapsible-header waves-effect arrow-r font-weight-bold">
+                                            <i class="fa fa-user"></i>
+                                            Account
+                                            <i class="fa fa-angle-down rotate-icon"></i>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Account Info</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Joined Events</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Proposed Events</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Buy History</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Sell History</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Order List</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="collapsible-header waves-effect arrow-r font-weight-bold">
+                                            <i class="fa fa-wrench"></i>
+                                            Component
+                                            <i class="fa fa-angle-down rotate-icon"></i>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Category 1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Category 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="collapsible-header waves-effect arrow-r font-weight-bold">
+                                            <i class="fa fa-tag"></i>
+                                            Trading
+                                            <i class="fa fa-angle-down rotate-icon"></i>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Newest</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Most Populare</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="collapsible-header waves-effect arrow-r font-weight-bold">
+                                            <i class="fa fa-calendar"></i>
+                                            Event
+                                            <i class="fa fa-angle-down rotate-icon"></i>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Clothes</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Bikes</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Bike Components</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="waves-effect">Other</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--/. Side navigation links -->
+                        </ul>
                     </div>
+                    <!--/. Sidebar navigation -->
                 </div>
                 <div class="col-10">
                     <!-- Rotating card -->
@@ -419,7 +508,7 @@
             <!-- Rotating card -->
                 </div>
             </div>
-            
+            </div>
 
             <!-- Footer -->
             <footer class="page-footer font-small stylish-color-dark pt-4">
@@ -573,15 +662,15 @@
     <!--Main Layout-->
     <!-- SCRIPTS -->
     <!-- JQuery -->
-    <script type="text/javascript" src="../../../resources/static/dist/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../resources/static/dist/js/jquery-3.3.1.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="../../../resources/static/dist/js/popper.min.js"></script>
+    <script type="text/javascript" src="../../resources/static/dist/js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="../../../resources/static/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../resources/static/dist/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="../../../resources/static/dist/js/mdb.min.js"></script>
+    <script type="text/javascript" src="../../resources/static/dist/js/mdb.min.js"></script>
     <!--Custom Javscript-->
-    <script type="text/javascript" src="../../../resources/static/dist/js/customscript.js"></script>
+    <script type="text/javascript" src="../../resources/static/dist/js/customscript.js"></script>
 </body>
 
 </html>
