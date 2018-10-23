@@ -10,9 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/portal")
 public class PortalController extends AbstractController{
-
-    RestTemplate restTemplate = new RestTemplate();
-
     @GetMapping("/event")
     public ModelAndView openEvent(){
         return new ModelAndView("portal-event");
@@ -38,7 +35,6 @@ public class PortalController extends AbstractController{
     @GetMapping
     public ModelAndView openProposal(){
         ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("userName", "Welcome " + user.getUsername());
         modelAndView.setViewName("portal-index");
         return modelAndView;
     }
