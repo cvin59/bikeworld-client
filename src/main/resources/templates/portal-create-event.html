@@ -1,16 +1,13 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head th:replace="portal-header :: head">
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta title="viewport" content="width=device-width, initial-scale=1">
-    <meta title="description" content="">
-    <meta title="author" content="">
-
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bike World Portal</title>
-
 </head>
 
 <body>
@@ -55,44 +52,40 @@
                                     <!--<div id="googleMap" style="width:100%;height:400px;"></div>-->
                                     <div class="col-md-12 form-group">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Start Register Date</label>
-                                                    <div class='input-group date' id='datetimepickerRegiStart'>
-                                                        <input type='text' name="startRegisterDate" class="form-control"/>
-                                                        <span class="input-group-addon">
+                                            <div class="form-group col-md-6">
+                                                <label>Start Register Date</label>
+                                                <div class='input-group date' id='datetimepickerRegiStart'>
+                                                    <input type='text' name="startRegisterDate" class="form-control"/>
+                                                    <span class="input-group-addon">
                                         <span class="fa fa-calendar"></span>
                                          </span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>End Register Date</label>
-                                                    <div class='input-group date' id='datetimepickerRegiEnd'>
-                                                        <input type='text' name="endRegisterDate" class="form-control"/>
-                                                        <span class="input-group-addon">
-                                         <span class="fa fa-calendar"></span>
-                                        </span>
-                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Start Date</label>
-                                                    <div class='input-group date' id='datetimepickerStart'>
-                                                        <input type='text' name="startDate" class="form-control"/>
-                                                        <span class="input-group-addon">
-                                        <span class="fa fa-calendar"></span>
-                                         </span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>End Date</label>
-                                                    <div class='input-group date' id='datetimepickerEnd'>
-                                                        <input type='text' name="endDate" class="form-control"/>
-                                                        <span class="input-group-addon">
+                                            <div class="form-group col-md-6">
+                                                <label>End Register Date</label>
+                                                <div class='input-group date' id='datetimepickerRegiEnd'>
+                                                    <input type='text' name="endRegisterDate" class="form-control"/>
+                                                    <span class="input-group-addon">
                                          <span class="fa fa-calendar"></span>
                                         </span>
-                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Start Date</label>
+                                                <div class='input-group date' id='datetimepickerStart'>
+                                                    <input type='text' name="startDate" class="form-control"/>
+                                                    <span class="input-group-addon">
+                                        <span class="fa fa-calendar"></span>
+                                         </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>End Date</label>
+                                                <div class='input-group date' id='datetimepickerEnd'>
+                                                    <input type='text' name="endDate" class="form-control"/>
+                                                    <span class="input-group-addon">
+                                         <span class="fa fa-calendar"></span>
+                                        </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -119,7 +112,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Description</label>
-                                        <textarea class="form-control" name="description"></textarea>
+                                        <textarea class="form-control"  id="editor"></textarea>
+
                                     </div>
                                     <div class="form-group">
                                         <label>Image</label>
