@@ -37,7 +37,7 @@
         console.log(JWT);
     },
     error: function (xhr, status, error) {
-    window.location.href = 'http://localhost:8084/login';
+    // window.location.href = 'http://localhost:8084/login';
     }
     });
     });
