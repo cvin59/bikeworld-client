@@ -1,10 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
+<head th:replace="portal-header :: head">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta title="viewport" content="width=device-width, initial-scale=1">
+    <meta title="description" content="">
+    <meta title="author" content="">
+
+    <title>Bike World Portal</title>
+
+</head>
+
+<body>
 
 <div id="wrapper">
-
-    <!-- Navigation -->
-    <div class="header">
-        <jsp:include page="portal-header.jsp"/>
+    <div th:replace="portal-header :: header">
     </div>
 
     <div id="page-wrapper">
@@ -33,7 +45,6 @@
                                 <th>StartDate</th>
                                 <th>EndDate</th>
                                 <th>Status</th>
-                                <%--<th>Action</th>--%>
                             </tr>
                             </thead>
                         </table>
@@ -47,7 +58,7 @@
         <!-- /#page-wrapper -->
 
     </div>
-    <jsp:include page="portal-js.jsp"/>
+    <div th:replace="portal-js :: footer"></div>
     <script>
             const backendServer = 'http://localhost:8080';
 
@@ -111,7 +122,7 @@
             function approveEvent(id) {
                 console.log(id);
                 $.ajax({
-                    type: "PUT",
+                    type: "GET",
                     url: backendServer + `/api/proposal-event/approve-event/` + id,
                     dataType: 'json',
                     contentType: false,
@@ -129,7 +140,7 @@
             function notApproveEvent(id) {
                 console.log(id);
                 $.ajax({
-                    type: "PUT",
+                    type: "GET",
                     url: `http://localhost:8080/api/proposal-event/not-approve-event/` + id,
                     dataType: 'json',
                     contentType: false,

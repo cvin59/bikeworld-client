@@ -13,7 +13,7 @@
 
     <!-- Navigation -->
     <div class="header">
-        <jsp:include page="portal-header.jsp"/>
+        <jsp:include page="portal-header.html"/>
     </div>
 
     <div id="page-wrapper">
@@ -81,7 +81,7 @@
         </div>
     </div>
 </div>
-<jsp:include page="portal-js.jsp"/>
+<jsp:include page="portal-js.html"/>
 <script src="/js/event.js"></script>
 </body>
 </html>

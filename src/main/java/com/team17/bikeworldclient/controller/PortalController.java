@@ -1,19 +1,15 @@
 package com.team17.bikeworldclient.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/portal")
-public class PortalController {
-
+public class PortalController extends AbstractController{
     @GetMapping("/event")
     public ModelAndView openEvent(){
         return new ModelAndView("portal-event");
@@ -29,10 +25,16 @@ public class PortalController {
         return new ModelAndView("portal-create-event");
     }
 
+    @GetMapping("/event/{id}")
+    public ModelAndView viewCreateEventById(@PathVariable("id") Integer id){
+        ModelAndView mav = new ModelAndView("portal-create-event");
+        mav.addObject(id);
+        return mav;
+    }
+
     @GetMapping
     public ModelAndView openProposal(){
         ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("userName", "Welcome " + user.getUsername());
         modelAndView.setViewName("portal-index");
         return modelAndView;
     }

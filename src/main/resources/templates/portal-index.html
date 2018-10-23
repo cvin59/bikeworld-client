@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head>
+<head th:replace="portal-header :: head">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +16,7 @@
 <body>
 
 <div id="wrapper">
-    <div class="header">
-        <jsp:include page="portal-header.jsp"/>
+    <div th:replace="portal-header :: header">
     </div>
 
     <div id="page-wrapper">
@@ -33,7 +32,7 @@
 </div>
 <!-- /#wrapper -->
 
-<jsp:include page="portal-js.jsp"/>
+<div th:replace="portal-js :: footer"></div>
 </body>
 
 </html>
