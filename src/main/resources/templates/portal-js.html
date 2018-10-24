@@ -34,22 +34,22 @@
         $(function () {
 
 
-            var JWT = window.localStorage.getItem('JWT');
-            console.log(JWT);
-            $.ajax({
-                url: 'http://localhost:8080/auth',
-                method: 'GET',
-                headers: {
-                    'Authorization': JWT
-                },
-                success: function (JWT) {
-                    console.log(JWT);
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                    window.location.href = 'http://localhost:8084/portal/login';
-                }
-            })
+            // var JWT = window.localStorage.getItem('JWT');
+            // console.log(JWT);
+            // $.ajax({
+            //     url: 'http://localhost:8080/auth',
+            //     method: 'GET',
+            //     headers: {
+            //         'Authorization': JWT
+            //     },
+            //     success: function (JWT) {
+            //         console.log(JWT);
+            //     },
+            //     error: function (xhr, status, error) {
+            //         console.log(error);
+            //         window.location.href = 'http://localhost:8084/portal/login';
+            //     }
+            // })
 
             $('#logoutBtn').click(function () {
                 JWT = window.localStorage.setItem('JWT', '');
