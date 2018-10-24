@@ -23,6 +23,7 @@ $(function (){
             console.log(res.data);
             console.log(res.message);
             console.log(JSON.stringify(res.data.accountUsename));
+            window.location.href = frontendServer + "/event";
         }).fail((res) => {
             console.log(res.message);
         });
@@ -117,6 +118,10 @@ $(function (){
     }
 
     $('#formCreateEvent').submit((e) => {
+        e.preventDefault;
+        var img= $("#image").get(0).files[0].size;
+        var imgsize=img/1024;
+        alert(imgsize);
         if (id === ""){
             e.preventDefault();
             let json = convertFormToJSON($('#formCreateEvent'));
@@ -167,7 +172,27 @@ $(function (){
 
 
     });
+    //
+    // var watchID = navigator.geolocation.watchPosition(onSuccess, onError, {
+    //     timeout: 30000,
+    //     enableHighAccuracy: true,
+    //     maximumAge: 3000
+    // });
 
-
-
+    // watchID;
+    //
+    // function onSuccess(position) {
+    //     var lat = position.coords.latitude,
+    //         lng = position.coords.longitude;
+    //     var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="
+    //         + lat + "," + lng +
+    //         "&zoom=14&size=400x300&sensor=false";
+    //     $("#googleMap").attr('src', img_url);
+    //     console.log(lat, lng);
+    // }
+    //
+    // function onError(error) {
+    //     alert('code: ' + error.code + '\n' +
+    //         'message: ' + error.message + '\n');
+    // }
 })

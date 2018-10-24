@@ -38,4 +38,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.extraPlugins = 'uploadimage';
     const backendServer = 'http://localhost:8080';
     config.uploadUrl = backendServer + "/image/upload";
+
+    config.extraPlugins = "imageresize";
+    config.imageResize = { maxWidth : 400, maxHeight : 400 };
 };
