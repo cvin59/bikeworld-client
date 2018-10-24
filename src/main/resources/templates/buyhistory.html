@@ -12,6 +12,8 @@
     <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="../static/dist/css/mdb.min.css" rel="stylesheet">
+    <!-- Datatable-->
+    <link href="../static/dist/css/addons/datatables.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="../static/dist/css/style.css" rel="stylesheet">
 </head>
@@ -277,254 +279,256 @@
 
     </header>
     <!--Main Layout-->
-        <div class="container-fluid lady-lips-gradient pt-5">
-            <div class="container shadow white mt-5">
-                <!--Search Section-->
-                <section class="p-3 pl-5 pr-5">
+    <div class="container-fluid lady-lips-gradient pt-5">
+        <div class="container shadow white mt-5">
+            <!--Search Section-->
+            <section class="p-3 pl-5 pr-5">
+                <!-- Search form -->
+                <form class="form-inline d-flex justify-content-center md-form form-sm">
                     <!-- Search form -->
-                    <form class="form-inline d-flex justify-content-center md-form form-sm">
-                        <!-- Search form -->
-                        <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search"
-                            aria-label="Search">
-                        <select class="mdb-select md-form">
-                            <option value="1">Component</option>
-                            <option value="2">Trading</option>
-                            <option value="3">Event</option>
-                        </select>
-                        <div>
-                            <button class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"
-                                    aria-hidden="true"></i>Search</button>
-                        </div>
-
-                    </form>
-                </section>
-                <!--End Search Section-->
-            </div>
-
-            <div class="container pt-5">
-                <div class="row">
-                    <div class="col-2 pl-0 pr-0">
-                        <div class="vertical-menu shadow">
-                            <a href="#" class="active font-weight-bold">Account Info</a>
-                            <a href="#" class="font-weight-bold">Joined Events</a>
-                            <a href="#" class="font-weight-bold">Proposed Events</a>
-                            <a href="#" class="font-weight-bold">Buy History</a>
-                            <a href="#" class="font-weight-bold">Sell History</a>
-                            <a href="#" class="font-weight-bold">Order List</a>
-                        </div>
+                    <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search" aria-label="Search">
+                    <select class="mdb-select md-form">
+                        <option value="1">Component</option>
+                        <option value="2">Trading</option>
+                        <option value="3">Event</option>
+                    </select>
+                    <div>
+                        <button class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"
+                                aria-hidden="true"></i>Search</button>
                     </div>
-                    <div class="col-10 pl-3 pr-0">
-                        <div class="card-wrapper mb-5">
-                            <div class="card text-center">
-                                <div class="card-body">
 
-                                    <form class="md-form">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-12 col-sm-12 pt-5 pl-4">
-                                                <!-- Avatar -->
-                                                <div class="avatar-upload mb-4">
-                                                    <div class="avatar-preview shadow">
-                                                        <div id="imagePreview" style="background-image: url('https://mdbootstrap.com/img/Photos/Avatars/img%20(20).jpg');">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="file-field w-100">
-                                                    <a class="btn-floating purple-gradient mt-0 float-left">
-                                                        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                                                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg">
-                                                    </a>
-                                                    <div class="file-path-wrapper">
-                                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                                    </div>
-                                                </div>
-                                            </div>
+                </form>
+            </section>
+            <!--End Search Section-->
+        </div>
 
-                                            <div class="col-lg-8 col-md-12 col-sm-12 pl-5 pb-5">
-                                                <dl class="row text-left flex-center">
-                                                    <dt class="col-sm-3">First name:</dt>
-                                                    <dd class="col-sm-9"><input id="txtFirstname" class="form-control"
-                                                            placeholder="abc" type="text"></dd>
+        <div class="container pt-5 mb">
+            <div class="row">
+                <div class="col-2 pl-0 pr-0">
+                    <div class="vertical-menu shadow">
+                        <a href="#" class="font-weight-bold">Account Info</a>
+                        <a href="#" class="font-weight-bold">Joined Events</a>
+                        <a href="#" class="font-weight-bold">Proposed Events</a>
+                        <a href="#" class="active font-weight-bold">Buy History</a>
+                        <a href="#" class="font-weight-bold">Sell History</a>
+                        <a href="#" class="font-weight-bold">Order List</a>
+                    </div>
+                </div>
+                <div class="col-10 pl-3 pr-0">
 
-                                                    <dt class="col-sm-3">Last name:</dt>
-                                                    <dd class="col-sm-9"><input id="txtLastname" class="form-control"
-                                                            placeholder="abc" type="text"></dd>
 
-                                                    <dt class="col-sm-3">Username:</dt>
-                                                    <dd class="col-sm-9"><input id="txtUsername" class="form-control"
-                                                            placeholder="abc" type="text"></dd>
 
-                                                    <dt class="col-sm-3">Address:</dt>
-                                                    <dd class="col-sm-9"><input id="txtLocation" class="form-control"
-                                                            placeholder="sdffsdfsdfsdfsdfsd" type="text"></dd>
-
-                                                    <dt class="col-sm-3">Phone:</dt>
-                                                    <dd class="col-sm-9"><input id="txtPhone" class="form-control"
-                                                            placeholder="1234567890" type="text"></dd>
-
-                                                    <dt class="col-sm-3 text-truncate">Email</dt>
-                                                    <dd class="col-sm-9"><input id="txtEmail" class="form-control"
-                                                            placeholder="1234@gmail.com" type="text"></dd>
-                                                </dl>
-                                                <button id="btnEdit" class="btn btn-success float-right" type="submit">Edit Profile</button>
-
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="white p-3 mb-5">
+                        <table class="table table-hover table-bordered customtable" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="blue-gradient white-text">
+                                    <th class="th-sm">Product Name
+                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="th-sm">Seller
+                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="th-sm">Quantity
+                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="th-sm">Status
+                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="th-sm">Order Date
+                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="th-sm">Total Price
+                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="th-sm">Action
+                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                        </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a class="btn-link">Some component</a></td>
+                                    <td><a class="btn-link">Seller Name</a></td>
+                                    <td class="text-center">2</td>
+                                    <td class="text-center"><h6 class="text-success">Active</h6></td>
+                                    <td>2011/04/25</td>
+                                    <td>320,800 VND</td>
+                                    <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a class="btn-link">Some component 2</a></td>
+                                    <td><a class="btn-link">Seller Name</a></td>
+                                    <td class="text-center">2</td>
+                                    <td class="text-center"><h6 class="text-danger">Canceled</h6></td>
+                                    <td>2011/04/25</td>
+                                    <td>320,800 VND</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><a class="btn-link">Some component 3</a></td>
+                                    <td><a class="btn-link">Seller Name</a></td>
+                                    <td class="text-center">2</td>
+                                    <td class="text-center"><h6 class="text-dark">Done</h6></td>
+                                    <td>2011/04/25</td>
+                                    <td>320,800 VND</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Footer -->
-        <footer class="page-footer font-small stylish-color-dark pt-4">
 
-            <!-- Footer Links -->
-            <div class="container text-center text-md-left">
+    <!-- Footer -->
+    <footer class="page-footer font-small stylish-color-dark pt-4">
 
-                <!-- Grid row -->
-                <div class="row">
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
 
-                    <!-- Grid column -->
-                    <div class="col-md-4 mx-auto">
+            <!-- Grid row -->
+            <div class="row">
 
-                        <!-- Content -->
-                        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Footer Content</h5>
-                        <p>
-                            Here you can use rows and columns here to organize your footer content. Lorem ipsum
-                            dolor
-                            sit amet, consectetur
-                            adipisicing elit.
-                        </p>
+                <!-- Grid column -->
+                <div class="col-md-4 mx-auto">
 
-                    </div>
-                    <!-- Grid column -->
-
-                    <hr class="clearfix w-100 d-md-none">
-
-                    <!-- Grid column -->
-                    <div class="col-md-2 mx-auto">
-
-                        <!-- Links -->
-                        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#!">Link 1</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 2</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 3</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 4</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <!-- Grid column -->
-
-                    <hr class="clearfix w-100 d-md-none">
-
-                    <!-- Grid column -->
-                    <div class="col-md-2 mx-auto">
-
-                        <!-- Links -->
-                        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#!">Link 1</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 2</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 3</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 4</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <!-- Grid column -->
-
-                    <hr class="clearfix w-100 d-md-none">
-
-                    <!-- Grid column -->
-                    <div class="col-md-2 mx-auto">
-
-                        <!-- Links -->
-                        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#!">Link 1</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 2</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 3</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 4</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <!-- Grid column -->
+                    <!-- Content -->
+                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Footer Content</h5>
+                    <p>
+                        Here you can use rows and columns here to organize your footer content. Lorem ipsum
+                        dolor
+                        sit amet, consectetur
+                        adipisicing elit.
+                    </p>
 
                 </div>
-                <!-- Grid row -->
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
 
             </div>
-            <!-- Footer Links -->
+            <!-- Grid row -->
 
-            <hr>
+        </div>
+        <!-- Footer Links -->
 
-            <!-- Social buttons -->
-            <ul class="list-unstyled list-inline text-center">
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-fb mx-1">
-                        <i class="fa fa-facebook"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-tw mx-1">
-                        <i class="fa fa-twitter"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-gplus mx-1">
-                        <i class="fa fa-google-plus"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-li mx-1">
-                        <i class="fa fa-linkedin"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-dribbble mx-1">
-                        <i class="fa fa-dribbble"> </i>
-                    </a>
-                </li>
-            </ul>
-            <!-- Social buttons -->
-            <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">
-                © 2018 Copyright
-            </div>
-            <!-- Copyright -->
+        <hr>
 
-        </footer>
-        <!-- Footer -->
+        <!-- Social buttons -->
+        <ul class="list-unstyled list-inline text-center">
+            <li class="list-inline-item">
+                <a class="btn-floating btn-fb mx-1">
+                    <i class="fa fa-facebook"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-tw mx-1">
+                    <i class="fa fa-twitter"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-gplus mx-1">
+                    <i class="fa fa-google-plus"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-li mx-1">
+                    <i class="fa fa-linkedin"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-dribbble mx-1">
+                    <i class="fa fa-dribbble"> </i>
+                </a>
+            </li>
+        </ul>
+        <!-- Social buttons -->
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            © 2018 Copyright
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
 
     <!--Main Layout-->
     <!-- SCRIPTS -->
@@ -536,6 +540,8 @@
     <script type="text/javascript" src="../../resources/static/dist/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="../../resources/static/dist/js/mdb.min.js"></script>
+    <!-- Datatable -->
+    <script type="text/javascript" src="../../resources/static/dist/js/addons/datatables.min.js"></script>
     <!--Custom Javscript-->
     <script type="text/javascript" src="../../resources/static/dist/js/customscript.js"></script>
 </body>
