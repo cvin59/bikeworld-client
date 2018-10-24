@@ -56,3 +56,9 @@ $("#imageUpload").change(function() {
     readURL(this);
 });
 //Image Preview
+
+//Init Buy Table
+$(document).ready(function () {
+    $('.customtable').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+  });
