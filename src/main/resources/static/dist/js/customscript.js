@@ -1,4 +1,7 @@
 // JavaScript source code
+//Scroll by animation
+new WOW().init();
+
 // SideNav Button Initialization
 $(".button-collapse").sideNav();
 // SideNav Scrollbar Initialization
@@ -28,3 +31,13 @@ $star_rating.on('click', function () {
     return SetRatingStar();
 });
 //End Star Rating
+
+//Custom Carousel
+
+//Stops carousel from auto sliding
+$('.carousel-no-auto').carousel({
+    interval: 0
+});
+//End Custom Carousel
+
+
