@@ -1,5 +1,7 @@
 $(function (){
 
+    const frontendServer = 'http://localhost:8084';
+    const backendServer = 'http://localhost:8080';
     //propose event
     $('#formProposeEvent').submit((e) => {
         e.preventDefault();
@@ -19,9 +21,10 @@ $(function (){
 
         }).done((res) => {
             console.log(res.data);
+            console.log(res.message);
             console.log(JSON.stringify(res.data.accountUsename));
-        }).fail(() => {
-            console.log('propose-fail');
+        }).fail((res) => {
+            console.log(res.message);
         });
 
     });
@@ -66,27 +69,91 @@ $(function (){
         $('#datetimepickerRegiStart').data("DateTimePicker").maxDate(e.date);
     });
 
-    $('#formCreateEvent').submit((e) => {
-        e.preventDefault();
-        let json = convertFormToJSON($('#formCreateEvent'));
-        console.log(json);
-        let formData = new FormData();
-        formData.append('consumeEventString', JSON.stringify(json));
-        let image = $("#image").get(0).files[0];
-        formData.append('image', image);
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/api/event",
-            dataType: 'json',
-            data: formData,
-            contentType: false,
-            processData: false
+    CKEDITOR.replace( 'editor' );
+    CKEDITOR.config.extraPlugins = 'uploadimage';
 
+    let id = $("#id").val();
+    console.log(id);
+    if (id != "") {
+        $.ajax({
+
+            type: "GET",
+            url: backendServer + "/api/event/" + id,
+            dataType: 'json',
         }).done((res) => {
-            console.log(res.data);
+            console.table(res.data);
+            $.ajax({
+                type: "GET",
+                url: backendServer + "/api/event-image/event/" + id,
+                dataType: 'json',
+            }).done((res) => {
+                console.table(res);
+                if (res.status_code === 1) {
+                    $("#eventDetailImg").attr("src", backendServer + res.data.imageLink);
+                }
+            }).fail((res) => {
+                console.log(res.message);
+            });
+            CKEDITOR.instances.editor.setData(res.data.description);
+            $("#formCreateEvent").autofill(res.data);
         }).fail((res) => {
             console.log(res.message);
         });
 
+    }
+
+    $('#formCreateEvent').submit((e) => {
+        if (id === ""){
+            e.preventDefault();
+            let json = convertFormToJSON($('#formCreateEvent'));
+            json['description'] = CKEDITOR.instances.editor.getData();
+            console.log(json);
+            let formData = new FormData();
+            formData.append('consumeEventString', JSON.stringify(json));
+            let image = $("#image").get(0).files[0];
+            formData.append('image', image);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/event",
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false
+
+            }).done((res) => {
+                console.log(res.data);
+                window.location.href = frontendServer + '/portal/event';
+            }).fail((res) => {
+                console.log(res.message);
+            });
+        } else {
+            e.preventDefault();
+            let json = convertFormToJSON($('#formCreateEvent'));
+            json['description'] = CKEDITOR.instances.editor.getData();
+            console.log(json);
+            let formData = new FormData();
+            formData.append('consumeEventString', JSON.stringify(json));
+            let image = $("#image").get(0).files[0];
+            formData.append('image', image);
+            $.ajax({
+                type: "PUT",
+                url: "http://localhost:8080/api/event/" + id ,
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false
+
+            }).done((res) => {
+                console.log(res.data);
+                window.location.href = frontendServer + '/portal/event';
+            }).fail((res) => {
+                console.log(res.message);
+            });
+        }
+
+
     });
+
+
+
 })

@@ -9,6 +9,6 @@ public class HomeController {
 
     @GetMapping("/home")
     public ModelAndView viewHome(){
-        return new ModelAndView("index");
+        return new ModelAndView("home");
     }
 }
