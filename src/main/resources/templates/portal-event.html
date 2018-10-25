@@ -16,6 +16,7 @@
 <body>
 
 <div id="wrapper">
+
     <div th:replace="portal-header :: header">
     </div>
 
@@ -30,7 +31,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <div class="panel-heading">Events
                         <a href="/portal/event/create-event" class="btn btn-primary pull-right">Create Event</a>
                     </div>
                     <!-- /.panel-heading -->
@@ -40,7 +41,7 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>Title</th>
                                 <th>Location</th>
                                 <th>StartDate</th>
                                 <th>EndDate</th>
@@ -67,11 +68,12 @@
 
     const loadData = (events) => {
         let table = $('#dataTables-example').DataTable({
+            autoWidth: false,
             data: events,
             columns: [
                 {data: "id"},
-                {data: "title"},
-                {data: "location"},
+                {data: "title", width: "200px"},
+                {data: "location", width: "200px"},
                 {data: "startDate"},
                 {data: "endDate"},
                 {
@@ -81,20 +83,20 @@
                         const id = ((row || {}).eventStautsid || {}).id;
                         console.log(id);
                         switch (id) {
-                            case 1 :
-                                ret = 'Pending';
+                            case 1:
+                                ret = '<span class="label label-default">Unavailable</span>';
                                 break;
-                            case 2 :
-                                ret = 'Registering';
+                            case 2:
+                                ret = '<span class="label label-primary">Registering</span>';
                                 break;
-                            case 3 :
-                                ret = 'Ongoing';
+                            case 3:
+                                ret = '<span class="label label-info">Upcoming</span>';
                                 break;
-                            case 4 :
-                                ret = 'End';
+                            case 4:
+                                ret = '<span class="label label-success">Ongoing</span>';
                                 break;
-                            case 4 :
-                                ret = 'Canceled';
+                            case 5:
+                                ret = '<span class="label label-danger">Finish</span>';
                                 break;
                         }
                         return ret;
@@ -112,6 +114,8 @@
         });
 
     }
+
+    $('#dataTables-example td').css('white-space','initial');
 
     $.ajax({
         type: "GET",
