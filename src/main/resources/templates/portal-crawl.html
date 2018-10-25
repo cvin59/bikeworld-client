@@ -35,14 +35,26 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <button id="startCrawlRev" class="btn btn-primary btn-lg">Crawl Revzilla</button>
-                        <button id="stopCrawlRev" class="btn btn-danger btn-lg">Stop Crawl Revzilla</button>
-                        <button id="viewCrawlRev" class="btn btn-info btn-lg">View Crawl Revzilla</button>
+                        <button id="startCrawlRev" class="btn btn-primary btn-lg" onclick="runCrawl('revzilla')">Crawl
+                            Revzilla
+                        </button>
+                        <button id="stopCrawlRev" class="btn btn-danger btn-lg" onclick="stopCrawl('revzilla')">Stop Crawl
+                            Revzilla
+                        </button>
+                        <button id="viewCrawlRev" class="btn btn-info btn-lg" onclick="viewCrawl('revzilla')">View Crawl
+                            Revzilla
+                        </button>
 
 
-                        <button id="startCrawlYne" class="btn btn-primary btn-lg">Crawl Ynebikers</button>
-                        <button id="stopCrawlYne" class="btn btn-danger btn-lg">Stop Crawl Ynebikers</button>
-                        <button id="viewCrawlYne" class="btn btn-info btn-lg">View Crawl Ynebikers</button>
+                        <button id="startCrawlYne" class="btn btn-primary btn-lg" onclick="runCrawl('ynebikers')">Crawl
+                            Ynebikers
+                        </button>
+                        <button id="stopCrawlYne" class="btn btn-danger btn-lg" onclick="stopCrawl('ynebikers')">Stop
+                            Crawl Ynebikers
+                        </button>
+                        <button id="viewCrawlYne" class="btn btn-info btn-lg" onclick="viewCrawl('ynebikers')">View Crawl
+                            Ynebikers
+                        </button>
                     </div>
                     <!-- /.panel -->
                 </div>
@@ -67,21 +79,21 @@
 <div th:replace="portal-js :: footer"></div>
 <script>
     const backendServer = "http://localhost:8080/";
-    $("#startCrawlRev").click(function () {
-        runCrawl("revzilla");
-    });
-
-
-    $("#stopCrawlRev").click(function () {
-        stopCrawl("revzilla");
-    });
+    // $("#startCrawlRev").click(function () {
+    //     runCrawl("revzilla");
+    // });
+    //
+    //
+    // $("#stopCrawlRev").click(function () {
+    //     stopCrawl("revzilla");
+    // });
 
 
     function runCrawl(site) {
         $.ajax({
             type: 'POST',
             url: backendServer + 'api/crawl/run/' + site,
-            data: { get_param: 'value' },
+            data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
 
@@ -104,7 +116,7 @@
         $.ajax({
             type: 'POST',
             url: backendServer + 'api/crawl/stop/' + site,
-            data: { get_param: 'value' },
+            data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
 
@@ -126,8 +138,8 @@
         alert("!");
         $.ajax({
             type: 'GET',
-            url: backendServer + 'api/crawl/' ,
-            data: { get_param: 'value' },
+            url: backendServer + 'api/crawl/view/' + site,
+            data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
 
