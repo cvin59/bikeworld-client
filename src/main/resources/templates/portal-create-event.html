@@ -55,7 +55,8 @@
                                             <div class="form-group col-md-6">
                                                 <label>Start Register Date</label>
                                                 <div class='input-group date' id='datetimepickerRegiStart'>
-                                                    <input type='text' name="startRegisterDate" class="form-control" required/>
+                                                    <input type='text' name="startRegisterDate" class="form-control"
+                                                           required/>
                                                     <span class="input-group-addon">
                                         <span class="fa fa-calendar"></span>
                                          </span>
@@ -64,7 +65,8 @@
                                             <div class="form-group col-md-6">
                                                 <label>End Register Date</label>
                                                 <div class='input-group date' id='datetimepickerRegiEnd'>
-                                                    <input type='text' name="endRegisterDate" class="form-control" required/>
+                                                    <input type='text' name="endRegisterDate" class="form-control"
+                                                           required/>
                                                     <span class="input-group-addon">
                                          <span class="fa fa-calendar"></span>
                                         </span>
@@ -112,13 +114,67 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Description</label>
-                                        <textarea class="form-control"  id="editor"></textarea>
+                                        <textarea class="form-control" id="editor"></textarea>
 
                                     </div>
                                     <div class="form-group">
                                         <label>Cover Photo</label>
                                         <input class="form-control" type="file" id="image">
+                                        <!--multiple upload-->
+                                        <h3 class="expand"><img src="/img/transparent.png" alt=""
+                                                                class="iconEx"/><span>Model's Images</span>
+                                        </h3>
+                                        <div class="row fileupload-buttonbar">
+                                            <div class="col-lg-7">
+                                                <!-- The fileinput-button span is used to style the file input field as button -->
+                                                <span id="addFiles" class="btn btn-file btn-success">
+                                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                                        Choose files <input id="files" type="file" name="files" multiple>
+                                                </span>
+                                                <!--<span class="btn btn-primary btn-file">-->
+                                                    <!--Browse <input type="file">-->
+                                                <!--</span>-->
+                                                <span id="deleteFiles" type="button"
+                                                      class="btn btn-danger btn-file">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    <span>Remove files</span>
+                                                </span>
+                                                <span>Check All</span>
+                                                <input id="checkAll" type="checkbox" class="toggle">
+                                                <!-- The global file processing state -->
+                                                <span id="totalSize" class="fileupload-process"
+                                                      style="display: block; padding-top: 5px;">
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <!-- The table listing the files available for upload/download -->
+                                        <span id="error" class="error" style="display: none;
+                                                            margin-left: 15px; font-size: 15px; color: red;
+                                                            width: 100%; float: left;"></span>
+                                        <table id="listImage" role="presentation" class="table table-striped">
+                                            <tbody class="files">
+                                            <!--<tr class="table-tr" style="margin-top: 10px;">-->
+                                            <!--<td>-->
+                                            <!--<img id="file1" src="/img/10522238.jpg"/>-->
+                                            <!--</td>-->
+                                            <!--<td><div class="imageName">10522238.jpg</div></td>-->
+                                            <!--<td><div class="imageSize">22.65 KB</div></td>-->
+                                            <!--<td class="imageType"><select id="cbo-image-type">-->
+                                            <!--<option value="Available">Package</option>-->
+                                            <!--<option value="Unavailable">Item picture</option>-->
+                                            <!--</select></td>-->
+                                            <!--<td class="canceltd">-->
+                                            <!--<button id="cancelImage" class="btn btn-warning cancel">-->
+                                            <!--<i class="glyphicon glyphicon-ban-circle"></i>-->
+                                            <!--<span>Cancel</span>-->
+                                            <!--</button>-->
+                                            <!--<input type="checkbox" class="toggle">-->
+                                            <!--</td>-->
+                                            <!--</tr>-->
+                                            </tbody>
+                                        </table>
                                     </div>
+
                                     <div class="cover-photo">
                                         <img id="eventDetailImg" style="width: 100%">
                                         <div class="trans-bg"></div>
