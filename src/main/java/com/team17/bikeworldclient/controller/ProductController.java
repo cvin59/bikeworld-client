@@ -10,12 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
 
     @GetMapping("/detail")
-    public ModelAndView viewEventDetail(){
+    public ModelAndView viewProductDetail(){
         return new ModelAndView("tradepostdetail");
     }
-<<<<<<< HEAD
 
+    @GetMapping("/list")
+    public ModelAndView viewProductList(){
+        return new ModelAndView("productlist");
+    }
 
-=======
->>>>>>> master
 }
