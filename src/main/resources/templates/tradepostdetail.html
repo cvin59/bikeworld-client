@@ -1,24 +1,16 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head>
+<head th:replace="header :: head">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Material Design Bootstrap</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Bootstrap core CSS -->
-    <link href="../../resources/static/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="../../resources/static/dist/css/mdb.min.css" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
-    <link href="../../resources/static/dist/css/style.css" rel="stylesheet">
 </head>
 
 <body class="hidden-sn">
-    <!--Double navigation-->
-    <header>
+<!--Double navigation-->
+<header th:replace="header :: header"></header>
         <!-- Sidebar navigation -->
         <div id="slide-out" class="side-nav elegant-color-dark">
             <ul class="custom-scrollbar">

@@ -13,4 +13,10 @@ public class ProductController {
     public ModelAndView viewEventDetail(){
         return new ModelAndView("tradepostdetail");
     }
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/event")
+public class ProductController {
+
 }
