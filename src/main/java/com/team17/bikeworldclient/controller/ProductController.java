@@ -13,7 +13,9 @@ public class ProductController {
     public ModelAndView viewEventDetail(){
         return new ModelAndView("tradepostdetail");
     }
+<<<<<<< HEAD
 
 
+=======
 >>>>>>> master
 }
