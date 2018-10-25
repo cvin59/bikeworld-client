@@ -1,0 +1,5 @@
+$(function () {
+    $(document).read(function () {
+        ${}
+    })
+})
