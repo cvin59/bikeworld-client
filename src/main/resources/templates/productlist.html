@@ -279,30 +279,8 @@
 
     </header>
     <!--Main Layout-->
-    <div class="container-fluid lady-lips-gradient pt-5">
-        <div class="container shadow white mt-5">
-            <!--Search Section-->
-            <section class="p-3 pl-5 pr-5">
-                <!-- Search form -->
-                <form class="form-inline d-flex justify-content-center md-form form-sm">
-                    <!-- Search form -->
-                    <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search" aria-label="Search">
-                    <select class="mdb-select md-form">
-                        <option value="1">Component</option>
-                        <option value="2">Trading</option>
-                        <option value="3">Event</option>
-                    </select>
-                    <div>
-                        <button class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"
-                                aria-hidden="true"></i>Search</button>
-                    </div>
-
-                </form>
-            </section>
-            <!--End Search Section-->
-        </div>
-
-        <div class="container pt-5 mb">
+    <div class="container-fluid pt-5">
+        <div class="container pt-5">
             <div class="row">
                 <div class="col-2 pl-0 pr-0">
                     <div class="vertical-menu shadow">
@@ -317,64 +295,71 @@
                 <div class="col-10 pl-3 pr-0">
                     <div class="white p-3 mb-5">
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-danger btn-rounded font-weight-bold"><i class="fa fa-plus mr-1"></i> New Trade Post</a>
+                            <a class="btn btn-danger btn-rounded font-weight-bold"><i class="fa fa-plus mr-1"></i> New
+                                Trade Post</a>
                         </div>
-                        <table class="table table-hover table-bordered customtable" cellspacing="0" width="100%">
-                            <thead>
-                                <tr class="ripe-malinka-gradient white-text">
-                                    <th class="th-sm">Product Name
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Quantity
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Status
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Date
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Total Price
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Action
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><a class="btn-link">Some component</a></td>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">
-                                        <h6 class="text-success">Active</h6>
-                                    </td>
-                                    <td>2011/04/25</td>
-                                    <td>320,800 VND</td>
-                                    <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a class="btn-link">Some component 2</a></td>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">
-                                        <h6 class="text-danger">Out of Order</h6>
-                                    </td>
-                                    <td>2011/04/25</td>
-                                    <td>320,800 VND</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><a class="btn-link">Some component 3</a></td>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">
-                                        <h6 class="text-dark">Canceled</h6>
-                                    </td>
-                                    <td>2011/04/25</td>
-                                    <td>320,800 VND</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                        <!--Filters-->
+                        <form>
+                            <div class="d-flex justify-content-between mt-3">
+                                <div>
+                                <select class="browser-default custom-select">
+                                    <option selected>Date Descending</option>
+                                    <option value="1">Date Ascending</option>
+                                    <option value="2">Name</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                
+
+
+                                <!-- Search form -->
+                                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                            </div>
+                            </div>
+                        </form>
+                        <!--End Filters-->
+
+                        <!--Product List-->
+                        <div class="p-3">
+                            <!--Product Row-->
+                            <div class="row pl-0 pr-0 wow fadeIn mb-3 border-top">
+                                <div class="col-4 pt-3 view zoom">
+                                    <a href=""><img class="img-fluid" src="https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg"></a>
+                                </div>
+                                <div class="col-8 card shadow-none">
+                                    <div class="card-body">
+                                        <a>
+                                            <h4 class="font-weight-bold">Product Name</h4>
+                                        </a>
+                                        <!--Rating-->
+                                        <div class="d-flex justify-content-start">
+                                            <i class="fa fa-star orange-text"> </i>
+                                            <i class="fa fa-star orange-text"> </i>
+                                            <i class="fa fa-star orange-text"> </i>
+                                            <i class="fa fa-star orange-text"> </i>
+                                            <i class="fa fa-star-o orange-text"> </i>
+                                            <h6 class="ml-2">10 reviews</h6>
+                                        </div>
+
+                                        <h6 class="text-danger">300.000 VND</h6>
+                                        <p>Added: 10/12/2018</p>
+                                        <div>
+                                            <span class="badge badge-danger">Status</span>
+                                            <span class="badge badge-light">Status</span>
+                                            <span class="badge badge-primary">Status</span>
+                                            <span class="badge badge-success">Status</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer white border-0">
+                                        <a class="btn btn-sm btn-success float-right font-weight-bold"><i class="fa fa-edit mr-1"></i>Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End Product Row-->
+                        </div>
+                        <!--End Product List-->
                     </div>
                 </div>
             </div>
