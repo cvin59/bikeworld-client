@@ -1,4 +1,7 @@
 // JavaScript source code
+//Scroll by animation
+new WOW().init();
+
 // SideNav Button Initialization
 $(".button-collapse").sideNav();
 // SideNav Scrollbar Initialization
@@ -28,3 +31,34 @@ $star_rating.on('click', function () {
     return SetRatingStar();
 });
 //End Star Rating
+
+//Custom Carousel
+
+//Stops carousel from auto sliding
+$('.carousel-no-auto').carousel({
+    interval: 0
+});
+//End Custom Carousel
+
+//Image Preview
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+            $('#imagePreview').hide();
+            $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$("#imageUpload").change(function() {
+    readURL(this);
+});
+//Image Preview
+
+//Init data tables
+$(document).ready(function () {
+    $('.customtable').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+  });
