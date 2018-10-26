@@ -18,7 +18,7 @@ $(function () {
 
     }
 
-    const loadInfo = (event) => {
+    const loadInfo = async (event) => {
         $("#eventName").text(event.title);
         $("#eventStatus").text(event.eventStautsid.name);
         $("#eventPrice").text(formatter.format(event.fee));
@@ -29,6 +29,8 @@ $(function () {
         $("#eventDescription").append(event.description);
         ratingStar(event.totalRatesPoint);
         $("#totalRates").text(event.totalRates);
+        let imageUrl = await loadImageFromEvent(event.id);
+        $("#eventImage").attr("src", imageUrl);
     }
     //fee
     const formatter = new Intl.NumberFormat('en-US', {
@@ -72,4 +74,9 @@ $(function () {
         $("#totalRatingPoints").width(starPercentageRounded);
     }
 
+    const loadImageFromEvent = (id) => {
+        return fetch(backendServer + "/api/event-image/event/" + id)
+            .then(rs => rs.json())
+            .then(data => backendServer + data.data.imageLink);
+    }
 })
