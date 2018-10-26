@@ -61,19 +61,19 @@ $(function () {
     });
 
     //start end register date
-    $('#datetimepickerRegiStart').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm'
-    });
-    $('#datetimepickerRegiEnd').datetimepicker({
-        useCurrent: false,
-        format: 'DD/MM/YYYY HH:mm'
-    });
-    $("#datetimepickerRegiStart").on("dp.change", function (e) {
-        $('#datetimepickerRegiEnd').data("DateTimePicker").minDate(e.date);
-    });
-    $("#datetimepickerRegiEnd").on("dp.change", function (e) {
-        $('#datetimepickerRegiStart').data("DateTimePicker").maxDate(e.date);
-    });
+    // $('#datetimepickerRegiStart').datetimepicker({
+    //     format: 'DD/MM/YYYY HH:mm'
+    // });
+    // $('#datetimepickerRegiEnd').datetimepicker({
+    //     useCurrent: false,
+    //     format: 'DD/MM/YYYY HH:mm'
+    // });
+    // $("#datetimepickerRegiStart").on("dp.change", function (e) {
+    //     $('#datetimepickerRegiEnd').data("DateTimePicker").minDate(e.date);
+    // });
+    // $("#datetimepickerRegiEnd").on("dp.change", function (e) {
+    //     $('#datetimepickerRegiStart').data("DateTimePicker").maxDate(e.date);
+    // });
 
     CKEDITOR.replace('editor', {
         filebrowserImageUploadUrl: backendServer + "/image/upload",
@@ -113,6 +113,22 @@ $(function () {
         }
     }).
         fail((res) = > {
+=======
+            $.ajax({
+                type: "GET",
+                url: backendServer + "/api/event-image/event/" + id,
+                dataType: 'json',
+            }).done((res) => {
+                console.table(res);
+                if (res.status_code === 1) {
+                    $("#blah").attr("src", backendServer + res.data.imageLink);
+                }
+            }).fail((res) => {
+                console.log(res.message);
+            });
+            CKEDITOR.instances.editor.setData(res.data.description);
+            $("#formCreateEvent").autofill(res.data);
+        }).fail((res) => {
             console.log(res.message);
     })
         ;
@@ -190,6 +206,60 @@ else
 
 })
     ;
+    $('#formCreateEvent').submit((e) => {
+        if (id === "") {
+            e.preventDefault();
+            let json = convertFormToJSON($('#formCreateEvent'));
+            json['description'] = CKEDITOR.instances.editor.getData();
+            console.log(json);
+            let formData = new FormData();
+            formData.append('consumeEventString', JSON.stringify(json));
+            let image = $("#image").get(0).files[0];
+            formData.append('image', image);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/event",
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false
+
+            }).done((res) => {
+                console.log(res.data);
+                console.log(res.status_code);
+                alert(res.message);
+            }).fail((res) => {
+                console.log(res.message);
+            });
+        } else {
+            e.preventDefault();
+            let json = convertFormToJSON($('#formCreateEvent'));
+            json['description'] = CKEDITOR.instances.editor.getData();
+            console.log(json);
+            let formData = new FormData();
+            formData.append('consumeEventString', JSON.stringify(json));
+            let image = $("#image").get(0).files[0];
+            formData.append('image', image);
+            $.ajax({
+                type: "PUT",
+                url: "http://localhost:8080/api/event",
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false
+
+            }).done((res) => {
+                console.log(res.data);
+                console.log(res.status_code);
+                alert(res.message);
+            }).fail((res) => {
+                console.log(res.message);
+            });
+        }
+
+
+    });
+
     //
     // var watchID = navigator.geolocation.watchPosition(onSuccess, onError, {
     //     timeout: 30000,
@@ -214,42 +284,56 @@ else
     //         'message: ' + error.message + '\n');
     // }
 
-    var count = 0;
     var totalSize = 0;
-    var imageFiles = [];
+    var checkName = "";
 
-    // upload file event
-    $("#files").change(function (e) {
+    $("#image").change((e) => {
+        let image = $("#image").get(0).files[0];
 
         var checkExist = false;
         // hide error
         $("#tr-error").css("display", "none");
         $("#error").text("");
 
-        $.each(e.target.files, function (index, value) {
-            // reset variable
-            checkExist = false;
-            console.log("Upload file: " + value.name);
+        console.log(Math.round((image.size / 1024) / 1024));
 
-            // for check file extension
-            var match = ["image/jpeg", "image/png", "image/jpg"];
+        checkExist = false;
+        console.log("Upload image: " + image.name);
 
-            // get image type
-            var imagetype = value.type;
-            // check file extension
-            if (!((imagetype == match[0]) || (imagetype == match[1]) || (imagetype == match[2]))) {
+        // for check file extension
+        var match = ["image/jpeg", "image/png", "image/jpg"];
+
+        // get image type
+        let imageType = image.type;
+        // check file extension
+        if (!((imageType == match[0]) || (imageType == match[1]) || (imageType == match[2]))) {
+            $("#error").css("display", "block");
+            $("#error").text("Please select [jpeg/png/jpg] only");
+        } else {
+            // check exist image
+            // if exist
+            if (image.name === checkName) {
                 $("#error").css("display", "block");
-                $("#error").text("Please select [jpeg/png/jpg] only");
-            } else {
-                // check exist image in list
-                for (var i = 0; i < imageFiles.length && !checkExist; i++) {
-                    // if exist
-                    if (value.name == imageFiles[i].name) {
-                        $("#error").css("display", "block");
-                        $("#error").text("You already selected image " + value.name);
-                        checkExist = true;
+                $("#error").text("You already selected image " + image.name);
+                console.log("checkName");
+                checkExist = true;
+            }
+
+            if (!checkExist) {
+                // check totalSize
+                totalSize += image.size;
+                // maximum total size: 200MB
+                if (totalSize > 31457280) {
+                    totalSize -= image.size;
+                    $("#error").css("display", "block");
+                    $("#error").text("Maximum size for uploading: 30MB. Your current size: " + totalSize);
+                } else { // if not over reach max size
+                    // display current total size
+                    if (Math.round((totalSize / 1024) / 1024) === 0) {
+                        $("#totalSize").text("Total: " + totalSize / 1024 + " KB");
+                    } else {
+                        $("#totalSize").text("Total: " + Math.round((totalSize / 1024) / 1024) + " MB");
                     }
-                }
 
                 if (!checkExist) {
                     // check totalSize
@@ -304,27 +388,26 @@ else
                             })
                         }
                         reader.readAsDataURL(value);
+=======
+                    checkName = image.name;
+                    console.log(checkName);
+
+                    // preview image with file reader
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#blah').attr('src', e.target.result);
                     }
+
+                    reader.readAsDataURL(image);
                 }
             }
-        });
-
-        $("#files").val('');
+        }
     });
 
     // remove image
     function remove(imageName) {
         console.log("Remove image: " + imageName);
-
-        for (var i = 0; i < imageFiles.length; i++) {
-            if (imageFiles[i].name.indexOf(imageName) == 0) {
-                // subtract image size
-                totalSize -= imageFiles[i].size;
-                imageFiles.splice(i, 1);
-                // subtract list length
-                count--;
-            }
-        }
 
         $("table#listImage tr[id='" + imageName + "']").remove();
 
@@ -332,21 +415,139 @@ else
 
     }
 
-    $("#checkAll").change(function () {
-        if (this.checked) {
-            $(".models:checkbox").prop('checked', true);
-        } else {
-            $(".models:checkbox").prop('checked', false);
-        }
-    })
-
-    $("#deleteFiles").click(function (e) {
-        e.preventDefault();
-
-        $(".models:checkbox:checked").each(function () {
-            var imageName = $(this).attr('id').replace('$$', '');
-
-            remove(imageName);
-        })
-    })
+//     var count = 0;
+//     var totalSize = 0;
+//     var imageFiles = [];
+//
+// // upload file event
+//     $("#files").change(function (e) {
+//
+//         var checkExist = false;
+//         // hide error
+//         $("#tr-error").css("display", "none");
+//         $("#error").text("");
+//
+//         $.each(e.target.files, function (index, value) {
+//             // reset variable
+//             checkExist = false;
+//             console.log("Upload file: " + value.name);
+//
+//             // for check file extension
+//             var match = ["image/jpeg", "image/png", "image/jpg"];
+//
+//             // get image type
+//             var imageType = value.type;
+//             // check file extension
+//             if (!((imageType == match[0]) || (imageType == match[1]) || (imageType == match[2]))) {
+//                 $("#error").css("display", "block");
+//                 $("#error").text("Please select [jpeg/png/jpg] only");
+//             } else {
+//                 // check exist image in list
+//                 for (var i = 0; i < imageFiles.length && !checkExist; i++) {
+//                     // if exist
+//                     if (value.name == imageFiles[i].name) {
+//                         $("#error").css("display", "block");
+//                         $("#error").text("You already selected image " + value.name);
+//                         checkExist = true;
+//                     }
+//                 }
+//
+//                 if (!checkExist) {
+//                     // check totalSize
+//                     totalSize += value.size;
+//                     // maximum total size: 200MB
+//                     if (totalSize > 31457280) {
+//                         totalSize -= value.size;
+//                         $("#error").css("display", "block");
+//                         $("#error").text("Maximum size for uploading: 30MB. Your current size: " + totalSize);
+//                     } else { // if not over reach max size
+//                         // display current total size
+//                         if (Math.round((totalSize / 1024) / 1024) === 0) {
+//                             $("#totalSize").text("Total: " + totalSize / 1024 + " KB");
+//                         } else {
+//                             $("#totalSize").text("Total: " + Math.round((totalSize / 1024) / 1024) + " MB");
+//                         }
+//
+//
+//                         // add current file image to list
+//                         imageFiles[count] = value;
+//                         // increase count
+//                         count++;
+//
+//                         // preview image with file reader
+//                         var reader = new FileReader();
+//                         reader.onload = function (e) {
+//                             $(".files").append('<tr id="' + value.name + '" class="table-tr" style="margin-top: 10px;">' +
+//                                 '<td><img id="' + count + '" src="' + e.target.result + '"  style="width: 80px; height: 51px"/></td>' +
+//                                 '<td><div class="imageName">' + value.name + '</div></td>' +
+//                                 '<td><div class="imageSize">' + Math.round(value.size / 1024) + ' KB</div></td>' +
+//                                 ' <td class="canceltd">\n' +
+//                                 '<button id="$$$' + value.name + '"' +
+//                                 // 'style="transition: none;\n' +
+//                                 // '    color: white;\n' +
+//                                 // '    width: 85px;\n' +
+//                                 // '    font-size: 14px;\n' +
+//                                 // '    height: 34px;\n' +
+//                                 // '    padding-top: 5px;" ' +
+//                                 'class="btn btn-warning' + value.name + '">\n' +
+//                                 '<i class="glyphicon glyphicon-ban-circle"></i>\n' +
+//                                 '<span>Remove</span>\n' +
+//                                 '</button>\n' +
+//                                 '<input id="$$' + value.name + '" type="checkbox" class="toggle models">\n' +
+//                                 '</td>');
+//
+//                             $("button[id='$$$" + value.name + "']").click(function (e) {
+//                                 e.preventDefault();
+//
+//                                 var imageName = $(this).attr('id').replace('$$$', '');
+//
+//                                 remove(imageName);
+//                             })
+//                         }
+//                         reader.readAsDataURL(value);
+//                     }
+//                 }
+//             }
+//         });
+//
+//         $("#files").val('');
+//     });
+//
+// // remove image
+//     function remove(imageName) {
+//         console.log("Remove image: " + imageName);
+//
+//         for (var i = 0; i < imageFiles.length; i++) {
+//             if (imageFiles[i].name.indexOf(imageName) == 0) {
+//                 // subtract image size
+//                 totalSize -= imageFiles[i].size;
+//                 imageFiles.splice(i, 1);
+//                 // subtract list length
+//                 count--;
+//             }
+//         }
+//
+//         $("table#listImage tr[id='" + imageName + "']").remove();
+//
+//         $("#totalSize").text("Total: " + Math.round((totalSize / 1024) / 1024) + " MB");
+//
+//     }
+//
+//     $("#checkAll").change(function () {
+//         if (this.checked) {
+//             $(".models:checkbox").prop('checked', true);
+//         } else {
+//             $(".models:checkbox").prop('checked', false);
+//         }
+//     })
+//
+//     $("#deleteFiles").click(function (e) {
+//         e.preventDefault();
+//
+//         $(".models:checkbox:checked").each(function () {
+//             var imageName = $(this).attr('id').replace('$$', '');
+//
+//             remove(imageName);
+//         })
+//     })
 })

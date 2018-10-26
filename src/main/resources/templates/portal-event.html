@@ -67,8 +67,9 @@
 <script>
     const backendServer = 'http://localhost:8080';
 
-    const loadData = (events) => {
+    const loadDataTable = (events) => {
         let table = $('#dataTables-example').DataTable({
+            destroy: true,
             autoWidth: false,
             data: events,
             columns: [
@@ -85,19 +86,16 @@
                         console.log(id);
                         switch (id) {
                             case 1:
-                                ret = '<span class="label label-default">Unavailable</span>';
+                                ret = '<span class="label label-warning ">Upcoming</span>';
                                 break;
                             case 2:
-                                ret = '<span class="label label-primary">Registering</span>';
+                                ret = '<span class="label label-primary">Ongoing</span>';
                                 break;
                             case 3:
-                                ret = '<span class="label label-info">Upcoming</span>';
+                                ret = '<span class="label label-success">Finish</span>';
                                 break;
                             case 4:
-                                ret = '<span class="label label-success">Ongoing</span>';
-                                break;
-                            case 5:
-                                ret = '<span class="label label-danger">Finish</span>';
+                                ret = '<span class="label label-default">Deactivated</span>';
                                 break;
                         }
                         return ret;
@@ -106,28 +104,45 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        let ret = '<a href="event/' + row.id + '" class="btn btn-info">Update</a> <button class="btn btn-danger">Delete</button>';
+                        let ret = '<a href="event/' + row.id + '" class="btn btn-info">Update</a> ' +
+                            '<a  onclick="deactivateEvent(' + row.id + ')" class="btn btn-danger">Deactivate</a>';
                         return ret;
                     }
                 }
             ],
             responsive: true
         });
-
+        $('#dataTables-example td').css('white-space','initial');
     }
 
-    $('#dataTables-example td').css('white-space','initial');
+    const loadData = () => {
+        $.ajax({
+            type: "GET",
+            url: backendServer + "/api/event",
+            dataType: 'json',
+        }).done((res) => {
+            console.table(res.data);
+            loadDataTable(res.data);
+        }).fail((res) => {
+            alert(res.message);
+        });
+    }
 
-    $.ajax({
-        type: "GET",
-        url: backendServer + "/api/event",
-        dataType: 'json',
-    }).done((res) => {
-        console.table(res.data);
-        loadData(res.data);
-    }).fail((res) => {
-        alert(res.message);
-    });
+    loadData();
+
+    deactivateEvent = (id) => {
+        $.ajax({
+            type: "GET",
+            url: backendServer + "/api/event/deactivate-event/" + id,
+            dataType: 'json',
+        }).done((res) => {
+            alert(res.message);
+            console.log(res.data);
+            loadData();
+        }).fail((res) => {
+            alert(res.message);
+        });
+    }
 </script>
 </body>
 
