@@ -56,19 +56,19 @@ $(function () {
     });
 
     //start end register date
-    $('#datetimepickerRegiStart').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm'
-    });
-    $('#datetimepickerRegiEnd').datetimepicker({
-        useCurrent: false,
-        format: 'DD/MM/YYYY HH:mm'
-    });
-    $("#datetimepickerRegiStart").on("dp.change", function (e) {
-        $('#datetimepickerRegiEnd').data("DateTimePicker").minDate(e.date);
-    });
-    $("#datetimepickerRegiEnd").on("dp.change", function (e) {
-        $('#datetimepickerRegiStart').data("DateTimePicker").maxDate(e.date);
-    });
+    // $('#datetimepickerRegiStart').datetimepicker({
+    //     format: 'DD/MM/YYYY HH:mm'
+    // });
+    // $('#datetimepickerRegiEnd').datetimepicker({
+    //     useCurrent: false,
+    //     format: 'DD/MM/YYYY HH:mm'
+    // });
+    // $("#datetimepickerRegiStart").on("dp.change", function (e) {
+    //     $('#datetimepickerRegiEnd').data("DateTimePicker").minDate(e.date);
+    // });
+    // $("#datetimepickerRegiEnd").on("dp.change", function (e) {
+    //     $('#datetimepickerRegiStart').data("DateTimePicker").maxDate(e.date);
+    // });
 
     CKEDITOR.replace('editor', {
         filebrowserImageUploadUrl: backendServer + "/image/upload",
@@ -118,10 +118,6 @@ $(function () {
     }
 
     $('#formCreateEvent').submit((e) => {
-        // e.preventDefault;
-        // var img= $("#image").get(0).files[0].size;
-        // var imgsize=img/1024;
-        // alert(imgsize);
         if (id === "") {
             e.preventDefault();
             let json = convertFormToJSON($('#formCreateEvent'));
@@ -141,7 +137,8 @@ $(function () {
 
             }).done((res) => {
                 console.log(res.data);
-                window.location.href = frontendServer + '/portal/event';
+                console.log(res.status_code);
+                alert(res.message);
             }).fail((res) => {
                 console.log(res.message);
             });
@@ -164,7 +161,8 @@ $(function () {
 
             }).done((res) => {
                 console.log(res.data);
-                window.location.href = frontendServer + '/portal/event';
+                console.log(res.status_code);
+                alert(res.message);
             }).fail((res) => {
                 console.log(res.message);
             });
@@ -172,6 +170,7 @@ $(function () {
 
 
     });
+
     //
     // var watchID = navigator.geolocation.watchPosition(onSuccess, onError, {
     //     timeout: 30000,
@@ -281,6 +280,7 @@ $(function () {
 //     $("#files").change(function (e) {
 //
 //         var checkExist = false;
+//         // hide error
 //         $("#tr-error").css("display", "none");
 //         $("#error").text("");
 //
