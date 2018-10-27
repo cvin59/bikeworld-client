@@ -1,7 +1,7 @@
 $(function () {
     const frontendServer = 'http://localhost:8084';
     const backendServer = 'http://localhost:8080';
-
+    CKEDITOR.replace( 'inputProductDescription' );
     $.ajax({
         url: backendServer + "/api/common/loadBrand",
         dataType: 'json',
@@ -16,7 +16,6 @@ $(function () {
                     $(o).html(array[i].name);
                     $("#inputProductBrand").append(o);
                 }
-                alert(array[i].name);
             } else {
                 alert("wrong");
             }
@@ -74,8 +73,8 @@ $(function () {
                 price: document.getElementById('inputProductPrice').value,
                 //quantity: document.getElementById('inputProductQuantity').value,
                 seller: "user",
-                 category: cate.options[cate .selectedIndex].value,
-                 brand: brand.options[brand.selectedIndex].value,
+                category: cate.options[cate.selectedIndex].value,
+                brand: brand.options[brand.selectedIndex].value,
             };
         var objectDataString = JSON.stringify(objectData);
         var e = document.getElementById("inputProductBrand");

@@ -593,7 +593,8 @@
                 <!--End Order List Tab-->
 
                 <!--Product Detail Modal -->
-                <div class="modal fade right" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="productDetailModalLabel"
+                <div class="modal fade right" id="productDetailModal" tabindex="-1" role="dialog"
+                     aria-labelledby="productDetailModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog modal-fluid" role="document">
                         <div class="modal-content">
@@ -609,7 +610,8 @@
                                     <div class="pl-0 pr-0 mb-3 pt-3 pb-3">
                                         <div class="row">
                                             <div class="col-4 pt-3 view zoom">
-                                                <a href=""><img class="img-fluid" src="https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg"></a>
+                                                <a href=""><img class="img-fluid"
+                                                                src="https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg"></a>
                                             </div>
                                             <div class="col-8 card shadow-none">
                                                 <div class="card-body">
@@ -680,7 +682,8 @@
                                             </td>
                                             <td>2011/04/25</td>
                                             <td>320,800 VND</td>
-                                            <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a></td>
+                                            <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><a class="btn-link">Buyer Name</a></td>
@@ -782,21 +785,15 @@
                                     <div class="row">
                                         <!-- Grid column -->
                                         <div class="col-md-6">
-                                            <select class="mdb-select md-form"
-                                                    id="inputProductCategory">
-                                                <option value="" disabled selected>
-                                                    Choose Category
-                                                </option>
+                                            <select class="mdb-select md-form" id="inputProductCategory">
+                                                <option value="" disabled selected> Choose Category </option>
                                             </select>
                                             <label for="inputProductCategory">Category</label>
                                         </div>
                                         <!-- Grid column -->
                                         <div class="col-md-6">
-                                            <select class="mdb-select md-form"
-                                                    id="inputProductBrand">
-                                                <option value="" disabled selected>
-                                                    Choose Brand
-                                                </option>
+                                            <select class="mdb-select md-form" id="inputProductBrand">
+                                                <option value="" disabled selected> Choose Brand </option>
                                             </select>
                                             <label for="inputProductBrand">Brand</label>
                                         </div>
@@ -817,24 +814,16 @@
                                         </div>
                                         <!-- Grid column -->
                                     </div>
-                                    <h5 class="text-danger">300.000 VND</h5>
-                                    <dl class="row">
-                                        <dt class="col-sm-3">Open Date</dt>
-                                        <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
-
-                                        <dt class="col-sm-3">Joined Date</dt>
-                                        <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
-                                    </dl>
-
                                     <!-- Grid row -->
                                     <div class="row">
                                         <!-- Grid column -->
                                         <div class="col-md-12">
-                                            <div class="md-form">
+                                            <label for="descriptionDiv">Description</label>
+                                            <div class="md-form" id="descriptionDiv">
                                                 <textarea id="inputProductDescription" class="form-control md-textarea"
                                                           name="productDescription"></textarea>
-                                                <label for="inputProductDescription">Description</label>
                                             </div>
+
                                             <!-- Grid column -->
                                         </div>
                                         <!-- Grid column -->
@@ -855,9 +844,6 @@
                         <!-- Grid row -->
 
                         <!-- Grid row -->
-                        <button type="submit" class="btn btn-primary btn-md">Sign in
-                        </button>
-
                         <!-- Extended material form grid -->
                     </div>
                 </div>
@@ -931,5 +917,7 @@
 <div th:replace="footer :: footer"/>
 <script src="/js/account.js">
 </script>
+<script src="/js/product.js"></script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 </body>
 </html>
