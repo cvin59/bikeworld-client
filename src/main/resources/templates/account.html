@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head th:replace="header :: head">
@@ -376,10 +375,225 @@
                     </div>
                 </div>
                 <!--End Buy List Tab-->
+                <!--Product List Tab-->
+                <div class="tab-pane fade" id="product-list-tab" role="tabpanel"
+                     aria-labelledby="product-list-link">
+                    <div class="d-flex justify-content-between">
+                        <h3>Product List</h3>
+                        <a class="btn btn-rounded btn-success mb-3 sticky-top"
+                           data-toggle="modal"
+                           data-target="#addProductModal"><i
+                                class="fa fa-plus mr-1"></i>New Trade Post</a>
+                    </div>
+
+                    <!--Filters-->
+                    <form>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <select class="browser-default custom-select">
+                                    <option selected>Date Descending</option>
+                                    <option value="1">Date Ascending</option>
+                                    <option value="2">Name</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <!-- Search form -->
+                                <input class="form-control" type="text"
+                                       placeholder="Search" aria-label="Search">
+                            </div>
+                        </div>
+                    </form>
+                    <!--End Filters-->
+
+                    <!--Product List-->
+                    <div class="p-3">
+                        <!--Product Row-->
+                        <div class="pl-0 pr-0 mb-3 pt-3 pb-3 border-top">
+                            <div class="row wow bounceInUp animated fast">
+                                <div class="col-4 pt-3 view zoom">
+                                    <a href=""><img class="img-fluid"
+                                                    src="https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg"></a>
+                                </div>
+                                <div class="col-8 card shadow-none">
+                                    <div class="card-body">
+                                        <a>
+                                            <h4 class="font-weight-bold">Product
+                                                Name</h4>
+                                        </a>
+                                        <!--Rating-->
+                                        <div class="d-flex justify-content-start">
+                                            <i class="fa fa-star orange-text"> </i>
+                                            <i class="fa fa-star orange-text"> </i>
+                                            <i class="fa fa-star orange-text"> </i>
+                                            <i class="fa fa-star orange-text"> </i>
+                                            <i class="fa fa-star-o orange-text"> </i>
+                                            <h6 class="ml-2">10 ratings</h6>
+                                        </div>
+
+                                        <h5 class="text-danger">300.000 VND</h5>
+                                        <dl class="row">
+                                            <dt class="col-sm-3">Quantity</dt>
+                                            <dd class="col-sm-9">10 / 20</dd>
+
+                                            <dt class="col-sm-3">Added Date</dt>
+                                            <dd class="col-sm-9">10:00AM, 10/12/2018
+                                            </dd>
+                                        </dl>
+                                        <div>
+                                            <span class="badge badge-danger">Status</span>
+                                            <span class="badge badge-light">Status</span>
+                                            <span class="badge badge-primary">Status</span>
+                                            <span class="badge badge-success">Status</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer white border-0">
+                                        <a class="btn btn-sm btn-primary float-right font-weight-bold"
+                                           data-toggle="modal"
+                                           data-target="#addQuantityModal"><i
+                                                class="fa fa-plus mr-1"></i>Add
+                                            Quantity</a>
+                                        <a class="btn btn-sm btn-success float-right font-weight-bold"
+                                           data-toggle="modal"
+                                           data-target="#editProductModal"><i
+                                                class="fa fa-edit mr-1"></i>Edit</a>
+                                        <a class="btn btn-sm btn-danger float-right font-weight-bold"
+                                           data-toggle="modal"
+                                           data-target="#productDetailModal"><i
+                                                class="fa fa-edit mr-1"></i>Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Product Row-->
+
+                        <div class="d-flex justify-content-end">
+
+
+                            <!--Pagination-->
+                            <nav class="mr-5 wow bounceInUp animated fast"
+                                 aria-label="Page navigation example">
+                                <ul class="pagination pagination-circle pg-blue">
+                                    <li class="page-item disabled"><a
+                                            class="page-link">First</a>
+                                    </li>
+                                    <li class="page-item disabled">
+                                        <a class="page-link" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a
+                                            class="page-link">1</a></li>
+                                    <li class="page-item"><a class="page-link">2</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link">3</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link">4</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link">5</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link">Last</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!--End Pagination-->
+                        </div>
+
+
+                    </div>
+                    <!--End Product List-->
+                </div>
+                <!--End Product List Tab-->
+
+                <!--Order List Tab-->
+                <div class="tab-pane fade" id="order-list-tab" role="tabpanel"
+                     aria-labelledby="order-list-link">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered customtable"
+                               cellspacing="0" width="100%">
+                            <thead>
+                            <tr class="">
+                                <th class="th-sm">Product Name
+                                    <i class="fa fa-sort float-right"
+                                       aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Buyer
+                                    <i class="fa fa-sort float-right"
+                                       aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Quantity
+                                    <i class="fa fa-sort float-right"
+                                       aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Status
+                                    <i class="fa fa-sort float-right"
+                                       aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Order Date
+                                    <i class="fa fa-sort float-right"
+                                       aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Total Price
+                                    <i class="fa fa-sort float-right"
+                                       aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Action
+                                    <i class="fa fa-sort float-right"
+                                       aria-hidden="true"></i>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><a class="btn-link">Some component</a></td>
+                                <td><a class="btn-link">Buyer Name</a></td>
+                                <td class="text-center">2</td>
+                                <td class="text-center">
+                                    <h6 class="text-success">Active</h6>
+                                </td>
+                                <td>2011/04/25</td>
+                                <td>320,800 VND</td>
+                                <td class="text-center"><a
+                                        class="btn-link text-danger font-weight-bold">Cancel</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a class="btn-link">Some component 2</a></td>
+                                <td><a class="btn-link">Buyer Name</a></td>
+                                <td class="text-center">2</td>
+                                <td class="text-center">
+                                    <h6 class="text-danger">Canceled</h6>
+                                </td>
+                                <td>2011/04/25</td>
+                                <td>320,800 VND</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><a class="btn-link">Some component 3</a></td>
+                                <td><a class="btn-link">Buyer Name</a></td>
+                                <td class="text-center">2</td>
+                                <td class="text-center">
+                                    <h6 class="text-dark">Done</h6>
+                                </td>
+                                <td>2011/04/25</td>
+                                <td>320,800 VND</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--End Order List Tab-->
 
                 <!--Product Detail Modal -->
-                <div class="modal fade right" id="productDetailModal" tabindex="-1" role="dialog"
-                     aria-labelledby="productDetailModalLabel"
+                <div class="modal fade right" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="productDetailModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog modal-fluid" role="document">
                         <div class="modal-content">
@@ -393,53 +607,9 @@
                                 <div class="container">
                                     <!--Product Row-->
                                     <div class="pl-0 pr-0 mb-3 pt-3 pb-3">
-
-    <!--Main Layout-->
-    <div class="container-fluid blue-gradient grey pt-5">
-        <div class="container pt-5 pb-5">
-            <!-- Menu tabs -->
-            <div class="classic-tabs">
-                <!--Tab Menu Links-->
-                <ul class="nav tabs-elegant" id="myClassicTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link waves-light active show" id="account-tab-link" data-toggle="tab" href="#account-tab"
-                            role="tab" aria-controls="account" aria-selected="true">Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="joined-event-link" data-toggle="tab" href="#joined-event-tab"
-                            role="tab" aria-controls="follow-classic" aria-selected="false">Joined Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="proposed-event-link" data-toggle="tab" href="#proposed-event-tab"
-                            role="tab" aria-controls="contact-classic" aria-selected="false">Proposed Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="buy-list-link" data-toggle="tab" href="#buy-list-tab" role="tab"
-                            aria-controls="contact-classic" aria-selected="false">Buy List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="product-list-link" data-toggle="tab" href="#product-list-tab"
-                            role="tab" aria-controls="contact-classic" aria-selected="false">Product List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="order-list-link" data-toggle="tab" href="#order-list-tab"
-                            role="tab" aria-controls="contact-classic" aria-selected="false">Order List</a>
-                    </li>
-                </ul>
-                <!--End Tab Menu Links-->
-
-                <!--Tab Content-->
-                <div class="tab-content white border-right border-bottom border-left rounded-bottom" id="myTabContent">
-                    <!--Account Tab-->
-                    <div class="tab-pane fade active show" id="account-tab" role="tabpanel" aria-labelledby="account-tab-link">
-                        <div class="card-wrapper">
-                            <div class="card text-center shadow-none">
-                                <div class="card-body">
-                                    <form class="md-form">
                                         <div class="row">
                                             <div class="col-4 pt-3 view zoom">
-                                                <a href=""><img class="img-fluid"
-                                                                src="https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg"></a>
+                                                <a href=""><img class="img-fluid" src="https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg"></a>
                                             </div>
                                             <div class="col-8 card shadow-none">
                                                 <div class="card-body">
@@ -510,8 +680,7 @@
                                             </td>
                                             <td>2011/04/25</td>
                                             <td>320,800 VND</td>
-                                            <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a>
-                                            </td>
+                                            <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a></td>
                                         </tr>
                                         <tr>
                                             <td><a class="btn-link">Buyer Name</a></td>
@@ -546,16 +715,18 @@
                     </div>
                 </div>
                 <!-- Modal -->
-
                 <!--Add Product Modal -->
-                <div class="modal fade right" id="addProductModal" tabindex="-1" role="dialog"
+                <div class="modal fade right" id="addProductModal" tabindex="-1"
+                     role="dialog"
                      aria-labelledby="addProductModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addProductModalLabel">Create Trade Post</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <h5 class="modal-title" id="addProductModalLabel">Create
+                                    Trade Post</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -568,7 +739,8 @@
                                         <div class="col-md-6">
                                             <!-- Material input -->
                                             <div class="md-form form-group">
-                                                <input type="text" class="form-control" id="inputProductName"
+                                                <input type="text" class="form-control"
+                                                       id="inputProductName"
                                                        placeholder="Product Name">
                                                 <label for="inputProductName">Name</label>
                                             </div>
@@ -579,8 +751,10 @@
                                         <div class="col-md-6">
                                             <!-- Material input -->
                                             <div class="md-form form-group">
-                                                <input type="text" class="form-control" id="inputProductPrice"
-                                                       placeholder="Product Price" min="0.1">
+                                                <input type="text" class="form-control"
+                                                       id="inputProductPrice"
+                                                       placeholder="Product Price"
+                                                       min="0.1">
                                                 <label for="inputProductPrice">Price</label>
                                             </div>
                                         </div>
@@ -594,8 +768,11 @@
                                         <div class="col-md-12">
                                             <!-- Material input -->
                                             <div class="md-form form-group">
-                                                <input type="number" class="form-control" id="inputProductQuantity"
-                                                       placeholder="Product Quantity" min="1" max="99">
+                                                <input type="number"
+                                                       class="form-control"
+                                                       id="inputProductQuantity"
+                                                       placeholder="Product Quantity"
+                                                       min="1" max="99">
                                                 <label for="inputProductQuantity">Quantity</label>
                                             </div>
                                         </div>
@@ -605,15 +782,21 @@
                                     <div class="row">
                                         <!-- Grid column -->
                                         <div class="col-md-6">
-                                            <select class="mdb-select md-form" id="inputProductCategory">
-                                                <option value="" disabled selected>Choose Category</option>
+                                            <select class="mdb-select md-form"
+                                                    id="inputProductCategory">
+                                                <option value="" disabled selected>
+                                                    Choose Category
+                                                </option>
                                             </select>
                                             <label for="inputProductCategory">Category</label>
                                         </div>
                                         <!-- Grid column -->
                                         <div class="col-md-6">
-                                            <select class="mdb-select md-form" id="inputProductBrand">
-                                                <option value="" disabled selected>Choose Brand</option>
+                                            <select class="mdb-select md-form"
+                                                    id="inputProductBrand">
+                                                <option value="" disabled selected>
+                                                    Choose Brand
+                                                </option>
                                             </select>
                                             <label for="inputProductBrand">Brand</label>
                                         </div>
@@ -625,7 +808,8 @@
                                         <div class="col-md-12">
                                             <!-- Material input -->
                                             <div class="md-form form-group">
-                                                <input type="text" class="form-control" id="inputProductAddress"
+                                                <input type="text" class="form-control"
+                                                       id="inputProductAddress"
                                                        placeholder="Address">
                                                 <label for="inputProductAddress">Address</label>
                                             </div>
@@ -633,14 +817,14 @@
                                         </div>
                                         <!-- Grid column -->
                                     </div>
-                                            <h5 class="text-danger">300.000 VND</h5>
-                                            <dl class="row">
-                                                <dt class="col-sm-3">Open Date</dt>
-                                                <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
+                                    <h5 class="text-danger">300.000 VND</h5>
+                                    <dl class="row">
+                                        <dt class="col-sm-3">Open Date</dt>
+                                        <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
 
-                                                <dt class="col-sm-3">Joined Date</dt>
-                                                <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
-                                            </dl>
+                                        <dt class="col-sm-3">Joined Date</dt>
+                                        <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
+                                    </dl>
 
                                     <!-- Grid row -->
                                     <div class="row">
@@ -657,9 +841,12 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel
+                                        <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cancel
                                         </button>
-                                        <button type="button" class="btn btn-primary" id="btnCreate">Save</button>
+                                        <button type="button" class="btn btn-primary"
+                                                id="btnCreate">Save
+                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -668,7 +855,8 @@
                         <!-- Grid row -->
 
                         <!-- Grid row -->
-                        <button type="submit" class="btn btn-primary btn-md">Sign in</button>
+                        <button type="submit" class="btn btn-primary btn-md">Sign in
+                        </button>
 
                         <!-- Extended material form grid -->
                     </div>
@@ -676,14 +864,17 @@
                 <!--End Add Product Modal-->
 
                 <!--Product Edit Modal -->
-                <div class="modal fade right" id="editProductModal" tabindex="-1" role="dialog"
+                <div class="modal fade right" id="editProductModal" tabindex="-1"
+                     role="dialog"
                      aria-labelledby="editProductModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editProductModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <h5 class="modal-title" id="editProductModalLabel">Modal
+                                    title</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -691,8 +882,12 @@
                                 ...
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-danger"
+                                        data-dismiss="modal">Close
+                                </button>
+                                <button type="button" class="btn btn-primary">Save
+                                    changes
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -700,14 +895,17 @@
                 <!--End Product Edit Modal-->
 
                 <!--Add Quantity Modal-->
-                <div class="modal fade right" id="addQuantityModal" tabindex="-1" role="dialog"
+                <div class="modal fade right" id="addQuantityModal" tabindex="-1"
+                     role="dialog"
                      aria-labelledby="addQuantityModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addQuantityModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <h5 class="modal-title" id="addQuantityModalLabel">Modal
+                                    title</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -715,245 +913,23 @@
                                 ...
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-danger"
+                                        data-dismiss="modal">Close
+                                </button>
+                                <button type="button" class="btn btn-primary">Save
+                                    changes
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--End Add Quantity Modal-->
-
-                <!--Product List Tab-->
-                <div class="tab-pane fade" id="product-list-tab" role="tabpanel" aria-labelledby="product-list-link">
-                    <div class="d-flex justify-content-between">
-                        <h3>Product List</h3>
-                        <a class="btn btn-rounded btn-success mb-3 sticky-top" data-toggle="modal"
-                           data-target="#addProductModal"><i class="fa fa-plus mr-1"></i>New Trade Post</a>
-                    </div>
-
-                    <!--Filters-->
-                    <form>
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <select class="browser-default custom-select">
-                                    <option selected>Date Descending</option>
-                                    <option value="1">Date Ascending</option>
-                                    <option value="2">Name</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <!-- Search form -->
-                                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-                            </div>
-                        </div>
-                    </form>
-                    <!--End Filters-->
-
-                    <!--Product List-->
-                    <div class="p-3">
-                        <!--Product Row-->
-                        <div class="pl-0 pr-0 mb-3 pt-3 pb-3 border-top">
-                            <div class="row wow bounceInUp animated fast">
-                                <div class="col-4 pt-3 view zoom">
-                                    <a href=""><img class="img-fluid"
-                                                    src="https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg"></a>
-                                </div>
-                                <div class="col-8 card shadow-none">
-                                    <div class="card-body">
-                                        <a>
-                                            <h4 class="font-weight-bold">Product Name</h4>
-                                        </a>
-                                        <!--Rating-->
-                                        <div class="d-flex justify-content-start">
-                                            <i class="fa fa-star orange-text"> </i>
-                                            <i class="fa fa-star orange-text"> </i>
-                                            <i class="fa fa-star orange-text"> </i>
-                                            <i class="fa fa-star orange-text"> </i>
-                                            <i class="fa fa-star-o orange-text"> </i>
-                                            <h6 class="ml-2">10 ratings</h6>
-                                        </div>
-
-                                        <h5 class="text-danger">300.000 VND</h5>
-                                        <dl class="row">
-                                            <dt class="col-sm-3">Quantity</dt>
-                                            <dd class="col-sm-9">10 / 20</dd>
-
-                                            <dt class="col-sm-3">Added Date</dt>
-                                            <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
-                                        </dl>
-                                        <div>
-                                            <span class="badge badge-danger">Status</span>
-                                            <span class="badge badge-light">Status</span>
-                                            <span class="badge badge-primary">Status</span>
-                                            <span class="badge badge-success">Status</span>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer white border-0">
-                                        <a class="btn btn-sm btn-primary float-right font-weight-bold"
-                                           data-toggle="modal"
-                                           data-target="#addQuantityModal"><i class="fa fa-plus mr-1"></i>Add
-                                            Quantity</a>
-                                        <a class="btn btn-sm btn-success float-right font-weight-bold"
-                                           data-toggle="modal"
-                                           data-target="#editProductModal"><i class="fa fa-edit mr-1"></i>Edit</a>
-                                        <a class="btn btn-sm btn-danger float-right font-weight-bold"
-                                           data-toggle="modal"
-                                           data-target="#productDetailModal"><i class="fa fa-edit mr-1"></i>Detail</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End Product Row-->
-
-                        <div class="d-flex justify-content-end">
-
-
-                            <!--Pagination-->
-                            <nav class="mr-5 wow bounceInUp animated fast" aria-label="Page navigation example">
-                                <ul class="pagination pagination-circle pg-blue">
-                                    <li class="page-item disabled"><a class="page-link">First</a></li>
-                                    <li class="page-item disabled">
-                                        <a class="page-link" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link">1</a></li>
-                                    <li class="page-item"><a class="page-link">2</a></li>
-                                    <li class="page-item"><a class="page-link">3</a></li>
-                                    <li class="page-item"><a class="page-link">4</a></li>
-                                    <li class="page-item"><a class="page-link">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link">Last</a></li>
-                                </ul>
-                            </nav>
-                            <!--End Pagination-->
-                        </div>
-
-
-                    </div>
-                    <!--End Product List-->
-                </div>
-                <!--End Product List Tab-->
-
-                <!--Order List Tab-->
-                <div class="tab-pane fade" id="order-list-tab" role="tabpanel" aria-labelledby="order-list-link">
-                    <div class="table-responsive">
-                    <table class="table table-hover table-bordered customtable" cellspacing="0" width="100%">
-                        <thead>
-                        <tr class="">
-                            <th class="th-sm">Product Name
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Buyer
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Quantity
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Status
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Order Date
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Total Price
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Action
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><a class="btn-link">Some component</a></td>
-                            <td><a class="btn-link">Buyer Name</a></td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">
-                                <h6 class="text-success">Active</h6>
-                            </td>
-                            <td>2011/04/25</td>
-                            <td>320,800 VND</td>
-                            <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a></td>
-                        </tr>
-                        <tr>
-                            <td><a class="btn-link">Some component 2</a></td>
-                            <td><a class="btn-link">Buyer Name</a></td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">
-                                <h6 class="text-danger">Canceled</h6>
-                            </td>
-                            <td>2011/04/25</td>
-                            <td>320,800 VND</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><a class="btn-link">Some component 3</a></td>
-                            <td><a class="btn-link">Buyer Name</a></td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">
-                                <h6 class="text-dark">Done</h6>
-                            </td>
-                            <td>2011/04/25</td>
-                            <td>320,800 VND</td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-                <!--End Order List Tab-->
             </div>
-            <!--End Tab Content-->
         </div>
-        <!-- End Menu Tabs -->
-
     </div>
 </div>
-
-<!-- Footer -->
-<!-- Footer -->
-<div th:replace="footer :: footer"/>
-<!-- Footer -->
-<!-- Footer -->
-
-<!--Main Layout-->
-<!-- SCRIPTS -->
-<!-- JQuery -->
-
-
-<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="/js/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="/js/mdb.min.js"></script>
-<!--Custom Javscript-->
-<script type="text/javascript" src="/js/customscript.js"></script>
-<!--Show Product Javscript-->
-<script type="text/javascript" src="/js/product.js"></script>
-
-<script type="text/javascript" src="/js/addons/datatables.min.js"></script>
-
-<script src="//cdn.ckeditor.com/4.5.5/standard/ckeditor.js"></script>
-                <!--End Tab Content-->
-            </div>
-            <!-- End Menu Tabs -->
-
-        </div>
-    </div>
-
 <div th:replace="footer :: footer"/>
 <script src="/js/account.js">
 </script>
 </body>
-
 </html>
