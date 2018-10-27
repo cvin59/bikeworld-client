@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+
     <title>Material Design Bootstrap</title>
 </head>
 
@@ -393,330 +394,249 @@
                                 <div class="container">
                                     <!--Product Row-->
                                     <div class="pl-0 pr-0 mb-3 pt-3 pb-3">
+                                        <h3>Buyer List</h3>
+                                        <table class="table table-hover table-bordered customtable" cellspacing="0"
+                                               width="100%">
+                                            <thead>
+                                            <tr class="">
+                                                <th class="th-sm">Buyer
+                                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                                </th>
+                                                <th class="th-sm">Quantity
+                                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                                </th>
+                                                <th class="th-sm">Status
+                                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                                </th>
+                                                <th class="th-sm">Order Date
+                                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                                </th>
+                                                <th class="th-sm">Total Price
+                                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                                </th>
+                                                <th class="th-sm">Action
+                                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><a class="btn-link">Buyer Name</a></td>
+                                                <td class="text-center">2</td>
+                                                <td class="text-center">
+                                                    <h6 class="text-success">Active</h6>
+                                                </td>
+                                                <td>2011/04/25</td>
+                                                <td>320,800 VND</td>
+                                                <td class="text-center"><a
+                                                        class="btn-link text-danger font-weight-bold">Cancel</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="btn-link">Buyer Name</a></td>
+                                                <td class="text-center">2</td>
+                                                <td class="text-center">
+                                                    <h6 class="text-danger">Canceled</h6>
+                                                </td>
+                                                <td>2011/04/25</td>
+                                                <td>320,800 VND</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="btn-link">Buyer Name</a></td>
+                                                <td class="text-center">2</td>
+                                                <td class="text-center">
+                                                    <h6 class="text-dark">Done</h6>
+                                                </td>
+                                                <td>2011/04/25</td>
+                                                <td>320,800 VND</td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
 
-    <!--Main Layout-->
-    <div class="container-fluid blue-gradient grey pt-5">
-        <div class="container pt-5 pb-5">
-            <!-- Menu tabs -->
-            <div class="classic-tabs">
-                <!--Tab Menu Links-->
-                <ul class="nav tabs-elegant" id="myClassicTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link waves-light active show" id="account-tab-link" data-toggle="tab" href="#account-tab"
-                            role="tab" aria-controls="account" aria-selected="true">Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="joined-event-link" data-toggle="tab" href="#joined-event-tab"
-                            role="tab" aria-controls="follow-classic" aria-selected="false">Joined Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="proposed-event-link" data-toggle="tab" href="#proposed-event-tab"
-                            role="tab" aria-controls="contact-classic" aria-selected="false">Proposed Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="buy-list-link" data-toggle="tab" href="#buy-list-tab" role="tab"
-                            aria-controls="contact-classic" aria-selected="false">Buy List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="product-list-link" data-toggle="tab" href="#product-list-tab"
-                            role="tab" aria-controls="contact-classic" aria-selected="false">Product List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-light" id="order-list-link" data-toggle="tab" href="#order-list-tab"
-                            role="tab" aria-controls="contact-classic" aria-selected="false">Order List</a>
-                    </li>
-                </ul>
-                <!--End Tab Menu Links-->
-
-                <!--Tab Content-->
-                <div class="tab-content white border-right border-bottom border-left rounded-bottom" id="myTabContent">
-                    <!--Account Tab-->
-                    <div class="tab-pane fade active show" id="account-tab" role="tabpanel" aria-labelledby="account-tab-link">
-                        <div class="card-wrapper">
-                            <div class="card text-center shadow-none">
-                                <div class="card-body">
-                                    <form class="md-form">
-                                        <div class="row">
-                                            <div class="col-4 pt-3 view zoom">
-                                                <a href=""><img class="img-fluid"
-                                                                src="https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg"></a>
-                                            </div>
-                                            <div class="col-8 card shadow-none">
-                                                <div class="card-body">
-                                                    <a>
-                                                        <h4 class="font-weight-bold">Product Name</h4>
-                                                    </a>
-                                                    <!--Rating-->
-                                                    <div class="d-flex justify-content-start">
-                                                        <i class="fa fa-star orange-text"> </i>
-                                                        <i class="fa fa-star orange-text"> </i>
-                                                        <i class="fa fa-star orange-text"> </i>
-                                                        <i class="fa fa-star orange-text"> </i>
-                                                        <i class="fa fa-star-o orange-text"> </i>
-                                                        <h6 class="ml-2">10 ratings</h6>
-                                                    </div>
-
-                                                    <h5 class="text-danger">300.000 VND</h5>
-                                                    <dl class="row">
-                                                        <dt class="col-sm-3">Quantity</dt>
-                                                        <dd class="col-sm-9">10 / 20</dd>
-
-                                                        <dt class="col-sm-3">Added Date</dt>
-                                                        <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
-                                                    </dl>
-                                                    <div>
-                                                        <span class="badge badge-danger">Status</span>
-                                                        <span class="badge badge-light">Status</span>
-                                                        <span class="badge badge-primary">Status</span>
-                                                        <span class="badge badge-success">Status</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
-                                    <!--End Product Row-->
-
-                                    <h3>Buyer List</h3>
-                                    <table class="table table-hover table-bordered customtable" cellspacing="0"
-                                           width="100%">
-                                        <thead>
-                                        <tr class="">
-                                            <th class="th-sm">Buyer
-                                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                            </th>
-                                            <th class="th-sm">Quantity
-                                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                            </th>
-                                            <th class="th-sm">Status
-                                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                            </th>
-                                            <th class="th-sm">Order Date
-                                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                            </th>
-                                            <th class="th-sm">Total Price
-                                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                            </th>
-                                            <th class="th-sm">Action
-                                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td><a class="btn-link">Buyer Name</a></td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center">
-                                                <h6 class="text-success">Active</h6>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>320,800 VND</td>
-                                            <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a class="btn-link">Buyer Name</a></td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center">
-                                                <h6 class="text-danger">Canceled</h6>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>320,800 VND</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a class="btn-link">Buyer Name</a></td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center">
-                                                <h6 class="text-dark">Done</h6>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>320,800 VND</td>
-                                            <td></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
 
                                 </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Modal -->
+                    <!-- Modal -->
 
-                <!--Add Product Modal -->
-                <div class="modal fade right" id="addProductModal" tabindex="-1" role="dialog"
-                     aria-labelledby="addProductModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addProductModalLabel">Create Trade Post</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Extended material form grid -->
-                                <form>
-                                    <!-- Grid row -->
-                                    <div class="form-row">
-                                        <!-- Grid column -->
-                                        <div class="col-md-6">
-                                            <!-- Material input -->
-                                            <div class="md-form form-group">
-                                                <input type="text" class="form-control" id="inputProductName"
-                                                       placeholder="Product Name">
-                                                <label for="inputProductName">Name</label>
+                    <!--Add Product Modal -->
+                    <div class="modal fade right" id="addProductModal" tabindex="-1" role="dialog"
+                         aria-labelledby="addProductModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addProductModalLabel">Create Trade Post</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Extended material form grid -->
+                                    <form>
+                                        <!-- Grid row -->
+                                        <div class="form-row">
+                                            <!-- Grid column -->
+                                            <div class="col-md-6">
+                                                <!-- Material input -->
+                                                <div class="md-form form-group">
+                                                    <input type="text" class="form-control" id="inputProductName"
+                                                           placeholder="Product Name">
+                                                    <label for="inputProductName">Name</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!-- Grid column -->
+                                            <!-- Grid column -->
 
-                                        <!-- Grid column -->
-                                        <div class="col-md-6">
-                                            <!-- Material input -->
-                                            <div class="md-form form-group">
-                                                <input type="text" class="form-control" id="inputProductPrice"
-                                                       placeholder="Product Price" min="0.1">
-                                                <label for="inputProductPrice">Price</label>
-                                            </div>
-                                        </div>
-                                        <!-- Grid column -->
-                                    </div>
-                                    <!-- Grid row -->
-
-                                    <!-- Grid row -->
-                                    <div class="row">
-                                        <!-- Grid column -->
-                                        <div class="col-md-12">
-                                            <!-- Material input -->
-                                            <div class="md-form form-group">
-                                                <input type="number" class="form-control" id="inputProductQuantity"
-                                                       placeholder="Product Quantity" min="1" max="99">
-                                                <label for="inputProductQuantity">Quantity</label>
-                                            </div>
-                                        </div>
-                                        <!-- Grid column -->
-                                    </div>
-                                    <!-- Grid row -->
-                                    <div class="row">
-                                        <!-- Grid column -->
-                                        <div class="col-md-6">
-                                            <select class="mdb-select md-form" id="inputProductCategory">
-                                                <option value="" disabled selected>Choose Category</option>
-                                            </select>
-                                            <label for="inputProductCategory">Category</label>
-                                        </div>
-                                        <!-- Grid column -->
-                                        <div class="col-md-6">
-                                            <select class="mdb-select md-form" id="inputProductBrand">
-                                                <option value="" disabled selected>Choose Brand</option>
-                                            </select>
-                                            <label for="inputProductBrand">Brand</label>
-                                        </div>
-                                        <!-- Grid column -->
-                                    </div>
-                                    <!-- Grid row -->
-                                    <div class="row">
-                                        <!-- Grid column -->
-                                        <div class="col-md-12">
-                                            <!-- Material input -->
-                                            <div class="md-form form-group">
-                                                <input type="text" class="form-control" id="inputProductAddress"
-                                                       placeholder="Address">
-                                                <label for="inputProductAddress">Address</label>
-                                            </div>
-
-                                        </div>
-                                        <!-- Grid column -->
-                                    </div>
-                                            <h5 class="text-danger">300.000 VND</h5>
-                                            <dl class="row">
-                                                <dt class="col-sm-3">Open Date</dt>
-                                                <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
-
-                                                <dt class="col-sm-3">Joined Date</dt>
-                                                <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
-                                            </dl>
-
-                                    <!-- Grid row -->
-                                    <div class="row">
-                                        <!-- Grid column -->
-                                        <div class="col-md-12">
-                                            <div class="md-form">
-                                                <textarea id="inputProductDescription" class="form-control md-textarea"
-                                                          name="productDescription"></textarea>
-                                                <label for="inputProductDescription">Description</label>
+                                            <!-- Grid column -->
+                                            <div class="col-md-6">
+                                                <!-- Material input -->
+                                                <div class="md-form form-group">
+                                                    <input type="text" class="form-control" id="inputProductPrice"
+                                                           placeholder="Product Price" min="0.1">
+                                                    <label for="inputProductPrice">Price</label>
+                                                </div>
                                             </div>
                                             <!-- Grid column -->
                                         </div>
-                                        <!-- Grid column -->
-                                    </div>
+                                        <!-- Grid row -->
 
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel
-                                        </button>
-                                        <button type="button" class="btn btn-primary" id="btnCreate">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>       <!-- Grid row -->
+                                        <!-- Grid row -->
+                                        <div class="row">
+                                            <!-- Grid column -->
+                                            <div class="col-md-12">
+                                                <!-- Material input -->
+                                                <div class="md-form form-group">
+                                                    <input type="number" class="form-control" id="inputProductQuantity"
+                                                           placeholder="Product Quantity" min="1" max="99">
+                                                    <label for="inputProductQuantity">Quantity</label>
+                                                </div>
+                                            </div>
+                                            <!-- Grid column -->
+                                        </div>
+                                        <!-- Grid row -->
+                                        <div class="row">
+                                            <!-- Grid column -->
+                                            <div class="col-md-6">
+                                                <select class="mdb-select md-form" id="inputProductCategory">
+                                                    <option value="" disabled selected>Choose Category</option>
+                                                </select>
+                                                <label for="inputProductCategory">Category</label>
+                                            </div>
+                                            <!-- Grid column -->
+                                            <div class="col-md-6">
+                                                <select class="mdb-select md-form" id="inputProductBrand">
+                                                    <option value="" disabled selected>Choose Brand</option>
+                                                </select>
+                                                <label for="inputProductBrand">Brand</label>
+                                            </div>
+                                            <!-- Grid column -->
+                                        </div>
+                                        <!-- Grid row -->
+                                        <div class="row">
+                                            <!-- Grid column -->
+                                            <div class="col-md-12">
+                                                <!-- Material input -->
+                                                <div class="md-form form-group">
+                                                    <input type="text" class="form-control" id="inputProductAddress"
+                                                           placeholder="Address">
+                                                    <label for="inputProductAddress">Address</label>
+                                                </div>
 
-                        <!-- Grid row -->
+                                            </div>
+                                            <!-- Grid column -->
+                                        </div>
+                                        <h5 class="text-danger">300.000 VND</h5>
+                                        <dl class="row">
+                                            <dt class="col-sm-3">Open Date</dt>
+                                            <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
 
-                        <!-- Grid row -->
-                        <button type="submit" class="btn btn-primary btn-md">Sign in</button>
+                                            <dt class="col-sm-3">Joined Date</dt>
+                                            <dd class="col-sm-9">10:00AM, 10/12/2018</dd>
+                                        </dl>
 
-                        <!-- Extended material form grid -->
+                                        <!-- Grid row -->
+                                        <div class="row">
+                                            <!-- Grid column -->
+                                            <div class="col-md-12">
+                                                <div class="md-form">
+                                                <textarea id="inputProductDescription" class="form-control md-textarea"
+                                                          name="productDescription"></textarea>
+                                                    <label for="inputProductDescription">Description</label>
+                                                </div>
+                                                <!-- Grid column -->
+                                            </div>
+                                            <!-- Grid column -->
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel
+                                            </button>
+                                            <button type="button" class="btn btn-primary" id="btnCreate">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>       <!-- Grid row -->
+
+                            <!-- Grid row -->
+
+                            <!-- Grid row -->
+                            <button type="submit" class="btn btn-primary btn-md">Sign in</button>
+
+                            <!-- Extended material form grid -->
+                        </div>
                     </div>
-                </div>
-                <!--End Add Product Modal-->
+                    <!--End Add Product Modal-->
 
-                <!--Product Edit Modal -->
-                <div class="modal fade right" id="editProductModal" tabindex="-1" role="dialog"
-                     aria-labelledby="editProductModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editProductModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                    <!--Product Edit Modal -->
+                    <div class="modal fade right" id="editProductModal" tabindex="-1" role="dialog"
+                         aria-labelledby="editProductModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editProductModalLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--End Product Edit Modal-->
+                    <!--End Product Edit Modal-->
 
-                <!--Add Quantity Modal-->
-                <div class="modal fade right" id="addQuantityModal" tabindex="-1" role="dialog"
-                     aria-labelledby="addQuantityModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addQuantityModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                    <!--Add Quantity Modal-->
+                    <div class="modal fade right" id="addQuantityModal" tabindex="-1" role="dialog"
+                         aria-labelledby="addQuantityModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addQuantityModalLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -724,7 +644,8 @@
                 <!--End Add Quantity Modal-->
 
                 <!--Product List Tab-->
-                <div class="tab-pane fade" id="product-list-tab" role="tabpanel" aria-labelledby="product-list-link">
+                <div class="tab-pane fade" id="product-list-tab" role="tabpanel"
+                     aria-labelledby="product-list-link">
                     <div class="d-flex justify-content-between">
                         <h3>Product List</h3>
                         <a class="btn btn-rounded btn-success mb-3 sticky-top" data-toggle="modal"
@@ -799,7 +720,8 @@
                                            data-target="#editProductModal"><i class="fa fa-edit mr-1"></i>Edit</a>
                                         <a class="btn btn-sm btn-danger float-right font-weight-bold"
                                            data-toggle="modal"
-                                           data-target="#productDetailModal"><i class="fa fa-edit mr-1"></i>Detail</a>
+                                           data-target="#productDetailModal"><i
+                                                class="fa fa-edit mr-1"></i>Detail</a>
                                     </div>
                                 </div>
                             </div>
@@ -845,68 +767,69 @@
                 <!--Order List Tab-->
                 <div class="tab-pane fade" id="order-list-tab" role="tabpanel" aria-labelledby="order-list-link">
                     <div class="table-responsive">
-                    <table class="table table-hover table-bordered customtable" cellspacing="0" width="100%">
-                        <thead>
-                        <tr class="">
-                            <th class="th-sm">Product Name
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Buyer
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Quantity
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Status
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Order Date
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Total Price
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                            <th class="th-sm">Action
-                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><a class="btn-link">Some component</a></td>
-                            <td><a class="btn-link">Buyer Name</a></td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">
-                                <h6 class="text-success">Active</h6>
-                            </td>
-                            <td>2011/04/25</td>
-                            <td>320,800 VND</td>
-                            <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a></td>
-                        </tr>
-                        <tr>
-                            <td><a class="btn-link">Some component 2</a></td>
-                            <td><a class="btn-link">Buyer Name</a></td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">
-                                <h6 class="text-danger">Canceled</h6>
-                            </td>
-                            <td>2011/04/25</td>
-                            <td>320,800 VND</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><a class="btn-link">Some component 3</a></td>
-                            <td><a class="btn-link">Buyer Name</a></td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">
-                                <h6 class="text-dark">Done</h6>
-                            </td>
-                            <td>2011/04/25</td>
-                            <td>320,800 VND</td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        <table class="table table-hover table-bordered customtable" cellspacing="0" width="100%">
+                            <thead>
+                            <tr class="">
+                                <th class="th-sm">Product Name
+                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Buyer
+                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Quantity
+                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Status
+                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Order Date
+                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Total Price
+                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Action
+                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><a class="btn-link">Some component</a></td>
+                                <td><a class="btn-link">Buyer Name</a></td>
+                                <td class="text-center">2</td>
+                                <td class="text-center">
+                                    <h6 class="text-success">Active</h6>
+                                </td>
+                                <td>2011/04/25</td>
+                                <td>320,800 VND</td>
+                                <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a class="btn-link">Some component 2</a></td>
+                                <td><a class="btn-link">Buyer Name</a></td>
+                                <td class="text-center">2</td>
+                                <td class="text-center">
+                                    <h6 class="text-danger">Canceled</h6>
+                                </td>
+                                <td>2011/04/25</td>
+                                <td>320,800 VND</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><a class="btn-link">Some component 3</a></td>
+                                <td><a class="btn-link">Buyer Name</a></td>
+                                <td class="text-center">2</td>
+                                <td class="text-center">
+                                    <h6 class="text-dark">Done</h6>
+                                </td>
+                                <td>2011/04/25</td>
+                                <td>320,800 VND</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <!--End Order List Tab-->
@@ -944,14 +867,9 @@
 <script type="text/javascript" src="/js/addons/datatables.min.js"></script>
 
 <script src="//cdn.ckeditor.com/4.5.5/standard/ckeditor.js"></script>
-                <!--End Tab Content-->
-            </div>
-            <!-- End Menu Tabs -->
-
-        </div>
-    </div>
-
-<div th:replace="footer :: footer"/>
+<!--End Tab Content-->
+</div>
+<!-- End Menu Tabs -->
 </body>
 
 </html>
