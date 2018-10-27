@@ -22,10 +22,10 @@ $(function () {
             window.localStorage.setItem('JWT', xhr);
             location.reload();
         }).fail((xhr, status) => {
-                if (xhr.status === 401) {
-                    alert('Invalid username or password');
-                }
-            });
+            if (xhr.status === 401) {
+                alert('Invalid username or password');
+            }
+        });
     }
 
     const modifyNavBar = (xhr) => {
@@ -36,15 +36,16 @@ $(function () {
                 'Authorization': xhr
             },
             async: false,
-        }).done((xhr) => {
-            console.log(xhr);
+        }).done((res) => {
+            console.log(res);
+            window.localStorage.setItem('username', res);
             $("#navTabsLogin").empty();
             $("#navTabsLogin").append('<div class="dropdown">\n' +
                 '\n' +
                 '    <!--Trigger-->\n' +
                 '    <a class="nav-link font-weight-bold dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"\n' +
                 '      aria-haspopup="true" aria-expanded="false">' +
-                '<span class="clearfix d-none d-sm-inline-block"><i class="fa fa-user"></i>'+xhr+'</span></a>\n' +
+                '<span class="clearfix d-none d-sm-inline-block"><i class="fa fa-user"></i>' + res + '</span></a>\n' +
                 '\n' +
                 '\n' +
                 '    <!--Menu-->\n' +
@@ -62,9 +63,9 @@ $(function () {
         modifyNavBar(window.localStorage.getItem('JWT'));
     }
 
-
     $('#logoutBtn').click(function () {
-        var JWT = window.localStorage.removeItem('JWT');
+        localStorage.removeItem('JWT');
+        localStorage.removeItem('username');
         window.location.reload();
         // modifyNavBar(JWT);
     });
