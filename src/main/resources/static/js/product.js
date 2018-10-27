@@ -2,25 +2,53 @@ $(function () {
     const frontendServer = 'http://localhost:8084';
     const backendServer = 'http://localhost:8080';
 
-    $('#inputProductBrand').click(function () {
-        $.ajax({
-            url: backendServer + "/api/common/loadBrand",
-            dataType: 'json',
-            type: 'GET',
-            success: function (response) {
-                alert(response.data.name);
-                var array = response.data;
-                if (array != '') {
-                    var selectBox = document.getElementById("inputProductBrand");
-                    for (i in array)
-                        selectBox.innerHTML("<option>" + array[i].name + "</option>");
+    $.ajax({
+        url: backendServer + "/api/common/loadBrand",
+        dataType: 'json',
+        type: 'GET',
+        success: function (response) {
+            var array = response.data;
+            if (array != '') {
+                var selectBox = document.getElementById("inputProductBrand");
+                for (i = 0; i < array.length; i++) {
+                    // selectBox.innerText("<option>" + array[i].name + "</option>");
+                    var o = new Option(array[i].name, array[i].id);
+                    $(o).html(array[i].name);
+                    $("#inputProductBrand").append(o);
                 }
-            },
-            error: function (e) {
-                alert("ERROR: ", e);
+                alert(array[i].name);
+            } else {
+                alert("wrong");
             }
-        });
-    })
+        },
+        error: function (e) {
+            alert("ERROR load: ", e);
+        }
+    });
+
+
+    $.ajax({
+        url: backendServer + "/api/common/loadCategory",
+        dataType: 'json',
+        type: 'GET',
+        success: function (response) {
+            var array = response.data;
+            if (array != '') {
+                var selectBox = document.getElementById("inputProductCategory");
+                for (i = 0; i < array.length; i++) {
+                    // selectBox.innerText("<option>" + array[i].name + "</option>");
+                    var o = new Option(array[i].name, array[i].id);
+                    $(o).html(array[i].name);
+                    $("#inputProductCategory").append(o);
+                }
+            } else {
+                alert("wrong");
+            }
+        },
+        error: function (e) {
+            alert("ERROR load: ", e);
+        }
+    });
 
 
 // Restrict number only
@@ -36,6 +64,9 @@ $(function () {
 
     //Create Product
     $('#btnCreate').click(function () {
+        var cate = document.getElementById("inputProductCategory");
+        var brand = document.getElementById("inputProductBrand");
+
         var objectData =
             {
                 name: document.getElementById('inputProductName').value,
@@ -43,11 +74,13 @@ $(function () {
                 price: document.getElementById('inputProductPrice').value,
                 //quantity: document.getElementById('inputProductQuantity').value,
                 seller: "user",
-                category: "1",
-                brand: "1",
+                 category: cate.options[cate .selectedIndex].value,
+                 brand: brand.options[brand.selectedIndex].value,
             };
         var objectDataString = JSON.stringify(objectData);
-
+        var e = document.getElementById("inputProductBrand");
+        var strUser = e.options[e.selectedIndex].value;
+        alert(strUser);
         $.ajax({
             type: "POST",
             url: backendServer + "/api/product",
