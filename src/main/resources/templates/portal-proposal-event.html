@@ -45,6 +45,7 @@
                                 <th>StartDate</th>
                                 <th>EndDate</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                         </table>
@@ -64,60 +65,72 @@
 
             const loadDataTable = (events) => {
                 var table = $('#dataTables-example').DataTable({
+                    destroy : true,
                     data: events,
                     columns: [
                         {data: "id"},
-                        {data: "title"},
-                        {data: "location"},
-                        {data: "startDate"},
-                        {data: "endDate"},
+                        {data: "title", width: "200px"},
+                        {data: "location", width: "200px"},
+                        {data: "startDate",width: "150px"},
+                        {data: "endDate",width: "150px"},
                         {
                             data: null,
                             render: function (data, type, row) {
                                 let ret;
                                 switch (row.status) {
                                     case 0 :
-                                        ret = '<button id="btnApprove' + row.id + '" onclick="approveEvent(' + row.id + ')" class="btn btn-warning"><i class="fa fa-times"></i></button>';
+                                        ret = '<span style="width: 100px" id="spanPedingStatus' + row.id + '" class="label label-default">Pending</span>';
                                         break;
                                     case 1 :
-                                        ret = '<button id="btnNotApprove' + row.id + '" onclick="notApproveEvent(' + row.id + ')" class="btn btn-info"><i class="fa fa-check"></i></button>';
+                                        ret = '<span style="width: 100px" id="spanApproveStatus' + row.id + '" class="label label-success">Approve</span>';
                                         break;
+                                    case 2 :
+                                        ret = '<span style="width: 100px" id="spanNotApproveStatus' + row.id + '" class="label label-danger">Not Approve</span>';
+                                        break;
+
                                 }
                                 return ret;
                             }
-                        }
-                        // , {
-                        //     data: null,
-                        //     render: function (data, type, row) {
-                        //         ret = '<a id="btnCreate'+row.id+'" href="proposal-event/create-event/'+row.id+'" class="btn btn-primary">Create Event</a>';
-                        //         return ret;
-                        //     }
-                        // },
-
-                    ],
-                    columnDefs: [
+                        },
                         {
-                            render: function (data, type, full, meta) {
-                                return "<div style='width: 200px;word-wrap: break-word'>" + data + "</div>";
-                            },
-                            targets: [2, 3]
+                            data: null,
+                            render: function (data, type, row) {
+                                let ret;
+                                ret = '<div class="dropdown">' +
+                                    '  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
+                                    '  <span class="caret"></span></button>' +
+                                    '  <ul class="dropdown-menu">' +
+                                    '    <li><a id="btnApprove' + row.id + '" onclick="approveEvent(' + row.id + ')">Approve</a></li>' +
+                                    '    <li><a id="btnNotApprove' + row.id + '" onclick="notApproveEvent(' + row.id + ')">Not Approve</a></li>' +
+                                    '  </ul>\n' +
+                                    '</div>';
+                                return ret;
+                            }
                         }
+
                     ],
                     responsive: true
                 });
             }
 
-            $.ajax({
-                type: "GET",
-                url: backendServer + "/api/proposal-event",
-                dataType: 'json',
-            }).done((res) => {
-                console.table(res.data);
-                loadDataTable(res.data);
-            }).fail((res) => {
-                console.log(res.message);
-                alert(status);
-            });
+            var data ;
+
+            const loadData = () => {
+                $.ajax({
+                    type: "GET",
+                    url: backendServer + "/api/proposal-event",
+                    dataType: 'json',
+                }).done((res) => {
+                    data = res.data;
+                    console.table(res.data);
+                    loadDataTable(res.data);
+                }).fail((res) => {
+                    console.log(res.message);
+                    alert(status);
+                });
+            }
+
+            loadData();
 
             function approveEvent(id) {
                 console.log(id);
@@ -130,8 +143,7 @@
 
                 }).done((res) => {
                     console.log(res.data);
-
-                    $('#btnApprove' + id).replaceWith('<button id="btnNotApprove' + id + '" onclick="notApproveEvent(' + id + ')" class="btn btn-info"><i class="fa fa-check"></i></button>');
+                    loadData();
                 }).fail(() => {
                     console.log('propose-fail');
                 });
@@ -148,8 +160,7 @@
 
                 }).done((res) => {
                     console.log(res.data);
-
-                    $('#btnNotApprove' + id).replaceWith('<button id="btnApprove' + id + '" onclick="approveEvent(' + id + ')" class="btn btn-warning"><i class="fa fa-times"></i></button>');
+                    loadData();
                 }).fail(() => {
                     console.log('propose-fail');
                 });

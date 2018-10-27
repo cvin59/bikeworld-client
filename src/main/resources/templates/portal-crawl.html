@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="portal-header :: head">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta title="viewport" content="width=device-width, initial-scale=1">
+    <meta title="description" content="">
+    <meta title="author" content="">
+
+    <title>Bike World Portal</title>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <div th:replace="portal-header :: header">
+    </div>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Event Management</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Crawl Management
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <button id="startCrawlRev" class="btn btn-primary btn-lg" onclick="runCrawl('revzilla')">Crawl
+                            Revzilla
+                        </button>
+                        <button id="stopCrawlRev" class="btn btn-danger btn-lg" onclick="stopCrawl('revzilla')">Stop Crawl
+                            Revzilla
+                        </button>
+                        <button id="viewCrawlRev" class="btn btn-info btn-lg" onclick="viewCrawl('revzilla')">View Crawl
+                            Revzilla
+                        </button>
+
+
+                        <button id="startCrawlYne" class="btn btn-primary btn-lg" onclick="runCrawl('ynebikers')">Crawl
+                            Ynebikers
+                        </button>
+                        <button id="stopCrawlYne" class="btn btn-danger btn-lg" onclick="stopCrawl('ynebikers')">Stop
+                            Crawl Ynebikers
+                        </button>
+                        <button id="viewCrawlYne" class="btn btn-info btn-lg" onclick="viewCrawl('ynebikers')">View Crawl
+                            Ynebikers
+                        </button>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-striped">
+                    <thead>
+
+                    </thead>
+                </table>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+</div>
+<div th:replace="portal-js :: footer"></div>
+<script>
+    const backendServer = "http://localhost:8080/";
+    // $("#startCrawlRev").click(function () {
+    //     runCrawl("revzilla");
+    // });
+    //
+    //
+    // $("#stopCrawlRev").click(function () {
+    //     stopCrawl("revzilla");
+    // });
+
+
+    function runCrawl(site) {
+        $.ajax({
+            type: 'POST',
+            url: backendServer + 'api/crawl/run/' + site,
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+
+
+                console.log(data);
+                // $.each(data, function(index, element) {
+                //     $('body').append($('<div>', {
+                //         text: element.name
+                //     }));
+                // });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function stopCrawl(site) {
+        alert("!");
+        $.ajax({
+            type: 'POST',
+            url: backendServer + 'api/crawl/stop/' + site,
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+
+
+                console.log(data);
+                // $.each(data, function(index, element) {
+                //     $('body').append($('<div>', {
+                //         text: element.name
+                //     }));
+                // });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function viewCrawl(site) {
+        alert("!");
+        $.ajax({
+            type: 'GET',
+            url: backendServer + 'api/crawl/view/' + site,
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+
+
+                console.log(data);
+                // $.each(data, function(index, element) {
+                //     $('body').append($('<div>', {
+                //         text: element.name
+                //     }));
+                // });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+</script>
+</body>
+
+</html>
