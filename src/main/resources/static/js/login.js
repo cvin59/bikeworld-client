@@ -28,7 +28,7 @@ $(function () {
             });
     }
 
-    const checkMember = (xhr) => {
+    const modifyNavBar = (xhr) => {
         $.ajax({
             url: 'http://localhost:8080/authMember',
             method: 'GET',
@@ -49,7 +49,7 @@ $(function () {
                 '\n' +
                 '    <!--Menu-->\n' +
                 '    <div class="dropdown-menu dropdown-menu-right dropdown-danger">\n' +
-                '      <a class="dropdown-item" href="#">Profile</a>\n' +
+                '      <a class="dropdown-item" href="/user/account">My Account</a>\n' +
                 '      <a class="dropdown-item" id="logoutBtn">Logout</a>\n' +
                 '    </div>\n' +
                 '  </div>');
@@ -59,13 +59,13 @@ $(function () {
     }
 
     if (window.localStorage.getItem('JWT') != null) {
-        checkMember(window.localStorage.getItem('JWT'));
+        modifyNavBar(window.localStorage.getItem('JWT'));
     }
 
 
     $('#logoutBtn').click(function () {
         var JWT = window.localStorage.removeItem('JWT');
         window.location.reload();
-        checkMember(JWT);
+        // modifyNavBar(JWT);
     });
 })
