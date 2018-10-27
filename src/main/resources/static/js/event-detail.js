@@ -79,4 +79,13 @@ $(function () {
             .then(rs => rs.json())
             .then(data => backendServer + data.data.imageLink);
     }
+
+    var JWT = localStorage.getItem('JWT');
+
+    $("#btnJoinNow").click((e) => {
+        e.preventDefault();
+        if (JWT === null) {
+            $("#modalLRForm").modal();
+        }
+    })
 })
