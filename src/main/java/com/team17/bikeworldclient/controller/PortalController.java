@@ -48,4 +48,9 @@ public class PortalController extends AbstractController{
     public ModelAndView openCrawl(){
         return new ModelAndView("portal-crawl");
     }
+
+    @GetMapping("/account")
+    public ModelAndView openAccountPage(){
+        return new ModelAndView("account");
+    }
 }
