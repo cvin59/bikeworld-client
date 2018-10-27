@@ -18,7 +18,7 @@
     <link href="../static/dist/css/style.css" rel="stylesheet">
 </head>
 
-<body class="hidden-sn" onload="myFunction()">
+<body class="hidden-sn">
 <!--Double navigation-->
 <header th:replace="header :: header"></header>
 <!-- Sidebar navigation -->
@@ -433,6 +433,7 @@
                 </div>
                 <!--End Product Image Preview-->
                 <div class="col-lg-5 col-md-12 col-sm-12">
+                    <input type="hidden" id="id" th:value="${id}">
                     <p class="font-weight-bold h3" id="show-product-name"></p>
                     <div class="d-flex justify-content-start ">
                         <div class="orange-text">
@@ -871,8 +872,8 @@
 <!--Custom Javscript-->
 <script type="text/javascript" src="/js/customscript.js"></script>
 <!--Show Product Javscript-->
-<script type="text/javascript" src="/js/product.js"></script>
-
+<script type="text/javascript" src="/js/product-detail.js"></script>
+z
 </body>
 
 </html>

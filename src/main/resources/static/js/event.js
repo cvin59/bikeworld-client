@@ -113,7 +113,6 @@ $(function () {
         }
     }).
         fail((res) = > {
-=======
             $.ajax({
                 type: "GET",
                 url: backendServer + "/api/event-image/event/" + id,
