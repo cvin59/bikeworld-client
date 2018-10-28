@@ -25,8 +25,9 @@ $(function () {
     const loadInfoUpcomingEvent = (value, imageUrl, slide) => {
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
-        slide.append('  <!-- Card -->\n' +
-            '                            <div class="card ml-1 mr-1 mb-4 w-25">\n' +
+        slide.append('   <div class="col-md-4">'+
+            '  <!-- Card -->\n' +
+            '                            <div class="card mb-2">\n' +
             '\n' +
             '                                <!-- Card image -->\n' +
             '                                <div class="view overlay">\n' +
@@ -63,10 +64,32 @@ $(function () {
             '                                <!-- Card content -->\n' +
             '\n' +
             '                            </div>\n' +
-            '                            <!-- Card -->');
+            '                            <!-- Card -->' +
+            '</div>');
     }
 
-    const loadSliderEvent = (value, imageUrl, slide) => {
+    const loadUpcomingEvent = async (upcomingEvent) => {
+        var i, j =0;
+        for (i = 0; i < upcomingEvent.length; i += 3) {
+            $("#sliderItemUpcoming").append('<div class="carousel-item" id="slideItemUpcoming'+i+'">\n' +
+
+                '                    </div>');
+            let upComingEvent1 = upcomingEvent.slice(i, i + 3);
+            for (value of upComingEvent1) {
+                const imageUrl = await loadImageUpcomingEvent(value.id);
+                const loadInfo = loadInfoUpcomingEvent(value, imageUrl, $(`#slideItemUpcoming${i}`));
+                loadInfo;
+
+            }
+            $("#indicatorUpcomingEvent").append(' <li data-target="#openForJoiningCarousel" data-slide-to="' + j++ +'"></li>');
+        }
+        $("#indicatorUpcomingEvent li").first().addClass("active");
+        $("#sliderItemUpcoming .carousel-item").first().addClass("active");
+    }
+
+    loadUpcomingEvent(upcomingEvent);
+
+    const loadInfoSliderEvent = (value, imageUrl, slide) => {
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
         slide.append(' <div class="carousel-item">\n' +
@@ -92,32 +115,17 @@ $(function () {
             '            </div>');
     }
 
-    const loadUpcomingEvent = async (upcomingEvent) => {
-        var upComingEvent1 = upcomingEvent.slice(0, 3);
-        var upComingEvent2 = upcomingEvent.slice(3, 6);
-        var upComingEvent3 = upcomingEvent.slice(6, 9);
-        //Open For Joining
-        for (value of upComingEvent1) {
+    const loadSliderEvent = async (upcomingEvent) =>{
+        let upcomingEvent1 = upcomingEvent.slice(0, 3);
+        for (value of upcomingEvent1){
             const imageUrl = await loadImageUpcomingEvent(value.id);
-            const loadInfo = loadInfoUpcomingEvent(value, imageUrl, $("#slideItemUpcoming1"));
-            loadInfo;
-            const loadSlider = loadSliderEvent(value, imageUrl, $("#sliderEvent"));
-            loadSlider
-        }
-        for (value of upComingEvent2) {
-            const imageUrl = await loadImageUpcomingEvent(value.id);
-            const loadInfo = loadInfoUpcomingEvent(value, imageUrl, $("#slideItemUpcoming2"));
-            loadInfo;
-        }
-        for (value of upComingEvent3) {
-            const imageUrl = await loadImageUpcomingEvent(value.id);
-            const loadInfo = loadInfoUpcomingEvent(value, imageUrl, $("#slideItemUpcoming3"));
-            loadInfo;
+            const loadSlider = loadInfoSliderEvent(value, imageUrl, $("#sliderEvent"));
+            loadSlider;
         }
         $("#sliderEvent .carousel-item").first().addClass("active");
     }
 
-    loadUpcomingEvent(upcomingEvent);
+    loadSliderEvent(upcomingEvent);
 
     const toJSDate = (dateTime) => {
 

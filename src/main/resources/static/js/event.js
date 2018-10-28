@@ -3,39 +3,34 @@ $(function () {
     const frontendServer = 'http://localhost:8084';
     const backendServer = 'http://localhost:8080';
     //propose event
-    $('#formProposeEvent').submit((e) = > {
+    $('#formProposeEvent').submit((e) => {
         e.preventDefault();
-    let json = convertFormToJSON($('#formProposeEvent'));
-    console.log(json);
-    let formData = new FormData();
-    formData.append('consumeEventString', JSON.stringify(json));
-    let image = $("#image").get(0).files[0];
-    formData.append('image', image);
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/api/proposal-event",
-        dataType: 'json',
-        data: formData,
-        contentType: false,
-        processData: false
+        let json = convertFormToJSON($('#formProposeEvent'));
+        console.log(json);
+        let formData = new FormData();
+        formData.append('consumeEventString', JSON.stringify(json));
+        let image = $("#image").get(0).files[0];
+        formData.append('image', image);
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/proposal-event",
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false
 
-    }).done((res) = > {
-        console.log(res.data);
-    console.log(res.message);
-    console.log(JSON.stringify(res.data.accountUsename));
-    window.location.href = frontendServer + "/event";
-}).
-    fail((res) = > {
-        console.log(res.message);
-})
-    ;
+        }).done((res) => {
+            console.log(res.data);
+            console.log(res.message);
+            console.log(JSON.stringify(res.data.accountUsename));
+            window.location.href = frontendServer + "/event";
+        }).fail((res) => {
+            console.log(res.message);
+        });
 
-})
-    ;
+    });
 
-    const convertFormToJSON = (form) =
->
-    {
+    const convertFormToJSON = (form) => {
         let array = jQuery(form).serializeArray();
         let json = {};
         jQuery.each(array, function () {
@@ -100,19 +95,8 @@ $(function () {
             type: "GET",
             url: backendServer + "/api/event/" + id,
             dataType: 'json',
-        }).done((res) = > {
+        }).done((res) => {
             console.table(res.data);
-        $.ajax({
-            type: "GET",
-            url: backendServer + "/api/event-image/event/" + id,
-            dataType: 'json',
-        }).done((res) = > {
-            console.table(res);
-        if (res.status_code === 1) {
-            $("#eventDetailImg").attr("src", backendServer + res.data.imageLink);
-        }
-    }).
-        fail((res) = > {
             $.ajax({
                 type: "GET",
                 url: backendServer + "/api/event-image/event/" + id,
@@ -129,82 +113,10 @@ $(function () {
             $("#formCreateEvent").autofill(res.data);
         }).fail((res) => {
             console.log(res.message);
-    })
-        ;
-        CKEDITOR.instances.editor.setData(res.data.description);
-        $("#formCreateEvent").autofill(res.data);
-    }).
-        fail((res) = > {
-            console.log(res.message);
-    })
-        ;
+        });
 
     }
 
-    $('#formCreateEvent').submit((e) = > {
-        // e.preventDefault;
-        // var img= $("#image").get(0).files[0].size;
-        // var imgsize=img/1024;
-        // alert(imgsize);
-        if(id === ""
-)
-    {
-        e.preventDefault();
-        let json = convertFormToJSON($('#formCreateEvent'));
-        json['description'] = CKEDITOR.instances.editor.getData();
-        console.log(json);
-        let formData = new FormData();
-        formData.append('consumeEventString', JSON.stringify(json));
-        let image = $("#image").get(0).files[0];
-        formData.append('image', image);
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/api/event",
-            dataType: 'json',
-            data: formData,
-            contentType: false,
-            processData: false
-
-        }).done((res) = > {
-            console.log(res.data);
-        window.location.href = frontendServer + '/portal/event';
-    }).
-        fail((res) = > {
-            console.log(res.message);
-    })
-        ;
-    }
-else
-    {
-        e.preventDefault();
-        let json = convertFormToJSON($('#formCreateEvent'));
-        json['description'] = CKEDITOR.instances.editor.getData();
-        console.log(json);
-        let formData = new FormData();
-        formData.append('consumeEventString', JSON.stringify(json));
-        let image = $("#image").get(0).files[0];
-        formData.append('image', image);
-        $.ajax({
-            type: "PUT",
-            url: "http://localhost:8080/api/event/" + id,
-            dataType: 'json',
-            data: formData,
-            contentType: false,
-            processData: false
-
-        }).done((res) = > {
-            console.log(res.data);
-        window.location.href = frontendServer + '/portal/event';
-    }).
-        fail((res) = > {
-            console.log(res.message);
-    })
-        ;
-    }
-
-
-})
-    ;
     $('#formCreateEvent').submit((e) => {
         if (id === "") {
             e.preventDefault();
@@ -305,7 +217,7 @@ else
         // get image type
         let imageType = image.type;
         // check file extension
-        if (!((imageType == match[0]) || (imageType == match[1]) || (imageType == match[2]))) {
+        if (!((imageType === match[0]) || (imageType === match[1]) || (imageType === match[2]))) {
             $("#error").css("display", "block");
             $("#error").text("Please select [jpeg/png/jpg] only");
         } else {
@@ -334,60 +246,6 @@ else
                         $("#totalSize").text("Total: " + Math.round((totalSize / 1024) / 1024) + " MB");
                     }
 
-                if (!checkExist) {
-                    // check totalSize
-                    totalSize += value.size;
-                    // maximum total size: 200MB
-                    if (totalSize > 31457280) {
-                        totalSize -= value.size;
-                        $("#error").css("display", "block");
-                        $("#error").text("Maximum size for uploading: 30MB. Your current size: " + totalSize);
-                    } else { // if not over reach max size
-                        // display current total size
-                        if (Math.round((totalSize / 1024) / 1024) === 0) {
-                            $("#totalSize").text("Total: " + totalSize / 1024 + " KB");
-                        } else {
-                            $("#totalSize").text("Total: " + Math.round((totalSize / 1024) / 1024) + " MB");
-                        }
-
-
-                        // add current file image to list
-                        imageFiles[count] = value;
-                        // increase count
-                        count++;
-
-                        // preview image with file reader
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            $(".files").append('<tr id="' + value.name + '" class="table-tr" style="margin-top: 10px;">' +
-                                '<td><img id="' + count + '" src="' + e.target.result + '"  style="width: 80px; height: 51px"/></td>' +
-                                '<td><div class="imageName">' + value.name + '</div></td>' +
-                                '<td><div class="imageSize">' + Math.round(value.size / 1024) + ' KB</div></td>' +
-                                ' <td class="canceltd">\n' +
-                                '<button id="$$$' + value.name + '"' +
-                                // 'style="transition: none;\n' +
-                                // '    color: white;\n' +
-                                // '    width: 85px;\n' +
-                                // '    font-size: 14px;\n' +
-                                // '    height: 34px;\n' +
-                                // '    padding-top: 5px;" ' +
-                                'class="btn btn-warning' + value.name + '">\n' +
-                                '<i class="glyphicon glyphicon-ban-circle"></i>\n' +
-                                '<span>Remove</span>\n' +
-                                '</button>\n' +
-                                '<input id="$$' + value.name + '" type="checkbox" class="toggle models">\n' +
-                                '</td>');
-
-                            $("button[id='$$$" + value.name + "']").click(function (e) {
-                                e.preventDefault();
-
-                                var imageName = $(this).attr('id').replace('$$$', '');
-
-                                remove(imageName);
-                            })
-                        }
-                        reader.readAsDataURL(value);
-=======
                     checkName = image.name;
                     console.log(checkName);
 
