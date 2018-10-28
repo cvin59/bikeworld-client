@@ -1,7 +1,9 @@
 $(function () {
     const frontendServer = 'http://localhost:8084';
     const backendServer = 'http://localhost:8080';
+
     CKEDITOR.replace( 'inputProductDescription' );
+
     $.ajax({
         url: backendServer + "/api/common/loadBrand",
         dataType: 'json',
@@ -23,7 +25,7 @@ $(function () {
         error: function (e) {
             alert("ERROR load: ", e);
         }
-    });
+    }),
 
 
     $.ajax({
@@ -69,7 +71,7 @@ $(function () {
         var objectData =
             {
                 name: document.getElementById('inputProductName').value,
-                description: document.getElementById('inputProductDescription').value,
+                description: CKEDITOR.instances['inputProductDescription'].getData(),
                 price: document.getElementById('inputProductPrice').value,
                 //quantity: document.getElementById('inputProductQuantity').value,
                 seller: "user",
