@@ -1,5 +1,5 @@
 $(function () {
-    const backendServer = "http://localhost:8080"
+    const backendServer = "http://localhost:8080";
 
     let id = $("#id").val();
     console.log(id);
@@ -17,7 +17,7 @@ $(function () {
                     $("#show-product-description").append(res.data.description);
                     $("#show-product-address").append(res.data.address);
                     $("#show-symbol-product-address").append(res.data.address);
-
+                    $("#show-product-brand").append(res.data.brandId.name);
                     var rate = res.data.totalRatePoint;
                     var rater = res.data.totalRates;
                     showReviews(rater);
