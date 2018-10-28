@@ -2,7 +2,7 @@ $(function () {
     const frontendServer = 'http://localhost:8084';
     const backendServer = 'http://localhost:8080';
 
-    CKEDITOR.replace( 'inputProductDescription' );
+    CKEDITOR.replace('inputProductDescription');
 
     $.ajax({
         url: backendServer + "/api/common/loadBrand",
@@ -25,10 +25,7 @@ $(function () {
         error: function (e) {
             alert("ERROR load: ", e);
         }
-    }),
-
-
-    $.ajax({
+    }).done($.ajax({
         url: backendServer + "/api/common/loadCategory",
         dataType: 'json',
         type: 'GET',
@@ -49,7 +46,7 @@ $(function () {
         error: function (e) {
             alert("ERROR load: ", e);
         }
-    });
+    }))
 
 
 // Restrict number only
@@ -96,5 +93,9 @@ $(function () {
                 alert(objectDataString);
             }
         });
+    })
+
+    $('#product-list-link').click(function () {
+        alert("ok");
     })
 })
