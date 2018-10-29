@@ -4,75 +4,6 @@ $(function () {
     CKEDITOR.replace('inputProductDescription');
     CKEDITOR.replace('editProductDescription');
 
-    var filesUpload = document.getElementById("files-upload"),
-        fileList = document.getElementById("file-list");
-
-
-    function uploadFile(file, imgName) {
-        var tr = document.createElement("tr"),
-            nameTd = document.createElement("td"), sizeTd = document.createElement("td"),
-            imgTd = document.createElement("td"), btnTd = document.createElement("td"),
-            img = document.createElement("img"),
-            reader;
-
-        if (typeof FileReader !== "undefined" && (/image/i).test(file.type)) {
-            img = document.createElement("img");
-            img.width = 200;
-            img.height = 100;
-            img.border = 1;
-
-            tr.appendChild(imgTd);
-            imgTd.appendChild(img);
-
-            reader = new FileReader();
-
-            reader.onload = (function (theImg) {
-
-                return function (evt) {
-                    theImg.src = evt.target.result;
-
-                };
-            }
-            (img));
-            reader.readAsDataURL(file);
-        }
-
-// Present file info and append it to the list of files
-        nameTd.innerHTML = "<p><strong>Name:</strong> " + file.name + "</p>";
-        sizeTd.innerHTML = "<p><strong>Size:</strong> " + parseInt(file.size / 1024, 10) + " kb</p>";
-
-
-        btnTd.innerHTML = "<button class=\"btn-outline-danger\" type=\"button\" onclick="+ "deleteImg(this," + '"' + imgName + '"' + ')'+ ">\n" +
-            "<span>Delete</span>\n" +
-            "</button>\n";
-
-        //     fileInfo += "<p><strong>Type:</strong> " + file.type + "</p>";
-
-        tr.appendChild(nameTd);
-        tr.appendChild(sizeTd);
-        tr.appendChild(btnTd);
-
-        fileList.appendChild(tr);
-
-    }
-
-    function traverseFiles(files) {
-        if (typeof files !== "undefined") {
-            for (var i = 0, l = files.length; i < l; i++) {
-                uploadFile(files[i], files[i].name);
-            }
-        }
-        else {
-            fileList.innerHTML = "No support for the File API in this web browser";
-        }
-    }
-
-    filesUpload.addEventListener("change", function () {
-        traverseFiles(this.files);
-    }, false);
-});
-
-$("a.btnCreate").click(function () {
     $.ajax({
         url: backendServer + "/api/common/loadBrand",
         dataType: 'json',
@@ -111,6 +42,76 @@ $("a.btnCreate").click(function () {
         }
     }));
 
+
+    var filesUpload = document.getElementById("files-upload"),
+        fileList = document.getElementById("file-list");
+
+
+    function uploadFile(file, imgName) {
+        var tr = document.createElement("tr"),
+            nameTd = document.createElement("td"), sizeTd = document.createElement("td"),
+            imgTd = document.createElement("td"), btnTd = document.createElement("td"),
+            img = document.createElement("img"),
+            reader;
+
+        if (typeof FileReader !== "undefined" && (/image/i).test(file.type)) {
+            img = document.createElement("img");
+            img.width = 200;
+            img.height = 100;
+            img.border = 1;
+
+            tr.appendChild(imgTd);
+            imgTd.appendChild(img);
+
+            reader = new FileReader();
+
+            reader.onload = (function (theImg) {
+
+                return function (evt) {
+                    theImg.src = evt.target.result;
+
+                };
+            }
+            (img));
+            reader.readAsDataURL(file);
+        }
+
+// Present file info and append it to the list of files
+        nameTd.innerHTML = "<p><strong>Name:</strong> " + file.name + "</p>";
+        sizeTd.innerHTML = "<p><strong>Size:</strong> " + parseInt(file.size / 1024, 10) + " kb</p>";
+
+
+        btnTd.innerHTML = "<button class=\"btn-outline-danger\" type=\"button\" onclick=" + "deleteImg(this," + '"' + imgName + '"' + ')' + ">\n" +
+            "<span>Delete</span>\n" +
+            "</button>\n";
+
+        //     fileInfo += "<p><strong>Type:</strong> " + file.type + "</p>";
+
+        tr.appendChild(nameTd);
+        tr.appendChild(sizeTd);
+        tr.appendChild(btnTd);
+
+        fileList.appendChild(tr);
+
+    }
+
+    function traverseFiles(files) {
+        if (typeof files !== "undefined") {
+            for (var i = 0, l = files.length; i < l; i++) {
+                uploadFile(files[i], files[i].name);
+            }
+        }
+        else {
+            fileList.innerHTML = "No support for the File API in this web browser";
+        }
+    }
+
+    filesUpload.addEventListener("change", function () {
+        $("#image-table tr").remove()
+        traverseFiles(this.files);
+    }, false);
+
+
 });
 
 
@@ -140,7 +141,7 @@ $('#editProductQuantity').on("change", function () {
 
 
 //Create Product
-$('#btnCreate').click(function () {
+$('#create-product-form').submit(function () {
     var cate = document.getElementById("inputProductCategory");
     var brand = document.getElementById("inputProductBrand");
 
@@ -175,7 +176,7 @@ $('#btnCreate').click(function () {
 });
 
 
-$('#product-list-link').click(function () {
+$('#product-list-link').one('click',function () {
     $.ajax({
         url: backendServer + "/api/product/seller/user",
         dataType: 'json',
@@ -331,7 +332,7 @@ function showDetailPage(seq) {
     } else {
         $("#detailProductRater").html(rater + " Review");
     }
-    $("#detailProductPrice").html(product.price);
+    $("#detailProductPrice").html(product.price + " Dollar");
     $("#detailProductQuantity").html(product.quantity);
     $("#detailProductPostDate").html(product.postDate);
 

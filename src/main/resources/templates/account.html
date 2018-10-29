@@ -545,7 +545,7 @@
                     <div class="modal-dialog modal-fluid" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="productDetailModalLabel">Product Name</h5>
+                                <h5 class="modal-title" id="productDetailModalLabel">Product Detail</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -587,8 +587,7 @@
                                                         <dd class="col-sm-9" id="detailProductQuantity"></dd>
 
                                                         <dt class="col-sm-3">Added Date</dt>
-                                                        <dd class="col-sm-9" id="detailProductPostDate">10:00AM,
-                                                            10/12/2018
+                                                        <dd class="col-sm-9" id="detailProductPostDate">
                                                         </dd>
                                                     </dl>
                                                     <div>
@@ -691,7 +690,7 @@
                             </div>
                             <div class="modal-body">
                                 <!-- Extended material form grid -->
-                                <form>
+                                <form id="create-product-form">
                                     <!-- Grid row -->
                                     <div class="form-row">
                                         <!-- Grid column -->
@@ -700,7 +699,7 @@
                                             <div class="md-form form-group">
                                                 <input type="text" class="form-control"
                                                        id="inputProductName"
-                                                       placeholder="Product Name">
+                                                       placeholder="Product Name" required>
                                                 <label for="inputProductName">Name</label>
                                             </div>
                                         </div>
@@ -713,7 +712,8 @@
                                                 <input type="text" class="form-control"
                                                        id="inputProductPrice"
                                                        placeholder="Product Price"
-                                                       min="0.1">
+                                                       min="0.1"
+                                                       required>
                                                 <label for="inputProductPrice">Price</label>
                                             </div>
                                         </div>
@@ -731,7 +731,8 @@
                                                        class="form-control"
                                                        id="inputProductQuantity"
                                                        placeholder="Product Quantity"
-                                                       min="1" max="99">
+                                                       min="1" max="99"
+                                                       required>
                                                 <label for="inputProductQuantity">Quantity</label>
                                             </div>
                                         </div>
@@ -741,7 +742,7 @@
                                     <div class="row">
                                         <!-- Grid column -->
                                         <div class="col-md-6">
-                                            <select class="mdb-select md-form" id="inputProductCategory">
+                                            <select class="mdb-select md-form" id="inputProductCategory" required>
                                                 <option value="" disabled selected> Choose Category</option>
                                             </select>
                                             <label for="inputProductCategory">Category</label>
@@ -763,7 +764,7 @@
                                             <div class="md-form form-group">
                                                 <input type="text" class="form-control"
                                                        id="inputProductAddress"
-                                                       placeholder="Address">
+                                                       placeholder="Address" required>
                                                 <label for="inputProductAddress">Address</label>
                                             </div>
 
@@ -797,42 +798,44 @@
                                                            placeholder="Upload one or more files">
                                                 </div>
                                             </div>
-                                            <table role="presentation" class="table table-striped">
+                                            <table role="presentation" class="table table-striped" id="image-table">
                                                 <tbody id="file-list">
                                                 <!--<tr class="template" id="img1">-->
-                                                    <!--<td>-->
+                                                <!--<td>-->
                                                 <!--<span class="preview">-->
                                                 <!--<canvas id="myCanvas" width="200" height="100"-->
-                                                        <!--style="border:1px solid #000000;"/>-->
+                                                <!--style="border:1px solid #000000;"/>-->
                                                 <!--</span>-->
-                                                    <!--</td>-->
-                                                    <!--<td>-->
-                                                        <!--<p class="name" id="imgName"></p>-->
-                                                    <!--</td>-->
-                                                    <!--<td>-->
-                                                        <!--<p class="glyphicon-text-size" id="imgSize"></p>-->
-                                                    <!--</td>-->
-                                                    <!--<td>-->
-                                                        <!--<button class="btn btn-danger delete" id="btnDelete">-->
-                                                            <!--<i class="glyphicon glyphicon-trash">-->
-                                                                <!--<span>Delete</span>-->
-                                                            <!--</i>-->
-                                                        <!--</button>-->
-                                                    <!--</td>-->
+                                                <!--</td>-->
+                                                <!--<td>-->
+                                                <!--<p class="name" id="imgName"></p>-->
+                                                <!--</td>-->
+                                                <!--<td>-->
+                                                <!--<p class="glyphicon-text-size" id="imgSize"></p>-->
+                                                <!--</td>-->
+                                                <!--<td>-->
+                                                <!--<button class="btn btn-danger delete" id="btnDelete">-->
+                                                <!--<i class="glyphicon glyphicon-trash">-->
+                                                <!--<span>Delete</span>-->
+                                                <!--</i>-->
+                                                <!--</button>-->
+                                                <!--</td>-->
                                                 <!--</tr>-->
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-primary"
+                                                id="btnCreate">Save
+                                        </button>
+                                    </div>
                                 </form>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger"
-                                            data-dismiss="modal">Cancel
-                                    </button>
-                                    <button type="button" class="btn btn-primary"
-                                            id="btnCreate">Save
-                                    </button>
-                                </div>
+
                             </div>
                         </div>       <!-- Grid row -->
 
@@ -870,7 +873,8 @@
                                                 <input type="text" class="form-control"
                                                        id="editProductName"
                                                        readonly
-                                                       placeholder="Product Name">
+                                                       placeholder="Product Name"
+                                                       required>
                                                 <label for="inputProductName">Name</label>
                                             </div>
                                         </div>
@@ -883,7 +887,8 @@
                                                 <input type="text" class="form-control editProduct"
                                                        id="editProductPrice"
                                                        placeholder="Product Price"
-                                                       min="0.1">
+                                                       min="0.1"
+                                                       required>
                                                 <label for="inputProductPrice">Price</label>
                                             </div>
                                         </div>
@@ -901,7 +906,8 @@
                                                        class="form-control"
                                                        id="editProductQuantity"
                                                        placeholder="Product Quantity"
-                                                       min="1" max="99">
+                                                       min="1" max="99"
+                                                       required>
                                                 <label for="inputProductQuantity">Quantity</label>
                                             </div>
                                         </div>
@@ -916,7 +922,8 @@
                                             <div class="md-form form-group">
                                                 <input type="text" class="form-control"
                                                        id="editProductAddress"
-                                                       placeholder="Address">
+                                                       placeholder="Address"
+                                                       required>
                                                 <label for="inputProductAddress">Address</label>
                                             </div>
 
@@ -937,15 +944,15 @@
                                         </div>
                                         <!-- Grid column -->
                                     </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Save
+                                            changes
+                                        </button>
+                                    </div>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger"
-                                        data-dismiss="modal">Close
-                                </button>
-                                <button type="button" class="btn btn-primary">Save
-                                    changes
-                                </button>
                             </div>
                         </div>
                     </div>
