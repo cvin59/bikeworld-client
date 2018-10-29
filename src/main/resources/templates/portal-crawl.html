@@ -112,7 +112,7 @@
     }
 
     function stopCrawl(site) {
-        alert("!");
+
         $.ajax({
             type: 'POST',
             url: backendServer + 'api/crawl/stop/' + site,
@@ -120,7 +120,7 @@
             dataType: 'json',
             success: function (data) {
 
-
+                 alert("!");
                 console.log(data);
                 // $.each(data, function(index, element) {
                 //     $('body').append($('<div>', {
@@ -135,7 +135,7 @@
     }
 
     function viewCrawl(site) {
-        alert("!");
+
         $.ajax({
             type: 'GET',
             url: backendServer + 'api/crawl/view/' + site,
@@ -143,7 +143,7 @@
             dataType: 'json',
             success: function (data) {
 
-
+                alert("!");
                 console.log(data);
                 // $.each(data, function(index, element) {
                 //     $('body').append($('<div>', {
