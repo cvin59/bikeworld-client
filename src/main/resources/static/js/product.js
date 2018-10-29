@@ -5,17 +5,16 @@ $(function () {
     CKEDITOR.replace('editProductDescription');
 
     var filesUpload = document.getElementById("files-upload"),
-        dropArea = document.getElementById("drop-area"),
         fileList = document.getElementById("file-list");
 
 
-    function uploadFile(file) {
+    function uploadFile(file, imgName) {
         var tr = document.createElement("tr"),
             nameTd = document.createElement("td"), sizeTd = document.createElement("td"),
             imgTd = document.createElement("td"), btnTd = document.createElement("td"),
             img = document.createElement("img"),
-            reader
-        ;
+            reader;
+
         if (typeof FileReader !== "undefined" && (/image/i).test(file.type)) {
             img = document.createElement("img");
             img.width = 200;
@@ -41,7 +40,9 @@ $(function () {
 // Present file info and append it to the list of files
         nameTd.innerHTML = "<p><strong>Name:</strong> " + file.name + "</p>";
         sizeTd.innerHTML = "<p><strong>Size:</strong> " + parseInt(file.size / 1024, 10) + " kb</p>";
-        btnTd.innerHTML = "<button class=\"btn-outline-danger\" type=\"button\" onclick='deleteImg(this)'>\n" +
+
+
+        btnTd.innerHTML = "<button class=\"btn-outline-danger\" type=\"button\" onclick="+ "deleteImg(this," + '"' + imgName + '"' + ')'+ ">\n" +
             "<span>Delete</span>\n" +
             "</button>\n";
 
@@ -58,7 +59,7 @@ $(function () {
     function traverseFiles(files) {
         if (typeof files !== "undefined") {
             for (var i = 0, l = files.length; i < l; i++) {
-                uploadFile(files[i]);
+                uploadFile(files[i], files[i].name);
             }
         }
         else {
@@ -113,8 +114,9 @@ $("a.btnCreate").click(function () {
 });
 
 
-function deleteImg(btn) {
+function deleteImg(btn, name) {
     $(btn).closest('tr').remove();
+    alert(name);
 }
 
 
