@@ -1,16 +1,13 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head th:replace="portal-header :: head">
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta title="viewport" content="width=device-width, initial-scale=1">
-    <meta title="description" content="">
-    <meta title="author" content="">
-
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bike World Portal</title>
-
 </head>
 
 <body>
@@ -35,64 +32,62 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <form role="form" id="formCreateEvent" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label>Title</label>
                                         <input class="form-control"
                                                th:attr="id='id',name='id',value=${id}"
                                                type="hidden">
-                                        <input class="form-control" name="title">
+                                        <input class="form-control" name="title" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Location</label>
-                                        <input class="form-control" name="location">
+                                        <input class="form-control" name="location" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Address</label>
-                                        <input class="form-control" name="address">
+                                        <input class="form-control" name="address" required>
                                     </div>
                                     <!--<div id="googleMap" style="width:100%;height:400px;"></div>-->
                                     <div class="col-md-12 form-group">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Start Register Date</label>
-                                                    <div class='input-group date' id='datetimepickerRegiStart'>
-                                                        <input type='text' name="startRegisterDate" class="form-control"/>
-                                                        <span class="input-group-addon">
+                                            <!--<div class="form-group col-md-6">-->
+                                                <!--<label>Start Register Date</label>-->
+                                                <!--<div class='input-group date' id='datetimepickerRegiStart'>-->
+                                                    <!--<input type='text' name="startRegisterDate" class="form-control"-->
+                                                           <!--required/>-->
+                                                    <!--<span class="input-group-addon">-->
+                                        <!--<span class="fa fa-calendar"></span>-->
+                                         <!--</span>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="form-group col-md-6">-->
+                                                <!--<label>End Register Date</label>-->
+                                                <!--<div class='input-group date' id='datetimepickerRegiEnd'>-->
+                                                    <!--<input type='text' name="endRegisterDate" class="form-control"-->
+                                                           <!--required/>-->
+                                                    <!--<span class="input-group-addon">-->
+                                         <!--<span class="fa fa-calendar"></span>-->
+                                        <!--</span>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="form-group col-md-6">
+                                                <label>Start Date</label>
+                                                <div class='input-group date' id='datetimepickerStart'>
+                                                    <input type='text' name="startDate" class="form-control" required/>
+                                                    <span class="input-group-addon">
                                         <span class="fa fa-calendar"></span>
                                          </span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>End Register Date</label>
-                                                    <div class='input-group date' id='datetimepickerRegiEnd'>
-                                                        <input type='text' name="endRegisterDate" class="form-control"/>
-                                                        <span class="input-group-addon">
-                                         <span class="fa fa-calendar"></span>
-                                        </span>
-                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Start Date</label>
-                                                    <div class='input-group date' id='datetimepickerStart'>
-                                                        <input type='text' name="startDate" class="form-control"/>
-                                                        <span class="input-group-addon">
-                                        <span class="fa fa-calendar"></span>
-                                         </span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>End Date</label>
-                                                    <div class='input-group date' id='datetimepickerEnd'>
-                                                        <input type='text' name="endDate" class="form-control"/>
-                                                        <span class="input-group-addon">
+                                            <div class="form-group col-md-6">
+                                                <label>End Date</label>
+                                                <div class='input-group date' id='datetimepickerEnd'>
+                                                    <input type='text' name="endDate" class="form-control" required/>
+                                                    <span class="input-group-addon">
                                          <span class="fa fa-calendar"></span>
                                         </span>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,35 +96,81 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <label>Fee</label>
-                                                <input class="form-control" name="fee">
+                                                <input type="number" class="form-control" name="fee" required>
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Total Slots</label>
-                                                <input class="form-control" name="totalSlots">
+                                                <input type="number" class="form-control" name="totalSlots" required>
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Min Slots</label>
-                                                <input class="form-control" name="minSlot">
+                                                <input type="number" class="form-control" name="minSlot" required>
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Max Slots</label>
-                                                <input class="form-control" name="maxSlot">
+                                                <input type="number" class="form-control" name="maxSlot" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Description</label>
-                                        <textarea class="form-control" name="description"></textarea>
+                                        <textarea class="form-control" id="editor"></textarea>
+
                                     </div>
                                     <div class="form-group">
-                                        <label>Image</label>
-                                        <input class="form-control" type="file" id="image">
+                                        <label>Cover Photo</label>
+
+                                        <span class="btn btn-file btn-success">
+                                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                                        Choose files <input class="form-control" type="file" id="image">
+                                                </span>
+                                        <!--multiple upload-->
+                                        <!--<h3 class="expand"><img src="/img/transparent.png" alt=""-->
+                                                                <!--class="iconEx"/><span>Model's Images</span>-->
+                                        <!--</h3>-->
+                                        <!--<div class="row fileupload-buttonbar">-->
+                                            <!--<div class="col-lg-7">-->
+                                                <!--<span id="addFiles" class="btn btn-file btn-success">-->
+                                                    <!--<span class="glyphicon glyphicon-folder-open"></span>-->
+                                                        <!--Choose files <input id="files" type="file" name="files" multiple>-->
+                                                <!--</span>-->
+                                                <!--&lt;!&ndash;<span class="btn btn-primary btn-file">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;Browse <input type="file">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                                                <!--<span id="deleteFiles" type="button"-->
+                                                      <!--class="btn btn-danger btn-file">-->
+                                                    <!--<span class="glyphicon glyphicon-trash"></span>-->
+                                                    <!--<span>Remove files</span>-->
+                                                <!--</span>-->
+                                                <!--<span>Check All</span>-->
+                                                <!--<input id="checkAll" type="checkbox" class="toggle">-->
+                                                <!--&lt;!&ndash; The global file processing state &ndash;&gt;-->
+                                                <!--<span id="totalSize" class="fileupload-process"-->
+                                                      <!--style="display: block; padding-top: 5px;">-->
+                                                        <!--</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!-- The table listing the files available for upload/download -->
+                                        <!--<span id="error" class="error" style="display: none;-->
+                                                            <!--margin-left: 15px; font-size: 15px; color: red;-->
+                                                            <!--width: 100%; float: left;"></span>-->
+                                        <!--<table id="listImage" role="presentation" class="table table-striped">-->
+                                            <!--<tbody class="files">-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
                                     </div>
+
                                     <div class="cover-photo">
-                                        <img id="eventDetailImg" style="width: 100%">
-                                        <div class="trans-bg"></div>
+                                        <span id="error" class="error" style="display: none;
+                                                            margin-left: 15px; font-size: 15px; color: red;
+                                                            width: 100%; float: left;"></span>
+                                        <div class="cover-photo">
+                                            <img id="blah" style="width: 50%">
+                                            <div class="trans-bg"></div>
+                                        </div>
                                     </div>
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                     <button type="reset" class="btn btn-default">Reset</button>
                                 </form>
                             </div>

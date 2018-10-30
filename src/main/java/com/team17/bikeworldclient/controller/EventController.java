@@ -16,8 +16,12 @@ public class EventController {
         return new ModelAndView("event");
     }
 
-    @GetMapping("/detail")
-    public ModelAndView viewEventDetail(){
+    @GetMapping("/detail/{title}/{id}")
+    public ModelAndView viewEventDetail(@PathVariable String title,
+                                        @PathVariable Integer id){
+        ModelAndView mav = new ModelAndView("eventdetail");
+        mav.addObject("title", title);
+        mav.addObject("id", id);
         return new ModelAndView("eventdetail");
     }
 }

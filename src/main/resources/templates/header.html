@@ -150,7 +150,7 @@
             <!--<a class="nav-link"><span class="clearfix d-none d-sm-inline-block white-text">Notification</span></a>-->
             <!--</li>-->
             <!--End Notification button-->
-            <li class="nav-item">
+            <li  id="navTabsLogin" class="nav-item">
                 <a class="nav-link font-weight-bold" data-toggle="modal" data-target="#modalLRForm">
                     <span class="clearfix d-none d-sm-inline-block"><i class="fa fa-user"></i>Login/Register</span>
                 </a>
@@ -199,36 +199,36 @@
                         <div class="tab-pane fade in show active" id="logintab" role="tabpanel">
 
                             <!--Body-->
-                            <div class="modal-body mb-1">
+                            <form class="modal-body mb-1" id="userLogin">
                                 <div class="md-form form-sm mb-5">
                                     <i class="fa fa-envelope prefix"></i>
-                                    <input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
-                                    <label data-error="wrong" data-success="right" for="modalLRInput10">Email</label>
+                                    <input type="text" id="signin-username" class="form-control form-control-sm validate">
+                                    <label for="signin-username">Username</label>
                                 </div>
 
                                 <div class="md-form form-sm mb-4">
                                     <i class="fa fa-lock prefix"></i>
-                                    <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
-                                    <label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
+                                    <input type="password" id="signin-password" class="form-control form-control-sm validate">
+                                    <label for="signin-password">Password</label>
                                 </div>
 
-                                <div class="md-form form-sm mb-5">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="checkboxRemember" />
-                                        <label class="form-check-label" for="checkboxRemember">Remember Me</label>
-                                    </div>
-                                </div>
+                                <!--<div class="md-form form-sm mb-5">-->
+                                    <!--<div class="form-check">-->
+                                        <!--<input type="checkbox" class="form-check-input" id="checkboxRemember" />-->
+                                        <!--<label class="form-check-label" for="checkboxRemember">Remember Me</label>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
                                 <div class="text-center mt-2">
-                                    <button class="btn btn-success">Login</button>
+                                    <button type="submit" class="btn btn-success">Login</button>
                                 </div>
-                            </div>
+                            </form>
                             <!--Footer-->
-                            <div class="modal-footer">
-                                <div class="options text-center text-md-right mt-1">
-                                    <p>Forgot <a href="#registertab" class="blue-text">Password?</a></p>
-                                </div>
-                            </div>
+                            <!--<div class="modal-footer">-->
+                                <!--<div class="options text-center text-md-right mt-1">-->
+                                    <!--<p>Forgot <a href="#registertab" class="blue-text">Password?</a></p>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                         </div>
                         <!--End Login Panel-->
@@ -276,8 +276,6 @@
         </div>
     </div>
     <!--Modal: Login / Register Form-->
-
-
 </header>
 </body>
 </html>

@@ -16,6 +16,7 @@
 <body>
 
 <div id="wrapper">
+
     <div th:replace="portal-header :: header">
     </div>
 
@@ -30,8 +31,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a href="/portal/event/create-event" class="btn btn-primary pull-right">Create Event</a>
+                    <a href="/portal/event/create-event" class="btn btn-primary pull-right">Create Event</a>
+                    <div class="panel-heading">Events
+
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -40,7 +42,7 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>Title</th>
                                 <th>Location</th>
                                 <th>StartDate</th>
                                 <th>EndDate</th>
@@ -65,13 +67,15 @@
 <script>
     const backendServer = 'http://localhost:8080';
 
-    const loadData = (events) => {
+    const loadDataTable = (events) => {
         let table = $('#dataTables-example').DataTable({
+            destroy: true,
+            autoWidth: false,
             data: events,
             columns: [
                 {data: "id"},
-                {data: "title"},
-                {data: "location"},
+                {data: "title", width: "200px"},
+                {data: "location", width: "200px"},
                 {data: "startDate"},
                 {data: "endDate"},
                 {
@@ -81,20 +85,17 @@
                         const id = ((row || {}).eventStautsid || {}).id;
                         console.log(id);
                         switch (id) {
-                            case 1 :
-                                ret = 'Pending';
+                            case 1:
+                                ret = '<span class="label label-warning ">Upcoming</span>';
                                 break;
-                            case 2 :
-                                ret = 'Registering';
+                            case 2:
+                                ret = '<span class="label label-primary">Ongoing</span>';
                                 break;
-                            case 3 :
-                                ret = 'Ongoing';
+                            case 3:
+                                ret = '<span class="label label-success">Finish</span>';
                                 break;
-                            case 4 :
-                                ret = 'End';
-                                break;
-                            case 4 :
-                                ret = 'Canceled';
+                            case 4:
+                                ret = '<span class="label label-default">Deactivated</span>';
                                 break;
                         }
                         return ret;
@@ -103,26 +104,45 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        let ret = '<a href="event/' + row.id + '" class="btn btn-info">Update</a> <button class="btn btn-danger">Delete</button>';
+                        let ret = '<a href="event/' + row.id + '" class="btn btn-info">Update</a> ' +
+                            '<a  onclick="deactivateEvent(' + row.id + ')" class="btn btn-danger">Deactivate</a>';
                         return ret;
                     }
                 }
             ],
             responsive: true
         });
-
+        $('#dataTables-example td').css('white-space','initial');
     }
 
-    $.ajax({
-        type: "GET",
-        url: backendServer + "/api/event",
-        dataType: 'json',
-    }).done((res) => {
-        console.table(res.data);
-        loadData(res.data);
-    }).fail((res) => {
-        alert(res.message);
-    });
+    const loadData = () => {
+        $.ajax({
+            type: "GET",
+            url: backendServer + "/api/event",
+            dataType: 'json',
+        }).done((res) => {
+            console.table(res.data);
+            loadDataTable(res.data);
+        }).fail((res) => {
+            alert(res.message);
+        });
+    }
+
+    loadData();
+
+    deactivateEvent = (id) => {
+        $.ajax({
+            type: "GET",
+            url: backendServer + "/api/event/deactivate-event/" + id,
+            dataType: 'json',
+        }).done((res) => {
+            alert(res.message);
+            console.log(res.data);
+            loadData();
+        }).fail((res) => {
+            alert(res.message);
+        });
+    }
 </script>
 </body>
 
