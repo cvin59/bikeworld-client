@@ -34,274 +34,175 @@
         </form>
     </section>
     <!--End Search Section-->
-</div>
-<!--End Search-->
 
-<!--Bread Crum Menu-->
-<div class="container">
-    <nav class="breadcrumb white">
-        <a class="breadcrumb-item text-danger" href="/home">Home</a>
-        <a class="breadcrumb-item text-danger" href="/event">Event</a>
-    </nav>
-</div>
-<!--End Bread Crum Menu-->
+    <!--End Search-->
 
-<div class="container mb-5">
-    <!-- Section heading -->
-    <h2 class="h2-responsive mb-5">Recommended Events</h2>
-    <div id="carouselRecommendedEvents" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner ">
-            <div class="carousel-item active">
-                <div class="custom-hover-card"><img
-                        src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2016/05/10105129/discount-codes-reach-more-people-eventbrite.png"/>
-                    <div class="info">
-                        <h1>Event Name</h1>
-                        <p>Short Description</p>
+    <!--Bread Crum Menu-->
+    <div class="container">
+        <nav class="breadcrumb white">
+            <a class="breadcrumb-item text-danger" href="/home">Home</a>
+            <a class="breadcrumb-item text-danger" href="/event">Event</a>
+        </nav>
+    </div>
+    <!--End Bread Crum Menu-->
+
+    <div class="container mb-5">
+        <!-- Section heading -->
+        <!--<h2 class="h2-responsive mb-5">Recommended Events</h2>-->
+        <div id="carouselRecommendedEvents" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox" id="sliderEvent">
+            </div>
+        </div>
+    </div>
+    <!-- Controls -->
+    <div class="d-flex justify-content-center">
+        <a class="btn-floating shadow-none" href="#carouselRecommendedEvents" data-slide="prev">
+            <i class="fa fa-chevron-left black-text"></i>
+        </a>
+        <a class="btn-floating shadow-none" href="#carouselRecommendedEvents" data-slide="next">
+            <i class="fa fa-chevron-right black-text"></i>
+        </a>
+    </div>
+    <!-- Controls -->
+
+    <div class="container">
+        <div class="container pt-3 pb-3 slideInUp">
+            <h2 class="h2-responsive mt-4 font-weight-bold">OPEN FOR JOINING</h2>
+            <!-- Section: Open for joining -->
+            <section class="text-center">
+                <!-- Carousel Wrapper -->
+                <div id="openForJoiningCarousel" class="carousel slide carousel-multi-item" data-ride="carousel">
+                    <!-- Controls -->
+                    <div class="col-12 text-md-right lead">
+                        <a class="btn btn-outline-danger" href="#openForJoiningCarousel" data-slide="prev">
+                            <i class="fa fa-chevron-left"></i>
+                        </a>
+                        <a class="btn btn-outline-danger" href="#openForJoiningCarousel" data-slide="next">
+                            <i class="fa fa-chevron-right "></i>
+                        </a>
+                    </div>
+                    <!-- Controls -->
+                    <!-- Indicators -->
+                    <ol id="indicatorUpcomingEvent" class="carousel-indicators">
+
+                    </ol>
+                    <!-- Indicators -->
+                    <!-- Slides -->
+                    <div id="sliderItemUpcoming" class="carousel-inner" role="listbox">
+
+                    </div>
+                    <!-- Slides -->
+                </div>
+                <!-- Carousel Wrapper -->
+
+            </section>
+            <!--End Section: Open for joining -->
+        </div>
+    </div>
+
+    <!--Upcoming events-->
+    <div class="container-fluid">
+        <div class="container pt-3 pb-3">
+            <h2 class="h2-responsive mt-4 mb-5">Upcoming events</h2>
+            <!-- Card group -->
+            <div class="card-group">
+
+                <!-- Card -->
+                <div class="card ml-1 mr-1 mb-4 wow slideInUp">
+
+                    <!-- Card image -->
+                    <div class="view overlay">
+                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                             alt="Card image cap">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+
+                    <!-- Card content -->
+                    <div class="card-body">
+                        <!-- Title -->
+                        <h4 class="card-title">Card title</h4>
+                        <!-- Text -->
+                        <p class="card-text">Some quick example text to build on the card title and
+                            make up the bulk of the card's content.</p>
                         <!-- Date -->
                         <div class="d-flex justify-content-between w-100">
-                            <p class="white-text"><i class="fa fa-calendar text-danger "></i>27/02/2018</p>
-                            <p class="white-text ml-5"><i class="fa fa-clock-o "></i>9:00AM -
+                            <p class="dark-grey-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>27/02/2018</p>
+                            <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>9:00AM -
                                 13:00PM</p>
                         </div>
                         <!-- Location and Price -->
                         <div class="d-flex justify-content-between w-100">
-                            <p class="white-text"><i class="fa fa-map-marker  text-primary "></i>HCM
+                            <p class="dark-grey-text"><i class="fa fa-map-marker pr-2 text-primary ml-3"></i>HCM
                                 City</p>
-                            <p class="font-weight-bold white-text ml-5"><i class="fa fa-ticket"></i>100.000
+                            <p class="font-weight-bold dark-grey-text"><i class="fa fa-ticket pr-2"></i>100.000
                                 VND</p>
                         </div>
-                        <a class="btn-flat text text-primary h3">Read More</a>
+                        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                        <a class="btn btn-outline-primary btn-md font-weight-bold">View More</a>
+                        <a class="btn btn-outline-grey btn-md font-weight-bold disabled">Open Soon</a>
 
                     </div>
+                    <!-- Card content -->
+
                 </div>
-            </div>
-            <div class="carousel-item">
-                <div class="custom-hover-card"><img
-                        src="https://static1.squarespace.com/static/55c37beae4b0336075603f86/55c3cd80e4b01531b3208f2e/5603032be4b008bd0ad4e6fb/1486126957019/?format=2500w"/>
-                    <div class="info">
-                        <h1>Event Name</h1>
-                        <p>Short Description</p>
+                <!-- Card -->
+
+                <!-- Card -->
+                <div class="card ml-1 mr-1 mb-4 wow slideInUp">
+
+                    <!-- Card image -->
+                    <div class="view overlay">
+                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/77.jpg"
+                             alt="Card image cap">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+
+                    <!-- Card content -->
+                    <div class="card-body">
+
+                        <!-- Title -->
+                        <h4 class="card-title">Card title</h4>
+                        <!-- Text -->
+                        <p class="card-text">Some quick example text to build on the card title and
+                            make up the bulk of the card's content.</p>
                         <!-- Date -->
                         <div class="d-flex justify-content-between w-100">
-                            <p class="white-text"><i class="fa fa-calendar text-danger "></i>27/02/2018</p>
-                            <p class="white-text ml-5"><i class="fa fa-clock-o "></i>9:00AM -
+                            <p class="dark-grey-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>27/02/2018</p>
+                            <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>9:00AM -
                                 13:00PM</p>
                         </div>
                         <!-- Location and Price -->
                         <div class="d-flex justify-content-between w-100">
-                            <p class="white-text"><i class="fa fa-map-marker  text-primary "></i>HCM
+                            <p class="dark-grey-text"><i class="fa fa-map-marker pr-2 text-primary ml-3"></i>HCM
                                 City</p>
-                            <p class="font-weight-bold white-text ml-5"><i class="fa fa-ticket"></i>100.000
+                            <p class="font-weight-bold dark-grey-text"><i class="fa fa-ticket pr-2"></i>100.000
                                 VND</p>
                         </div>
-                        <a class="btn-flat text text-primary h3">Read More</a>
+                        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                        <a class="btn btn-outline-primary btn-md font-weight-bold">View More</a>
+                        <a class="btn btn-outline-grey btn-md font-weight-bold disabled">Open Soon</a>
 
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="custom-hover-card"><img
-                    src="https://static1.squarespace.com/static/5aadc54285ede1bd72181a3a/t/5aadccec0e2e725448d54c7c/1521339652089/shutterstock_538256848.jpg?format=1500w"/>
-                <div class="info">
-                    <h1>Event Name</h1>
-                    <p>Short Description</p>
-                    <!-- Date -->
-                    <div class="d-flex justify-content-between w-100">
-                        <p class="white-text"><i class="fa fa-calendar text-danger "></i>27/02/2018</p>
-                        <p class="white-text ml-5"><i class="fa fa-clock-o "></i>9:00AM -
-                            13:00PM</p>
-                    </div>
-                    <!-- Location and Price -->
-                    <div class="d-flex justify-content-between w-100">
-                        <p class="white-text"><i class="fa fa-map-marker  text-primary "></i>HCM
-                            City</p>
-                        <p class="font-weight-bold white-text ml-5"><i class="fa fa-ticket"></i>100.000
-                            VND</p>
-                    </div>
-                    <a class="btn-flat text text-primary h3">Read More</a>
+                    <!-- Card content -->
 
                 </div>
+                <!-- Card -->
+
+
             </div>
+            <!-- Card group -->
+
         </div>
     </div>
+    <!--End Upcoming events-->
 </div>
-<!-- Controls -->
-<div class="d-flex justify-content-center">
-    <a class="btn-floating shadow-none" href="#carouselRecommendedEvents" data-slide="prev">
-        <i class="fa fa-chevron-left black-text"></i>
-    </a>
-    <a class="btn-floating shadow-none" href="#carouselRecommendedEvents" data-slide="next">
-        <i class="fa fa-chevron-right black-text"></i>
-    </a>
-</div>
-<!-- Controls -->
-
-<div class="container-fluid rgba-grey-light">
-    <div class="container pt-3 pb-3 wow slideInUp">
-        <h2 class="h2-responsive mt-4">Open For Joining</h2>
-        <!-- Section: Open for joining -->
-        <section class="text-center">
-            <!-- Carousel Wrapper -->
-            <div id="openForJoiningCarousel" class="carousel slide carousel-multi-item" data-ride="carousel">
-                <!-- Controls -->
-                <div class="d-flex justify-content-center">
-                    <a class="btn-floating shadow-none" href="#openForJoiningCarousel" data-slide="prev">
-                        <i class="fa fa-chevron-left black-text"></i>
-                    </a>
-                    <a class="btn-floating shadow-none" href="#openForJoiningCarousel" data-slide="next">
-                        <i class="fa fa-chevron-right black-text"></i>
-                    </a>
-                </div>
-                <!-- Controls -->
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li class="grey active" data-target="#openForJoiningCarousel" data-slide-to="0"></li>
-                    <li class="grey" data-target="#openForJoiningCarousel" data-slide-to="1"></li>
-                    <li class="grey" data-target="#openForJoiningCarousel" data-slide-to="2"></li>
-                </ol>
-                <!-- Indicators -->
-                <!-- Slides -->
-                <div class="carousel-inner" role="listbox">
-                    <!-- First slide -->
-                    <div    class="carousel-item active">
-                        <!-- Card group -->
-                        <div id="slideItemUpcoming1" class="card-group">
-
-                        </div>
-                        <!-- Card group -->
-                    </div>
-                    <!-- First slide -->
-                    <!-- Second slide -->
-                    <div class="carousel-item">
-                        <!-- Card group -->
-                        <div id="slideItemUpcoming2" class="card-group">
-
-                        </div>
-                        <!-- Card group -->
-                    </div>
-                    <!-- Second slide -->
-                    <!--Third slide -->
-                    <div class="carousel-item">
-                        <!-- Card group -->
-                        <div id="slideItemUpcoming3" class="card-group">
-
-                        </div>
-                        <!-- Card group -->
-                    </div>
-                    <!--Third slide -->
-                </div>
-                <!-- Slides -->
-            </div>
-            <!-- Carousel Wrapper -->
-
-        </section>
-        <!--End Section: Open for joining -->
-    </div>
-</div>
-
-<!--Upcoming events-->
-<div class="container-fluid">
-    <div class="container pt-3 pb-3">
-        <h2 class="h2-responsive mt-4 mb-5">Upcoming events</h2>
-        <!-- Card group -->
-        <div class="card-group">
-
-            <!-- Card -->
-            <div class="card ml-1 mr-1 mb-4 wow slideInUp">
-
-                <!-- Card image -->
-                <div class="view overlay">
-                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
-                         alt="Card image cap">
-                    <a href="#!">
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
-                </div>
-
-                <!-- Card content -->
-                <div class="card-body">
-                    <!-- Title -->
-                    <h4 class="card-title">Card title</h4>
-                    <!-- Text -->
-                    <p class="card-text">Some quick example text to build on the card title and
-                        make up the bulk of the card's content.</p>
-                    <!-- Date -->
-                    <div class="d-flex justify-content-between w-100">
-                        <p class="dark-grey-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>27/02/2018</p>
-                        <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>9:00AM -
-                            13:00PM</p>
-                    </div>
-                    <!-- Location and Price -->
-                    <div class="d-flex justify-content-between w-100">
-                        <p class="dark-grey-text"><i class="fa fa-map-marker pr-2 text-primary ml-3"></i>HCM
-                            City</p>
-                        <p class="font-weight-bold dark-grey-text"><i class="fa fa-ticket pr-2"></i>100.000
-                            VND</p>
-                    </div>
-                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <a class="btn btn-outline-primary btn-md font-weight-bold">View More</a>
-                    <a class="btn btn-outline-grey btn-md font-weight-bold disabled">Open Soon</a>
-
-                </div>
-                <!-- Card content -->
-
-            </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card ml-1 mr-1 mb-4 wow slideInUp">
-
-                <!-- Card image -->
-                <div class="view overlay">
-                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/77.jpg"
-                         alt="Card image cap">
-                    <a href="#!">
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
-                </div>
-
-                <!-- Card content -->
-                <div class="card-body">
-
-                    <!-- Title -->
-                    <h4 class="card-title">Card title</h4>
-                    <!-- Text -->
-                    <p class="card-text">Some quick example text to build on the card title and
-                        make up the bulk of the card's content.</p>
-                    <!-- Date -->
-                    <div class="d-flex justify-content-between w-100">
-                        <p class="dark-grey-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>27/02/2018</p>
-                        <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>9:00AM -
-                            13:00PM</p>
-                    </div>
-                    <!-- Location and Price -->
-                    <div class="d-flex justify-content-between w-100">
-                        <p class="dark-grey-text"><i class="fa fa-map-marker pr-2 text-primary ml-3"></i>HCM
-                            City</p>
-                        <p class="font-weight-bold dark-grey-text"><i class="fa fa-ticket pr-2"></i>100.000
-                            VND</p>
-                    </div>
-                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <a class="btn btn-outline-primary btn-md font-weight-bold">View More</a>
-                    <a class="btn btn-outline-grey btn-md font-weight-bold disabled">Open Soon</a>
-
-                </div>
-                <!-- Card content -->
-
-            </div>
-            <!-- Card -->
-
-
-        </div>
-        <!-- Card group -->
-
-    </div>
-</div>
-<!--End Upcoming events-->
-
 <div th:replace="footer :: footer"/>
 <script src="/js/event-user.js"></script>
+
 </body>
 
 </html>

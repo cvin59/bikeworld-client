@@ -22,13 +22,13 @@ $(function () {
             window.localStorage.setItem('JWT', xhr);
             location.reload();
         }).fail((xhr, status) => {
-                if (xhr.status === 401) {
-                    alert('Invalid username or password');
-                }
-            });
+            if (xhr.status === 401) {
+                alert('Invalid username or password');
+            }
+        });
     }
 
-    const checkMember = (xhr) => {
+    const modifyNavBar = (xhr) => {
         $.ajax({
             url: 'http://localhost:8080/authMember',
             method: 'GET',
@@ -36,20 +36,21 @@ $(function () {
                 'Authorization': xhr
             },
             async: false,
-        }).done((xhr) => {
-            console.log(xhr);
+        }).done((res) => {
+            console.log(res);
+            window.localStorage.setItem('username', res);
             $("#navTabsLogin").empty();
             $("#navTabsLogin").append('<div class="dropdown">\n' +
                 '\n' +
                 '    <!--Trigger-->\n' +
                 '    <a class="nav-link font-weight-bold dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"\n' +
                 '      aria-haspopup="true" aria-expanded="false">' +
-                '<span class="clearfix d-none d-sm-inline-block"><i class="fa fa-user"></i>'+xhr+'</span></a>\n' +
+                '<span class="clearfix d-none d-sm-inline-block"><i class="fa fa-user"></i>' + res + '</span></a>\n' +
                 '\n' +
                 '\n' +
                 '    <!--Menu-->\n' +
                 '    <div class="dropdown-menu dropdown-menu-right dropdown-danger">\n' +
-                '      <a class="dropdown-item" href="#">Profile</a>\n' +
+                '      <a class="dropdown-item" href="/user/account">My Account</a>\n' +
                 '      <a class="dropdown-item" id="logoutBtn">Logout</a>\n' +
                 '    </div>\n' +
                 '  </div>');
@@ -59,13 +60,13 @@ $(function () {
     }
 
     if (window.localStorage.getItem('JWT') != null) {
-        checkMember(window.localStorage.getItem('JWT'));
+        modifyNavBar(window.localStorage.getItem('JWT'));
     }
 
-
     $('#logoutBtn').click(function () {
-        var JWT = window.localStorage.removeItem('JWT');
+        localStorage.removeItem('JWT');
+        localStorage.removeItem('username');
         window.location.reload();
-        checkMember(JWT);
+        // modifyNavBar(JWT);
     });
 })
