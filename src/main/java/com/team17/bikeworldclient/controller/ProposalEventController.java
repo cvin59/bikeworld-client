@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ProposalEventController {
 
-    @GetMapping("/event/propose-event")
+    @GetMapping("/proposal-event/propose")
     public ModelAndView viewProposeEvent() {
         return new ModelAndView("propose-event");
     }

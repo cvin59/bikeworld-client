@@ -48,4 +48,5 @@ public class PortalController extends AbstractController{
     public ModelAndView openCrawl(){
         return new ModelAndView("portal-crawl");
     }
+
 }
