@@ -5,6 +5,48 @@ $(function () {
     var username = $('#signin-username');
     var password = $('#signin-password');
 
+    var registerUsername = $('#txtUsername');
+    var registerPassword = $('#txtPassword');
+    var email = $('#txtEmail');
+    var confirmPassword = $('#txtConfirmPassword');
+
+    $("#formRegister").submit((e) => {
+        e.preventDefault();
+        if (checkConfirmPass(e)) {
+            $.ajax({
+                url: backendServer + '/signup',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({username: registerUsername.val()
+                    , password: registerPassword.val()
+                    , email: email.val()}),
+                async: false,
+            }).done((xhr, status, error) => {
+                window.localStorage.setItem('JWT', xhr);
+                location.reload();
+            }).fail((xhr, status) => {
+                if (xhr.status === 401) {
+                    alert('Invalid username or password');
+                }
+            });
+        }
+
+    })
+
+    const checkConfirmPass = (e) => {
+        e.preventDefault();
+        let password = registerPassword.val();
+        let confirm = confirmPassword.val();
+        if (password != confirm) {
+            // alert("abc");
+            confirmPassword.addClass('invalid');
+            $("#lblConfirmPassword").attr("data-error", 'Those password does not match. Try again');
+            return false;
+        }
+        return true;
+    }
+
+
     $('#userLogin').submit((e) => {
         e.preventDefault();
         logIn(e);
