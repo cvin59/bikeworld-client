@@ -1,5 +1,8 @@
 const backendServer = 'http://localhost:8080';
 
+var imgSeq = 0;
+var uploadImgList = [];
+
 $(function () {
     CKEDITOR.replace('inputProductDescription');
     CKEDITOR.replace('editProductDescription');
@@ -47,7 +50,7 @@ $(function () {
         fileList = document.getElementById("file-list");
 
 
-    function uploadFile(file, imgName) {
+    function uploadFile(file) {
         var tr = document.createElement("tr"),
             nameTd = document.createElement("td"), sizeTd = document.createElement("td"),
             imgTd = document.createElement("td"), btnTd = document.createElement("td"),
@@ -69,7 +72,6 @@ $(function () {
 
                 return function (evt) {
                     theImg.src = evt.target.result;
-
                 };
             }
             (img));
@@ -77,11 +79,11 @@ $(function () {
         }
 
 // Present file info and append it to the list of files
-        nameTd.innerHTML = "<p><strong>Name:</strong> " + file.name + "</p>";
-        sizeTd.innerHTML = "<p><strong>Size:</strong> " + parseInt(file.size / 1024, 10) + " kb</p>";
+        nameTd.innerHTML = file.name;
+        sizeTd.innerHTML = parseInt(file.size / 1024, 10) + " Kb";
 
 
-        btnTd.innerHTML = "<button class=\"btn-outline-danger\" type=\"button\" onclick=" + "deleteImg(this," + '"' + imgName + '"' + ')' + ">\n" +
+        btnTd.innerHTML = "<button class=\"btn-outline-danger\" type=\"button\" onclick=" + "deleteImg(this," + imgSeq + ')' + ">\n" +
             "<span>Delete</span>\n" +
             "</button>\n";
 
@@ -98,7 +100,9 @@ $(function () {
     function traverseFiles(files) {
         if (typeof files !== "undefined") {
             for (var i = 0, l = files.length; i < l; i++) {
-                uploadFile(files[i], files[i].name);
+                uploadFile(files[i]);
+                uploadImgList.push(files[i]);
+                imgSeq++;
             }
         }
         else {
@@ -107,17 +111,21 @@ $(function () {
     }
 
     filesUpload.addEventListener("change", function () {
-        $("#image-table tr").remove()
         traverseFiles(this.files);
     }, false);
 
 
 });
 
+$("#btnClear").click(function () {
+    $("#image-table tr").remove();
+    imgSeq = 0;
+    uploadImgList = [];
+})
 
-function deleteImg(btn, name) {
+function deleteImg(btn, seq) {
     $(btn).closest('tr').remove();
-    alert(name);
+    uploadImgList.splice(seq, 1, null);
 }
 
 
@@ -150,35 +158,44 @@ $('#create-product-form').submit(function () {
             name: document.getElementById('inputProductName').value,
             description: CKEDITOR.instances['inputProductDescription'].getData(),
             price: document.getElementById('inputProductPrice').value,
-            //quantity: document.getElementById('inputProductQuantity').value,
-            seller: "user",
+            quantity: document.getElementById('inputProductQuantity').value,
+            seller: localStorage.getItem("username"),
             category: cate.options[cate.selectedIndex].value,
             brand: brand.options[brand.selectedIndex].value,
         };
     var objectDataString = JSON.stringify(objectData);
-    var e = document.getElementById("inputProductBrand");
-    var strUser = e.options[e.selectedIndex].value;
-    alert(strUser);
+
+    var formData = new FormData();
+    formData.append('productModelString', objectDataString);
+    for (i = 0; i < uploadImgList.length; i++) {
+        if (uploadImgList[i] != null) {
+            formData.append('images', uploadImgList[i]);
+        }
+    }
+
+
     $.ajax({
         type: "POST",
         url: backendServer + "/api/product",
         dataType: "json",
-        data: {
-            productModelString: objectDataString
-        },
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function (data) {
             alert('Success');
         },
-        error: function () {
-            alert(objectDataString);
+        error: function (e) {
+            console.log(e);
+            alert("error")
         }
     });
 });
 
 
-$('#product-list-link').one('click',function () {
+$('#product-list-link').one('click', function () {
+    var seller = localStorage.getItem("username");
     $.ajax({
-        url: backendServer + "/api/product/seller/user",
+        url: backendServer + "/api/product/seller/" + seller,
         dataType: 'json',
         type: 'GET',
         success: function (res) {
@@ -186,19 +203,18 @@ $('#product-list-link').one('click',function () {
 
             if (productList != null) {
                 for (i = 0; i < productList.length; i++) {
-                    localStorage.setItem('sellProduct-' + productList[i].id, JSON.stringify(productList[i]));
-
+                    localStorage.setItem('sellProduct-' + productList[i].productInfo.id, JSON.stringify(productList[i]));
                     $("#show-product-list").append(
                         "<div class=\"row wow bounceInUp animated fast\">\n" +
                         "                                <div class=\"col-4 pt-3 view zoom\">\n" +
                         "                                    <a href=\"\"><img class=\"img-fluid\"\n" +
-                        "                                                    src=\"https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg\"></a>\n" +
+                        "                                                    src=" + '"' + backendServer + productList[i].ProductImg[0] + '"' + "></a>\n" +
                         "                                </div>\n" +
                         "                                <div class=\"col-8 card shadow-none\">\n" +
                         "                                    <div class=\"card-body\">\n" +
                         "                                        <a>\n" +
                         "                                            <h4 class=\"font-weight-bold\">" +
-                        productList[i].name +
+                        productList[i].productInfo.name +
                         "</h4>\n" +
                         "                                        </a>\n" +
                         "                                        <!--Rating-->\n" +
@@ -211,25 +227,21 @@ $('#product-list-link').one('click',function () {
                         "                                        </div>\n" +
                         "\n" +
                         "                                        <h5 class=\"text-danger\">" +
-                        productList[i].price + " Dollar" +
+                        productList[i].productInfo.price + " Dollar" +
                         "</h5>\n" +
                         "                                        <dl class=\"row\">\n" +
                         "                                            <dt class=\"col-sm-3\">Quantity</dt>\n" +
                         "                                            <dd class=\"col-sm-9\">" +
-                        productList[i].quantity +
+                        productList[i].productInfo.quantity +
                         "</dd>\n" +
                         "\n" +
                         "                                            <dt class=\"col-sm-3\">Added Date</dt>\n" +
                         "                                            <dd class=\"col-sm-9\">" +
-                        productList[i].postDate +
+                        productList[i].productInfo.postDate +
                         "\n" +
                         "                                            </dd>\n" +
                         "                                        </dl>\n" +
-                        "                                        <div>\n" +
-                        "                                            <span class=\"badge badge-danger\">Status</span>\n" +
-                        "                                            <span class=\"badge badge-light\">Status</span>\n" +
-                        "                                            <span class=\"badge badge-primary\">Status</span>\n" +
-                        "                                            <span class=\"badge badge-success\">Status</span>\n" +
+                        "                                        <div id=show-product-status-" + i + ">" +
                         "                                        </div>\n" +
                         "                                    </div>\n" +
                         "                                    <div class=\"card-footer white border-0\">\n" +
@@ -240,12 +252,12 @@ $('#product-list-link').one('click',function () {
                         "                                            Quantity</a>\n" +
                         "                                        <a class=\"btn btn-sm btn-success float-right font-weight-bold \"\n" +
                         "                                           data-toggle=\"modal\"\n" +
-                        "                                           onclick='showEditPage(" + productList[i].id + ")'\n" +
+                        "                                           onclick='showEditPage(" + productList[i].productInfo.id + ")'\n" +
                         "                                           data-target=\"#editProductModal\"><i\n" +
                         "                                                class=\"fa fa-edit mr-1\"></i>Edit</a>\n" +
                         "                                        <a class=\"btn btn-sm btn-danger float-right font-weight-bold\"\n" +
                         "                                           data-toggle=\"modal\"\n" +
-                        "                                           onclick='showDetailPage(" + productList[i].id + ")'\n" +
+                        "                                           onclick='showDetailPage(" + productList[i].productInfo.id + ")'\n" +
                         "                                           data-target=\"#productDetailModal\"><i\n" +
                         "                                                class=\"fa fa-edit mr-1\"></i>Detail</a>\n" +
                         "                                    </div>\n" +
@@ -254,9 +266,8 @@ $('#product-list-link').one('click',function () {
                         "                            <div class=\"pl-0 pr-0 mb-3 pt-3 pb-3 border-top\">"
                     );
 
-                    var rating = "#show-product-stars-" + i;
-                    var rate = productList[i].totalRates;
-                    var star = productList[i].totalRatePoint / rate;
+                    var rate = productList[i].productInfo.totalRates;
+                    var star = productList[i].productInfo.totalRatePoint / rate;
                     var stars = "";
 
                     for (j = 0; j <= 4; j++) {
@@ -280,7 +291,10 @@ $('#product-list-link').one('click',function () {
                     }
 
                     $("#show-product-stars-" + i).html(stars);
+
+                    showStatus(productList[i].productInfo.statusId, i, $("#show-product-status-" + i));
                 }
+
 
             }
 
@@ -290,6 +304,28 @@ $('#product-list-link').one('click',function () {
     })
 });
 
+function showStatus(stat, i, location) {
+    var statusId = stat.id;
+    var status = stat.name;
+
+
+    switch (statusId) {
+        case 1:
+            $(location).addClass("badge badge-success");
+            break;
+        case 2:
+            $(location).addClass("badge badge-warning");
+            break;
+        case 3:
+            $(location).addClass("badge badge-info");
+            break;
+        case 4:
+            $(statusDiv).class = "badge badge-light";
+            break;
+    }
+
+    $(location).append(status);
+}
 
 function showStars(rate, rater, rating) {
     var star = rate / rater;
@@ -312,30 +348,30 @@ function showStars(rate, rater, rating) {
 
 function showEditPage(seq) {
     var product = JSON.parse(localStorage.getItem('sellProduct-' + seq));
-    $("#editProductName").val(product.name);
-    $("#editProductAddress").val(product.address);
-    $("#editProductPrice").val(product.price);
-    $("#editProductQuantity").val(product.quantity);
-    $("#editProductDescription").val(product.description);
-
+    $("#editProductName").val(product.productInfo.name);
+    $("#editProductAddress").val(product.productInfo.address);
+    $("#editProductPrice").val(product.productInfo.price);
+    $("#editProductQuantity").val(product.productInfo.quantity);
+    $("#editProductDescription").val(product.productInfo.description);
+    CKEDITOR.instances.editor1.setData(t);
 }
 
 function showDetailPage(seq) {
     var product = JSON.parse(localStorage.getItem('sellProduct-' + seq));
-    $("#detailProductName").html(product.name);
+    $("#detailProductName").html(product.productInfo.name);
 
-    var rate = product.totalRatePoint;
-    var rater = product.totalRates;
+    var rate = product.productInfo.totalRatePoint;
+    var rater = product.productInfo.totalRates;
 
     if (rater > 1) {
         $("#detailProductRater").html(rater + " Reviews");
     } else {
         $("#detailProductRater").html(rater + " Review");
     }
-    $("#detailProductPrice").html(product.price + " Dollar");
-    $("#detailProductQuantity").html(product.quantity);
-    $("#detailProductPostDate").html(product.postDate);
+    $("#detailProductPrice").html(product.productInfo.price + " Dollar");
+    $("#detailProductQuantity").html(product.productInfo.quantity);
+    $("#detailProductPostDate").html(product.productInfo.postDate);
 
     showStars(rate, rater, $("#detailProductRate"));
-
+    showStatus(product.productInfo.statusId, seq, $("#detailProductStatus"));
 }
