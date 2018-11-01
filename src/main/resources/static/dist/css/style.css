@@ -1,4 +1,12 @@
 /*Width classes*/
+.carousel-indicators li {
+    background-color: #ffe6e6;
+}
+
+.carousel-indicators .active {
+    background-color: #e60000;
+}
+
 .w-24 {
     width: 24%
 }
@@ -120,7 +128,7 @@
 .vert .carousel-item-next,
 .vert .active.carousel-item-right {
     -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100% 0);
+    transform: translate3d(0, 100%, 0);
 }
 
 .vert .carousel-item-prev,
