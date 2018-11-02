@@ -257,11 +257,16 @@ function showProductList() {
             if (productList != null) {
                 for (i = 0; i < productList.length; i++) {
                     localStorage.setItem('sellProduct-' + productList[i].productInfo.id, JSON.stringify(productList[i]));
+                    var avatar = "";
+                    if (productList[i].ProductImg != null) {
+                        avatar=backendServer+productList[i].ProductImg[0];
+                    }
+
                     $("#show-product-list").append(
                         "<div class=\"row wow bounceInUp animated fast\">\n" +
                         "                                <div class=\"col-4 pt-3 view zoom\">\n" +
                         "                                    <a href=\"\"><img class=\"img-fluid\"\n" +
-                        "                                                    src=" + '"' + backendServer + productList[i].ProductImg[0] + '"' + "></a>\n" +
+                        "                                                    src=" + '"' + avatar + '"' + "></a>\n" +
                         "                                </div>\n" +
                         "                                <div class=\"col-8 card shadow-none\">\n" +
                         "                                    <div class=\"card-body\">\n" +
@@ -513,8 +518,8 @@ function productListPagination(totalPage, currentPage) {
             $("#productList-next2").css("display", "none");
             break;
         case totalPage - 1:
-            $("#productList-next").css("display", "none");
-            $("#productList-next2").css("display", "block");
+            $("#productList-next").css("display", "block");
+            $("#productList-next2").css("display", "none");
             break;
         default:
             $("#productList-back2").css("display", "block");
@@ -589,7 +594,7 @@ $("#productList-next-page").click(function () {
     if (productListTotalPage - productListPage < 5) {
         productListPage = productListTotalPage;
     } else {
-        productListPage -= 5;
+        productListPage += 5;
     }
     $("#show-product-list").html("");
     showProductList();
