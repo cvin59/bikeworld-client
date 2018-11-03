@@ -2,9 +2,7 @@ package com.team17.bikeworldclient.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -22,6 +20,27 @@ public class EventController {
         ModelAndView mav = new ModelAndView("eventdetail");
         mav.addObject("title", title);
         mav.addObject("id", id);
-        return new ModelAndView("eventdetail");
+        return mav;
+    }
+
+    @GetMapping("/{id}/register-event")
+    public ModelAndView viewRegisterEvent(@PathVariable Integer id){
+        ModelAndView mav = new ModelAndView("register-event");
+        mav.addObject("id", id);
+        return mav;
+    }
+
+    @GetMapping("/all")
+    public ModelAndView viewAllEvent(){
+        ModelAndView mav = new ModelAndView("event-show");
+        return mav;
+    }
+
+
+    @GetMapping("/search")
+    public ModelAndView searchEvent(@RequestParam("q") String q){
+        ModelAndView mav = new ModelAndView("event-search");
+        mav.addObject("keyword", q);
+        return mav;
     }
 }

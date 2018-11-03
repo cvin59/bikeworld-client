@@ -30,7 +30,7 @@
             <!-- Logo -->
             <li>
                 <div class="logo-wrapper waves-light">
-                    <a href="#">
+                    <a href="/home">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7NJDLI2uPFBJN_dsOCavkJObbQf5kn1myxcHqIAgGOu5SMYGq"
                              class="img-fluid flex-center">
                     </a>
@@ -106,27 +106,27 @@
                         </div>
                     </li>
                     <li>
-                        <a class="collapsible-header waves-effect arrow-r font-weight-bold">
+                        <a class="collapsible-header waves-effect arrow-r font-weight-bold" href="/event">
                             <i class="fa fa-calendar"></i>
                             Event
-                            <i class="fa fa-angle-down rotate-icon"></i>
+                            <!--<i class="fa fa-angle-down rotate-icon"></i>-->
                         </a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li>
-                                    <a href="#" class="waves-effect">Clothes</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="waves-effect">Bikes</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="waves-effect">Bike Components</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="waves-effect">Other</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <!--<div class="collapsible-body">-->
+                            <!--<ul>-->
+                                <!--<li>-->
+                                    <!--<a href="#" class="waves-effect">Clothes</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#" class="waves-effect">Bikes</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#" class="waves-effect">Bike Components</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#" class="waves-effect">Other</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
                     </li>
                 </ul>
             </li>
@@ -144,7 +144,10 @@
         </div>
         <!-- Breadcrumb-->
         <div class="breadcrumb-dn mr-auto">
-            <p class="font-weight-bold">Bike World or LOGO</p>
+            <a href="/home">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7NJDLI2uPFBJN_dsOCavkJObbQf5kn1myxcHqIAgGOu5SMYGq"
+                 class="img-fluid flex-center" style="height: 30px; margin-left: 25px">
+            </a>
         </div>
         <ul class="nav navbar-nav nav-flex-icons ml-auto">
             <!--Notification button-->
@@ -293,13 +296,13 @@
     <!--Modal: Login / Register Form-->
 </header>
 <!--Search Section-->
-<section th:fragment="search-box" class="p-3 pl-5 pr-5">
+<section th:fragment="search-box" class="p-5">
     <!-- Search form -->
-    <form class="form-inline d-flex justify-content-center md-form form-sm">
+    <form id="formSearch" class="form-inline d-flex justify-content-center md-form form-sm">
         <!-- Search form -->
-        <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search"
+        <input id="txtSearch" class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search"
                aria-label="Search">
-        <select class="mdb-select md-form">
+        <select id="selectSearchType" class="mdb-select md-form">
             <option value="1">Component</option>
             <option value="2">Trading</option>
             <option value="3">Event</option>

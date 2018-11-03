@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="header :: head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+</head>
+
+<body class="hidden-sn">
+<!--Double navigation-->
+<header th:replace="header :: header"></header>
+<!--Main Layout-->
+<main>
+    <!--Bread Crum Menu-->
+    <div class="container">
+        <nav class="breadcrumb white">
+            <a class="breadcrumb-item text-danger" href="/home">Home</a>
+            <a class="breadcrumb-item text-danger" href="/event">Event</a>
+            <span id="eventName" class="breadcrumb-item active event-name">Event Name</span>
+        </nav>
+    </div>
+    <!--End Bread Crum Menu-->
+
+    <!--Title Div-->
+    <div class="container-fluid">
+        <div class="container">
+            <div class="card card-cascade wider reverse mb-5">
+                <!-- Card content -->
+                <div class="card-body card-body-cascade text-center">
+                    <!-- Title -->
+                    <input type="hidden" id="id" th:value="${id}">
+                    <h1 class="card-title"style="font-size: 24px"><strong id="title" class="event-name"></strong></h1>
+                    <!-- Status -->
+                    <p class="dark-grey-text font-weight-bold mb-md-0 mb-5" id="eventAddress">
+                        Chợ, Lê Lợi, Phường Bến Thành, Quận 1, Hồ Chí Minh 700000
+                    </p>
+                    <p class="dark-grey-text font-weight-bold mb-md-0 mb-5" id="eventOpen">
+                        9:00AM, Ngày 12 Tháng 12 Năm 2018
+                    </p>
+                </div>
+
+            </div>
+            <form id="formRegisterEvent">
+                <!-- Grid row -->
+                <div class="form-row">
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <button class="qty btn-outline-danger btn" type="button" data-func="minus" data-field="field1">-</button>
+                            <input type="number" name="field1" id="selectQuantity"/>
+                            <button class="qty btn-outline-primary btn" type="button" data-func="plus" data-field="field1">+</button>
+                            <label for="selectQuantity" class="active">Quantity</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" disabled
+                                   id="feeEvent"
+                                   min="0.1">
+                            <label for="feeEvent">Fee</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" disabled
+                                   id="total"
+                                   min="0.1">
+                            <label for="total">Total</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Register Event
+                    </button>
+                </div>
+            </form>
+
+        </div>
+        <!--End Title Div-->
+    </div>
+
+</main>
+<div th:replace="footer :: footer"/>
+<script src="/js/event-detail.js"></script>
+</body>
+
+</html>
