@@ -28,7 +28,7 @@ public class PortalController extends AbstractController{
     @GetMapping("/event/{id}")
     public ModelAndView viewCreateEventById(@PathVariable("id") Integer id){
         ModelAndView mav = new ModelAndView("portal-create-event");
-        mav.addObject(id);
+        mav.addObject("id", id);
         return mav;
     }
 

@@ -23,7 +23,7 @@ $(function () {
             console.log(res.data);
             console.log(res.message);
             console.log(JSON.stringify(res.data.accountUsename));
-            window.location.href = frontendServer + "/event";
+            // window.location.href = frontendServer + "/event";
         }).fail((res) => {
             console.log(res.message);
         });
@@ -42,6 +42,7 @@ $(function () {
 
     //start end date
     $('#datetimepickerStart').datetimepicker({
+        useCurrent: false,
         format: 'DD/MM/YYYY HH:mm'
     });
     $('#datetimepickerEnd').datetimepicker({
@@ -55,20 +56,28 @@ $(function () {
         $('#datetimepickerStart').data("DateTimePicker").maxDate(e.date);
     });
 
-    //start end register date
-    // $('#datetimepickerRegiStart').datetimepicker({
-    //     format: 'DD/MM/YYYY HH:mm'
-    // });
-    // $('#datetimepickerRegiEnd').datetimepicker({
-    //     useCurrent: false,
-    //     format: 'DD/MM/YYYY HH:mm'
-    // });
-    // $("#datetimepickerRegiStart").on("dp.change", function (e) {
-    //     $('#datetimepickerRegiEnd').data("DateTimePicker").minDate(e.date);
-    // });
-    // $("#datetimepickerRegiEnd").on("dp.change", function (e) {
-    //     $('#datetimepickerRegiStart').data("DateTimePicker").maxDate(e.date);
-    // });
+    // start end register date
+    $('#datetimepickerRegiStart').datetimepicker({
+        format: 'DD/MM/YYYY HH:mm'
+    });
+    $('#datetimepickerRegiEnd').datetimepicker({
+        useCurrent: false,
+        format: 'DD/MM/YYYY HH:mm'
+    });
+    $("#datetimepickerRegiStart").on("dp.change", function (e) {
+        $('#datetimepickerRegiEnd').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepickerRegiEnd").on("dp.change", function (e) {
+        $('#datetimepickerRegiStart').data("DateTimePicker").maxDate(e.date);
+    });
+
+    $("#datetimepickerRegiEnd").on("dp.change", function (e) {
+        $('#datetimepickerStart').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepickerStart").on("dp.change", function (e) {
+        $('#datetimepickerRegiEnd').data("DateTimePicker").maxDate(e.date);
+    });
+
 
     CKEDITOR.replace('editor', {
         filebrowserImageUploadUrl: backendServer + "/image/upload",
@@ -118,58 +127,75 @@ $(function () {
     }
 
     $('#formCreateEvent').submit((e) => {
-        if (id === "") {
-            e.preventDefault();
-            let json = convertFormToJSON($('#formCreateEvent'));
-            json['description'] = CKEDITOR.instances.editor.getData();
-            console.log(json);
-            let formData = new FormData();
-            formData.append('consumeEventString', JSON.stringify(json));
-            let image = $("#image").get(0).files[0];
-            formData.append('image', image);
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/api/event",
-                dataType: 'json',
-                data: formData,
-                contentType: false,
-                processData: false
+        e.preventDefault();
+        if (validate()) {
+            if (id === "") {
+                let json = convertFormToJSON($('#formCreateEvent'));
+                json['description'] = CKEDITOR.instances.editor.getData();
+                console.log(json);
+                let formData = new FormData();
+                formData.append('consumeEventString', JSON.stringify(json));
+                let image = $("#image").get(0).files[0];
+                formData.append('image', image);
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/api/event",
+                    dataType: 'json',
+                    data: formData,
+                    contentType: false,
+                    processData: false
 
-            }).done((res) => {
-                console.log(res.data);
-                console.log(res.status_code);
-                alert(res.message);
-            }).fail((res) => {
-                console.log(res.message);
-            });
-        } else {
-            e.preventDefault();
-            let json = convertFormToJSON($('#formCreateEvent'));
-            json['description'] = CKEDITOR.instances.editor.getData();
-            console.log(json);
-            let formData = new FormData();
-            formData.append('consumeEventString', JSON.stringify(json));
-            let image = $("#image").get(0).files[0];
-            formData.append('image', image);
-            $.ajax({
-                type: "PUT",
-                url: "http://localhost:8080/api/event",
-                dataType: 'json',
-                data: formData,
-                contentType: false,
-                processData: false
+                }).done((res) => {
+                    console.log(res.data);
+                    console.log(res.status_code);
+                    alert(res.message);
+                }).fail((res) => {
+                    console.log(res.message);
+                });
+            } else {
+                e.preventDefault();
+                let json = convertFormToJSON($('#formCreateEvent'));
+                json['description'] = CKEDITOR.instances.editor.getData();
+                console.log(json);
+                let formData = new FormData();
+                formData.append('consumeEventString', JSON.stringify(json));
+                let image = $("#image").get(0).files[0];
+                formData.append('image', image);
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:8080/api/event",
+                    dataType: 'json',
+                    data: formData,
+                    contentType: false,
+                    processData: false
 
-            }).done((res) => {
-                console.log(res.data);
-                console.log(res.status_code);
-                alert(res.message);
-            }).fail((res) => {
-                console.log(res.message);
-            });
+                }).done((res) => {
+                    console.log(res.data);
+                    console.log(res.status_code);
+                    alert(res.message);
+                }).fail((res) => {
+                    console.log(res.message);
+                });
+            }
         }
-
-
     });
+
+    const validate = () => {
+        let min = parseInt($("input[name=minSlot]").val());
+        let max = parseInt($("input[name=maxSlot]").val());
+        let total = parseInt($("input[name=totalSlots]").val());
+        if (min >= max) {
+            $("#error").css("display", "block");
+            $("#error").text("Min slots must be less than Max Slots");
+            return false;
+        }
+        if (max >= total) {
+            $("#error").css("display", "block");
+            $("#error").text("Max slots must be less than Total Slots");
+            return false;
+        }
+        return true;
+    }
 
     //
     // var watchID = navigator.geolocation.watchPosition(onSuccess, onError, {

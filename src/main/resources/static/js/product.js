@@ -1,3 +1,4 @@
+const frontendServer = 'http://localhost:8084';
 const backendServer = 'http://localhost:8080';
 
 $(function () {

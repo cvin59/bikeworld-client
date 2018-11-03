@@ -56,195 +56,31 @@
 
         <div class="container">
             <!--Search Section-->
-            <section class="p-3 pl-5 pr-5">
-                <!-- Search form -->
-                <form class="form-inline d-flex justify-content-center md-form form-sm">
-                    <!-- Search form -->
-                    <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search" aria-label="Search">
-                    <select class="mdb-select md-form">
-                        <option value="1">Component</option>
-                        <option value="2">Trading</option>
-                        <option value="3">Event</option>
-                    </select>
-                    <div>
-                        <button class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"
-                                aria-hidden="true"></i>Search</button>
-                    </div>
-
-                </form>
-            </section>
+            <section th:replace="header :: search-box"></section>
             <!--End Search Section-->
             <!-- Section: Event -->
             <section id="eventSection" class="magazine-section my-5">
 
                 <!-- Section heading -->
-                <h2 class="h1-responsive my-5">Hot Event</h2>
+                <h2 class="h1-responsive my-5">Event</h2>
 
                 <!-- Grid row -->
                 <div class="row">
 
                     <!-- Grid column -->
-                    <div class="col-lg-6 col-md-12">
+                    <div id="featuredNews" class="col-lg-6 col-md-12">
 
                         <!-- Featured news -->
-                        <div class="single-news mb-lg-0 mb-4">
 
-                            <!-- Image -->
-                            <div class="view overlay rounded z-depth-1-half mb-4">
-                                <img class="img-fluid" src="https://motogp.hondaracingcorporation.com/wp-content/uploads/sites/3/2018/06/5b31f586be6512.57238759.jpg"
-                                    alt="Sample image">
-                                <a>
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-
-                            <!-- Excerpt -->
-                            <h3 class="font-weight-bold dark-grey-text mb-3">
-                                <a>Tên Event</a>
-                            </h3>
-                            <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">Description của event dkgdg gdfjhsfgs
-                                ksfkdsf sk ksdfkjshdfk ksfhksjdfhkjs ksdf ksk ksdhfkjshd</p>
-
-                            <!-- Date -->
-                            <div class="d-flex justify-content-between mt-3">
-                                <p class="dark-grey-text"><i class="fa fa-calendar pr-2 text-danger"></i>27/02/2018</p>
-                                <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>9:00AM - 13:00PM</p>
-                            </div>
-
-                            <!-- Location and Price -->
-                            <div class="d-flex justify-content-between">
-                                <p class="dark-grey-text"><i class="fa fa-map-marker pr-2 text-primary"></i>TP.HCM</p>
-                                <p class="font-weight-bold dark-grey-text"><i class="fa fa-ticket pr-2"></i>100.000 VND</p>
-                            </div>
-
-                            <!-- Link -->
-                            <div class="d-flex justify-content-end w-100">
-                                <a href="#!" class="btn-sm btn-outline-danger text-danger font-weight-bold d-flex justify-content-end">Join
-                                    Now</a>
-                            </div>
-
-                        </div>
                         <!-- Featured news -->
 
                     </div>
                     <!-- Grid column -->
                     <!-- Grid column -->
-                    <div class="col-lg-6 col-md-12">
+                    <div id="smallNews" class="col-lg-6 col-md-12">
 
                         <!-- Small news -->
-                        <div class="single-news mb-4">
 
-                            <!-- Grid row -->
-                            <div class="row">
-
-                                <!-- Grid column -->
-                                <div class="col-md-6">
-
-                                    <!--Image-->
-                                    <div class="view overlay rounded z-depth-1 mb-4">
-                                        <img class="img-fluid" src="https://pbs.twimg.com/media/DoVQ0ifXkAI9aIo.jpg"
-                                            alt="Sample image">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <!-- Grid column -->
-                                <!-- Grid column -->
-                                <div class="col-md-6">
-
-                                    <!-- Excerpt -->
-                                    <h4 class="font-weight-bold dark-grey-text">Tên sự kiện</h4>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="col-11 pl-0">
-                                            <a href="#!" class="dark-grey-text">At vero eos et accusamus et iusto odio
-                                                dignissimos ducimus qui blanditiis</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- Grid column -->
-                                <!-- Date -->
-                                <div class="d-flex justify-content-between w-100">
-                                    <p class="dark-grey-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>27/02/2018</p>
-                                    <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>9:00AM - 13:00PM</p>
-                                </div>
-                                <!-- Location and Price -->
-                                <div class="d-flex justify-content-between w-100">
-                                    <p class="dark-grey-text"><i class="fa fa-map-marker pr-2 text-primary ml-3"></i>HCM
-                                        City</p>
-                                    <p class="font-weight-bold dark-grey-text"><i class="fa fa-ticket pr-2"></i>100.000
-                                        VND</p>
-                                </div>
-
-                                <!-- Link -->
-                                <div class="d-flex justify-content-end w-100">
-                                    <a href="#!" class="btn-sm btn-outline-danger text-danger font-weight-bold d-flex justify-content-end mb-3">Join
-                                        Now</a>
-                                </div>
-
-                            </div>
-                            <!-- Grid row -->
-
-                        </div>
-                        <!-- Small news -->
-                        <!-- Small news -->
-                        <div class="single-news mb-4">
-
-                            <!-- Grid row -->
-                            <div class="row">
-
-                                <!-- Grid column -->
-                                <div class="col-md-6">
-
-                                    <!--Image-->
-                                    <div class="view overlay rounded z-depth-1 mb-4">
-                                        <img class="img-fluid" src="https://mcn-images.bauersecure.com/pagefiles/643159/triumph-765-moto2-03.jpg"
-                                            alt="Sample image">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <!-- Grid column -->
-                                <!-- Grid column -->
-                                <div class="col-md-6">
-
-                                    <!-- Excerpt -->
-                                    <h4 class="font-weight-bold dark-grey-text">Tên sự kiện</h4>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="col-11 pl-0 mb-3">
-                                            <a href="#!" class="dark-grey-text">At vero eos et accusamus et iusto odio
-                                                dignissimos ducimus qui blanditiis</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- Grid column -->
-                                <!-- Date -->
-                                <div class="d-flex justify-content-between w-100">
-                                    <p class="dark-grey-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>27/02/2018</p>
-                                    <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>9:00AM - 13:00PM</p>
-                                </div>
-                                <!-- Location and Price -->
-                                <div class="d-flex justify-content-between w-100">
-                                    <p class="dark-grey-text"><i class="fa fa-map-marker pr-2 text-primary ml-3"></i>TP.HCM</p>
-                                    <p class="font-weight-bold dark-grey-text"><i class="fa fa-ticket pr-2"></i>100.000
-                                        VND</p>
-                                </div>
-
-                                <!-- Link -->
-                                <div class="d-flex justify-content-end w-100">
-                                    <a href="#!" class="btn-sm btn-outline-danger text-danger font-weight-bold d-flex justify-content-end">Join
-                                        Now</a>
-                                </div>
-
-                            </div>
-                            <!-- Grid row -->
-
-                        </div>
                         <!-- Small news -->
 
                     </div>
@@ -253,7 +89,7 @@
                 </div>
                 <!-- Grid row -->
                 <div class="d-flex justify-content-end">
-                    <a>
+                    <a href="/event">
                         <h4 class="text-danger font-weight-bold">More >></h4>
                     </a>
                 </div>
@@ -991,6 +827,9 @@
 
     </main>
     <div th:replace="footer :: footer"/>
+    <script src="/js/home.js">
+
+    </script>
 </body>
 
 </html>
