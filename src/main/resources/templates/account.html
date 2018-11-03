@@ -189,25 +189,27 @@
                             <!--Pagination-->
                             <nav class="mr-5 wow bounceInUp animated fast" aria-label="Page navigation example">
                                 <ul class="pagination pagination-circle pg-blue">
-                                    <li class="page-item disabled"><a class="page-link">First</a></li>
-                                    <li class="page-item disabled">
+                                    <li class="page-item disabled" id="eventList-first-page">
+                                        <a class="page-link">First</a></li>
+                                    <li class="page-item disabled" id="eventList-previous-page">
                                         <a class="page-link" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span class="sr-only">Previous</span>
                                         </a>
                                     </li>
-                                    <li class="page-item active"><a class="page-link">1</a></li>
-                                    <li class="page-item"><a class="page-link">2</a></li>
-                                    <li class="page-item"><a class="page-link">3</a></li>
-                                    <li class="page-item"><a class="page-link">4</a></li>
-                                    <li class="page-item"><a class="page-link">5</a></li>
-                                    <li class="page-item">
+                                    <li class="page-item active" id="eventList-current-page-2"><a
+                                            class="page-link">1</a></li>
+                                    <li class="page-item" id="eventList-current-page-1"><a class="page-link">2</a></li>
+                                    <li class="page-item" id="eventList-current-page"><a class="page-link">3</a></li>
+                                    <li class="page-item" id="eventList-current-page+1"><a class="page-link">4</a></li>
+                                    <li class="page-item" id="eventList-current-page+2"><a class="page-link">5</a></li>
+                                    <li class="page-item" id="eventList-next-page">
                                         <a class="page-link" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                             <span class="sr-only">Next</span>
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link">Last</a></li>
+                                    <li class="page-item" id="eventList-last-page"><a class="page-link" >Last</a></li>
                                 </ul>
                             </nav>
                             <!--End Pagination-->
@@ -414,39 +416,40 @@
                         <!--End Product Row-->
 
                         <div class="d-flex justify-content-end">
-
-
                             <!--Pagination-->
-                            <nav class="mr-5 wow bounceInUp animated fast"
-                                 aria-label="Page navigation example">
+                            <nav class="mr-5 wow bounceInUp animated fast" aria-label="Page navigation example">
                                 <ul class="pagination pagination-circle pg-blue">
-                                    <li class="page-item disabled"><a
-                                            class="page-link">First</a>
-                                    </li>
-                                    <li class="page-item disabled">
+                                    <li id="productList-first-page">
+                                        <a class="page-link">First</a></li>
+                                    <li id="productList-previous-page">
                                         <a class="page-link" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span class="sr-only">Previous</span>
                                         </a>
                                     </li>
-                                    <li class="page-item active"><a
-                                            class="page-link">1</a></li>
-                                    <li class="page-item"><a class="page-link">2</a>
+                                    <li class="page-item" id="productList-back2">
+                                        <a class="page-link">1</a>
                                     </li>
-                                    <li class="page-item"><a class="page-link">3</a>
+                                    <li class="page-item" id="productList-back">
+                                        <a class="page-link">2</a>
                                     </li>
-                                    <li class="page-item"><a class="page-link">4</a>
+                                    <li class="page-item active" id="productList-current-page">
+                                        <a class="page-link">3</a>
                                     </li>
-                                    <li class="page-item"><a class="page-link">5</a>
+                                    <li class="page-item" id="productList-next">
+                                        <a class="page-link">4</a>
                                     </li>
-                                    <li class="page-item">
+                                    <li class="page-item" id="productList-next2">
+                                        <a class="page-link">5</a>
+                                    </li>
+
+                                    <li id="productList-next-page">
                                         <a class="page-link" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                             <span class="sr-only">Next</span>
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link">Last</a>
-                                    </li>
+                                    <li id="productList-last-page"><a class="page-link">Last</a></li>
                                 </ul>
                             </nav>
                             <!--End Pagination-->
@@ -556,8 +559,7 @@
                                     <div class="pl-0 pr-0 mb-3 pt-3 pb-3">
                                         <div class="row">
                                             <div class="col-4 pt-3 view zoom">
-                                                <a href=""><img class="img-fluid"
-                                                                src="https://mcn-images.bauersecure.com/pagefiles/597618/1-scrambler.jpg"></a>
+                                                <img class="img-fluid" id="detailProductAvatar">
                                             </div>
                                             <div class="col-8 card shadow-none">
                                                 <div class="card-body">
@@ -590,11 +592,7 @@
                                                         <dd class="col-sm-9" id="detailProductPostDate">
                                                         </dd>
                                                     </dl>
-                                                    <div>
-                                                        <span class="badge badge-danger">Status</span>
-                                                        <span class="badge badge-light">Status</span>
-                                                        <span class="badge badge-primary">Status</span>
-                                                        <span class="badge badge-success">Status</span>
+                                                    <div id="detailProductStatus">
                                                     </div>
                                                 </div>
                                             </div>
@@ -790,37 +788,15 @@
                                         <div class="col-md-12">
                                             <div class="file-field">
                                                 <div class="btn btn-primary btn-sm float-left">
-                                                    <span>Choose files</span>
-                                                    <input type="file" multiple id="files-upload">
+                                                    <span>Add Images</span>
+                                                    <input type="file" multiple id="create-files-upload">
                                                 </div>
-                                                <div class="file-path-wrapper">
-                                                    <input class="file-path validate" type="text"
-                                                           placeholder="Upload one or more files">
+                                                <div class="btn warning-color btn-sm float-left" id="btnClear">
+                                                    <span> Clear</span>
                                                 </div>
                                             </div>
                                             <table role="presentation" class="table table-striped" id="image-table">
-                                                <tbody id="file-list">
-                                                <!--<tr class="template" id="img1">-->
-                                                <!--<td>-->
-                                                <!--<span class="preview">-->
-                                                <!--<canvas id="myCanvas" width="200" height="100"-->
-                                                <!--style="border:1px solid #000000;"/>-->
-                                                <!--</span>-->
-                                                <!--</td>-->
-                                                <!--<td>-->
-                                                <!--<p class="name" id="imgName"></p>-->
-                                                <!--</td>-->
-                                                <!--<td>-->
-                                                <!--<p class="glyphicon-text-size" id="imgSize"></p>-->
-                                                <!--</td>-->
-                                                <!--<td>-->
-                                                <!--<button class="btn btn-danger delete" id="btnDelete">-->
-                                                <!--<i class="glyphicon glyphicon-trash">-->
-                                                <!--<span>Delete</span>-->
-                                                <!--</i>-->
-                                                <!--</button>-->
-                                                <!--</td>-->
-                                                <!--</tr>-->
+                                                <tbody id="create-file-list">
                                                 </tbody>
                                             </table>
                                         </div>
@@ -830,9 +806,7 @@
                                         <button type="button" class="btn btn-danger"
                                                 data-dismiss="modal">Cancel
                                         </button>
-                                        <button type="submit" class="btn btn-primary"
-                                                id="btnCreate">Save
-                                        </button>
+                                        <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
                                 </form>
 
@@ -863,13 +837,14 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form id="edit-product-form">
                                     <!-- Grid row -->
                                     <div class="form-row">
                                         <!-- Grid column -->
                                         <div class="col-md-6">
                                             <!-- Material input -->
                                             <div class="md-form form-group">
+                                                <input hidden id="editProductId">
                                                 <input type="text" class="form-control"
                                                        id="editProductName"
                                                        readonly
@@ -939,10 +914,25 @@
                                                 <textarea id="editProductDescription" class="form-control md-textarea"
                                                           name="productDescription"></textarea>
                                             </div>
-
                                             <!-- Grid column -->
                                         </div>
                                         <!-- Grid column -->
+                                    </div>
+                                    <div class="row">
+                                        <!-- Grid column -->
+                                        <div class="col-md-12">
+                                            <div class="file-field">
+                                                <div class="btn btn-primary btn-sm float-left">
+                                                    <span>Add Images</span>
+                                                    <input type="file" multiple id="edit-files-upload">
+                                                </div>
+                                            </div>
+                                            <table role="presentation" class="table table-striped"
+                                                   id="edit-image-table">
+                                                <tbody id="edit-file-list">
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger"
@@ -956,75 +946,6 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <!--End Product List Tab-->
-
-                    <!--Order List Tab-->
-                    <div class="tab-pane fade" id="order-list-tab" role="tabpanel" aria-labelledby="order-list-link">
-                        <div class="table-responsive">
-                        <table class="table table-sm table-hover table-bordered customtable respo" cellspacing="0" width="100%">
-                            <thead>
-                                <tr class="">
-                                    <th class="th-sm">Product Name
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Buyer
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Quantity
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Status
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Order Date
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Total Price
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Action
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><a class="btn-link">Some component</a></td>
-                                    <td><a class="btn-link">Buyer Name</a></td>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">
-                                        <h6 class="text-success">Active</h6>
-                                    </td>
-                                    <td>2011/04/25</td>
-                                    <td>320,800 VND</td>
-                                    <td class="text-center"><a class="btn-link text-danger font-weight-bold">Cancel</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a class="btn-link">Some component 2</a></td>
-                                    <td><a class="btn-link">Buyer Name</a></td>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">
-                                        <h6 class="text-danger">Canceled</h6>
-                                    </td>
-                                    <td>2011/04/25</td>
-                                    <td>320,800 VND</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><a class="btn-link">Some component 3</a></td>
-                                    <td><a class="btn-link">Buyer Name</a></td>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">
-                                        <h6 class="text-dark">Done</h6>
-                                    </td>
-                                    <td>2011/04/25</td>
-                                    <td>320,800 VND</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-=======
                 </div>
                 <!--End Product Edit Modal-->
 
@@ -1053,7 +974,6 @@
                                     changes
                                 </button>
                             </div>
->>>>>>> master
                         </div>
                     </div>
                 </div>

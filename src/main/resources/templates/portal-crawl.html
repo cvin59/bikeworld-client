@@ -38,9 +38,9 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-9">
-                                <div class="col-md-6" >
+                                <div class="col-md-6">
                                     <button id="startCrawlRev" class="btn btn-primary" onclick="runCrawl('revzilla')">
-                                       Start Crawl
+                                        Start Crawl
                                     </button>
                                     <button id="stopCrawlRev" class="btn btn-danger" onclick="stopCrawl('revzilla')">
                                         Stop
@@ -49,8 +49,11 @@
                                     <button id="viewCrawlRev" class="btn btn-info" onclick="viewCrawl('revzilla')">View
                                         Crawl
                                     </button>
+
+                                    <button id="saveAll" class="btn btn-info" onclick="saveAll()">Save All
+                                    </button>
                                 </div>
-                                <div class="form-group col-md-6"  >
+                                <div class="form-group col-md-6">
                                     <select class="form-control" id="sel1">
                                         <option>Revzilla</option>
                                         <option>Ynebikers</option>
@@ -58,7 +61,8 @@
                                 </div>
                             </div>
                             <div class=" col-md-3">
-                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#myModal">Add Component Manually</a>
+                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#myModal">Add
+                                    Component Manually</a>
                             </div>
                         </div>
                         <div style="border-top-style: groove; border-top-radius: 0.5px; padding-top: 5px;">
@@ -75,7 +79,7 @@
                                     <th width="250px">Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="crawlTableBody">
                                 <tr>
                                     <td>1</td>
                                     <td>Name 1</td>
@@ -91,7 +95,6 @@
                                             </button>
                                             <button class="btn btn-danger">Disapprove
                                             </button>
-
                                         </div>
                                     </td>
                                 </tr>
@@ -161,9 +164,19 @@
 </div>
 <div th:replace="portal-js :: footer"></div>
 <script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
+
+    var productList = [];
+
+    function PageCrawl(list) {
+
+        this.list = list;
+    }
+
+
+    // $(document).ready(function () {
+    //     $('#example').DataTable();
+    // });
+
 
     const backendServer = "http://localhost:8080/";
     // $("#startCrawlRev").click(function () {
@@ -175,6 +188,47 @@
     //     stopCrawl("revzilla");
     // });
 
+
+    function showView(data) {
+        let list = JSON.parse(data);
+        let tableBody = $("#crawlTableBody");
+        tableBody.empty();
+
+        for (let i = 0; i <= list.length; i++) {
+
+        }
+    }
+
+    function showPage(pageNum) {
+        let tableBody = $("#crawlTableBody");
+        tableBody.empty();
+        var page = productList[pageNum];
+        for (let i = 0; i <= page.length; i++) {
+            addRow(page[i]);
+        }
+    }
+
+
+    function addRow(rowData) {
+        let tableBody = $("#crawlTableBody");
+        tableBody.append("                                <tr>\n" +
+            "                                    <td>" + rowData.id + "</td>\n" +
+            "                                    <td>\" + rowData.name + \"</td>\n" +
+            "                                    <td>\" + rowData.price + \"</td>\n" +
+            "                                    <td></td>\n" +
+            "                                    <td>\" + rowData.url + \"</td>\n" +
+            "                                    <td><span class=\"label label-warning\">\" + rowData.status + \"</span></td>\n" +
+            "                                    <td>\n" +
+            "                                        <div class=\"form-group\">\n" +
+            "                                            <button class=\"btn btn-primary\">Edit\n" +
+            "                                            </button>\n" +
+            "                                            <button class=\"btn btn-success\">Approve\n" +
+            "                                            </button>\n" +
+            "                                            <button class=\"btn btn-danger\">Disapprove\n" +
+            "                                            </button>\n" +
+            "                                        </div>\n" +
+            "                                    </td>");
+    }
 
     function runCrawl(site) {
         $.ajax({
@@ -207,7 +261,7 @@
             dataType: 'json',
             success: function (data) {
 
-                 alert("!");
+                alert("!");
                 console.log(data);
                 // $.each(data, function(index, element) {
                 //     $('body').append($('<div>', {
@@ -232,6 +286,77 @@
 
                 alert("!");
                 console.log(data);
+                // $.each(data, function(index, element) {
+                //     $('body').append($('<div>', {
+                //         text: element.name
+                //     }));
+                // });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function loadPendingPage(page) {
+        // for (let i = 0; i < productList.length; i++) {
+        //     if (productList[i].num === page) {
+        //         return;
+        //     }
+        // }
+        if (productList[page] != 0) {
+            return;
+        }
+        $.ajax({
+            type: 'GET',
+            url: backendServer + 'api/crawl/pending/' + page,
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+
+                // alert("!");
+                // console.log(data);
+
+
+                productList[page] = JSON.parse(data);
+
+                $.each(data, function (index, element) {
+                    $('body').append($('<div>', {
+                        text: element.name
+                    }));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function prepareProductList() {
+        let pageCount = getPageCount();
+        productList = [];
+        for (let i = 0; i < pageCount; i++) {
+            productList.push(0);
+        }
+        loadPendingPage(1);
+    }
+
+
+    function getPageCount() {
+
+        $.ajax({
+            type: 'GET',
+            url: backendServer + 'api/crawl/countpending/',
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+
+                // alert("!");
+                // console.log(data);
+                let count = JSON.parse(data);
+                let pageCount = count / 20 + (count % 20) & 1;
+
+
                 // $.each(data, function(index, element) {
                 //     $('body').append($('<div>', {
                 //         text: element.name
