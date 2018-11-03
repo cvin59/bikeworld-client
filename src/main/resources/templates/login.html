@@ -15,6 +15,7 @@
 
     <!-- Custom CSS -->
     <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/dist/css/login-style.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -43,31 +44,49 @@
 
 <body>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please Sign In</h3>
-                </div>
-                <div class="panel-body">
-                    <form role="form">
-                        <fieldset>
-                            <div class="form-group">
-                                <input id="signin-username" class="form-control" placeholder="Username" name="username" type="text" autofocus>
-                            </div>
-                            <div class="form-group">
-                                <input id="signin-password" class="form-control" placeholder="Password" name="password" type="password" value="">
-                            </div>
-                            <!-- Change this to a button or input when using this as a form -->
-                            <button type="button" class="btn btn-success btn-lg btn-block" id="signin-button">LOGIN</button>
-                        </fieldset>
-                    </form>
-                </div>
+    <div class="box">
+        <h2>Login</h2>
+        <form id="formLoginPortal">
+            <div class="inputBox">
+                <input id="signin-username"  name="username" required=""/>
+                <label>Username</label>
             </div>
-        </div>
+            <div class="inputBox">
+                <input id="signin-password" name="password" required=""/>
+                <label>Password</label>
+            </div>
+            <input type="submit" id="signin-button" value="Login"/>
+        </form>
     </div>
-</div>
+
+
+<!--<div class="container">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-4 col-md-offset-4">-->
+            <!--<div class="login-panel panel panel-default">-->
+                <!--<div class="panel-heading">-->
+                    <!--<h3 class="panel-title">Please Sign In</h3>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<form role="form">-->
+                        <!--<fieldset>-->
+                            <!--<div class="form-group">-->
+                                <!--<input id="signin-username" class="form-control" placeholder="Username" name="username" type="text" autofocus>-->
+                            <!--</div>-->
+                            <!--<div class="form-group">-->
+                                <!--<input id="signin-password" class="form-control" placeholder="Password" name="password" type="password" value="">-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; Change this to a button or input when using this as a form &ndash;&gt;-->
+                            <!--<button type="button" class="btn btn-success btn-lg btn-block" id="signin-button">LOGIN</button>-->
+                        <!--</fieldset>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--</div>-->
+
+<!--</div>-->
 <script src="/js/login-portal.js"></script>
 </body>
 

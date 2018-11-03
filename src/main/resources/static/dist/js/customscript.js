@@ -44,15 +44,16 @@ $('.carousel-no-auto').carousel({
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+        reader.onload = function (e) {
+            $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
             $('#imagePreview').hide();
             $('#imagePreview').fadeIn(650);
         }
         reader.readAsDataURL(input.files[0]);
     }
 }
-$("#imageUpload").change(function() {
+
+$("#imageUpload").change(function () {
     readURL(this);
 });
 //Image Preview
@@ -61,4 +62,20 @@ $("#imageUpload").change(function() {
 $(document).ready(function () {
     $('.customtable').DataTable();
     $('.dataTables_length').addClass('bs-select');
-  });
+
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 860) {
+            $('#btnGoTop').fadeTo("slow", 8.6);
+        } else {
+            $('#btnGoTop').fadeOut(400);
+        }
+    });
+
+    $('#btnGoTop').click(function(event) {
+        event.preventDefault();
+
+        $('html, body').animate({scrollTop: 0}, 1000);
+    })
+});
+
+

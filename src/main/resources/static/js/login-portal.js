@@ -6,7 +6,8 @@ $(function () {
         var username = $('#signin-username');
         var password = $('#signin-password');
 
-        $('#signin-button').click(function () {
+        $('#formLoginPortal').submit(function (e) {
+            e.preventDefault();
             let resp = $.ajax({
                 url: backendServer + '/login',
                 method: 'POST',
