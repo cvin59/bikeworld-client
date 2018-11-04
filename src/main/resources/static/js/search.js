@@ -1,3 +1,5 @@
+
+
 $(function () {
     const searchEvent = (keyword) => {
         $.ajax({
@@ -10,7 +12,20 @@ $(function () {
         }).fail((res) => {
             alert(res.message);
         });
-    }
+    };
+
+    const searchTrading = (keyword) => {
+        $.ajax({
+            type: "GET",
+            url: backendServer + "/api/product/search?searchValue=" + keyword +
+                "&page=" + 1,
+            dataType: 'json',
+        }).done((res) => {
+            location.href = frontendServer + "/product?searchValue=" + keyword;
+        }).fail((res) => {
+            alert(res.message);
+        });
+    };
 
     $("#formSearch").submit((e) => {
         e.preventDefault();
@@ -19,7 +34,7 @@ $(function () {
         switch (type) {
             case "1":
                 break;
-            case "2":
+            case "2": location.href = frontendServer + "/product/search?searchValue=" + keyword;
                 break;
             case "3":
                 location.href = frontendServer + "/event/search?q=" + keyword;
