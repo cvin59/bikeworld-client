@@ -1,6 +1,3 @@
-const frontendServer = 'http://localhost:8084';
-const backendServer = 'http://localhost:8080';
-
 var imgSeq = 0;
 var uploadImgList = [];
 var deleteImgList = [4, 5, 6];
@@ -264,7 +261,7 @@ function showProductList() {
                     }
 
                     $("#show-product-list").append(
-                        "<div class=\"row wow bounceInUp animated fast\">\n" +
+                        "<div class=\"row\">\n" +
                         "                                <div class=\"col-4 pt-3 view zoom\">\n" +
                         "                                    <a href=\"\"><img class=\"img-fluid\"\n" +
                         "                                                    src=" + '"' + avatar + '"' + "></a>\n" +
@@ -352,9 +349,9 @@ function showProductList() {
                     $("#show-product-stars-" + i).html(stars);
 
                     showStatus(productList[i].productInfo.statusId, i, $("#show-product-status-" + i));
-                    productListPagination(productListTotalPage, productListPage);
-                }
 
+                }
+                productListPagination(productListTotalPage, productListPage);
 
             }
 
@@ -508,30 +505,58 @@ function productListPagination(totalPage, currentPage) {
         document.getElementById("productList-next-page").className = "page-item";
     }
 
-    switch (currentPage) {
+    switch (totalPage) {
         case 1:
             $("#productList-back2").css("display", "none");
             $("#productList-back").css("display", "none");
-            break;
-        case 2:
-            $("#productList-back2").css("display", "none");
-            $("#productList-back").css("display", "block");
-            break;
-
-        case totalPage:
             $("#productList-next").css("display", "none");
             $("#productList-next2").css("display", "none");
             break;
-        case totalPage - 1:
-            $("#productList-next").css("display", "block");
-            $("#productList-next2").css("display", "none");
-            break;
+        case 2:
+            if (currentPage == 1) {
+                $("#productList-back2").css("display", "none");
+                $("#productList-back").css("display", "none");
+                $("#productList-next").css("display", "block");
+                $("#productList-next2").css("display", "none");
+            } else if (currentPage == 2) {
+                $("#productList-back2").css("display", "none");
+                $("#productList-back").css("display", "block");
+                $("#productList-next").css("display", "none");
+                $("#productList-next2").css("display", "none");
+            }
         default:
-            $("#productList-back2").css("display", "block");
-            $("#productList-back").css("display", "block");
-            $("#productList-next2").css("display", "block");
-            $("#productList-next").css("display", "block");
-            break;
+            switch (currentPage) {
+                case 1:
+                    $("#productList-back2").css("display", "none");
+                    $("#productList-back").css("display", "none");
+                    $("#productList-next").css("display", "block");
+                    $("#productList-next2").css("display", "block");
+                    break;
+                case 2:
+                    $("#productList-back2").css("display", "none");
+                    $("#productList-back").css("display", "block");
+                    $("#productList-next").css("display", "block");
+                    $("#productList-next2").css("display", "block");
+                    break;
+                default:
+                    if (totalPage - currentPage == 0) {
+                        $("#productList-back2").css("display", "block");
+                        $("#productList-back").css("display", "block");
+                        $("#productList-next").css("display", "none");
+                        $("#productList-next2").css("display", "none");
+                    } else if (totalPage - currentPage == 1) {
+                        $("#productList-back2").css("display", "block");
+                        $("#productList-back").css("display", "block");
+                        $("#productList-next").css("display", "block");
+                        $("#productList-next2").css("display", "none");
+                    } else {
+                        $("#productList-next").css("display", "block");
+                        $("#productList-next2").css("display", "blcck");
+                        $("#productList-back2").css("display", "block");
+                        $("#productList-back").css("display", "block");
+                    }
+                    break;
+            }
     }
     var back2 = currentPage - 2;
     $("#productList-back2").html("  <a class=\"page-link\">" + back2 + "</a>");

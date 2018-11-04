@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="header :: head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+</head>
+
+<body class="hidden-sn">
+<!--Double navigation-->
+<header th:replace="header :: header"></header>
+<main>
+    <div class="container">
+        <section th:replace="header :: search-box"></section>
+        <!-- Filter -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="border p-2">
+                    <div class="row text-md-center">
+                        <div class="col-md-3">
+                            <select id="selectSortBy" class="mdb-select mdb-form">
+                                <option value="name">Name</option>
+                                <option value="postDate">Date</option>
+                                <option value="price">Price</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select id="selectDirection" class="mdb-select mdb-form">
+                                <option value="ASC">Ascending</option>
+                                <option value="DESC">Descending</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Filter -->
+
+        <!--Show Product -->
+        <div class="row">
+            <div class="col-12">
+                <div class="row" id="show-product-list">
+                </div>
+            </div>
+        </div>
+        <!--End Show Product -->
+
+        <div class="d-flex justify-content-end">
+            <!--Pagination-->
+            <nav class="mr-5 wow bounceInUp animated fast" aria-label="Page navigation example">
+                <ul class="pagination pagination-circle pg-blue">
+                    <li id="productList-first-page">
+                        <a class="page-link">First</a></li>
+                    <li id="productList-previous-page">
+                        <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" id="productList-back2">
+                        <a class="page-link"></a>
+                    </li>
+                    <li class="page-item" id="productList-back">
+                        <a class="page-link"></a>
+                    </li>
+                    <li class="page-item active" id="productList-current-page">
+                        <a class="page-link"></a>
+                    </li>
+                    <li class="page-item" id="productList-next">
+                        <a class="page-link"></a>
+                    </li>
+                    <li class="page-item" id="productList-next2">
+                        <a class="page-link"></a>
+                    </li>
+
+                    <li id="productList-next-page">
+                        <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li id="productList-last-page"><a class="page-link">Last</a></li>
+                </ul>
+            </nav>
+            <!--End Pagination-->
+        </div>
+        <div th:replace="footer :: footer"/>
+    </div>
+    <script src="/js/trading-search.js"></script>
+</main>
+</body>
+
+</html>
