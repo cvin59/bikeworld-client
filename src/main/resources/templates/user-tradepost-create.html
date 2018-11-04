@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="header :: head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+</head>
+
+<body class="hidden-sn">
+<!--Double navigation-->
+<header th:replace="header :: header"></header>
+<script type="text/javascript" src="/dist/js/jquery-3.3.1.min.js"></script>
+<script src="/js/auth.js"></script>
+<!--Main Layout-->
+<!--Search-->
+<section th:replace="header :: search-box"></section>
+<div class="container-fluid mb-5">
+    <div class="row">
+        <div class="col-2">
+            <div th:fragment="user-sidebar" class="list-group">
+                <a href="/user/profile" class="list-group-item list-group-item-action">Account</a>
+                <a href="/user/joined-events" class="list-group-item list-group-item-action">Joined Events</a>
+                <a href="/user/proposed-events" class="list-group-item list-group-item-action">Proposed Events</a>
+                <a href="/user/buy-list" class="list-group-item list-group-item-action">Buy Order List</a>
+                <a href="/user/order-list" class="list-group-item list-group-item-action">Sale Order Listr</a>
+                <a href="/user/product" class="list-group-item list-group-item-action">Product List</a>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Create Product</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="create-product-form">
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-6">
+                                        <!-- Material input -->
+                                        <div class="md-form form-group">
+                                            <input type="text" class="form-control"
+                                                   id="inputProductName"
+                                                   placeholder="Product Name" required>
+                                            <label for="inputProductName">Name</label>
+                                        </div>
+                                    </div>
+                                    <!-- Grid column -->
+
+                                    <!-- Grid column -->
+                                    <div class="col-md-6">
+                                        <!-- Material input -->
+                                        <div class="md-form form-group">
+                                            <input type="text" class="form-control"
+                                                   id="inputProductPrice"
+                                                   placeholder="Product Price"
+                                                   min="0.1"
+                                                   required>
+                                            <label for="inputProductPrice">Price</label>
+                                        </div>
+                                    </div>
+                                    <!-- Grid column -->
+                                </div>
+                                <!-- Grid row -->
+
+                                <!-- Grid row -->
+                                <div class="row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-12">
+                                        <!-- Material input -->
+                                        <div class="md-form form-group">
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="inputProductQuantity"
+                                                   placeholder="Product Quantity"
+                                                   min="1" max="99"
+                                                   required>
+                                            <label for="inputProductQuantity">Quantity</label>
+                                        </div>
+                                    </div>
+                                    <!-- Grid column -->
+                                </div>
+                                <!-- Grid row -->
+                                <div class="row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-6">
+                                        <select class="mdb-select md-form" id="inputProductCategory" required>
+                                            <option value="" disabled selected> Choose Category</option>
+                                        </select>
+                                        <label for="inputProductCategory">Category</label>
+                                    </div>
+                                    <!-- Grid column -->
+                                    <div class="col-md-6">
+                                        <select class="mdb-select md-form" id="inputProductBrand">
+                                            <option value="" disabled selected> Choose Brand</option>
+                                        </select>
+                                        <label for="inputProductBrand">Brand</label>
+                                    </div>
+                                    <!-- Grid column -->
+                                </div>
+                                <!-- Grid row -->
+                                <div class="row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-12">
+                                        <!-- Material input -->
+                                        <div class="md-form form-group">
+                                            <input type="text" class="form-control"
+                                                   id="inputProductAddress"
+                                                   placeholder="Address" required>
+                                            <label for="inputProductAddress">Address</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+                                </div>
+                                <!-- Grid row -->
+                                <div class="row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-12">
+                                        <label for="descriptionDiv">Description</label>
+                                        <div class="md-form" id="descriptionDiv">
+                                                <textarea id="inputProductDescription" class="form-control md-textarea"
+                                                          name="productDescription"></textarea>
+                                        </div>
+
+                                        <!-- Grid column -->
+                                    </div>
+                                    <!-- Grid column -->
+                                </div>
+                                <div class="row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-12">
+                                        <div class="file-field">
+                                            <div class="btn btn-primary btn-sm float-left">
+                                                <span>Add Images</span>
+                                                <input type="file" multiple id="create-files-upload">
+                                            </div>
+                                            <div class="btn warning-color btn-sm float-left" id="btnClear">
+                                                <span> Clear</span>
+                                            </div>
+                                        </div>
+                                        <table role="presentation" class="table table-striped" id="image-table">
+                                            <tbody id="create-file-list">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"/>
+<script src="/js/account.js">
+</script>
+<script src="/js/product.js"></script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+</body>
+
+</html>

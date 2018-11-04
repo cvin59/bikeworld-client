@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="header :: head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+</head>
+
+<body class="hidden-sn">
+<!--Double navigation-->
+<header th:replace="header :: header"></header>
+<script type="text/javascript" src="/dist/js/jquery-3.3.1.min.js"></script>
+<script src="/js/auth.js"></script>
+<!--Main Layout-->
+<!--Search-->
+<section th:replace="header :: search-box"></section>
+<div class="container-fluid mb-5">
+    <div class="row">
+        <div class="col-2">
+            <div th:fragment="user-sidebar" class="list-group">
+                <a href="/user/profile" class="list-group-item list-group-item-action">Account</a>
+                <a href="/user/joined-events" class="list-group-item list-group-item-action">Joined Events</a>
+                <a href="/user/proposed-events" class="list-group-item list-group-item-action">Proposed Events</a>
+                <a href="/user/buy-list" class="list-group-item list-group-item-action">Buy Order List</a>
+                <a href="/user/order-list" class="list-group-item list-group-item-action">Sale Order Listr</a>
+                <a href="/user/product" class="list-group-item list-group-item-action">Product List</a>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4> Product Detail</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="container">
+                                <!--Product Row-->
+                                <div class="pl-0 pr-0 mb-3 pt-3 pb-3">
+                                    <div class="row">
+                                        <div class="col-4 pt-3 view zoom">
+                                            <img class="img-fluid" id="detailProductAvatar">
+                                        </div>
+                                        <div class="col-8 card shadow-none">
+                                            <div class="card-body">
+                                                <a>
+                                                    <input hidden id="editProductId" th:value="${id}">
+                                                    <h4 class="font-weight-bold" id="detailProductName"></h4>
+                                                </a>
+                                                <!--Rating-->
+                                                <div class="d-flex justify-content-start ">
+                                                    <div class="orange-text" id="detailProductRate">
+                                                        <!--<i class="fa fa-star"> </i>-->
+                                                        <!--<i class="fa fa-star"> </i>-->
+                                                        <!--<i class="fa fa-star"> </i>-->
+                                                        <!--<i class="fa fa-star-half-o"> </i>-->
+                                                        <!--<i class="fa fa-star-o"> </i>-->
+                                                    </div>
+
+                                                    <div>
+                                                        <p class="ml-3" id="detailProductRater">
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+
+                                                <h5 class="text-danger" id="detailProductPrice"></h5>
+                                                <dl class="row">
+                                                    <dt class="col-sm-3">Quantity</dt>
+                                                    <dd class="col-sm-9" id="detailProductQuantity"></dd>
+
+                                                    <dt class="col-sm-3">Added Date</dt>
+                                                    <dd class="col-sm-9" id="detailProductPostDate">
+                                                    </dd>
+                                                </dl>
+                                                <div id="detailProductStatus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End Product Row-->
+
+                                <h3>Buyer List</h3>
+                                <table class="table table-hover table-bordered customtable" cellspacing="0"
+                                       width="100%">
+                                    <thead>
+                                    <tr class="">
+                                        <th class="th-sm">Buyer
+                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                        </th>
+                                        <th class="th-sm">Quantity
+                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                        </th>
+                                        <th class="th-sm">Status
+                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                        </th>
+                                        <th class="th-sm">Order Date
+                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                        </th>
+                                        <th class="th-sm">Total Price
+                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                        </th>
+                                        <th class="th-sm">Action
+                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><a class="btn-link">Buyer Name</a></td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-center">
+                                            <h6 class="text-success">Active</h6>
+                                        </td>
+                                        <td>2011/04/25</td>
+                                        <td>320,800 VND</td>
+                                        <td class="text-center"><a
+                                                class="btn-link text-danger font-weight-bold">Cancel</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="btn-link">Buyer Name</a></td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-center">
+                                            <h6 class="text-danger">Canceled</h6>
+                                        </td>
+                                        <td>2011/04/25</td>
+                                        <td>320,800 VND</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="btn-link">Buyer Name</a></td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-center">
+                                            <h6 class="text-dark">Done</h6>
+                                        </td>
+                                        <td>2011/04/25</td>
+                                        <td>320,800 VND</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"/>
+<script src="/js/account.js">
+</script>
+<script src="/js/product.js"></script>
+<script>
+    var seq = $("#editProductId").val();
+    showDetailPage(seq);
+</script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+</body>
+
+</html>
