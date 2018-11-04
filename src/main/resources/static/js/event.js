@@ -2,6 +2,9 @@ $(function () {
 
     const frontendServer = 'http://localhost:8084';
     const backendServer = 'http://localhost:8080';
+
+    var chosenImage;
+
     //propose event
     $('#formProposeEvent').submit((e) => {
         e.preventDefault();
@@ -9,8 +12,7 @@ $(function () {
         console.log(json);
         let formData = new FormData();
         formData.append('consumeEventString', JSON.stringify(json));
-        let image = $("#image").get(0).files[0];
-        formData.append('image', image);
+        formData.append('image', chosenImage);
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/api/proposal-event",
@@ -58,6 +60,7 @@ $(function () {
 
     // start end register date
     $('#datetimepickerRegiStart').datetimepicker({
+        useCurrent: false,
         format: 'DD/MM/YYYY HH:mm'
     });
     $('#datetimepickerRegiEnd').datetimepicker({
@@ -136,7 +139,7 @@ $(function () {
                 let formData = new FormData();
                 formData.append('consumeEventString', JSON.stringify(json));
                 let image = $("#image").get(0).files[0];
-                formData.append('image', image);
+                formData.append('image', chosenImage);
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:8080/api/event",
@@ -160,7 +163,7 @@ $(function () {
                 let formData = new FormData();
                 formData.append('consumeEventString', JSON.stringify(json));
                 let image = $("#image").get(0).files[0];
-                formData.append('image', image);
+                formData.append('image', chosenImage);
                 $.ajax({
                     type: "PUT",
                     url: "http://localhost:8080/api/event",
@@ -194,32 +197,27 @@ $(function () {
             $("#error").text("Max slots must be less than Total Slots");
             return false;
         }
+        let checkDate = Date.daysBetween(toOjectDAte($('input[name=startDate]').val()), toOjectDAte($('input[name=endDate]').val()));
+        let checkRegisterDate = Date.daysBetween(toOjectDAte($('input[name=startRegisterDate]').val()), toOjectDAte($('input[name=endRegisterDate]').val()));
+        let checkRegisterDateBeforeOpenDate = Date.daysBetween(toOjectDAte($('input[name=endRegisterDate]').val()), toOjectDAte($('input[name=startDate]').val()));
+
+        if (checkRegisterDate <= 0) {
+            $("#error").css("display", "block");
+            $("#error").text("Start Register Date must be less than End Register Date");
+            return false;
+        }
+        if (checkDate <= 0) {
+            $("#error").css("display", "block");
+            $("#error").text("Start Open Date must be less than End Open Date");
+            return false;
+        }
+        if (checkRegisterDateBeforeOpenDate <= 0) {
+            $("#error").css("display", "block");
+            $("#error").text(" End Register Date must be less than Start Open Date");
+            return false;
+        }
         return true;
     }
-
-    //
-    // var watchID = navigator.geolocation.watchPosition(onSuccess, onError, {
-    //     timeout: 30000,
-    //     enableHighAccuracy: true,
-    //     maximumAge: 3000
-    // });
-
-    // watchID;
-    //
-    // function onSuccess(position) {
-    //     var lat = position.coords.latitude,
-    //         lng = position.coords.longitude;
-    //     var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="
-    //         + lat + "," + lng +
-    //         "&zoom=14&size=400x300&sensor=false";
-    //     $("#googleMap").attr('src', img_url);
-    //     console.log(lat, lng);
-    // }
-    //
-    // function onError(error) {
-    //     alert('code: ' + error.code + '\n' +
-    //         'message: ' + error.message + '\n');
-    // }
 
     var totalSize = 0;
     var checkName = "";
@@ -278,14 +276,40 @@ $(function () {
                     // preview image with file reader
                     var reader = new FileReader();
 
-                    reader.onload = function(e) {
-                        $('#blah').attr('src', e.target.result);
-                    }
+                    reader.onload = function (e) {
+                        $(".files").html('<tr id="' + image.name + '" class="table-tr" style="margin-top: 10px;">' +
+                            '<td><img src="' + e.target.result + '"  style="width: 80px; height: 51px"/></td>' +
+                            '<td><div class="imageName">' + image.name + '</div></td>' +
+                            '<td><div class="imageSize">' + Math.round(image.size / 1024) + ' KB</div></td>' +
+                            ' <td class="canceltd">\n' +
+                            '<button id="$$$' + image.name + '"' +
+                            // 'style="transition: none;\n' +
+                            // '    color: white;\n' +
+                            // '    width: 85px;\n' +
+                            // '    font-size: 14px;\n' +
+                            // '    height: 34px;\n' +
+                            // '    padding-top: 5px;" ' +
+                            'class="btn btn-warning' + image.name + '">\n' +
+                            '<i class="glyphicon glyphicon-ban-circle"></i>\n' +
+                            '<span>Remove</span>\n' +
+                            '</button>\n' +
+                            '</td>');
 
+                        $("button[id='$$$" + image.name + "']").click(function (e) {
+                            e.preventDefault();
+
+                            var imageName = $(this).attr('id').replace('$$$', '');
+
+                            remove(imageName);
+                        })
+                    }
                     reader.readAsDataURL(image);
                 }
             }
         }
+
+        $("#image").val("");
+        chosenImage = image;
     });
 
     // remove image
@@ -295,142 +319,8 @@ $(function () {
         $("table#listImage tr[id='" + imageName + "']").remove();
 
         $("#totalSize").text("Total: " + Math.round((totalSize / 1024) / 1024) + " MB");
-
+        $("#image").val("");
+        checkName = '';
+        chosenImage = '';
     }
-
-//     var count = 0;
-//     var totalSize = 0;
-//     var imageFiles = [];
-//
-// // upload file event
-//     $("#files").change(function (e) {
-//
-//         var checkExist = false;
-//         // hide error
-//         $("#tr-error").css("display", "none");
-//         $("#error").text("");
-//
-//         $.each(e.target.files, function (index, value) {
-//             // reset variable
-//             checkExist = false;
-//             console.log("Upload file: " + value.name);
-//
-//             // for check file extension
-//             var match = ["image/jpeg", "image/png", "image/jpg"];
-//
-//             // get image type
-//             var imageType = value.type;
-//             // check file extension
-//             if (!((imageType == match[0]) || (imageType == match[1]) || (imageType == match[2]))) {
-//                 $("#error").css("display", "block");
-//                 $("#error").text("Please select [jpeg/png/jpg] only");
-//             } else {
-//                 // check exist image in list
-//                 for (var i = 0; i < imageFiles.length && !checkExist; i++) {
-//                     // if exist
-//                     if (value.name == imageFiles[i].name) {
-//                         $("#error").css("display", "block");
-//                         $("#error").text("You already selected image " + value.name);
-//                         checkExist = true;
-//                     }
-//                 }
-//
-//                 if (!checkExist) {
-//                     // check totalSize
-//                     totalSize += value.size;
-//                     // maximum total size: 200MB
-//                     if (totalSize > 31457280) {
-//                         totalSize -= value.size;
-//                         $("#error").css("display", "block");
-//                         $("#error").text("Maximum size for uploading: 30MB. Your current size: " + totalSize);
-//                     } else { // if not over reach max size
-//                         // display current total size
-//                         if (Math.round((totalSize / 1024) / 1024) === 0) {
-//                             $("#totalSize").text("Total: " + totalSize / 1024 + " KB");
-//                         } else {
-//                             $("#totalSize").text("Total: " + Math.round((totalSize / 1024) / 1024) + " MB");
-//                         }
-//
-//
-//                         // add current file image to list
-//                         imageFiles[count] = value;
-//                         // increase count
-//                         count++;
-//
-//                         // preview image with file reader
-//                         var reader = new FileReader();
-//                         reader.onload = function (e) {
-//                             $(".files").append('<tr id="' + value.name + '" class="table-tr" style="margin-top: 10px;">' +
-//                                 '<td><img id="' + count + '" src="' + e.target.result + '"  style="width: 80px; height: 51px"/></td>' +
-//                                 '<td><div class="imageName">' + value.name + '</div></td>' +
-//                                 '<td><div class="imageSize">' + Math.round(value.size / 1024) + ' KB</div></td>' +
-//                                 ' <td class="canceltd">\n' +
-//                                 '<button id="$$$' + value.name + '"' +
-//                                 // 'style="transition: none;\n' +
-//                                 // '    color: white;\n' +
-//                                 // '    width: 85px;\n' +
-//                                 // '    font-size: 14px;\n' +
-//                                 // '    height: 34px;\n' +
-//                                 // '    padding-top: 5px;" ' +
-//                                 'class="btn btn-warning' + value.name + '">\n' +
-//                                 '<i class="glyphicon glyphicon-ban-circle"></i>\n' +
-//                                 '<span>Remove</span>\n' +
-//                                 '</button>\n' +
-//                                 '<input id="$$' + value.name + '" type="checkbox" class="toggle models">\n' +
-//                                 '</td>');
-//
-//                             $("button[id='$$$" + value.name + "']").click(function (e) {
-//                                 e.preventDefault();
-//
-//                                 var imageName = $(this).attr('id').replace('$$$', '');
-//
-//                                 remove(imageName);
-//                             })
-//                         }
-//                         reader.readAsDataURL(value);
-//                     }
-//                 }
-//             }
-//         });
-//
-//         $("#files").val('');
-//     });
-//
-// // remove image
-//     function remove(imageName) {
-//         console.log("Remove image: " + imageName);
-//
-//         for (var i = 0; i < imageFiles.length; i++) {
-//             if (imageFiles[i].name.indexOf(imageName) == 0) {
-//                 // subtract image size
-//                 totalSize -= imageFiles[i].size;
-//                 imageFiles.splice(i, 1);
-//                 // subtract list length
-//                 count--;
-//             }
-//         }
-//
-//         $("table#listImage tr[id='" + imageName + "']").remove();
-//
-//         $("#totalSize").text("Total: " + Math.round((totalSize / 1024) / 1024) + " MB");
-//
-//     }
-//
-//     $("#checkAll").change(function () {
-//         if (this.checked) {
-//             $(".models:checkbox").prop('checked', true);
-//         } else {
-//             $(".models:checkbox").prop('checked', false);
-//         }
-//     })
-//
-//     $("#deleteFiles").click(function (e) {
-//         e.preventDefault();
-//
-//         $(".models:checkbox:checked").each(function () {
-//             var imageName = $(this).attr('id').replace('$$', '');
-//
-//             remove(imageName);
-//         })
-//     })
 })

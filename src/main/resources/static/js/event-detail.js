@@ -36,7 +36,7 @@ $(function () {
         $("#eventDescription").append(event.description);
         ratingStar(event.totalRatesPoint);
         $("#totalRates").text(event.totalRates);
-        let imageUrl = await loadImageFromEvent(event.id);
+        let imageUrl = await loadImage(event.id);
         $("#eventImage").attr("src", imageUrl);
         $("#selectQuantity").attr('min', event.minSlot).attr('max', event.maxSlot).val(0).change();
         valMax = event.maxSlot, valMin = event.minSlot;
@@ -52,6 +52,10 @@ $(function () {
         if (checkEndRegister < 0) {
             $("#btnJoinNow").removeClass('btn btn-outline-danger font-weight-bold mt-2 animated pulse infinite')
                 .addClass('btn btn-blue-grey font-weight-bold mt-2 disabled').text('Close Register');
+        }
+        if (event.currentSlot === event.totalSlots) {
+            $("#btnJoinNow").removeClass('btn btn-outline-danger font-weight-bold mt-2 animated pulse infinite')
+                .addClass('btn btn-blue-grey font-weight-bold mt-2 disabled').text('Sold Out');
         }
         totalSlots = event.totalSlots;
     }
@@ -128,12 +132,6 @@ $(function () {
         const starPercentage = (ratePoint / 5) * 100;
         const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
         $("#totalRatingPoints").width(starPercentageRounded);
-    }
-
-    const loadImageFromEvent = (id) => {
-        return fetch(backendServer + "/api/event-image/event/" + id)
-            .then(rs => rs.json())
-            .then(data => backendServer + data.data.imageLink);
     }
 
     var username = localStorage.getItem('username');

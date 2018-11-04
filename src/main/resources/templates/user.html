@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="header :: head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+</head>
+
+<body class="hidden-sn">
+<!--Double navigation-->
+<header th:replace="header :: header"></header>
+<script type="text/javascript" src="/dist/js/jquery-3.3.1.min.js"></script>
+<script src="/js/auth.js"></script>
+<!--Main Layout-->
+<!--Search-->
+<section th:replace="header :: search-box"></section>
+<div class="container-fluid mb-5">
+    <div class="row">
+        <div class="col-2">
+            <div th:fragment="user-sidebar" class="list-group">
+                <a href="/user/profile" class="list-group-item list-group-item-action">Account</a>
+                <a href="/user/joined-events" class="list-group-item list-group-item-action">Joined Events</a>
+                <a href="/user/proposed-events" class="list-group-item list-group-item-action">Proposed Events</a>
+                <a href="/user/buy-list" class="list-group-item list-group-item-action">Buy Order List</a>
+                <a href="/user/order-list" class="list-group-item list-group-item-action">Sale Order Listr</a>
+                <a href="/user/product" class="list-group-item list-group-item-action">Product List</a>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Your Profile</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="md-form">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-12 col-sm-12 pt-5 pl-4">
+                                        <!-- Avatar -->
+                                        <div class="avatar-upload mb-4">
+                                            <div class="avatar-preview shadow">
+                                                <div id="imagePreview"
+                                                     style="background-image: url('https://mdbootstrap.com/img/Photos/Avatars/img%20(20).jpg');">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="file-field w-100">
+                                            <a class="btn-floating purple-gradient mt-0 float-left">
+                                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+                                            </a>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text"
+                                                       placeholder="Upload your file">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-8 col-md-12 col-sm-12 pl-5 pb-5">
+                                        <dl class="row text-left flex-center">
+                                            <dt class="col-sm-3">First name:</dt>
+                                            <dd class="col-sm-9"><input id="txtFirstname" class="form-control"
+                                                                        placeholder="abc" type="text"></dd>
+
+                                            <dt class="col-sm-3">Last name:</dt>
+                                            <dd class="col-sm-9"><input id="txtLastname" class="form-control"
+                                                                        placeholder="abc" type="text"></dd>
+
+                                            <dt class="col-sm-3">Username:</dt>
+                                            <dd class="col-sm-9"><input id="txtUsername" class="form-control"
+                                                                        placeholder="abc" type="text"></dd>
+
+                                            <dt class="col-sm-3">Address:</dt>
+                                            <dd class="col-sm-9"><input id="txtLocation" class="form-control"
+                                                                        placeholder="sdffsdfsdfsdfsdfsd"
+                                                                        type="text"></dd>
+
+                                            <dt class="col-sm-3">Phone:</dt>
+                                            <dd class="col-sm-9"><input id="txtPhone" class="form-control"
+                                                                        placeholder="1234567890" type="text"></dd>
+
+                                            <dt class="col-sm-3 text-truncate">Email</dt>
+                                            <dd class="col-sm-9"><input id="txtEmail" class="form-control"
+                                                                        placeholder="1234@gmail.com" type="text">
+                                            </dd>
+                                        </dl>
+                                        <button id="btnEdit" class="btn btn-success float-right" type="submit">Edit
+                                            Profile
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"/>
+<script src="/js/event-user.js"></script>
+
+</body>
+
+</html>
