@@ -181,7 +181,6 @@ $('#create-product-form').submit(function (e) {
         }
     }
 
-
     $.ajax({
         type: "POST",
         url: backendServer + "/api/product",
@@ -198,7 +197,8 @@ $('#create-product-form').submit(function (e) {
     });
 });
 
-$('#edit-product-form').submit(function (e) {
+// Edit Product
+$('#edt-profile-form').submit(function (e) {
     e.preventDefault();
     var objectData =
         {
