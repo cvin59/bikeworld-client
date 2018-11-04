@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="header :: head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+</head>
+
+<body class="hidden-sn">
+<!--Double navigation-->
+<header th:replace="header :: header"></header>
+<script type="text/javascript" src="/dist/js/jquery-3.3.1.min.js"></script>
+<script src="/js/auth.js"></script>
+<!--Main Layout-->
+<!--Search-->
+<section th:replace="header :: search-box"></section>
+<div class="container-fluid mb-5">
+    <div class="row">
+        <div class="col-2">
+            <div th:fragment="user-sidebar" class="list-group">
+                <a href="/user/profile" class="list-group-item list-group-item-action">Account</a>
+                <a href="/user/joined-events" class="list-group-item list-group-item-action">Joined Events</a>
+                <a href="/user/proposed-events" class="list-group-item list-group-item-action">Proposed Events</a>
+                <a href="/user/buy-list" class="list-group-item list-group-item-action">Buy Order List</a>
+                <a href="/user/order-list" class="list-group-item list-group-item-action">Sale Order Listr</a>
+                <a href="/user/product" class="list-group-item list-group-item-action">Product List</a>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Edit Product</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="edit-product-form">
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-6">
+                                        <!-- Material input -->
+                                        <div class="md-form form-group">
+                                            <input hidden id="editProductId" th:value="${id}">
+                                            <input type="text" class="form-control"
+                                                   id="editProductName"
+                                                   readonly
+                                                   placeholder="Product Name"
+                                                   required>
+                                            <label for="editProductName">Name</label>
+                                        </div>
+                                    </div>
+                                    <!-- Grid column -->
+
+                                    <!-- Grid column -->
+                                    <div class="col-md-6">
+                                        <!-- Material input -->
+                                        <div class="md-form form-group">
+                                            <input type="text" class="form-control editProduct"
+                                                   id="editProductPrice"
+                                                   placeholder="Product Price"
+                                                   min="0.1"
+                                                   required>
+                                            <label for="editProductPrice">Price</label>
+                                        </div>
+                                    </div>
+                                    <!-- Grid column -->
+                                </div>
+                                <!-- Grid row -->
+
+                                <!-- Grid row -->
+                                <div class="row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-12">
+                                        <!-- Material input -->
+                                        <div class="md-form form-group">
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="editProductQuantity"
+                                                   placeholder="Product Quantity"
+                                                   min="1" max="99"
+                                                   required>
+                                            <label for="editProductQuantity">Quantity</label>
+                                        </div>
+                                    </div>
+                                    <!-- Grid column -->
+                                </div>
+                                <!-- Grid row -->
+                                <!-- Grid row -->
+                                <div class="row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-12">
+                                        <!-- Material input -->
+                                        <div class="md-form form-group">
+                                            <input type="text" class="form-control"
+                                                   id="editProductAddress"
+                                                   placeholder="Address"
+                                                   required>
+                                            <label for="editProductAddress">Address</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+                                </div>
+                                <!-- Grid row -->
+                                <div class="row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-12">
+                                        <label for="editDescriptionDiv">Description</label>
+                                        <div class="md-form" id="editDescriptionDiv">
+                                                <textarea id="editProductDescription" class="form-control md-textarea"
+                                                          name="productDescription"></textarea>
+                                        </div>
+                                        <!-- Grid column -->
+                                    </div>
+                                    <!-- Grid column -->
+                                </div>
+                                <div class="row">
+                                    <!-- Grid column -->
+                                    <div class="col-md-12">
+                                        <div class="file-field">
+                                            <div class="btn btn-primary btn-sm float-left">
+                                                <span>Add Images</span>
+                                                <input type="file" multiple id="edit-files-upload">
+                                            </div>
+                                        </div>
+                                        <table role="presentation" class="table table-striped"
+                                               id="edit-image-table">
+                                            <tbody id="edit-file-list">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Save
+                                        changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"/>
+<script src="/js/account.js">
+</script>
+<script src="/js/product.js"></script>
+<script>
+    var seq = $("#editProductId").val();
+    showEditPage(seq);
+</script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+</body>
+
+</html>

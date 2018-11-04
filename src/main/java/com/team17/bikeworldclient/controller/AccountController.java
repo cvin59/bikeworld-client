@@ -2,6 +2,7 @@ package com.team17.bikeworldclient.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +24,26 @@ public class AccountController {
     public ModelAndView viewTradepost() {
         return new ModelAndView("user-tradepost");
     }
+
+    @GetMapping("/product/new")
+    public ModelAndView viewTradepostCreate() {
+        return new ModelAndView("user-tradepost-create");
+    }
+
+    @GetMapping("/product/edit/{id}")
+    public ModelAndView viewTradepostEdit(@PathVariable Integer id) {
+        ModelAndView mav = new ModelAndView("user-tradepost-edit");
+        mav.addObject("id", id);
+        return mav;
+    }
+
+    @GetMapping("/product/detail/{id}")
+    public ModelAndView viewTradepostDetail(@PathVariable Integer id) {
+        ModelAndView mav = new ModelAndView("user-tradepost-detail");
+        mav.addObject("id", id);
+        return mav;
+    }
+
 
     @GetMapping("/joined-events")
     public ModelAndView viewJoinedEvents() {

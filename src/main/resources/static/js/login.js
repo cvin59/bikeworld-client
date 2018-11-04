@@ -122,7 +122,7 @@ $(function () {
                 '\n' +
                 '    <!--Menu-->\n' +
                 '    <div class="dropdown-menu dropdown-menu-right dropdown-danger">\n' +
-                '      <a class="dropdown-item" href="/user/account">My Account</a>\n' +
+                '      <a class="dropdown-item" href="/user/profile">My Account</a>\n' +
                 '      <a class="dropdown-item" id="logoutBtn">Logout</a>\n' +
                 '    </div>\n' +
                 '  </div>');

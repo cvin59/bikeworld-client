@@ -6,51 +6,55 @@ var productListPage = 1;
 var productListTotalPage;
 var productListSize = 5;
 
-
-$(function () {
+try {
     CKEDITOR.replace('inputProductDescription');
+} catch (e) {
+    console.log(e);
+}
+try {
     CKEDITOR.replace('editProductDescription');
+} catch (e) {
+    console.log(e);
+}
 
-    $.ajax({
-        url: backendServer + "/api/common/loadBrand",
-        dataType: 'json',
-        type: 'GET',
-        success: function (response) {
-            var array = response.data;
-            if (array != '') {
-                var selectBox = document.getElementById("inputProductBrand");
-                for (i = 0; i < array.length; i++) {
-                    var o = new Option(array[i].name, array[i].id);
-                    $(o).html(array[i].name);
-                    $("#inputProductBrand").append(o);
-                }
+$.ajax({
+    url: backendServer + "/api/common/loadBrand",
+    dataType: 'json',
+    type: 'GET',
+    success: function (response) {
+        var array = response.data;
+        if (array != '') {
+            var selectBox = document.getElementById("inputProductBrand");
+            for (i = 0; i < array.length; i++) {
+                var o = new Option(array[i].name, array[i].id);
+                $(o).html(array[i].name);
+                $("#inputProductBrand").append(o);
             }
-        },
-        error: function (e) {
-            alert("ERROR load: ", e);
         }
-    }).done($.ajax({
-        url: backendServer + "/api/common/loadCategory",
-        dataType: 'json',
-        type: 'GET',
-        success: function (response) {
-            var array = response.data;
-            if (array != '') {
-                var selectBox = document.getElementById("inputProductCategory");
-                for (i = 0; i < array.length; i++) {
-                    var o = new Option(array[i].name, array[i].id);
-                    $(o).html(array[i].name);
-                    $("#inputProductCategory").append(o);
-                }
+    },
+    error: function (e) {
+        alert("ERROR load: ", e);
+    }
+}).done($.ajax({
+    url: backendServer + "/api/common/loadCategory",
+    dataType: 'json',
+    type: 'GET',
+    success: function (response) {
+        var array = response.data;
+        if (array != '') {
+            var selectBox = document.getElementById("inputProductCategory");
+            for (i = 0; i < array.length; i++) {
+                var o = new Option(array[i].name, array[i].id);
+                $(o).html(array[i].name);
+                $("#inputProductCategory").append(o);
             }
-        },
-        error: function (e) {
-            alert("ERROR load: ", e);
         }
-    }));
+    },
+    error: function (e) {
+        alert("ERROR load: ", e);
+    }
+}));
 
-
-});
 
 function uploadFile(file, filesUpload, fileList) {
     var tr = document.createElement("tr"),
@@ -150,7 +154,8 @@ $('#editProductQuantity').on("change", function () {
 
 
 //Create Product
-$('#create-product-form').submit(function () {
+$('#create-product-form').submit(function (e) {
+    e.preventDefault();
     var cate = document.getElementById("inputProductCategory");
     var brand = document.getElementById("inputProductBrand");
 
@@ -189,13 +194,12 @@ $('#create-product-form').submit(function () {
         },
         error: function (e) {
             console.log(e);
-            alert("error:" + e)
         }
     });
 });
 
-$('#edit-product-form').submit(function () {
-
+$('#edit-product-form').submit(function (e) {
+    e.preventDefault();
     var objectData =
         {
             id: document.getElementById("editProductId").value,
@@ -229,6 +233,7 @@ $('#edit-product-form').submit(function () {
         success: function () {
             alert("Success");
         }, error: function (e) {
+            console.log(e);
             alert("Error: " + e);
         }
     });
@@ -307,14 +312,10 @@ function showProductList() {
                         "                                                class=\"fa fa-plus mr-1\"></i>Add\n" +
                         "                                            Quantity</a>\n" +
                         "                                        <a class=\"btn btn-sm btn-success float-right font-weight-bold \"\n" +
-                        "                                           data-toggle=\"modal\"\n" +
-                        "                                           onclick='showEditPage(" + productList[i].productInfo.id + ")'\n" +
-                        "                                           data-target=\"#editProductModal\"><i\n" +
+                        '                                           href="/user/product/edit/' + productList[i].productInfo.id + '"\n' +
                         "                                                class=\"fa fa-edit mr-1\"></i>Edit</a>\n" +
                         "                                        <a class=\"btn btn-sm btn-danger float-right font-weight-bold\"\n" +
-                        "                                           data-toggle=\"modal\"\n" +
-                        "                                           onclick='showDetailPage(" + productList[i].productInfo.id + ")'\n" +
-                        "                                           data-target=\"#productDetailModal\"><i\n" +
+                        '                                           href="/user/product/detail/' + productList[i].productInfo.id + '"\n' +
                         "                                                class=\"fa fa-edit mr-1\"></i>Detail</a>\n" +
                         "                                    </div>\n" +
                         "                                </div>\n" +
