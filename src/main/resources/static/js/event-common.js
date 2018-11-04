@@ -1,7 +1,9 @@
 const loadImage = (id) => {
     return fetch(backendServer + "/api/event-image/event/" + id)
         .then(rs => rs.json())
-        .then(data => typeof data.data === 'undefined' ? '' : backendServer + data.data.imageLink);
+        .then(data => typeof data.data === 'undefined' ?
+            backendServer + '/images/default-product-img.png' :
+            backendServer + data.data.imageLink);
 }
 
 const loadEvent = async (element, allEvent) => {
@@ -9,6 +11,11 @@ const loadEvent = async (element, allEvent) => {
         let imageUrl = await loadImage(value.id);
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
+        if (days <= 0) {
+            days = 'Ongoing';
+        } else {
+            days = days + 'days left';
+        }
         await element.append('<div class="col-md-4">' +
             '  <!-- Card -->\n' +
             '                            <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-5 animated wow zoomIn faster">\n' +
@@ -27,12 +34,12 @@ const loadEvent = async (element, allEvent) => {
             '                                <div class="card-body">\n' +
             '\n' +
             '                                    <!-- Title -->\n' +
-            '                                    <h6 class="font-weight-bold card-title"><a style="font-size: 16px; color: #333" href="/event/detail/' + value.title + '/' + value.id + '">' + value.title.substring(0, 20)+'</a></h6>\n' +
+            '                                    <h6 class="font-weight-bold card-title"><a style="font-size: 16px; color: #333" href="/event/detail/' + value.title + '/' + value.id + '">' + value.title.substring(0, 25)+'</a></h6>\n' +
             '                                    <!-- Date -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
             '                                        <p class="card-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>' + value.startDate +
             '                                        </p>\n' +
-            '                                        <p class="card-text"><i class="fa fa-clock-o pr-2"></i>' + days + ' days left</p>\n' +
+            '                                        <p class="card-text"><i class="fa fa-clock-o pr-2"></i>' + days + ' </p>\n' +
             '                                    </div>\n' +
             '                                    <!-- Location and Price -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
@@ -60,6 +67,15 @@ formatter = new Intl.NumberFormat('en-US', {
     currency: 'USD',
     minimumFractionDigits: 2
 });
+
+const toOjectDAte = (dateTime) => {
+    var dateTime = dateTime.split(" ");//dateTime[0] = date, dateTime[1] = time
+    var date = dateTime[0].split("/");
+    var time = dateTime[1].split(":");
+    //(year, month, day, hours, minutes, seconds, milliseconds)
+    let dateObject = new Date(date[2], date[1] - 1, date[0], time[0], time[1]);
+    return dateObject;
+}
 
 toJSDate = (dateTime) => {
 

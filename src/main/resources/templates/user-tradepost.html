@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="header :: head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+</head>
+
+<body>
+<!--Double navigation-->
+<header th:replace="header :: header"></header>
+<!--Main Layout-->
+<!--Search-->
+<section th:replace="header :: search-box"></section>
+<div class="container-fluid mb-5">
+    <div class="row">
+        <div class="col-2">
+            <div th:replace="user :: user-sidebar" class="list-group">
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex justify-content-between">
+                                <h3>Product List</h3>
+                                <a class="btn btn-rounded btn-success mb-3 sticky-top btnCreate"
+                                   data-toggle="modal"
+                                   data-target="#addProductModal"><i
+                                        class="fa fa-plus mr-1" id="btn-create-product"></i>New Trade Post</a>
+                            </div>
+
+                            <!--Filters-->
+                            <form>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <select class="browser-default custom-select">
+                                            <option selected>Date Descending</option>
+                                            <option value="1">Date Ascending</option>
+                                            <option value="2">Name</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <!-- Search form -->
+                                        <input class="form-control" type="text"
+                                               placeholder="Search" aria-label="Search">
+                                    </div>
+                                </div>
+                            </form>
+                            <!--End Filters-->
+
+                            <!--Product List-->
+                            <div class="p-3">
+                                <!--Product Row-->
+                                <div class="pl-0 pr-0 mb-3 pt-3 pb-3 border-top" id="show-product-list">
+                                </div>
+                                <!--End Product Row-->
+
+                                <div class="d-flex justify-content-end">
+                                    <!--Pagination-->
+                                    <nav class="mr-5 wow bounceInUp animated fast" aria-label="Page navigation example">
+                                        <ul class="pagination pagination-circle pg-blue">
+                                            <li id="productList-first-page">
+                                                <a class="page-link">First</a></li>
+                                            <li id="productList-previous-page">
+                                                <a class="page-link" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item" id="productList-back2">
+                                                <a class="page-link">1</a>
+                                            </li>
+                                            <li class="page-item" id="productList-back">
+                                                <a class="page-link">2</a>
+                                            </li>
+                                            <li class="page-item active" id="productList-current-page">
+                                                <a class="page-link">3</a>
+                                            </li>
+                                            <li class="page-item" id="productList-next">
+                                                <a class="page-link">4</a>
+                                            </li>
+                                            <li class="page-item" id="productList-next2">
+                                                <a class="page-link">5</a>
+                                            </li>
+
+                                            <li id="productList-next-page">
+                                                <a class="page-link" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                            <li id="productList-last-page"><a class="page-link">Last</a></li>
+                                        </ul>
+                                    </nav>
+                                    <!--End Pagination-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"/>
+<script src="/js/event-user.js"></script>
+
+</body>
+
+</html>

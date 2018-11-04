@@ -51,11 +51,11 @@
                                    id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Title</th>
                                     <th>Location</th>
                                     <th>StartDate</th>
                                     <th>EndDate</th>
+                                    <th>Participants</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -85,11 +85,17 @@
             autoWidth: false,
             data: events,
             columns: [
-                {data: "id"},
                 {data: "title", width: "200px"},
                 {data: "location", width: "200px"},
                 {data: "startDate"},
                 {data: "endDate"},
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        let ret = row.currentSlot + "/" + row.totalSlots;
+                        return ret;
+                    }
+                },
                 {
                     data: null,
                     render: function (data, type, row) {
@@ -117,16 +123,54 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        let ret =
-                            '<div class="dropdown">' +
-                            '  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
-                            '  <span class="caret"></span></button>' +
-                            '  <ul class="dropdown-menu">' +
-                            '    <li><a href="event/' + row.id + '">Update</a></li>' +
-                            '    <li><a  onclick="activeEvent(' + row.id + ')">Activate</a></li>' +
-                            '    <li><a  onclick="deactivateEvent(' + row.id + ')">Deactivate</a></li>' +
-                            '  </ul>\n' +
-                            '</div>';
+                        let ret;
+                        const id = ((row || {}).eventStautsid || {}).id;
+                        console.log(id);
+                        switch (id) {
+                            case 1:
+                                ret = '<div class="dropdown">' +
+                                    '  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
+                                    '  <span class="caret"></span></button>' +
+                                    '  <ul class="dropdown-menu">' +
+                                    '    <li><a href="event/' + row.id + '">Update</a></li>' +
+                                    '    <li><a  onclick="activeEvent(' + row.id + ')">Open</a></li>' +
+                                    '    <li><a  onclick="deactivateEvent(' + row.id + ')">Cancel</a></li>' +
+                                    '  </ul>\n' +
+                                    '</div>';;
+                                break;
+                            case 2:
+                                ret = '<div class="dropdown">' +
+                                    '  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
+                                    '  <span class="caret"></span></button>' +
+                                    '  <ul class="dropdown-menu">' +
+                                    '    <li><a href="event/' + row.id + '">Update</a></li>' +
+                                    '    <li><a  onclick="deactivateEvent(' + row.id + ')">Cancel</a></li>' +
+                                    '  </ul>\n' +
+                                    '</div>';;
+                                break;
+                            case 3:
+                                ret = '<div class="dropdown">' +
+                                    '  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
+                                    '  <span class="caret"></span></button>' +
+                                    '  <ul class="dropdown-menu">' +
+                                    '    <li><a href="event/' + row.id + '">Update</a></li>' +
+                                    '    <li><a  onclick="activeEvent(' + row.id + ')">Open</a></li>' +
+                                    '    <li><a  onclick="deactivateEvent(' + row.id + ')">Cancel</a></li>' +
+                                    '  </ul>\n' +
+                                    '</div>';;
+                                break;
+                            case 4:
+                                ret = '<div class="dropdown">' +
+                                    '  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
+                                    '  <span class="caret"></span></button>' +
+                                    '  <ul class="dropdown-menu">' +
+                                    '    <li><a href="event/' + row.id + '">Update</a></li>' +
+                                    '    <li><a  onclick="activeEvent(' + row.id + ')">Open</a></li>' +
+                                    '  </ul>\n' +
+                                    '</div>';;
+                                break;
+
+                        }
                         return ret;
                     }
                 }

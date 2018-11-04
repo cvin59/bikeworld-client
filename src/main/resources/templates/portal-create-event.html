@@ -81,21 +81,21 @@
                                                 <label>Event Date</label>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>From</label>
+                                                <label class="control-label" for="datetimepickerStart">From</label>
                                                 <div class='input-group date' id='datetimepickerStart'>
                                                     <input type='text' name="startDate" class="form-control" required/>
                                                     <span class="input-group-addon">
-                                        <span class="fa fa-calendar"></span>
-                                         </span>
+                                                        <span class="fa fa-calendar"></span>
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>To</label>
+                                                <label class="control-label" for="datetimepickerEnd">To</label>
                                                 <div class='input-group date' id='datetimepickerEnd'>
                                                     <input type='text' name="endDate" class="form-control" required/>
                                                     <span class="input-group-addon">
-                                         <span class="fa fa-calendar"></span>
-                                        </span>
+                                                        <span class="fa fa-calendar"></span>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,40 +132,10 @@
                                                     <span class="glyphicon glyphicon-folder-open"></span>
                                                         Choose files <input class="form-control" type="file" id="image">
                                                 </span>
-                                        <!--multiple upload-->
-                                        <!--<h3 class="expand"><img src="/img/transparent.png" alt=""-->
-                                        <!--class="iconEx"/><span>Model's Images</span>-->
-                                        <!--</h3>-->
-                                        <!--<div class="row fileupload-buttonbar">-->
-                                        <!--<div class="col-lg-7">-->
-                                        <!--<span id="addFiles" class="btn btn-file btn-success">-->
-                                        <!--<span class="glyphicon glyphicon-folder-open"></span>-->
-                                        <!--Choose files <input id="files" type="file" name="files" multiple>-->
-                                        <!--</span>-->
-                                        <!--&lt;!&ndash;<span class="btn btn-primary btn-file">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;Browse <input type="file">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;</span>&ndash;&gt;-->
-                                        <!--<span id="deleteFiles" type="button"-->
-                                        <!--class="btn btn-danger btn-file">-->
-                                        <!--<span class="glyphicon glyphicon-trash"></span>-->
-                                        <!--<span>Remove files</span>-->
-                                        <!--</span>-->
-                                        <!--<span>Check All</span>-->
-                                        <!--<input id="checkAll" type="checkbox" class="toggle">-->
-                                        <!--&lt;!&ndash; The global file processing state &ndash;&gt;-->
-                                        <!--<span id="totalSize" class="fileupload-process"-->
-                                        <!--style="display: block; padding-top: 5px;">-->
-                                        <!--</span>-->
-                                        <!--</div>-->
-                                        <!--</div>-->
-                                        <!--The table listing the files available for upload/download -->
-                                        <!--<span id="error" class="error" style="display: none;-->
-                                        <!--margin-left: 15px; font-size: 15px; color: red;-->
-                                        <!--width: 100%; float: left;"></span>-->
-                                        <!--<table id="listImage" role="presentation" class="table table-striped">-->
-                                        <!--<tbody class="files">-->
-                                        <!--</tbody>-->
-                                        <!--</table>-->
+                                        <table id="listImage" role="presentation" class="table table-striped">
+                                            <tbody class="files">
+                                            </tbody>
+                                        </table>
                                     </div>
 
                                     <div class="cover-photo">
@@ -175,7 +145,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                          <h6 id="error" class="error" style="display: none;
+                                        <h6 id="error" class="error" style="display: none;
                                                             margin-left: 15px; font-size: 15px; color: red;
                                                             width: 100%; float: left;"></h6>
                                     </div>
