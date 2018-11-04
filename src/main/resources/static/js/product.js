@@ -216,7 +216,7 @@ $('#edit-product-form').submit(function (e) {
     var deleteImgJson = JSON.stringify(deleteImgList);
     alert(deleteImgJson);
 
-    formData.append("deleteImgList", deleteImgJson);
+    formData.append("deleteImgList", deleteImgList);
 
     for (i = 0; i < uploadImgList.length; i++) {
         if (uploadImgList[i] != null) {
