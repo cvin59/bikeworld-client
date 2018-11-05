@@ -46,7 +46,7 @@
                                         Stop
                                         Crawl
                                     </button>
-                                    <button id="viewCrawlRev" class="btn btn-info" onclick="viewCrawl('revzilla')">View
+                                    <button id="viewCrawlRev" class="btn btn-info" onclick="getPageCount()">View
                                         Crawl
                                     </button>
 
@@ -100,6 +100,15 @@
                                 </tr>
                                 </tbody>
                             </table>
+
+
+                            <ul id="demoPagin" class="pagination">
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+
+                            </ul>
                         </div>
                     </div>
 
@@ -163,15 +172,25 @@
 <!-- /#wrapper -->
 </div>
 <div th:replace="portal-js :: footer"></div>
+
+
 <script>
 
-    var productList = [];
 
     function PageCrawl(list) {
 
         this.list = list;
     }
 
+
+    // $('#demoPagin').pagination({
+    //     dataSource: [1, 2, 3, 4, 5, 6, 7],
+    //     callback: function (data, pagination) {
+    //         // template method of yourself
+    //         var html = template(data);
+    //         dataContainer.html(html);
+    //     }
+    // })
 
     // $(document).ready(function () {
     //     $('#example').DataTable();
@@ -189,46 +208,16 @@
     // });
 
 
-    function showView(data) {
-        let list = JSON.parse(data);
-        let tableBody = $("#crawlTableBody");
-        tableBody.empty();
+    // function showView(data) {
+    //     let list = JSON.parse(data);
+    //     let tableBody = $("#crawlTableBody");
+    //     tableBody.empty();
+    //
+    //     for (let i = 0; i <= list.length; i++) {
+    //
+    //     }
+    // }
 
-        for (let i = 0; i <= list.length; i++) {
-
-        }
-    }
-
-    function showPage(pageNum) {
-        let tableBody = $("#crawlTableBody");
-        tableBody.empty();
-        var page = productList[pageNum];
-        for (let i = 0; i <= page.length; i++) {
-            addRow(page[i]);
-        }
-    }
-
-
-    function addRow(rowData) {
-        let tableBody = $("#crawlTableBody");
-        tableBody.append("                                <tr>\n" +
-            "                                    <td>" + rowData.id + "</td>\n" +
-            "                                    <td>\" + rowData.name + \"</td>\n" +
-            "                                    <td>\" + rowData.price + \"</td>\n" +
-            "                                    <td></td>\n" +
-            "                                    <td>\" + rowData.url + \"</td>\n" +
-            "                                    <td><span class=\"label label-warning\">\" + rowData.status + \"</span></td>\n" +
-            "                                    <td>\n" +
-            "                                        <div class=\"form-group\">\n" +
-            "                                            <button class=\"btn btn-primary\">Edit\n" +
-            "                                            </button>\n" +
-            "                                            <button class=\"btn btn-success\">Approve\n" +
-            "                                            </button>\n" +
-            "                                            <button class=\"btn btn-danger\">Disapprove\n" +
-            "                                            </button>\n" +
-            "                                        </div>\n" +
-            "                                    </td>");
-    }
 
     function runCrawl(site) {
         $.ajax({
@@ -276,7 +265,6 @@
     }
 
     function viewCrawl(site) {
-
         $.ajax({
             type: 'GET',
             url: backendServer + 'api/crawl/view/' + site,
@@ -298,52 +286,14 @@
         });
     }
 
-    function loadPendingPage(page) {
-        // for (let i = 0; i < productList.length; i++) {
-        //     if (productList[i].num === page) {
-        //         return;
-        //     }
-        // }
-        if (productList[page] != 0) {
-            return;
-        }
-        $.ajax({
-            type: 'GET',
-            url: backendServer + 'api/crawl/pending/' + page,
-            data: {get_param: 'value'},
-            dataType: 'json',
-            success: function (data) {
 
-                // alert("!");
-                // console.log(data);
+</script>
 
-
-                productList[page] = JSON.parse(data);
-
-                $.each(data, function (index, element) {
-                    $('body').append($('<div>', {
-                        text: element.name
-                    }));
-                });
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    }
-
-    function prepareProductList() {
-        let pageCount = getPageCount();
-        productList = [];
-        for (let i = 0; i < pageCount; i++) {
-            productList.push(0);
-        }
-        loadPendingPage(1);
-    }
-
+<script>
+    let productList = [];
+    let totalPage;
 
     function getPageCount() {
-
         $.ajax({
             type: 'GET',
             url: backendServer + 'api/crawl/countpending/',
@@ -353,11 +303,83 @@
 
                 // alert("!");
                 // console.log(data);
-                let count = JSON.parse(data);
-                let pageCount = count / 20 + (count % 20) & 1;
 
 
+                let count = data;
+
+                console.log(count);
+                totalPage = count / 20 + ((count % 20) & 1);
+
+                prepareProductList();
+                loadAndShow(1);
                 // $.each(data, function(index, element) {
+                //     $('body').append($('<div>', {
+                //         text: element.name
+                //     }));
+                // })
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function prepareProductList() {
+        let demoPaging = $("#demoPagin");
+        demoPaging.empty();
+        productList = [];
+        productList.push(3);
+        for (let i = 1; i <= totalPage; i++) {
+            productList.push(3);
+            demoPaging.append('<li><a onclick="">' + i + '</a></li>');
+        }
+    }
+
+    function addRow(rowData) {
+        let tableBody = $("#crawlTableBody");
+        tableBody.append("                                <tr>\n" +
+            "                                    <td>" + rowData.id + "</td>\n" +
+            "                                    <td>" + rowData.name +"</td>\n" +
+            "                                    <td>" + rowData.price + "</td>\n" +
+            "                                    <td></td>\n" +
+            "                                    <td>" + rowData.url + "</td>\n" +
+            "                                    <td><span class=\"label label-warning\">Pending</span></td>\n" +
+            "                                    <td>\n" +
+            "                                        <div class=\"form-group\">\n" +
+            "                                            <button class=\"btn btn-primary\">Edit\n" +
+            "                                            </button>\n" +
+            "                                            <button class=\"btn btn-success\">Approve\n" +
+            "                                            </button>\n" +
+            "                                            <button class=\"btn btn-danger\">Disapprove\n" +
+            "                                            </button>\n" +
+            "                                        </div>\n" +
+            "                                    </td>");
+    }
+
+
+    function loadDataOnly(pageNum) {
+        // for (let i = 0; i < productList.length; i++) {
+        //     if (productList[i].num === page) {
+        //         return;
+        //     }
+        // }
+        if (1 > pageNum || pageNum > totalPage) {
+            return;
+        }
+        if (productList[pageNum] != 3) {
+            return;
+        }
+        $.ajax({
+            type: 'GET',
+            url: backendServer + 'api/crawl/pending/' + pageNum,
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+                // alert("!");
+                console.log(data);
+
+                productList[pageNum] = JSON.parse(data);
+                // $.each(data, function (index, element) {
                 //     $('body').append($('<div>', {
                 //         text: element.name
                 //     }));
@@ -369,7 +391,64 @@
         });
     }
 
+
+    function loadAndShow(pageNum) {
+        // console.log("1");
+        // for (let i = 0; i < productList.length; i++) {
+        //     if (productList[i].num === page) {
+        //         return;
+        //     }
+        // }
+        if (1 > pageNum || pageNum > totalPage) {
+            return;
+        }
+        if (productList[pageNum] != 3) {
+            return;
+        }
+        $.ajax({
+            type: 'GET',
+            url: backendServer + 'api/crawl/pending/' + pageNum,
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+                // alert("!");
+                console.log(data);
+
+                productList[pageNum] = data.data;
+                showPage(pageNum);
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function showPage(pageNum) {
+        alert(pageNum);
+        let tableBody = $("#crawlTableBody");
+        tableBody.empty();
+        let page = productList[pageNum];
+        console.log(page);
+        for (let i = 0; i <= page.length; i++) {
+            addRow(page[i]);
+        }
+        if (1 < pageNum) {
+            loadDataOnly(pageNum - 1);
+        }
+        if (pageNum < totalPage) {
+            loadDataOnly(pageNum + 1);
+        }
+    }
+
+
+    // function viewCrawlClick() {
+    //     prepareProductList();
+    //     loadAndShow(1);
+    // }
+
 </script>
+
 </body>
 
 </html>
