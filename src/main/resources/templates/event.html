@@ -53,14 +53,26 @@
                 <!-- Carousel Wrapper -->
                 <div id="openForJoiningCarousel" class="carousel slide carousel-multi-item" data-ride="carousel">
                     <!-- Controls -->
-                    <div class="col-12 text-md-center lead">
-                        <a class="btn btn-outline-danger" href="#openForJoiningCarousel" data-slide="prev">
-                            <i class="fa fa-chevron-left"></i>
-                        </a>
-                        <a class="btn btn-outline-danger" href="#openForJoiningCarousel" data-slide="next">
-                            <i class="fa fa-chevron-right "></i>
-                        </a>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 float-md-left">
+                                <a class="btn btn-outline-danger  " href="/event/all">
+                                    View All Events
+                                </a>
+                            </div>
+                            <div class="col-md-6 text-md-right">
+                                <div class=""><a class="btn btn-outline-danger" href="#openForJoiningCarousel" data-slide="prev">
+                                    <i class="fa fa-chevron-left"></i>
+                                </a>
+                                    <a class="btn btn-outline-danger" href="#openForJoiningCarousel" data-slide="next">
+                                        <i class="fa fa-chevron-right "></i>
+                                    </a></div>
+
+                            </div>
+                        </div>
                     </div>
+
+
 
                     <!-- Controls -->
                     <!-- Indicators -->
@@ -81,49 +93,43 @@
         </div>
     </div>
 
-    <div class="col-12 text-md-center lead">
-        <a class="btn btn-outline-danger" href="/event/all">
-            View All Events
-        </a>
+    <div class="container-fluid">
+        <div class="container pt-3 pb-3">
+            <h2 class="h2-responsive mt-4 font-weight-bold">Coming Soon</h2>
+            <!-- Section: Open for joining -->
+            <section class="text-center">
+                <!-- Carousel Wrapper -->
+                <div id="comingSoonCarousel" class="carousel slide carousel-multi-item" data-ride="carousel">
+                    <!-- Controls -->
+                    <div class="col-12 text-md-right lead">
+                        <a class="btn btn-outline-danger" href="#comingSoonCarousel" data-slide="prev">
+                            <i class="fa fa-chevron-left"></i>
+                        </a>
+                        <a class="btn btn-outline-danger" href="#comingSoonCarousel" data-slide="next">
+                            <i class="fa fa-chevron-right "></i>
+                        </a>
+                    </div>
+                    <!-- Controls -->
+                    <!-- Indicators -->
+                    <ol id="indicatorComingSoonEvent" class="carousel-indicators">
+
+                    </ol>
+                    <!-- Indicators -->
+                    <!-- Slides -->
+                    <div id="sliderItemComingSoon" class="carousel-inner" role="listbox">
+
+                    </div>
+                    <!-- Slides -->
+                </div>
+                <!-- Carousel Wrapper -->
+
+            </section>
     </div>
-    <!--registering events-->
-    <!--<div class="container-fluid">-->
-        <!--<div class="container pt-3 pb-3">-->
-            <!--<h2 class="h2-responsive mt-4 font-weight-bold">Coming Soon</h2>-->
-            <!--&lt;!&ndash; Section: Open for joining &ndash;&gt;-->
-            <!--<section class="text-center">-->
-                <!--&lt;!&ndash; Carousel Wrapper &ndash;&gt;-->
-                <!--<div id="comingSoonCarousel" class="carousel slide carousel-multi-item" data-ride="carousel">-->
-                    <!--&lt;!&ndash; Controls &ndash;&gt;-->
-                    <!--<div class="col-12 text-md-right lead">-->
-                        <!--<a class="btn btn-outline-danger" href="#comingSoonCarousel" data-slide="prev">-->
-                            <!--<i class="fa fa-chevron-left"></i>-->
-                        <!--</a>-->
-                        <!--<a class="btn btn-outline-danger" href="#comingSoonCarousel" data-slide="next">-->
-                            <!--<i class="fa fa-chevron-right "></i>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; Controls &ndash;&gt;-->
-                    <!--&lt;!&ndash; Indicators &ndash;&gt;-->
-                    <!--<ol id="indicatorComingSoonEvent" class="carousel-indicators">-->
-
-                    <!--</ol>-->
-                    <!--&lt;!&ndash; Indicators &ndash;&gt;-->
-                    <!--&lt;!&ndash; Slides &ndash;&gt;-->
-                    <!--<div id="sliderItemComingSoon" class="carousel-inner" role="listbox">-->
-
-                    <!--</div>-->
-                    <!--&lt;!&ndash; Slides &ndash;&gt;-->
-                <!--</div>-->
-                <!--&lt;!&ndash; Carousel Wrapper &ndash;&gt;-->
-
-            <!--</section>-->
-    <!--</div>-->
-    <!--End registering events-->
+    End registering events
 </div>
 <div th:replace="footer :: footer"/>
 <script src="/js/event-user.js"></script>
-
+</div>
 </body>
 
 </html>

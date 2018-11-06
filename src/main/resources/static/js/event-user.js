@@ -9,16 +9,16 @@ $(function () {
     const loadInforegisteringEvent = (value, imageUrl, slide) => {
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
-        slide.append('   <div class="col-md-4">' +
+        slide.append('<div class="col-md-4">' +
             '  <!-- Card -->\n' +
-            '                            <div class="card mb-2">\n' +
+            '                            <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-5 animated wow zoomIn faster">\n' +
             '\n' +
             '                                <!-- Card image -->\n' +
             '                                <div class="view overlay">\n' +
-            '                                    <img class="card-img-top h-250px"\n' +
+            '                                    <img class="card-img-top h-100px"\n' +
             '                                         src="' + imageUrl + '"\n' +
             '                                         alt="Card image cap">\n' +
-            '                                    <a href="event/detail/' + value.title + '/' + value.id + '">\n' +
+            '                                    <a href="/event/detail/' + value.title + '/' + value.id + '">\n' +
             '                                        <div class="mask rgba-white-slight"></div>\n' +
             '                                    </a>\n' +
             '                                </div>\n' +
@@ -27,21 +27,21 @@ $(function () {
             '                                <div class="card-body">\n' +
             '\n' +
             '                                    <!-- Title -->\n' +
-            '                                    <h4 class="font-weight-bold card-title">' + value.title + '</h4>\n' +
+            '                                    <h6 class="font-weight-bold card-title"><a style="font-size: 16px; color: #333" href="/event/detail/' + value.title + '/' + value.id + '">' + value.title.substring(0, 25) + '</a></h6>\n' +
             '                                    <!-- Date -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
             '                                        <p class="card-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>' + value.startDate +
             '                                        </p>\n' +
-            '                                        <p class="card-text"><i class="fa fa-clock-o pr-2"></i>' + days + ' days left</p>\n' +
+            '                                        <p class="card-text"><i class="fa fa-clock-o pr-2"></i>' + days + ' </p>\n' +
             '                                    </div>\n' +
             '                                    <!-- Location and Price -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
             '                                        <p class="card-text"><i\n' +
-            '                                                class="fa fa-map-marker pr-2 ml-3"></i>' + value.location + '</p>\n' +
-            '                                        <p class="font-weight-bold card-text"><i class="fa fa-ticket pr-2"></i>' +formatter.format(value.fee) + '</p>\n' +
+            '                                                class="fa fa-map-marker pr-2 ml-3"></i>' + value.location.substring(0, 20) + '</p>\n' +
+            '                                        <p class="font-weight-bold card-text"><i class="fa fa-ticket pr-2"></i>' + formatter.format(value.fee) + '</p>\n' +
             '                                    </div>\n' +
             '                                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->\n' +
-            '                                    <a class="btn btn-outline-primary btn-md font-weight-bold float-right" href="/event/detail/' + value.title + '/' + value.id + '">View More</a>\n' +
+            // '                                    <a class="btn btn-outline-primary btn-md font-weight-bold float-right" href="/event/detail/' + value.title + '/' + value.id + '">View More</a>\n' +
             '\n' +
             '                                </div>\n' +
             '                                <!-- Card content -->\n' +
@@ -54,13 +54,13 @@ $(function () {
     const loadInfoComingsoonEvent = (value, imageUrl, slide) => {
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
-        slide.append('   <div class="col-md-4">' +
+        slide.append('<div class="col-md-4">' +
             '  <!-- Card -->\n' +
-            '                            <div class="card mb-2">\n' +
+            '                            <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-5 animated wow zoomIn faster">\n' +
             '\n' +
             '                                <!-- Card image -->\n' +
             '                                <div class="view overlay">\n' +
-            '                                    <img class="card-img-top h-250px"\n' +
+            '                                    <img class="card-img-top h-100px"\n' +
             '                                         src="' + imageUrl + '"\n' +
             '                                         alt="Card image cap">\n' +
             '                                    <a href="/event/detail/' + value.title + '/' + value.id + '">\n' +
@@ -72,22 +72,21 @@ $(function () {
             '                                <div class="card-body">\n' +
             '\n' +
             '                                    <!-- Title -->\n' +
-            '                                    <h4 class="font-weight-bold card-title">' + value.title + '</h4>\n' +
+            '                                    <h6 class="font-weight-bold card-title"><a style="font-size: 16px; color: #333" href="/event/detail/' + value.title + '/' + value.id + '">' + value.title.substring(0, 25) + '</a></h6>\n' +
             '                                    <!-- Date -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
             '                                        <p class="card-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>' + value.startDate +
             '                                        </p>\n' +
-            '                                        <p class="card-text"><i class="fa fa-clock-o pr-2"></i>' + days + ' days left</p>\n' +
+            '                                        <p class="card-text"><i class="fa fa-clock-o pr-2"></i>' + days + ' </p>\n' +
             '                                    </div>\n' +
             '                                    <!-- Location and Price -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
             '                                        <p class="card-text"><i\n' +
-            '                                                class="fa fa-map-marker pr-2 ml-3"></i>' + value.location + '</p>\n' +
-            '                                        <p class="font-weight-bold card-text"><i class="fa fa-ticket pr-2"></i>' + value.fee + '</p>\n' +
+            '                                                class="fa fa-map-marker pr-2 ml-3"></i>' + value.location.substring(0, 20) + '</p>\n' +
+            '                                        <p class="font-weight-bold card-text"><i class="fa fa-ticket pr-2"></i>' + formatter.format(value.fee) + '</p>\n' +
             '                                    </div>\n' +
             '                                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->\n' +
-            '                                    <a class="btn btn-outline-primary btn-md font-weight-bold" href="/event/detail/' + value.title + '/' + value.id + '">View More</a>\n' +
-            '                                   <a class="btn btn-outline-grey btn-md font-weight-bold disabled">Open Soon</a>\n' +
+            // '                                    <a class="btn btn-outline-primary btn-md font-weight-bold float-right" href="/event/detail/' + value.title + '/' + value.id + '">View More</a>\n' +
             '\n' +
             '                                </div>\n' +
             '                                <!-- Card content -->\n' +
@@ -182,19 +181,33 @@ $(function () {
         alert(res.message);
     });
 
-    $.ajax({
-        type: "GET",
-        url: backendServer + "/api/event/comingsoon-event",
-        dataType: 'json',
-    }).done((res) => {
-        console.log(res.message);
-        console.table(res.data);
-        if (res.data != null) {
-            window.localStorage.setItem('comingsoonEvent', JSON.stringify(res.data));
-        }
-    }).fail((res) => {
-        alert(res.message);
-    });
+    var data = {};
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+    function showPosition(position) {
+        let lat = position.coords.latitude,
+            lng = position.coords.longitude;
+        console.log(lat + "," + lng);
+        $.ajax({
+            type: "GET",
+            url: backendServer + "/api/event/nearby-event?lat=" + lat + "&lng=" + lng,
+            dataType: 'json',
+        }).done((res) => {
+            console.log(res.message);
+            console.table(res.data);
+            if (res.data != null) {
+                window.localStorage.setItem('comingsoonEvent', JSON.stringify(res.data));
+            }
+        }).fail((res) => {
+            alert(res.message);
+        });
+    }
+
 
     const getregisteringEvent = () => {
         return fetch(backendServer + "/api/event/registering-event")

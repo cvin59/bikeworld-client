@@ -19,13 +19,7 @@
 <div class="container-fluid mb-5">
     <div class="row">
         <div class="col-2">
-            <div th:fragment="user-sidebar" class="list-group">
-                <a href="/user/profile" class="list-group-item list-group-item-action">Account</a>
-                <a href="/user/joined-events" class="list-group-item list-group-item-action">Joined Events</a>
-                <a href="/user/proposed-events" class="list-group-item list-group-item-action">Proposed Events</a>
-                <a href="/user/buy-list" class="list-group-item list-group-item-action">Buy Order List</a>
-                <a href="/user/order-list" class="list-group-item list-group-item-action">Sale Order Listr</a>
-                <a href="/user/product" class="list-group-item list-group-item-action">Product List</a>
+            <div th:replace="user :: user-sidebar" class="list-group">
             </div>
         </div>
         <div class="col-10">
