@@ -34,13 +34,10 @@ $("#edt-profile-form").submit(function (e) {
         phone: $("#edtPhone").val(),
 
     }
-    alert($("#edtEmail").val());
 
     var objectDataString = JSON.stringify(objectData);
     var fileUpload = $("#imageUpload").get(0).files[0];
 
-
-    alert(objectDataString)
     var formData = new FormData();
     formData.append('profileModelString', objectDataString);
     formData.append('avatar', fileUpload);

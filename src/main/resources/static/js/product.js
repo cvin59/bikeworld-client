@@ -1,6 +1,6 @@
 var imgSeq = 0;
 var uploadImgList = [];
-var deleteImgList = [4, 5, 6];
+var deleteImgList = [];
 
 var productListPage = 1;
 var productListTotalPage;
@@ -157,8 +157,9 @@ $('#editProductQuantity').on("change", function () {
 $('#create-product-form').submit(function (e) {
     e.preventDefault();
     var cate = document.getElementById("inputProductCategory");
-    var brand = document.getElementById("inputProductBrand");
 
+    var brand = document.getElementById("inputProductBrand");
+    alert(brand.options[brand.selectedIndex].value);
     var objectData =
         {
             name: document.getElementById('inputProductName').value,
@@ -167,8 +168,8 @@ $('#create-product-form').submit(function (e) {
             quantity: document.getElementById('inputProductQuantity').value,
             address: document.getElementById('inputProductAddress').value,
             seller: localStorage.getItem("username"),
-            category: cate.options[cate.selectedIndex].value,
-            brand: brand.options[brand.selectedIndex].value,
+            categoryId: cate.options[cate.selectedIndex].value,
+            brandId: brand.options[brand.selectedIndex].value,
         };
     var objectDataString = JSON.stringify(objectData);
 
@@ -198,8 +199,9 @@ $('#create-product-form').submit(function (e) {
 });
 
 // Edit Product
-$('#edt-profile-form').submit(function (e) {
+$('#edit-product-form').submit(function (e) {
     e.preventDefault();
+    alert("ok");
     var objectData =
         {
             id: document.getElementById("editProductId").value,
@@ -253,16 +255,16 @@ function showProductList() {
         dataType: 'json',
         type: 'GET',
         success: function (res) {
-            var productList = res.data.viewModels;
+            var productList = res.data.productInfo;
             productListPage = res.data.currentPage;
             productListTotalPage = res.data.totalPage;
 
             if (productList != null) {
                 for (i = 0; i < productList.length; i++) {
-                    localStorage.setItem('sellProduct-' + productList[i].productInfo.id, JSON.stringify(productList[i]));
+                    localStorage.setItem('sellProduct-' + productList[i].id, JSON.stringify(productList[i]));
                     var avatar = "";
-                    if (productList[i].ProductImg != null) {
-                        avatar = backendServer + productList[i].ProductImg[0];
+                    if (productList[i].images != null) {
+                        avatar = backendServer + productList[i].images[0];
                     }
 
                     $("#show-product-list").append(
@@ -275,7 +277,7 @@ function showProductList() {
                         "                                    <div class=\"card-body\">\n" +
                         "                                        <a>\n" +
                         "                                            <h4 class=\"font-weight-bold\">" +
-                        productList[i].productInfo.name +
+                        productList[i].name +
                         "</h4>\n" +
                         "                                        </a>\n" +
                         "                                        <!--Rating-->\n" +
@@ -288,17 +290,17 @@ function showProductList() {
                         "                                        </div>\n" +
                         "\n" +
                         "                                        <h5 class=\"text-danger\">" +
-                        productList[i].productInfo.price + " Dollar" +
+                        productList[i].price + " Dollar" +
                         "</h5>\n" +
                         "                                        <dl class=\"row\">\n" +
                         "                                            <dt class=\"col-sm-3\">Quantity</dt>\n" +
                         "                                            <dd class=\"col-sm-9\">" +
-                        productList[i].productInfo.quantity +
+                        productList[i].quantity +
                         "</dd>\n" +
                         "\n" +
                         "                                            <dt class=\"col-sm-3\">Added Date</dt>\n" +
                         "                                            <dd class=\"col-sm-9\">" +
-                        productList[i].productInfo.postDate +
+                        productList[i].postDate +
                         "\n" +
                         "                                            </dd>\n" +
                         "                                        </dl>\n" +
@@ -312,10 +314,10 @@ function showProductList() {
                         "                                                class=\"fa fa-plus mr-1\"></i>Add\n" +
                         "                                            Quantity</a>\n" +
                         "                                        <a class=\"btn btn-sm btn-success float-right font-weight-bold \"\n" +
-                        '                                           href="/user/product/edit/' + productList[i].productInfo.id + '"\n' +
+                        '                                           href="/user/product/edit/' + productList[i].id + '"\n' +
                         "                                                class=\"fa fa-edit mr-1\"></i>Edit</a>\n" +
                         "                                        <a class=\"btn btn-sm btn-danger float-right font-weight-bold\"\n" +
-                        '                                           href="/user/product/detail/' + productList[i].productInfo.id + '"\n' +
+                        '                                           href="/user/product/detail/' + productList[i].id + '"\n' +
                         "                                                class=\"fa fa-edit mr-1\"></i>Detail</a>\n" +
                         "                                    </div>\n" +
                         "                                </div>\n" +
@@ -323,8 +325,8 @@ function showProductList() {
                         "                            <div class=\"pl-0 pr-0 mb-3 pt-3 pb-3 border-top\">"
                     );
 
-                    var rate = productList[i].productInfo.totalRates;
-                    var star = productList[i].productInfo.totalRatePoint / rate;
+                    var rate = productList[i].totalRater;
+                    var star = productList[i].totalRatePoint / rate;
                     var stars = "";
 
                     for (j = 0; j <= 4; j++) {
@@ -349,7 +351,7 @@ function showProductList() {
 
                     $("#show-product-stars-" + i).html(stars);
 
-                    showStatus(productList[i].productInfo.statusId, i, $("#show-product-status-" + i));
+                    showStatus(productList[i], i, $("#show-product-status-" + i));
 
                 }
                 productListPagination(productListTotalPage, productListPage);
@@ -363,8 +365,8 @@ function showProductList() {
 };
 
 function showStatus(stat, i, location) {
-    var statusId = stat.id;
-    var status = stat.name;
+    var statusId = stat.statusId;
+    var status = stat.status;
 
 
     switch (statusId) {
@@ -406,13 +408,13 @@ function showStars(rate, rater, rating) {
 
 function showEditPage(seq) {
     var product = JSON.parse(localStorage.getItem('sellProduct-' + seq));
-    $("#editProductName").val(product.productInfo.name);
-    $("#editProductAddress").val(product.productInfo.address);
-    $("#editProductPrice").val(product.productInfo.price);
-    $("#editProductQuantity").val(product.productInfo.quantity);
-    CKEDITOR.instances.editProductDescription.setData(product.productInfo.description);
+    $("#editProductName").val(product.name);
+    $("#editProductAddress").val(product.address);
+    $("#editProductPrice").val(product.price);
+    $("#editProductQuantity").val(product.quantity);
+   // CKEDITOR.instances.editProductDescription.setData(product.description);
 
-    var images = product.ProductImg;
+    var images = product.images;
     var imageId = product.ProductImgId;
 
     $("#edit-image-table tr").remove();
@@ -467,24 +469,24 @@ $("#edit-files-upload").change(function () {
 
 function showDetailPage(seq) {
     var product = JSON.parse(localStorage.getItem('sellProduct-' + seq));
-    $("#detailProductName").html(product.productInfo.name);
+    $("#detailProductName").html(product.name);
 
-    $("#detailProductAvatar").attr("src", backendServer + product.ProductImg[0]);
+    $("#detailProductAvatar").attr("src", backendServer + product.images[0]);
 
-    var rate = product.productInfo.totalRatePoint;
-    var rater = product.productInfo.totalRates;
+    var rate = product.totalRatePoint;
+    var rater = product.totalRater;
 
     if (rater > 1) {
         $("#detailProductRater").html(rater + " Reviews");
     } else {
         $("#detailProductRater").html(rater + " Review");
     }
-    $("#detailProductPrice").html(product.productInfo.price + " Dollar");
-    $("#detailProductQuantity").html(product.productInfo.quantity);
-    $("#detailProductPostDate").html(product.productInfo.postDate);
+    $("#detailProductPrice").html(product.price + " Dollar");
+    $("#detailProductQuantity").html(product.quantity);
+    $("#detailProductPostDate").html(product.postDate);
 
     showStars(rate, rater, $("#detailProductRate"));
-    showStatus(product.productInfo.statusId, seq, $("#detailProductStatus"));
+    showStatus(product.statusId, seq, $("#detailProductStatus"));
 }
 
 

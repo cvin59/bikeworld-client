@@ -46,19 +46,19 @@ function showProductList() {
         dataType: 'json',
         type: 'GET',
         success: function (res) {
-            var productList = res.data.viewModels;
+            var productList = res.data.productInfo;
             productListPage = res.data.currentPage;
             productListTotalPage = res.data.totalPage;
 
             if (productList != null) {
                 for (i = 0; i < productList.length; i++) {
-                    localStorage.setItem('sellProduct-' + productList[i].productInfo.id, JSON.stringify(productList[i]));
+                    localStorage.setItem('sellProduct-' + productList[i].id, JSON.stringify(productList[i]));
                     var avatar = "";
-                    if (productList[i].ProductImg != null) {
-                        avatar = backendServer + productList[i].ProductImg[0];
+                    if (productList[i].images != null) {
+                        avatar = backendServer + productList[i].images[0];
                     }
 
-                    $("#show-product-list").append(" <div class=\"col-md-4 clearfix d-none d-md-block\">\n" +
+                    $("#show-product-list").append(" <div class=\"col-md-4 clearfix d-none d-md-block mb-3\">\n" +
                         "                                <!-- Card -->\n" +
                         "                                <div class=\"card card-cascade wider card-ecommerce\">\n" +
                         "                                    <!-- Card image -->\n" +
@@ -66,7 +66,7 @@ function showProductList() {
                         "                                        <img src=" + '"' + avatar + '"' + "\n" +
                         "                                            class=\"card-img-top\" alt=\"sample photo\">\n" +
                         "                                        <a" +
-                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].productInfo.id + '"' +
+                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
                         ">\n" +
                         "                                            <div class=\"mask rgba-white-slight\"></div>\n" +
                         "                                        </a>\n" +
@@ -76,19 +76,19 @@ function showProductList() {
                         "                                    <div class=\"card-body card-body-cascade text-center\">\n" +
                         "                                        <!-- Category & Title -->\n" +
                         "                                        <a" +
-                        " href=" + '"' + frontendServer + "/product/category/" + productList[i].productInfo.categoryId.id + '"' +
+                        " href=" + '"' + frontendServer + "/product/category/" + productList[i].categoryId + '"' +
                         "" +
                         "class=\"text-muted\">\n" +
                         "                                            <h5>" +
-                        productList[i].productInfo.categoryId.name +
+                        productList[i].category +
                         "</h5>\n" +
                         "                                        </a>\n" +
                         "                                        <h4 class=\"card-title\">\n" +
                         "                                            <strong>\n" +
                         "                                                <a" +
-                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].productInfo.id + '"' +
+                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
                         ">" +
-                        productList[i].productInfo.name +
+                        productList[i].name +
                         "</a>\n" +
                         "                                            </strong>\n" +
                         "                                        </h4>\n" +
@@ -98,12 +98,12 @@ function showProductList() {
                         "                                        <div class=\"card-footer px-1\">\n" +
                         "                                            <span class=\"float-left font-weight-bold\">\n" +
                         "                                                <strong>" +
-                        productList[i].productInfo.price +
+                        productList[i].price +
                         "</strong>\n" +
                         "                                            </span>\n" +
                         "                                            <span class=\"float-right\">\n" +
                         "                                                <a class=\"\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Quick Look\"" +
-                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].productInfo.id + '"' +
+                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
                         ">\n" +
                         "                                                    Details >>\n" +
                         "                                                </a>\n" +
@@ -115,27 +115,29 @@ function showProductList() {
                         "                                <!-- Card -->\n" +
                         "                            </div>");
 
-                    var rate = productList[i].productInfo.totalRates;
-                    var star = productList[i].productInfo.totalRatePoint/rate ;
+                    var rate = productList[i].totalRater;
+                    var star = productList[i].totalRatePoint / rate;
                     var stars = "";
+                    if (rate != 0) {
+                        for (j = 0; j <= 4; j++) {
+                            if (star <= j) {
+                                stars = stars + "<i class=\"fa fa-star-o orange-text\"> </i>";
+                            }
 
+                            if (star > j && star < j + 1) {
+                                stars = stars + "<i class=\"fa fa-star-half-o orange-text\"></i>";
+                            }
 
-                    for (j = 0; j <= 4; j++) {
-                        if (star <= j) {
-                            stars = stars + "<i class=\"fa fa-star-o orange-text\"> </i>";
+                            if (star >= j + 1) {
+                                stars = stars + ("<i class=\"fa fa-star orange-text\"></i>");
+                            }
                         }
-
-                        if (star > j && star < j + 1) {
-                            stars = stars + "<i class=\"fa fa-star-half-o orange-text\"></i>";
-                        }
-
-                        if (star >= j + 1) {
-                            stars = stars + ("<i class=\"fa fa-star orange-text\"></i>");
-                        }
+                        $("#show-product-stars-" + i).html(stars);
+                    }else{
+                        $("#show-product-stars-" + i).html("0 Review");
                     }
-                    $("#show-product-stars-" + i).html(stars);
                     //
-                    // showStatus(productList[i].productInfo.statusId, i, $("#show-product-status-" + i));
+                    // showStatus(productList[i].statusId, i, $("#show-product-status-" + i));
                 }
                 productListPagination(productListTotalPage, productListPage);
 

@@ -183,7 +183,7 @@
     const loadData = () => {
         $.ajax({
             type: "GET",
-            url: backendServer + "/api/event",
+                url: backendServer + "/api/event",
             dataType: 'json',
         }).done((res) => {
             console.table(res.data);
