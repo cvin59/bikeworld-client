@@ -1,3 +1,5 @@
+var lat;
+var lng;
 $(function () {
 
     const frontendServer = 'http://localhost:8084';
@@ -8,7 +10,10 @@ $(function () {
     //propose event
     $('#formProposeEvent').submit((e) => {
         e.preventDefault();
+        let username = localStorage.getItem("username");
         let json = convertFormToJSON($('#formProposeEvent'));
+        json['description'] = CKEDITOR.instances.editor.getData();
+        json['username'] = username;
         console.log(json);
         let formData = new FormData();
         formData.append('consumeEventString', JSON.stringify(json));
@@ -25,12 +30,14 @@ $(function () {
             console.log(res.data);
             console.log(res.message);
             console.log(JSON.stringify(res.data.accountUsename));
-            // window.location.href = frontendServer + "/event";
+            window.location.href = frontendServer + "/user/proposal-events";
         }).fail((res) => {
             console.log(res.message);
         });
 
     });
+
+
 
     const convertFormToJSON = (form) => {
         let array = jQuery(form).serializeArray();
@@ -41,7 +48,22 @@ $(function () {
         return json;
     }
 
+    //proposal events
+    $('#datetimepickerProposalStart').datetimepicker({
+        format: 'DD/MM/YYYY HH:mm'
+    });
+    $('#datetimepickerProposalEnd').datetimepicker({
+        useCurrent: false,
+        format: 'DD/MM/YYYY HH:mm'
+    });
+    $("#datetimepickerProposalStart").on("change.datetimepicker", function (e) {
+        $('#datetimepickerProposalEnd').datetimepicker('minDate', e.date);
+    });
+    $("#datetimepickerProposalEnd").on("change.datetimepicker", function (e) {
+        $('#datetimepickerProposalStart').datetimepicker('maxDate', e.date);
+    });
 
+    //events
     //start end date
     $('#datetimepickerStart').datetimepicker({
         useCurrent: false,
@@ -135,6 +157,8 @@ $(function () {
             if (id === "") {
                 let json = convertFormToJSON($('#formCreateEvent'));
                 json['description'] = CKEDITOR.instances.editor.getData();
+                json['latitude'] = lat;
+                json['longitude'] = lng;
                 console.log(json);
                 let formData = new FormData();
                 formData.append('consumeEventString', JSON.stringify(json));
@@ -159,11 +183,13 @@ $(function () {
                 e.preventDefault();
                 let json = convertFormToJSON($('#formCreateEvent'));
                 json['description'] = CKEDITOR.instances.editor.getData();
+                json['latitude'] = lat;
+                json['longitude'] = lng;
                 console.log(json);
                 let formData = new FormData();
                 formData.append('consumeEventString', JSON.stringify(json));
                 let image = $("#image").get(0).files[0];
-                formData.append('image', chosenImage);
+                formData.append('image', image);
                 $.ajax({
                     type: "PUT",
                     url: "http://localhost:8080/api/event",
@@ -324,3 +350,51 @@ $(function () {
         chosenImage = '';
     }
 })
+var placeSearch, autocomplete;
+
+var componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+};
+
+function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+        {types: ['geocode']});
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    lat = place.geometry.location.lat();
+    lng = place.geometry.location.lng();
+    console.table(place);
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+                center: geolocation,
+                radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+        });
+    }
+}

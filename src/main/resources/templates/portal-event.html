@@ -101,7 +101,6 @@
                     render: function (data, type, row) {
                         let ret;
                         const id = ((row || {}).eventStautsid || {}).id;
-                        console.log(id);
                         switch (id) {
                             case 1:
                                 ret = '<span class="label label-info ">Inactive</span>';
@@ -125,7 +124,6 @@
                     render: function (data, type, row) {
                         let ret;
                         const id = ((row || {}).eventStautsid || {}).id;
-                        console.log(id);
                         switch (id) {
                             case 1:
                                 ret = '<div class="dropdown">' +

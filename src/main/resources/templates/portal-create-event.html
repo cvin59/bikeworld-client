@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Address</label>
-                                        <input class="form-control" name="address" required>
+                                        <input class="form-control" id="autocomplete" name="address" onfocus="geolocate()" required>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <div class="row">
@@ -167,6 +167,8 @@
 </div>
 <div th:replace="portal-js :: footer"></div>
 <script src="/js/event.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYf2K1LttcbRnaqY-9IfaDxBkpGxtC1Cw&libraries=places&callback=initAutocomplete"
+        async defer></script>
 </body>
 
 </html>

@@ -66,7 +66,8 @@ $(document).ready(function () {
     $(window).scroll(function() {
         if ($(this).scrollTop() > 860) {
             $('#btnGoTop').fadeTo("slow", 8.6);
-        } else {
+        }
+        if ($(this).scrollTop() <= 500) {
             $('#btnGoTop').fadeOut(400);
         }
     });

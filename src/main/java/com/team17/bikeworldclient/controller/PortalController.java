@@ -9,43 +9,50 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/portal")
-public class PortalController extends AbstractController{
+public class PortalController extends AbstractController {
     @GetMapping("/event")
-    public ModelAndView openEvent(){
+    public ModelAndView openEvent() {
         return new ModelAndView("portal-event");
     }
 
     @GetMapping("/proposal-event")
-    public ModelAndView openProposalEvent(){
+    public ModelAndView openProposalEvent() {
         return new ModelAndView("portal-proposal-event");
     }
 
+    @GetMapping("/proposal-event/{id}")
+    public ModelAndView openProposalEvent(@PathVariable Integer id) {
+        ModelAndView mav = new ModelAndView("propose-event");
+        mav.addObject("id", id);
+        return mav;
+    }
+
     @GetMapping(value = {"/event/create-event"})
-    public ModelAndView viewCreateEvent(){
+    public ModelAndView viewCreateEvent() {
         return new ModelAndView("portal-create-event");
     }
 
     @GetMapping("/event/{id}")
-    public ModelAndView viewCreateEventById(@PathVariable("id") Integer id){
+    public ModelAndView viewCreateEventById(@PathVariable("id") Integer id) {
         ModelAndView mav = new ModelAndView("portal-create-event");
         mav.addObject("id", id);
         return mav;
     }
 
     @GetMapping
-    public ModelAndView openProposal(){
+    public ModelAndView openProposal() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("portal-index");
         return modelAndView;
     }
 
     @GetMapping("/login")
-    public ModelAndView openLogin(){
+    public ModelAndView openLogin() {
         return new ModelAndView("login");
     }
 
     @GetMapping("/crawl")
-    public ModelAndView openCrawl(){
+    public ModelAndView openCrawl() {
         return new ModelAndView("portal-crawl");
     }
 

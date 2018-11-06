@@ -29,55 +29,31 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-hover table-bordered customtable" cellspacing="0" width="100%">
+                            <div class="d-flex justify-content-between">
+                                <h3>Proposal Events</h3>
+                                <a class="btn btn-rounded btn-success mb-3 sticky-top btnCreate" href="/user/proposal-events/new"><i
+                                        class="fa fa-plus mr-1" id="btn-create-product"></i>New Proposal Event</a>
+                            </div>
+                                <table id="proposal-datatables" class="table table-hover table-bordered customtable" cellspacing="0" width="100%">
                                 <thead>
                                 <tr class="">
                                     <th class="th-sm">Event Name
                                         <i class="fa fa-sort float-right" aria-hidden="true"></i>
                                     </th>
+                                    <th class="th-sm">Location
+                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="th-sm">Start Date
+                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="th-sm">End Date
+                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                    </th>
                                     <th class="th-sm">Status
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Open Date
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Join Date
-                                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="th-sm">Tiket Price
                                         <i class="fa fa-sort float-right" aria-hidden="true"></i>
                                     </th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td><a class="btn-link">Event Name</a></td>
-                                    <td class="text-center">
-                                        <h6 class="text-success">Active</h6>
-                                    </td>
-                                    <td>2011/04/25</td>
-                                    <td>2011/04/25</td>
-                                    <td>320,800 VND</td>
-                                </tr>
-                                <tr>
-                                    <td><a class="btn-link">Event Name</a></td>
-                                    <td class="text-center">
-                                        <h6 class="text-danger">Canceled</h6>
-                                    </td>
-                                    <td>2011/04/25</td>
-                                    <td>2011/04/25</td>
-                                    <td>320,800 VND</td>
-                                </tr>
-                                <tr>
-                                    <td><a class="btn-link">Event Name</a></td>
-                                    <td class="text-center">
-                                        <h6 class="">Done</h6>
-                                    </td>
-                                    <td>2011/04/25</td>
-                                    <td>2011/04/25</td>
-                                    <td>320,800 VND</td>
-                                </tr>
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -88,7 +64,7 @@
     </div>
 </div>
 <div th:replace="footer :: footer"/>
-<script src="/js/event-user.js"></script>
+<script src="/js/proposal-events.js"></script>
 
 </body>
 
