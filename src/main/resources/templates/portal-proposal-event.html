@@ -67,7 +67,13 @@
                     destroy : true,
                     data: events,
                     columns: [
-                        {data: "title", width: "200px"},
+                        {
+                            data: null, width: "200px",
+                            render: function (data, type, row) {
+                                let ret = '<a href="/portal/proposal-event/' + row.id+ '">' + row.title + '</a>';
+                                return ret;
+                            }
+                        },
                         {data: "location", width: "200px"},
                         {data: "startDate",width: "150px"},
                         {data: "endDate",width: "150px"},
@@ -76,13 +82,13 @@
                             render: function (data, type, row) {
                                 let ret;
                                 switch (row.status) {
-                                    case 0 :
+                                    case 1 :
                                         ret = '<span style="width: 100px" id="spanPedingStatus' + row.id + '" class="label label-default">Pending</span>';
                                         break;
-                                    case 1 :
+                                    case 2 :
                                         ret = '<span style="width: 100px" id="spanApproveStatus' + row.id + '" class="label label-success">Approve</span>';
                                         break;
-                                    case 2 :
+                                    case 3 :
                                         ret = '<span style="width: 100px" id="spanNotApproveStatus' + row.id + '" class="label label-danger">Not Approve</span>';
                                         break;
 
@@ -94,14 +100,40 @@
                             data: null,
                             render: function (data, type, row) {
                                 let ret;
-                                ret = '<div class="dropdown">' +
-                                    '  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
-                                    '  <span class="caret"></span></button>' +
-                                    '  <ul class="dropdown-menu">' +
-                                    '    <li><a id="btnApprove' + row.id + '" onclick="approveEvent(' + row.id + ')">Approve</a></li>' +
-                                    '    <li><a id="btnNotApprove' + row.id + '" onclick="notApproveEvent(' + row.id + ')">Not Approve</a></li>' +
-                                    '  </ul>\n' +
-                                    '</div>';
+                                switch (row.status) {
+                                    case 1 :
+                                        ret = '<div class="dropdown">' +
+                                            '  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
+                                            '  <span class="caret"></span></button>' +
+                                            '  <ul class="dropdown-menu">' +
+                                            '    <li><a id="btnApprove' + row.id + '" onclick="approveEvent(' + row.id + ')">Approve</a></li>' +
+                                            '    <li><a id="btnNotApprove' + row.id + '" onclick="notApproveEvent(' + row.id + ')">Not Approve</a></li>' +
+                                            '  </ul>\n' +
+                                            '</div>';
+                                        break;
+                                    case 2 :
+                                        ret = '<div class="dropdown">' +
+                                            '  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
+                                            '  <span class="caret"></span></button>' +
+                                            '  <ul class="dropdown-menu">' +
+                                            '    <li><a id="btnApprove' + row.id + '" onclick="approveEvent(' + row.id + ')">Create Event</a></li>' +
+                                            '    <li><a id="btnNotApprove' + row.id + '" onclick="notApproveEvent(' + row.id + ')">Not Approve</a></li>' +
+                                            '  </ul>\n' +
+                                            '</div>';
+                                        break;
+                                    case 3 :
+                                        ret = '<div class="dropdown">' +
+                                            '  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
+                                            '  <span class="caret"></span></button>' +
+                                            '  <ul class="dropdown-menu">' +
+                                            '    <li><a id="btnApprove' + row.id + '" onclick="approveEvent(' + row.id + ')">Approve</a></li>' +
+                                            '  </ul>\n' +
+                                            '</div>';
+                                        break;
+
+                                }
+                                return ret;
+
                                 return ret;
                             }
                         }
