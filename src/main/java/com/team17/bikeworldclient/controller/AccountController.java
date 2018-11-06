@@ -50,9 +50,14 @@ public class AccountController {
         return new ModelAndView("user-joinedevents");
     }
 
-    @GetMapping("/proposed-events")
-    public ModelAndView viewProposedEvents() {
+    @GetMapping("/proposal-events")
+    public ModelAndView viewProposedEventCreate() {
         return new ModelAndView("user-proposedevents");
+    }
+
+    @GetMapping("/proposal-events/new")
+    public ModelAndView viewProposedEvents() {
+        return new ModelAndView("user-proposedevent-new");
     }
 
     @GetMapping("/buy-list")

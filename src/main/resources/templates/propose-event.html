@@ -35,10 +35,11 @@
                     </div>
                 <div class="panel-body">
                     <div class="row">
+                        <form role="form" id="formProposeEvent" enctype="multipart/form-data">
                         <div class="col-lg-6">
-                            <form role="form" id="formProposeEvent" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label>Name</label>
+                                    <input class="form-control" name="id" th:value="${id}" type="hidden">
                                     <input class="form-control" name="title">
                                 </div>
                                 <div class="form-group">
@@ -49,35 +50,44 @@
                                     <label>Address</label>
                                     <input class="form-control" name="address">
                                 </div>
-                                <div class="form-group">
+                                <div>
+                                    <label>Event Date</label>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="datetimepickerStart">From</label>
                                     <div class='input-group date' id='datetimepickerStart'>
-                                        <input type='text' name="startDate" class="form-control"/>
+                                        <input type='text' name="startDate" class="form-control" required/>
                                         <span class="input-group-addon">
-                                        <span class="fa fa-calendar"></span>
-                                         </span>
+                                                        <span class="fa fa-calendar"></span>
+                                                    </span>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="datetimepickerEnd">To</label>
                                     <div class='input-group date' id='datetimepickerEnd'>
-                                        <input type='text' name="endDate" class="form-control"/>
+                                        <input type='text' name="endDate" class="form-control" required/>
                                         <span class="input-group-addon">
-                                         <span class="fa fa-calendar"></span>
-                                        </span>
+                                                        <span class="fa fa-calendar"></span>
+                                                    </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea class="form-control"  id="editor"></textarea>
+                                    <div class="text-justify mt-3" id="eventDescription">
 
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Cover Photo</label>
-                                    <input class="form-control" type="file" id="image">
-                                </div>
-                                <button type="submit" class="btn btn-default">Submit Button</button>
-                                <button type="reset" class="btn btn-default">Reset Button</button>
-                            </form>
                         </div>
+                            <div class="col-lg-6">
+                                <label>Cover Photo</label>
+                                <div class="cover-photo">
+                                    <div class="cover-photo">
+                                        <img id="blah" style="width: 50%">
+                                        <div class="trans-bg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -86,6 +96,34 @@
     </div>
 </div>
 <div th:replace="portal-js :: footer"></div>
-<script src="/js/event.js"></script>
+<script>
+        backendServer = "http://localhost:8080";
+        let id = $("input[name='id']").val();
+        $.ajax({
+            type: "GET",
+            url: backendServer + "/api/proposal-event/" + id,
+            dataType: 'json',
+        }).done((res) => {
+            data = res.data;
+            console.table(res.data);
+            $.ajax({
+                type: "GET",
+                url: backendServer + "/api/proposal-event-image/proposal-event/" + id,
+                dataType: 'json',
+            }).done((res) => {
+                console.table(res);
+                if (res.status_code === 1) {
+                    $("#blah").attr("src", backendServer + res.data.imageLink);
+                }
+            }).fail((res) => {
+                console.log(res.message);
+            });
+            $("#formProposeEvent").autofill(res.data);
+            $("#eventDescription").append(res.data.description);
+        }).fail((res) => {
+            console.log(res.message);
+            alert(status);
+        });
+</script>
 </body>
 </html>
