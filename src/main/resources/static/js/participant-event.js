@@ -57,7 +57,7 @@ $(function () {
                 '                                                </dl>\n' +
                 '\n' +
                 '                                                <div>\n' +
-                '                                                    <div>' + status(value.eventId.eventStautsid.id) + '</div>\n' +
+                '                                                    <div>' + status(value.eventId.eventStautsid.id, value.eventId.title, value.eventId.id) + '</div>\n' +
                 '                                                </div>\n' +
                 '                                            </div>\n' +
                 '                                        </div>\n' +
@@ -67,8 +67,9 @@ $(function () {
 
     }
 
-    const status = (statusId) => {
+    const status = (statusId, title, id) => {
         let ret;
+        let eventTitle = title, eventId = id;
         switch (statusId) {
             case 1:
                 ret = '<span class="badge badge-info">Inactive</span>';
@@ -77,7 +78,7 @@ $(function () {
                 ret = '<span class="badge badge-primary">Active</span>';
                 break;
             case 3:
-                ret = '<span class="badge badge-success">Finish</span>';
+                ret = '<span class="badge badge-success">Finish</span><a href="' + frontendServer+ '/event/detail/' + title + '/' + id + '#review" class="btn btn-primary ml-5">Review about the event</a>';
                 break;
             case 4:
                 ret = '<span class="badge badge-danger">Canceled</span>';
@@ -86,7 +87,6 @@ $(function () {
         return ret;
     }
 })
-
 
 function productListPagination(totalPage, currentPage) {
 

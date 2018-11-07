@@ -13,32 +13,6 @@
 <header th:replace="header :: header"></header>
 <!--Main Layout-->
 <main>
-    <!--Search-->
-    <div class="container">
-        <!--Search Section-->
-        <section class="p-3 pl-5 pr-5">
-            <!-- Search form -->
-            <form class="form-inline d-flex justify-content-center md-form form-sm">
-                <!-- Search form -->
-                <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search"
-                       aria-label="Search">
-                <select class="mdb-select md-form">
-                    <option value="1">Component</option>
-                    <option value="2">Trading</option>
-                    <option value="3">Event</option>
-                </select>
-                <div>
-                    <button class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"
-                                                                                   aria-hidden="true"></i>Search
-                    </button>
-                </div>
-
-            </form>
-        </section>
-        <!--End Search Section-->
-    </div>
-    <!--End Search-->
-
     <!--Bread Crum Menu-->
     <div class="container">
         <nav class="breadcrumb white">
@@ -50,7 +24,7 @@
     <!--End Bread Crum Menu-->
 
     <!--Title Div-->
-    <div class="container-fluid">
+    <div class="container-fluid background-1">
         <div class="container">
 
             <!-- Card -->
@@ -210,50 +184,48 @@
 
 
     <!-- Section: Comment -->
-    <section class="my-5 background-2 p-5">
-        <!--<form>-->
-            <!--<div class="container white p-5 mb-3">-->
+    <section id="reviewSection" class="my-5 background-2 p-5">
+        <div id="review">
+            <form id="formReview" style="display: none;">
+                <div class="container white p-5 mb-3">
+                    <h4>SEND YOUR REVIEW</h4>
+                    <!--Comment-->
+                    <div class="row mt-4">
+                        <div class="col-1">
+                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg"
+                                 class="rounded-circle z-depth-1-half w-100">
+                        </div>
+                        <div class="col-11">
+                            <!--Review-->
+                            <div class="star-rating">
+                                <span class="fa fa-star-o" data-rating="1"></span>
+                                <span class="fa fa-star-o" data-rating="2"></span>
+                                <span class="fa fa-star-o" data-rating="3"></span>
+                                <span class="fa fa-star-o" data-rating="4"></span>
+                                <span class="fa fa-star-o" data-rating="5"></span>
+                                <input id="ratingPoint" type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
 
-                <!--<h2>Your Rating:</h2>-->
-                <!--&lt;!&ndash;Comment&ndash;&gt;-->
-                <!--<div class="row mt-4">-->
-                    <!--<div class="col-1">-->
-                        <!--<img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg"-->
-                             <!--class="rounded-circle z-depth-1-half w-100">-->
-                    <!--</div>-->
-                    <!--<div class="col-11">-->
-                        <!--<a>-->
-                            <!--<h4 class="font-weight-bold black-text">Tên</h4>-->
-                        <!--</a>-->
-                        <!--&lt;!&ndash;Review&ndash;&gt;-->
-                        <!--<div class="star-rating">-->
-                            <!--<span class="fa fa-star-o" data-rating="1"></span>-->
-                            <!--<span class="fa fa-star-o" data-rating="2"></span>-->
-                            <!--<span class="fa fa-star-o" data-rating="3"></span>-->
-                            <!--<span class="fa fa-star-o" data-rating="4"></span>-->
-                            <!--<span class="fa fa-star-o" data-rating="5"></span>-->
-                            <!--<input type="hidden" name="whatever1" class="rating-value" value="2.56">-->
-                        <!--</div>-->
+                            <textarea id="txtRatingContent" class="form-control mt-3" placeholder="Your comment"></textarea>
 
-                        <!--<textarea id="txtRatingContent" class="form-control mt-3" placeholder="Your comment"></textarea>-->
+                            <div class="d-flex justify-content-end">
+                                <button id="btnRating" class="btn btn-danger my-4" type="submit">Send</button>
+                            </div>
 
-                        <!--<div class="d-flex justify-content-end">-->
-                            <!--<button id="btnRating" class="btn btn-danger my-4" type="submit">Confirm</button>-->
-                        <!--</div>-->
-
-                    <!--</div>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;End Comment&ndash;&gt;-->
+                        </div>
+                    </div>
+                    <!--End Comment-->
 
 
-            <!--</div>-->
-        <!--</form>-->
+                </div>
+            </form>
+        </div>
 
         <div class="container white p-5">
             <!-- Grid row -->
             <div class="row">
 
-                <h4 class="ml-3">EVENT REVIEWS</h4>
+                <h4 id="eventReview" class="ml-3">EVENT REVIEWS</h4>
 
                 <!-- Grid column -->
                 <div class="col-md-12">

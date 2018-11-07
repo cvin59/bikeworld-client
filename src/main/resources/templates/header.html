@@ -114,20 +114,20 @@
                             <!--<i class="fa fa-angle-down rotate-icon"></i>-->
                         </a>
                         <!--<div class="collapsible-body">-->
-                            <!--<ul>-->
-                                <!--<li>-->
-                                    <!--<a href="#" class="waves-effect">Clothes</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="#" class="waves-effect">Bikes</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="#" class="waves-effect">Bike Components</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="#" class="waves-effect">Other</a>-->
-                                <!--</li>-->
-                            <!--</ul>-->
+                        <!--<ul>-->
+                        <!--<li>-->
+                        <!--<a href="#" class="waves-effect">Clothes</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<a href="#" class="waves-effect">Bikes</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<a href="#" class="waves-effect">Bike Components</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<a href="#" class="waves-effect">Other</a>-->
+                        <!--</li>-->
+                        <!--</ul>-->
                         <!--</div>-->
                     </li>
                 </ul>
@@ -144,18 +144,38 @@
                 <i class="fa fa-bars dark-grey-text"></i>
             </a>
         </div>
+
         <!-- Breadcrumb-->
         <div class="breadcrumb-dn mr-auto">
             <a href="/home">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7NJDLI2uPFBJN_dsOCavkJObbQf5kn1myxcHqIAgGOu5SMYGq"
-                 class="img-fluid flex-center" style="height: 30px; margin-left: 25px">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7NJDLI2uPFBJN_dsOCavkJObbQf5kn1myxcHqIAgGOu5SMYGq"
+                     class="img-fluid flex-center" style="height: 30px; margin-left: 25px">
             </a>
+        </div>
+        <div>
+            <form id="formSearch" class="form-wrapper">
+                <!-- Search form -->
+                <button class="go-button fa fa-search"></button>
+                <span class="nav-list">
+                  <span class="current-selection">
+                  </span>
+                  <select id="selectSearchType" class="browser-default">
+                    <option value="1">Component</option>
+                    <option value="2">Trading</option>
+                    <option value="3">Event</option>
+                </select>
+                  </span>
+                <div class="in-wrap">
+                    <input id="txtSearch" type="text"
+                           aria-label="Search">
+                </div>
+            </form>
         </div>
         <ul class="nav navbar-nav nav-flex-icons ml-auto">
             <!--Notification button-->
-            <!--<li class="nav-item">-->
-            <!--<a class="nav-link"><span class="clearfix d-none d-sm-inline-block white-text">Notification</span></a>-->
-            <!--</li>-->
+            <li class="nav-item">
+                <a class="nav-link"><span class="clearfix d-none d-sm-inline-block">Notification</span></a>
+            </li>
             <!--End Notification button-->
             <li id="navTabsLogin" class="nav-item">
                 <a class="nav-link font-weight-bold" data-toggle="modal" data-target="#modalLRForm">
@@ -298,24 +318,27 @@
     <!--Modal: Login / Register Form-->
 </header>
 <!--Search Section-->
-<section th:fragment="search-box" class="p-5">
-    <!-- Search form -->
-    <form id="formSearch" class="form-inline d-flex justify-content-center md-form form-sm">
-        <!-- Search form -->
-        <input id="txtSearch" class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search"
-               aria-label="Search">
-        <select id="selectSearchType" class="mdb-select md-form">
-            <option value="1">Component</option>
-            <option value="2">Trading</option>
-            <option value="3">Event</option>
-        </select>
-        <div>
-            <button class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"
-                                                                           aria-hidden="true"></i>Search
-            </button>
-        </div>
+<section th:fragment="search-box">
+        <div class="pt-5"></div>
+        <!--&lt;!&ndash; Search form &ndash;&gt;-->
+        <!--<form id="formSearch" class="form-inline justify-content-center">-->
+        <!--&lt;!&ndash; Search form &ndash;&gt;-->
+        <!--<input id="txtSearch" class="form-control form-control-sm mr-3" type="text" placeholder="Search"-->
+        <!--aria-label="Search">-->
 
-    </form>
+        <!--<select id="selectSearchType" class="browser-default custom-select">-->
+        <!--<option value="1">Component</option>-->
+        <!--<option value="2">Trading</option>-->
+        <!--<option value="3">Event</option>-->
+        <!--</select>-->
+        <!--<div>-->
+        <!--<button class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"-->
+        <!--aria-hidden="true"></i>Search-->
+        <!--</button>-->
+        <!--</div>-->
+
+        <!--</form>-->
+
 </section>
 <!--End Search Section-->
 </body>

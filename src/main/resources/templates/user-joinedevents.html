@@ -14,7 +14,7 @@
 <!--Main Layout-->
 <!--Search-->
 <section th:replace="header :: search-box"></section>
-<div class="container-fluid mb-5">
+<div class="container-fluid mb-5 mt-5">
     <div class="row">
         <div class="col-2">
             <div th:replace="user :: user-sidebar" class="list-group">
@@ -44,7 +44,8 @@
                                     </div>
                                     <div class="d-flex justify-content-end">
                                         <!-- Search form -->
-                                        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                                        <input class="form-control" type="text" placeholder="Search"
+                                               aria-label="Search">
                                     </div>
                                 </div>
                             </form>
@@ -72,17 +73,22 @@
                                             </li>
                                             <li class="page-item active" id="eventList-current-page-2"><a
                                                     class="page-link">1</a></li>
-                                            <li class="page-item" id="eventList-current-page-1"><a class="page-link">2</a></li>
-                                            <li class="page-item" id="eventList-current-page"><a class="page-link">3</a></li>
-                                            <li class="page-item" id="eventList-current-page+1"><a class="page-link">4</a></li>
-                                            <li class="page-item" id="eventList-current-page+2"><a class="page-link">5</a></li>
+                                            <li class="page-item" id="eventList-current-page-1"><a
+                                                    class="page-link">2</a></li>
+                                            <li class="page-item" id="eventList-current-page"><a class="page-link">3</a>
+                                            </li>
+                                            <li class="page-item" id="eventList-current-page+1"><a
+                                                    class="page-link">4</a></li>
+                                            <li class="page-item" id="eventList-current-page+2"><a
+                                                    class="page-link">5</a></li>
                                             <li class="page-item" id="eventList-next-page">
                                                 <a class="page-link" aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>
                                                     <span class="sr-only">Next</span>
                                                 </a>
                                             </li>
-                                            <li class="page-item" id="eventList-last-page"><a class="page-link" >Last</a></li>
+                                            <li class="page-item" id="eventList-last-page"><a class="page-link">Last</a>
+                                            </li>
                                         </ul>
                                     </nav>
                                     <!--End Pagination-->
@@ -100,8 +106,8 @@
     </div>
 </div>
 <div th:replace="footer :: footer"/>
+<script src="/js/auth.js"></script>
 <script src="/js/participant-event.js"></script>
-
 </body>
 
 </html>
