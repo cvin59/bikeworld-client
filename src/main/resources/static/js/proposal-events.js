@@ -30,6 +30,7 @@ const loadDataTable = (events) => {
         ],
         responsive: true
     });
+    $('.dataTables_length').addClass('bs-select');
 }
 
 var data ;

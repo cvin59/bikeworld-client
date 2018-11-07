@@ -1,9 +1,10 @@
 $(function () {
-    const backendServer = "http://localhost:8080";
-    const frontendServer = "http://localhost:8084";
-    var totalSlots,
+    var backendServer = "http://localhost:8080",
+        frontendServer = "http://localhost:8084",
+        totalSlots,
         valMax,
-        valMin;
+        valMin,
+        username = localStorage.getItem('username');
     let id = $("#id").val();
     let title;
     console.log(id);
@@ -58,6 +59,38 @@ $(function () {
                 .addClass('btn btn-blue-grey font-weight-bold mt-2 disabled').text('Sold Out');
         }
         totalSlots = event.totalSlots;
+        await checkParticipant(event.id, username);
+        await checkEventRating(event.id);
+    }
+
+    const checkParticipant = async (eventId, username) => {
+        await $.ajax({
+            type: "GET",
+            url: backendServer + "/api/participant?eventId=" + eventId + "&username=" + username,
+            dataType: 'json',
+        }).done((res) => {
+            if (res.status_code === 1) {
+                console.log("yes he has participated");
+                $("#formReview").css('display', 'block');
+            }
+        }).fail((res) => {
+            console.log(res.message);
+        });
+    }
+
+    const checkEventRating = async (eventId) => {
+        await $.ajax({
+            type: "GET",
+            url: backendServer + "/api/event-rating/check?eventId=" + eventId + "&username=" + username,
+            dataType: 'json',
+        }).done((res) => {
+            if (res.status_code === 1) {
+                console.log("yes he has rated");
+                $("#formReview").css('display', 'none');
+            }
+        }).fail((res) => {
+            console.log(res.message);
+        });
     }
 
 
@@ -145,6 +178,31 @@ $(function () {
         }
     })
 
+    $("#formReview").submit((e) => {
+        e.preventDefault();
+        let now = new Date();
+        let data = {
+            ratePoint: $("#ratingPoint").val(),
+            content: $("#txtRatingContent").val(),
+            eventId: id,
+            username: username,
+            rateDate: now,
+        }
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/event-rating",
+            dataType: 'json',
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            processData: false
+        }).done((res) => {
+            console.log(res.data);
+            console.log(res.status_code);
+            $('#centralModalSuccess').modal('show');
+        }).fail((res) => {
+            console.log(res.message);
+        });
+    })
 
     $("#formRegisterEvent").submit((e) => {
         e.preventDefault();

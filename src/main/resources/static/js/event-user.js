@@ -1,11 +1,5 @@
 $(function () {
     const backendServer = "http://localhost:8080";
-    const loadImageregisteringEvent = (id) => {
-        return fetch(backendServer + "/api/event-image/event/" + id)
-            .then(rs => rs.json())
-            .then(data => typeof data.data === 'undefined' ? '' : backendServer + data.data.imageLink);
-    }
-
     const loadInforegisteringEvent = (value, imageUrl, slide) => {
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
@@ -104,7 +98,7 @@ $(function () {
                 '                    </div>');
             let registeringEvent1 = registeringEvent.slice(i, i + 3);
             for (value of registeringEvent1) {
-                const imageUrlRegisteringSoon = await loadImageregisteringEvent(value.id);
+                const imageUrlRegisteringSoon = await loadImage(value.id);
                 loadInfoRegistering = await loadInforegisteringEvent(value, imageUrlRegisteringSoon, $(`#slideItemregistering${i}`));
 
             }
@@ -122,7 +116,7 @@ $(function () {
                 '                    </div>');
             let comingsoonEvent1 = comingsoonEvent.slice(i, i + 3);
             for (value of comingsoonEvent1) {
-                const imageUrlComingSoon = await loadImageregisteringEvent(value.id);
+                const imageUrlComingSoon = await loadImage(value.id);
                 loadInfoComingSoon = await loadInfoComingsoonEvent(value, imageUrlComingSoon, $(`#sliderItemComingSoon${i}`));
             }
             $("#indicatorComingSoonEvent").append(' <li data-target="#comingSoonCarousel" data-slide-to="' + j++ + '"></li>');
@@ -160,7 +154,7 @@ $(function () {
     const loadSliderEvent = async (registeringEvent) => {
         let registeringEvent1 = registeringEvent.slice(0, 3);
         for (value of registeringEvent1) {
-            const imageUrl = await loadImageregisteringEvent(value.id);
+            const imageUrl = await loadImage(value.id);
             loadSlider = await loadInfoSliderEvent(value, imageUrl, $("#sliderEvent"));
         }
         $("#sliderEvent .carousel-item").first().addClass("active");
@@ -222,6 +216,7 @@ $(function () {
 
     var registeringEvent = JSON.parse(window.localStorage.getItem('registeringEvent'))
     var comingsoonEvent = JSON.parse(window.localStorage.getItem('comingsoonEvent'))
+
     const setregisteringEvent = async () => {
         if (registeringEvent === null) {
             registeringEvent = await getregisteringEvent();
@@ -240,6 +235,7 @@ $(function () {
             comingsoonEventSlide = await loadcomingsoonEvent(comingsoonEvent);
         }
     }
+
     const loadEvent = async () => {
         registeringEventSlide = await setregisteringEvent();
         comingsoonEventSlide = await setcomingsoonEvent();
