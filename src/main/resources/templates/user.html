@@ -37,7 +37,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <form class="md-form">
+                            <form class="md-form" id="edt-profile-form">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 pt-5 pl-4">
                                         <!-- Avatar -->
@@ -55,36 +55,36 @@
                                             </a>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text"
-                                                       placeholder="Upload your file">
+                                                       placeholder="Upload your avatar">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-8 col-md-12 col-sm-12 pl-5 pb-5">
                                         <dl class="row text-left flex-center">
+                                            <dt class="col-sm-3">Username:</dt>
+                                            <dd class="col-sm-9"><input id="edtUsername" class="form-control"
+                                                                        placeholder="abc" type="text" readonly></dd>
+
                                             <dt class="col-sm-3">First name:</dt>
-                                            <dd class="col-sm-9"><input id="txtFirstname" class="form-control"
+                                            <dd class="col-sm-9"><input id="edtFirstname" class="form-control"
                                                                         placeholder="abc" type="text"></dd>
 
                                             <dt class="col-sm-3">Last name:</dt>
-                                            <dd class="col-sm-9"><input id="txtLastname" class="form-control"
-                                                                        placeholder="abc" type="text"></dd>
-
-                                            <dt class="col-sm-3">Username:</dt>
-                                            <dd class="col-sm-9"><input id="txtUsername" class="form-control"
+                                            <dd class="col-sm-9"><input id="edtLastname" class="form-control"
                                                                         placeholder="abc" type="text"></dd>
 
                                             <dt class="col-sm-3">Address:</dt>
-                                            <dd class="col-sm-9"><input id="txtLocation" class="form-control"
+                                            <dd class="col-sm-9"><input id="edtLocation" class="form-control"
                                                                         placeholder="sdffsdfsdfsdfsdfsd"
                                                                         type="text"></dd>
 
                                             <dt class="col-sm-3">Phone:</dt>
-                                            <dd class="col-sm-9"><input id="txtPhone" class="form-control"
+                                            <dd class="col-sm-9"><input id="edtPhone" class="form-control"
                                                                         placeholder="1234567890" type="text"></dd>
 
                                             <dt class="col-sm-3 text-truncate">Email</dt>
-                                            <dd class="col-sm-9"><input id="txtEmail" class="form-control"
+                                            <dd class="col-sm-9"><input id="edtEmail" class="form-control"
                                                                         placeholder="1234@gmail.com" type="text">
                                             </dd>
                                         </dl>
@@ -105,6 +105,7 @@
 </div>
 <div th:replace="footer :: footer"/>
 <script src="/js/auth.js"></script>
+<script src="/js/user.js"></script>
 </body>
 
 </html>

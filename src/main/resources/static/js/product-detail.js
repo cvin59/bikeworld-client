@@ -1,6 +1,9 @@
+var username;
+var seller
+var productPrice;
+var productId;
 $(function () {
-    const backendServer = "http://localhost:8080";
-
+    username = localStorage.getItem("username");
     let id = $("#id").val();
     console.log(id);
     if (id != "") {
@@ -10,22 +13,28 @@ $(function () {
             dataType: 'json',
             success(res) {
                 if (res != null) {
-                    $("#show-product-name").append(res.data.productInfo.name);
-                    $("#link-show-product-name").append(res.data.productInfo.name);
-                    $("#show-product-price").append(res.data.productInfo.price + " Dollars");
-                    $("#show-product-quantity").append(res.data.productInfo.quantity);
-                    $("#show-product-description").append(res.data.productInfo.description);
-                    $("#show-product-address").append(res.data.productInfo.address);
-                    $("#show-symbol-product-address").append(res.data.productInfo.address);
-                    $("#show-product-brand").append(res.data.productInfo.brandId.name);
+                    $("#show-product-name").append(res.data.name);
+                    $("#link-show-product-name").append(res.data.name);
+                    $("#show-product-price").append(res.data.price + " Dollars");
+                    $("#show-product-quantity").append(res.data.quantity);
+                    $("#show-product-description").append(res.data.description);
+                    $("#show-product-address").append(res.data.address);
+                    $("#show-symbol-product-address").append(res.data.address);
+                    $("#show-product-brand").append(res.data.brand);
 
-                    var rate = res.data.productInfo.totalRatePoint;
-                    var rater = res.data.productInfo.totalRates;
+                    $("#orderQuantity").attr({"max": res.data.quantity, "min": 1});
+
+                    productId = res.data.id;
+                    productPrice = res.data.price;
+                    seller = res.data.seller;
+
+                    var rate = res.data.totalRatePoint;
+                    var rater = res.data.totalRater
 
                     showReviews(rater);
                     showStars(rate, rater);
                     showImages(res);
-                    showStatus(res.data.productInfo.statusId);
+                    showStatus(res.data.statusId);
                 }
             }, error(e) {
                 console.log(e);
@@ -57,7 +66,7 @@ function showStatus(stat) {
 }
 
 function showImages(res) {
-    productImgs = res.data.ProductImg;
+    productImgs = res.data.images;
     if (productImgs != null) {
         var indicators = document.getElementById("carousel-indicators");
         var inner = document.getElementById("carousel-inner");
@@ -117,4 +126,72 @@ function showStars(rate, rater) {
     $("#show-product-rate").html(stars);
 }
 
+$("#btn-Order").on("click", function (e) {
+    e.preventDefault();
+    if (username == null) {
+        $("#modalLRForm").modal();
+    } else {
+        loadProfile();
+        $("#addOrderModal").modal();
+    }
+})
+
+function loadProfile() {
+    var username = localStorage.getItem("username");
+    $("#edtUsername").val(username);
+
+    $.ajax({
+        type: 'GET',
+        url: backendServer + "/api/account/profile/" + username,
+        dataType: 'json',
+        success(res) {
+            if (res.data != null) {
+                $("#receiverName").val(res.data.firstName + " " + res.data.lastName);
+                $("#orderPhone").val(res.data.phone);
+                $("#orderAddress").val(res.data.address);
+            }
+        },
+        error(e) {
+            console.log(e);
+        }
+    });
+}
+
+$("#orderQuantity").on("change", function () {
+    var price = $("#orderQuantity").val() * productPrice;
+    $("#totalPrice").val(price);
+})
+
+$("#create-order-form").submit(function () {
+    var objectData = {
+        reciever: $("#receiverName").val(),
+        deliveryAddr: $("#orderAddress").val(),
+        phoneContact: $("#orderPhone").val(),
+        seller: seller,
+        buyer: username,
+        quantity: $("#orderQuantity").val(),
+        total: $("#totalPrice").val(),
+        productId: productId,
+    }
+
+    var objectDataString = JSON.stringify(objectData);
+    var formData = new FormData();
+    formData.append('orderModelString', objectDataString);
+    $.ajax({
+        type: 'POST',
+        url: backendServer + "/api/order",
+        dataType: 'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+
+        success: function (response) {
+            alert("Success")
+        },
+        error: function (e) {
+            alert("ERROR load: ", e);
+            console.log(e);
+        }
+    });
+})
 
