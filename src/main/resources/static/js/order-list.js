@@ -33,9 +33,11 @@ function loadDataTable(orderList) {
         autoWidth: false,
         data: orderList,
         columns: [
-            {data: "productName"},
-            {data: "buyer"},
-            {data: "quantity"},
+            {data: "productName",width:"150px"},
+            {data: "buyer", width:"150px"},
+            {data: "orderDate",width:"200px"},
+            {data: "quantity",width:"100px"},
+            {data: "total",width:"100px"},
             {
                 data: null,
                 render: function (data, type, row) {
@@ -61,22 +63,28 @@ function loadDataTable(orderList) {
                     return ret;
                 }
             },
-            {data: "orderDate"},
-            {data: "total"},
             {
                 data: null,
                 render: function (data, type, row) {
                     let ret;
                     const id = (row || {}).statusId;
+                    var orderId=(row || {}).id
                     console.log(id);
                     switch (id) {
                         case 1:
-                            ret = '<div>' +
-                                '<button class="btn btn-success" type="button" value="Success">' +
-                                '<button class="btn btn-danger" type="button" value="Cancel">' +
+                            ret = '<button class="btn btn-primary" type="button">Detail</button>' +
+                                '<div class="dropdown">' +
+                                '  <button class="btn stylish-color dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
+                                '  <span class="caret"></span></button>' +
+                                '  <ul class="dropdown-menu">' +
+                                '    <li class="btn-success"><a >Success</a></li>' +
+                                '    <li class="btn-danger" onclick="rejetOrder(' + orderId+ ')"><a>Cancel</a></li>' +
+                                '  </ul>\n' +
                                 '</div>';
+                            ;
                             break;
                         default:
+                            ret = '<button class="btn btn-primary" type="button">Detail</button>';
                             break;
 
                     }
@@ -86,4 +94,17 @@ function loadDataTable(orderList) {
         ],
         responsive: true
     });
+}
+
+function rejetOrder(id) {
+    $.ajax({
+        type: 'PUT',
+        url: backendServer + "/api/order/reject?orderId=" + id,
+        dataType: 'json',
+        success(res) {
+            alert(res.message);
+        }, error(res) {
+            alert(res.message);
+        }
+    })
 }
