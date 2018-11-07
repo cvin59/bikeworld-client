@@ -527,6 +527,7 @@ function productListPagination(totalPage, currentPage) {
                 $("#productList-next").css("display", "none");
                 $("#productList-next2").css("display", "none");
             }
+            break;
         default:
             switch (currentPage) {
                 case 1:
