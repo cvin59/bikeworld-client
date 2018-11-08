@@ -39,10 +39,10 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="col-md-6">
-                                    <button id="startCrawlRev" class="btn btn-primary" onclick="runCrawl('revzilla')">
+                                    <button id="startCrawlRev" class="btn btn-primary" onclick="runCrawl()">
                                         Start Crawl
                                     </button>
-                                    <button id="stopCrawlRev" class="btn btn-danger" onclick="stopCrawl('revzilla')">
+                                    <button id="stopCrawlRev" class="btn btn-danger" onclick="stopCrawl()">
                                         Stop
                                         Crawl
                                     </button>
@@ -253,7 +253,8 @@
     // }
 
 
-    function runCrawl(site) {
+    function runCrawl() {
+        let site = $("#cbbSite").val().toLowerCase();
         $.ajax({
             type: 'POST',
             url: backendServer + 'api/crawl/run/' + site,
@@ -275,8 +276,8 @@
         });
     }
 
-    function stopCrawl(site) {
-
+    function stopCrawl() {
+        let site = $("#cbbSite").val().toLowerCase();
         $.ajax({
             type: 'POST',
             url: backendServer + 'api/crawl/stop/' + site,
@@ -331,7 +332,7 @@
 
     function getPageCount() {
 
-        console.log($("#cbbSite").val().toLowerCase());
+
 
         $.ajax({
             type: 'GET',
