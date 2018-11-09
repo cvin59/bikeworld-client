@@ -334,6 +334,47 @@
 <script>
 
     let backendServer = "http://localhost:8080";
+    function PageCrawl(list) {
+
+        this.list = list;
+    }
+
+
+    // $('#demoPagin').pagination({
+    //     dataSource: [1, 2, 3, 4, 5, 6, 7],
+    //     callback: function (data, pagination) {
+    //         // template method of yourself
+    //         var html = template(data);
+    //         dataContainer.html(html);
+    //     }
+    // })
+
+    // $(document).ready(function () {
+    //     $('#example').DataTable();
+    // });
+
+
+    var backendServer = "http://localhost:8080/";
+    // $("#startCrawlRev").click(function () {
+    //     runCrawl("revzilla");
+    // });
+    //
+    //
+    // $("#stopCrawlRev").click(function () {
+    //     stopCrawl("revzilla");
+    // });
+
+
+    // function showView(data) {
+    //     let list = JSON.parse(data);
+    //     let tableBody = $("#crawlTableBody");
+    //     tableBody.empty();
+    //
+    //     for (let i = 0; i <= list.length; i++) {
+    //
+    //     }
+    // }
+
 
     function runCrawl() {
         let site = $("#cbbSite").val().toLowerCase();
@@ -406,11 +447,20 @@
     let productList = [];
     let totalPage;
     let totalItem;
+
+</script>
+
+<script>
+    let productList = [];
+    let totalPage;
     let currentPage = 0;
     let pageSize = 20;
 
     function getPageCount() {
         alert(1);
+
+
+
         $.ajax({
             type: 'GET',
             url: backendServer + 'api/crawl/countpending/',
@@ -424,6 +474,26 @@
                 prepareProductList();
                 productListPagination(totalPage, 1);
                 loadAndShow(1);
+
+                // alert("!");
+                // console.log(data);
+
+
+                let count = data;
+
+                console.log(count);
+                totalPage = count / 20 + ((count % 20) & 1);
+
+                prepareProductList();
+                productListPagination(totalPage, 1);
+
+                loadAndShow(1);
+
+                // $.each(data, function(index, element) {
+                //     $('body').append($('<div>', {
+                //         text: element.name
+                //     }));
+                // })
             },
             error: function (data) {
                 console.log(data);
@@ -445,6 +515,11 @@
     // function addRow(rowData, pos) {
     //     let tableBody = $("#crawlTableBody");
     // }
+    function addRow(rowData, pos) {
+        let tableBody = $("#crawlTableBody");
+
+    }
+
 
     function loadDataOnly(pageNum) {
         // for (let i = 0; i < productList.length; i++) {
@@ -466,6 +541,15 @@
             success: function (data) {
                 // console.log(data);
                 productList[pageNum] = data.data;
+                // alert("!");
+                console.log(data);
+
+                productList[pageNum] = data.data;
+                // $.each(data, function (index, element) {
+                //     $('body').append($('<div>', {
+                //         text: element.name
+                //     }));
+                // });
             },
             error: function (data) {
                 console.log(data);
@@ -503,6 +587,12 @@
                 if (pageNum < totalPage) {
                     loadDataOnly(pageNum + 1);
                 }
+                // alert("!");
+                console.log(data);
+
+                productList[pageNum] = data.data;
+                showPage(pageNum);
+
             },
             error: function (data) {
                 console.log(data);
@@ -539,6 +629,12 @@
                     "                                    </td>");
             }
         }
+        if (1 < pageNum) {
+            loadDataOnly(pageNum - 1);
+        }
+        if (pageNum < totalPage) {
+            loadDataOnly(pageNum + 1);
+        }
     }
 
 
@@ -546,6 +642,9 @@
     //     prepareProductList();
     //     loadAndShow(1);
     // }
+
+</script>
+<script>
 
 
     var productListPage = 1;
@@ -709,6 +808,8 @@
 
 
 </script>
+</script>
+<script src="/js/crawlNghia.js"></script>
 <script src="/js/crawlTri.js"></script>
 </body>
 
