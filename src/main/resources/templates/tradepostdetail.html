@@ -8,39 +8,17 @@
     <title>Material Design Bootstrap</title>
 </head>
 
-<body class="hidden-sn">
+<body>
 <!--Double navigation-->
 <header th:replace="header :: header"></header>
 <!--Main Layout-->
 <main>
     <div class="container">
 
-        <!--Search Section-->
-        <section class="p-3 pl-5 pr-5">
-            <!-- Search form -->
-            <form class="form-inline d-flex justify-content-center md-form form-sm">
-                <!-- Search form -->
-                <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search"
-                       aria-label="Search">
-                <select class="mdb-select md-form">
-                    <option value="1">Component</option>
-                    <option value="2">Trading</option>
-                    <option value="3">Event</option>
-                </select>
-                <div>
-                    <button class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"
-                                                                                   aria-hidden="true"></i>Search
-                    </button>
-                </div>
-
-            </form>
-        </section>
-        <!--End Search Section-->
-
         <!--Bread Crum Menu-->
         <nav class="breadcrumb white">
-            <a class="breadcrumb-item text-danger" href="/home">Home</a>
-            <a class="breadcrumb-item text-danger" href="#">Trading</a>
+            <a class="breadcrumb-item" href="/home">Home</a>
+            <a class="breadcrumb-item" href="#">Trading</a>
             <span class="breadcrumb-item active" id="link-show-product-name"></span>
         </nav>
         <!--End Bread Crum Menu-->

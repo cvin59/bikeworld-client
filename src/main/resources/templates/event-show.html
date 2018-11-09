@@ -8,42 +8,24 @@
     <title>Material Design Bootstrap</title>
 </head>
 
-<body class="hidden-sn">
+<body>
 <!--Double navigation-->
 <header th:replace="header :: header"></header>
 <main>
     <div class="container">
-        <section th:replace="header :: search-box"></section>
-
-        <!--Bread Crum Menu-->
-        <!--<div class="container">-->
-        <!--<nav class="breadcrumb white">-->
-        <!--<a class="breadcrumb-item text-danger" href="#">Home</a>-->
-        <!--<a class="breadcrumb-item active" href="#">Search</a>-->
-        <!--</nav>-->
-        <!--</div>-->
-        <!--End Bread Crum Menu-->
-
-        <!-- Section: Trading-->
-        <section id="tradingSection" class="my-5">
-
-            <!-- Section heading -->
-            <!--<h2 class="h1-responsive my-5">Trading</h2>-->
-        </section>
-        <!-- End Section: Recommended Posts-->
-        <div class="row mb-5">
+        <div class="row mb-5 mt-5">
             <div class="col-12">
                 <div class="border p-2">
                     <div class="row text-md-center">
                         <div class="col-md-3">
-                            <select id="selectSortBy" class="mdb-select mdb-form">
+                            <select id="selectSortBy" class="browser-default custom-select">
                                 <option value="title">Title</option>
                                 <option value="fee">Fee</option>
                                 <option value="startDate">Date</option>
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <select id="selectDirection" class="mdb-select mdb-form">
+                            <select id="selectDirection" class="browser-default custom-select">
                                 <option value="1">Acending</option>
                                 <option value="2">Decending</option>
                             </select>

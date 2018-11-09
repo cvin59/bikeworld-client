@@ -3,13 +3,18 @@ $(function () {
     const loadInforegisteringEvent = (value, imageUrl, slide) => {
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
+        if (days <= 0) {
+            days = '0 days left';
+        } else {
+            days = days + 'days left';
+        }
         slide.append('<div class="col-md-4">' +
             '  <!-- Card -->\n' +
-            '                            <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-5 animated wow zoomIn faster">\n' +
+            '                            <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-2 animated wow zoomIn faster">\n' +
             '\n' +
             '                                <!-- Card image -->\n' +
             '                                <div class="view overlay">\n' +
-            '                                    <img class="card-img-top h-100px"\n' +
+            '                                    <img class="card-img-top h-150px"\n' +
             '                                         src="' + imageUrl + '"\n' +
             '                                         alt="Card image cap">\n' +
             '                                    <a href="/event/detail/' + value.title + '/' + value.id + '">\n' +
@@ -48,13 +53,18 @@ $(function () {
     const loadInfoComingsoonEvent = (value, imageUrl, slide) => {
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
+        if (days <= 0) {
+            days = '0 days left';
+        } else {
+            days = days + 'days left';
+        }
         slide.append('<div class="col-md-4">' +
             '  <!-- Card -->\n' +
-            '                            <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-5 animated wow zoomIn faster">\n' +
+            '                            <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-2 animated wow zoomIn faster">\n' +
             '\n' +
             '                                <!-- Card image -->\n' +
             '                                <div class="view overlay">\n' +
-            '                                    <img class="card-img-top h-100px"\n' +
+            '                                    <img class="card-img-top h-150px"\n' +
             '                                         src="' + imageUrl + '"\n' +
             '                                         alt="Card image cap">\n' +
             '                                    <a href="/event/detail/' + value.title + '/' + value.id + '">\n' +
@@ -128,6 +138,11 @@ $(function () {
     const loadInfoSliderEvent = (value, imageUrl, slide) => {
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
+        if (days <= 0) {
+            days = '0 days left';
+        } else {
+            days = days + 'days left';
+        }
         slide.append(' <div class="carousel-item">\n' +
             '                <div class="custom-hover-card"><img\n' +
             '                        src="' + imageUrl + '"/>\n' +
@@ -137,7 +152,7 @@ $(function () {
             '                        <!-- Date -->\n' +
             '                        <div class="d-flex justify-content-between w-100">\n' +
             '                            <p class="white-text"><i class="fa fa-calendar text-danger "></i>' + value.startDate + '</p>\n' +
-            '                            <p class="white-text ml-5"><i class="fa fa-clock-o "></i>' + days + ' days left</p>\n' +
+            '                            <p class="white-text ml-5"><i class="fa fa-clock-o "></i>' + days + '</p>\n' +
             '                        </div>\n' +
             '                        <!-- Location and Price -->\n' +
             '                        <div class="d-flex justify-content-between w-100">\n' +

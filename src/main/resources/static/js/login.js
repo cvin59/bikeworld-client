@@ -112,6 +112,8 @@ $(function () {
             console.log(res);
             window.localStorage.setItem('username', res);
             $("#navTabsLogin").empty();
+            $("#navTabsLogin").removeAttr('data-target');
+            $("#navTabsLogin").removeAttr('data-toggle');
             $("#navTabsLogin").append('<div class="dropdown">\n' +
                 '\n' +
                 '    <!--Trigger-->\n' +

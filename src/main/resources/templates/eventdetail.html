@@ -8,23 +8,23 @@
     <title>Material Design Bootstrap</title>
 </head>
 
-<body class="hidden-sn">
+<body>
 <!--Double navigation-->
 <header th:replace="header :: header"></header>
 <!--Main Layout-->
 <main>
     <!--Bread Crum Menu-->
     <div class="container">
-        <nav class="breadcrumb white">
-            <a class="breadcrumb-item text-danger" href="/home">Home</a>
-            <a class="breadcrumb-item text-danger" href="/event">Event</a>
+        <nav class="breadcrumb">
+            <a class="breadcrumb-item" href="/home">Home</a>
+            <a class="breadcrumb-item" href="/event">Event</a>
             <span id="eventName" class="breadcrumb-item active">Event Name</span>
         </nav>
     </div>
     <!--End Bread Crum Menu-->
 
     <!--Title Div-->
-    <div class="container-fluid background-1">
+    <div class="container-fluid">
         <div class="container">
 
             <!-- Card -->
@@ -225,82 +225,10 @@
             <!-- Grid row -->
             <div class="row">
 
-                <h4 id="eventReview" class="ml-3">EVENT REVIEWS</h4>
+                <h4 class="ml-3">EVENT REVIEWS</h4>
 
                 <!-- Grid column -->
-                <div class="col-md-12">
-
-                    <!--Comment-->
-                    <div class="row mt-5">
-                        <div class="col-1">
-                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg"
-                                 class="rounded-circle z-depth-1-half w-100">
-                        </div>
-                        <div class="col-11">
-                            <a href="/name" style="color: #333">
-                                Tên
-                            </a>
-                            <!--Review-->
-                            <div>
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                                <span class="card-text" ></span>
-                            </div>
-                            <p class="mt-2">dsfdslkfsljkdflsdkjfhlsdnfljkdsnf sdfkjdsfkhjsdbfksd smfjhsdfhj sj jhf
-                                jhsdf jhsg fjs djsg fdjsgd fjsgdj fsjdfgjs fjs fjsd fjs jdfhsjh djs fjsdf
-                                hjsgdjfhsjf gjhsdf.</p>
-                            <p class="grey-text">2 days ago</p>
-                        </div>
-                    </div>
-                    <!--End Comment-->
-                    <!--Comment-->
-                    <div class="row mt-5">
-                        <div class="col-1">
-                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg"
-                                 class="rounded-circle z-depth-1-half w-100">
-                        </div>
-                        <div class="col-11">
-                            <a>
-                                <h4 class="font-weight-bold black-text">Tên</h4>
-                            </a>
-                            <!--Review-->
-                            <i class="fa fa-star orange-text"> </i>
-                            <i class="fa fa-star orange-text"> </i>
-                            <i class="fa fa-star orange-text"> </i>
-                            <i class="fa fa-star orange-text"> </i>
-                            <i class="fa fa-star-half-full orange-text"> </i>
-                            <h5 class="mt-2">dsfdslkfsljkdflsdkjfhlsdnfljkdsnf sdfkjdsfkhjsdbfksd smfjhsdfhj sj jhf
-                                jhsdf jhsg fjs djsg fdjsgd fjsgdj fsjdfgjs fjs fjsd fjs jdfhsjh djs fjsdf
-                                hjsgdjfhsjf gjhsdf.</h5>
-                            <h6 class="grey-text">2 days ago</h6>
-                        </div>
-                    </div>
-                    <!--End Comment-->
-                    <!--Comment-->
-                    <div class="row mt-5">
-                        <div class="col-1">
-                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg"
-                                 class="rounded-circle z-depth-1-half w-100">
-                        </div>
-                        <div class="col-11">
-                            <a>
-                                <h4 class="font-weight-bold black-text">Tên</h4>
-                            </a>
-                            <!--Review-->
-                            <i class="fa fa-star orange-text"> </i>
-                            <i class="fa fa-star orange-text"> </i>
-                            <i class="fa fa-star orange-text"> </i>
-                            <i class="fa fa-star orange-text"> </i>
-                            <i class="fa fa-star- orange-text"> </i>
-                            <h5 class="mt-2">dsfdslkfsljkdflsdkjfhlsdnfljkdsnf sdfkjdsfkhjsdbfksd smfjhsdfhj sj jhf
-                                jhsdf jhsg fjs djsg fdjsgd fjsgdj fsjdfgjs fjs fjsd fjs jdfhsjh djs fjsdf
-                                hjsgdjfhsjf gjhsdf.</h5>
-                            <h6 class="grey-text">2 days ago</h6>
-                        </div>
-                    </div>
-                    <!--End Comment-->
-
+                <div class="col-md-12" id="eventReview">
 
                 </div>
                 <!-- Grid column -->
