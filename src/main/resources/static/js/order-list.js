@@ -16,7 +16,13 @@ function loadOrderList() {
         // "&sortBy=" + $("#selectSortBy").val(),
         dataType: 'json',
         success: function (res) {
-            loadDataTable(res.data.orders);
+            var order = res.data.orders;
+            loadDataTable(order);
+
+            for (i = 0; i < order.length; i++) {
+                var key = 'order-' + order[i].id;
+                localStorage.setItem(key, JSON.stringify(order[i]));
+            }
 
             orderListTotalPage = res.data.totalPage;
             orderListPage = res.data.currentPage;
@@ -80,18 +86,16 @@ function loadDataTable(orderList) {
                     switch (id) {
                         case 1:
                             ret =
-                                '<div class="d-flex justify-content-center">' +
-                                '<button class="btn btn-primary" type="button">Detail</button>' +
+                                '<button class="btn btn-primary" type="button" onclick="showOrderDetail(' + orderId + ')">Detail</button>' +
                                 '  <button id="btn-Action" class="btn stylish-color dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
                                 '  <span class="caret"></span></button>' +
                                 '  <ul class="dropdown-menu">' +
                                 '    <li class="btn btn-success"  onclick="confirmOrder(' + orderId + ')"><a >Confirm</a></li>' +
                                 '    <li class="btn btn-danger" onclick="rejectOrder(' + orderId + ')"><a>Cancel</a></li>' +
-                                '  </ul>\n' +
-                                '</div>';
+                                '  </ul>\n';
                             break;
                         default:
-                            ret = '<button class="btn btn-primary" type="button">Detail</button>';
+                            ret = '<button class="btn btn-primary" type="button" onclick="showOrderDetail(' + orderId + ')">Detail</button>';
                             break;
 
                     }
@@ -101,6 +105,20 @@ function loadDataTable(orderList) {
         ],
         responsive: true
     });
+}
+
+function showOrderDetail(orderId) {
+    var key = 'order-' + orderId;
+    var order = JSON.parse(localStorage.getItem(key));
+
+    $("#buyerUsername").val(order.buyer)
+    $("#receiverName").val(order.reciever);
+    $("#orderQuantity").val(order.quantity);
+    $("#orderPhone").val(order.phoneContact);
+    $("#totalPrice").val(order.total);
+    $("#orderAddress").val(order.deliveryAddr);
+
+    $('#detail-Order-Modal').modal();
 }
 
 function rejectOrder(id) {
@@ -132,7 +150,6 @@ function confirmOrder(id) {
 }
 
 function orderListPagination(totalPage, currentPage) {
-    alert(totalPage + ":" + currentPage);
     if (currentPage < 2) {
         document.getElementById("orderList-first-page").className = "page-item disabled";
         document.getElementById("orderList-previous-page").className = "page-item disabled";

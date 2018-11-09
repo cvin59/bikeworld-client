@@ -39,10 +39,10 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="col-md-6">
-                                    <button id="startCrawlRev" class="btn btn-primary" onclick="runCrawl('revzilla')">
+                                    <button id="startCrawlRev" class="btn btn-primary" onclick="runCrawl()">
                                         Start Crawl
                                     </button>
-                                    <button id="stopCrawlRev" class="btn btn-danger" onclick="stopCrawl('revzilla')">
+                                    <button id="stopCrawlRev" class="btn btn-danger" onclick="stopCrawl()">
                                         Stop
                                         Crawl
                                     </button>
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class=" col-md-3">
-                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#myModal">Add
+                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#addCrawlProductModal">Add
                                     Component Manually</a>
                             </div>
                         </div>
@@ -183,34 +183,160 @@
         </div>
     </div>
     <!-- /#page-wrapper -->
-    <div id="myModal" class="modal fade" role="dialog">
+    <div id="addCrawlProductModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title">Add new product:</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <form id="createForm">
+                        <div class="form-group">
+                            <label for="txtName">Name:</label>
+                            <input type="text" class="form-control" id="txtName" name="name">
+                            <span id="messageName" class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageUpload">Upload images:</label>
+                            <input type="file" class="form-control-file" id="imageUpload" multiple accept=".jpg,.png,.jpeg">
+                            <span id="messageImage" class="help-block invisible"></span>
+                        </div>
+
+                        <div id="imageTable" style="height:300px; overflow-y: scroll">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center" scope="col">Image</th>
+                                    <th class="text-center" scope="col">Name</th>
+                                    <th class="text-center" scope="col">Size</th>
+                                    <th class="text-center" scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody id="imageTableBody">
+                                    <!--insert images previews here-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtPrice">Price($):</label>
+                            <input type="number" class="form-control" id="txtPrice" name="price" min="0">
+                            <span id="messagePrice" class="help-block invisible"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDescription">Description:</label>
+                            <textarea class="form-control" rows="5" id="txtDescription" name="description"></textarea>
+                            <span id="messageDescription" class="help-block invisible"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryId">Category:</label>
+                            <select class="form-control" id="categoryId" name="category">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="brandId">Brand:</label>
+                            <select class="form-control" id="brandId" name="brand">
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success pull-right">Submit</button>
+
+                    </form>
                 </div>
             </div>
 
         </div>
     </div>
+
+    <!--EditProductModal-->
+    <div id="editCrawlProductModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit product:</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="txtName">Name:</label>
+                            <input type="text" class="form-control" id="txtEditName" name="name">
+                            <span id="editMessageName" class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageUpload">Upload images:</label>
+                            <input type="file" class="form-control-file" id="imageEditUpload" multiple accept=".jpg,.png,.jpeg">
+                            <span id="editMessageImage" class="help-block invisible"></span>
+                        </div>
+
+                        <div id="imageEditTable" style="height:300px; overflow-y: scroll">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center" scope="col">Image</th>
+                                    <th class="text-center" scope="col">Name</th>
+                                    <th class="text-center" scope="col">Size</th>
+                                    <th class="text-center" scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody id="imageEditTableBody">
+                                <!--insert images previews here-->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtPrice">Price($):</label>
+                            <input type="number" class="form-control" id="txtEditPrice" name="price" min="0">
+                            <span id="editMessagePrice" class="help-block invisible"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDescription">Description:</label>
+                            <textarea class="form-control" rows="5" id="txtEditDescription" name="description"></textarea>
+                            <span id="editMessageDescription" class="help-block invisible"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryId">Status:</label>
+                            <select class="form-control" id="editStatusId" name="category">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryId">Category:</label>
+                            <select class="form-control" id="editCategoryId" name="category">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="brandId">Brand:</label>
+                            <select class="form-control" id="editBrandId" name="brand">
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success pull-right">Submit</button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--End EditProductModal-->
+
 </div>
 <!-- /#wrapper -->
 </div>
-<div th:replace="portal-js :: footer"></div>
 
+<div th:replace="portal-js :: footer"></div>
 
 <script>
 
-
+<<<<<<< HEAD
+    let backendServer = "http://localhost:8080/";
+=======
+    let backendServer = "http://localhost:8080";
     function PageCrawl(list) {
 
         this.list = list;
@@ -252,8 +378,10 @@
     //     }
     // }
 
+>>>>>>> b4472087aaa83043234b7f5c8114cc5285938dfa
 
-    function runCrawl(site) {
+    function runCrawl() {
+        let site = $("#cbbSite").val().toLowerCase();
         $.ajax({
             type: 'POST',
             url: backendServer + 'api/crawl/run/' + site,
@@ -275,8 +403,8 @@
         });
     }
 
-    function stopCrawl(site) {
-
+    function stopCrawl() {
+        let site = $("#cbbSite").val().toLowerCase();
         $.ajax({
             type: 'POST',
             url: backendServer + 'api/crawl/stop/' + site,
@@ -320,6 +448,9 @@
         });
     }
 
+    let productList = [];
+    let totalPage;
+    let totalItem;
 
 </script>
 
@@ -330,8 +461,9 @@
     let pageSize = 20;
 
     function getPageCount() {
+        alert(1);
 
-        console.log($("#cbbSite").val().toLowerCase());
+
 
         $.ajax({
             type: 'GET',
@@ -339,6 +471,13 @@
             data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
+                // console.log(data);
+                totalItem = data;
+                // console.log(totalItem);
+                totalPage = totalItem / 20 + ((totalItem % 20) & 1);
+                prepareProductList();
+                productListPagination(totalPage, 1);
+                loadAndShow(1);
 
                 // alert("!");
                 // console.log(data);
@@ -377,6 +516,9 @@
         }
     }
 
+    // function addRow(rowData, pos) {
+    //     let tableBody = $("#crawlTableBody");
+    // }
     function addRow(rowData, pos) {
         let tableBody = $("#crawlTableBody");
 
@@ -401,6 +543,8 @@
             data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
+                // console.log(data);
+                productList[pageNum] = data.data;
                 // alert("!");
                 console.log(data);
 
@@ -438,6 +582,15 @@
             data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
+                // console.log(data);
+                productList[pageNum] = data.data;
+                showPage(pageNum);
+                if (1 < pageNum) {
+                    loadDataOnly(pageNum - 1);
+                }
+                if (pageNum < totalPage) {
+                    loadDataOnly(pageNum + 1);
+                }
                 // alert("!");
                 console.log(data);
 
@@ -453,7 +606,6 @@
 
     function showPage(pageNum) {
         // alert(pageNum);
-
         let tableBody = $("#crawlTableBody");
         tableBody.empty();
         let page = productList[pageNum];
@@ -467,7 +619,7 @@
                     "                                    <td>" + rowData.name + "</td>\n" +
                     "                                    <td>" + rowData.price + "</td>\n" +
                     "                                    <td></td>\n" +
-                    "                                    <td>" + rowData.url + "</td>\n" +
+                    "                                    <td><a>" + rowData.siteId.link + rowData.url + "</a></td>\n" +
                     "                                    <td><span class=\"label label-warning\">Pending</span></td>\n" +
                     "                                    <td>\n" +
                     "                                        <div class=\"form-group\">\n" +
@@ -656,7 +808,13 @@
         $("#show-product-list").html("");
         showProductList();
     });
+
+
+
 </script>
+</script>
+<script src="/js/crawlNghia.js"></script>
+<script src="/js/crawlTri.js"></script>
 </body>
 
 </html>
