@@ -144,7 +144,7 @@ $('#createForm').submit((function (e) {
 
     $.ajax({
         type: "POST",
-        url: backendServer + "/api/crawl",
+        url: backendServer + "api/crawl",
         dataType: "json",
         data: formData,
         contentType: false,
