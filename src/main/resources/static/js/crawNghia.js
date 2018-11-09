@@ -1,3 +1,6 @@
+
+let backendServer = "http://localhost:8080";
+
 function runCrawl() {
     let site = $("#cbbSite").val().toLowerCase();
     $.ajax({

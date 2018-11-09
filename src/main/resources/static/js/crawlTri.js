@@ -1,4 +1,4 @@
-// const backendServer = "http://localhost:8080/";
+// let backendServer = "http://localhost:8080/";
 //Image List for creating crawl product
 var imageList = [];
 //Image List for editing crawl product
