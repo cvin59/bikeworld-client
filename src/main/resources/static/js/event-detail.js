@@ -4,7 +4,8 @@ $(function () {
         totalSlots,
         valMax,
         valMin,
-        username = localStorage.getItem('username');
+        username = localStorage.getItem('username'),
+        checkFinish;
     let id = $("#id").val();
     let title;
     console.log(id);
@@ -35,7 +36,7 @@ $(function () {
         $("#eventEnd").append('From: ' + toStringDate(event.startDate) + '<br/>' + 'To: ' + toStringDate(event.endDate));
         $("#eventOpen").append('From: ' + toStringDate(event.startRegisterDate) + '<br/>' + 'To: ' + toStringDate(event.endRegisterDate));
         $("#eventDescription").append(event.description);
-        ratingStar(event.totalRatesPoint);
+        ratingStar(event.totalRatesPoint, $("#totalRatingPoints"));
         $("#totalRates").text(event.totalRates);
         let imageUrl = await loadImage(event.id);
         $("#eventImage").attr("src", imageUrl);
@@ -45,6 +46,7 @@ $(function () {
         let today = new Date();
         let checkStartRegister = Date.daysBetween(today, toOjectDAte(event.startRegisterDate));
         let checkEndRegister = Date.daysBetween(today, toOjectDAte(event.endRegisterDate));
+        checkFinish = Date.daysBetween(today, toOjectDAte(event.endDate));
 
         if (checkStartRegister > 0) {
             $("#btnJoinNow").removeClass('btn btn-outline-danger font-weight-bold mt-2 animated pulse infinite')
@@ -54,13 +56,19 @@ $(function () {
             $("#btnJoinNow").removeClass('btn btn-outline-danger font-weight-bold mt-2 animated pulse infinite')
                 .addClass('btn btn-blue-grey font-weight-bold mt-2 disabled').text('Close Register');
         }
+        if (checkFinish < 0) {
+            $("#btnJoinNow").removeClass('btn btn-blue-grey font-weight-bold mt-2 animated pulse infinite')
+                .addClass('btn btn-success font-weight-bold mt-2 disabled').text('Event Finish');
+        }
         if (event.currentSlot === event.totalSlots) {
             $("#btnJoinNow").removeClass('btn btn-outline-danger font-weight-bold mt-2 animated pulse infinite')
                 .addClass('btn btn-blue-grey font-weight-bold mt-2 disabled').text('Sold Out');
         }
+
         totalSlots = event.totalSlots;
         await checkParticipant(event.id, username);
         await checkEventRating(event.id);
+        await getEventRating(event.id);
     }
 
     const checkParticipant = async (eventId, username) => {
@@ -69,7 +77,7 @@ $(function () {
             url: backendServer + "/api/participant?eventId=" + eventId + "&username=" + username,
             dataType: 'json',
         }).done((res) => {
-            if (res.status_code === 1) {
+            if (res.status_code === 1 && checkFinish < 0) {
                 console.log("yes he has participated");
                 $("#formReview").css('display', 'block');
             }
@@ -93,6 +101,43 @@ $(function () {
         });
     }
 
+    const getEventRating = async (eventId) => {
+        await $.ajax({
+            type: "GET",
+            url: backendServer + "/api/event-rating/event?eventId=" + eventId,
+            dataType: 'json',
+        }).done((res) => {
+            if (res.status_code === 1) {
+                console.table(res.data);
+                let ratings = res.data;
+                for (rating of ratings) {
+                    $("#eventReview").append(' <div class="row mt-5">\n' +
+                        '                        <div class="col-1">\n' +
+                        '                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg"\n' +
+                        '                                 class="rounded-circle z-depth-1-half w-100">\n' +
+                        '                        </div>\n' +
+                        '                        <div class="col-11">\n' +
+                        '                            <a href="/name" style="color: #333">\n' +
+                        '                                ' + rating.accountUsename.username + '\n' +
+                        '                            </a>\n' +
+                        '                            <!--Review-->\n' +
+                        '                            <div>\n' +
+                        '                                <div class="stars-outer">\n' +
+                        '                                    <div id="" class="stars-inner" style="width: '+ratingStarWidth(rating.ratePoint)+'"></div>\n' +
+                        '                                </div>\n' +
+                        '                                <span class="card-text" ></span>\n' +
+                        '                            </div>\n' +
+                        '                            <p class="mt-2">' + rating.content + '</p>\n' +
+                        '                            <p class="grey-text">'+toStringDate(rating.rateDate)+'</p>\n' +
+                        '                        </div>\n' +
+                        '                    </div>');
+                }
+
+            }
+        }).fail((res) => {
+            console.log(res.message);
+        });
+    }
 
     var operators = {
         '*': function (a, b) {
@@ -133,6 +178,23 @@ $(function () {
         return dateObject;
     }
 
+    Date.ratingBetween = function (date1, date2) {
+        //Get 1 day in milliseconds
+        var one_day = 1000 * 60 * 60 * 24;
+
+        // Convert both dates to milliseconds
+        var date1_ms = date1.getTime();
+        var date2_ms = date2.getTime();
+
+        // Calculate the difference in milliseconds
+        var difference_ms = date2_ms - date1_ms;
+
+        // Convert back to days and return
+        return difference_ms;
+        return Math.round(difference_ms / one_day);
+    }
+
+
     Date.daysBetween = function (date1, date2) {
         //Get 1 day in milliseconds
         var one_day = 1000 * 60 * 60 * 24;
@@ -161,10 +223,16 @@ $(function () {
         return months[date.getMonth()];
     }
     //rating
-    const ratingStar = (ratePoint) => {
+    const ratingStar = (ratePoint, element) => {
         const starPercentage = (ratePoint / 5) * 100;
         const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-        $("#totalRatingPoints").width(starPercentageRounded);
+        element.width(starPercentageRounded);
+    }
+
+    const ratingStarWidth = (ratePoint) => {
+        let starPercentage = (ratePoint / 5) * 100;
+        let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+        return starPercentageRounded;
     }
 
     var username = localStorage.getItem('username');
@@ -199,6 +267,7 @@ $(function () {
             console.log(res.data);
             console.log(res.status_code);
             $('#centralModalSuccess').modal('show');
+            checkEventRating(id);
         }).fail((res) => {
             console.log(res.message);
         });

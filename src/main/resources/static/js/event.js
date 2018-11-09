@@ -189,7 +189,7 @@ $(function () {
                 let formData = new FormData();
                 formData.append('consumeEventString', JSON.stringify(json));
                 let image = $("#image").get(0).files[0];
-                formData.append('image', image);
+                formData.append('image', chosenImage);
                 $.ajax({
                     type: "PUT",
                     url: "http://localhost:8080/api/event",

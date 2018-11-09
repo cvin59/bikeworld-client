@@ -20,6 +20,11 @@ $(function () {
             let imageUrl = await loadImage(value.id);
             let today = new Date();
             let days = Date.daysBetween(today, toJSDate(value.startDate));
+            if (days <= 0) {
+                days = '0 days left';
+            } else {
+                days = days + 'days left';
+            }
             if (i === 0) {
                 await $("#featuredNews").append(' <div class="single-news mb-lg-0 mb-4">\n' +
                     '\n' +
@@ -40,7 +45,7 @@ $(function () {
                     '                            <!-- Date -->\n' +
                     '                            <div class="d-flex justify-content-between mt-3">\n' +
                     '                                <p class="dark-grey-text"><i class="fa fa-calendar pr-2 text-danger"></i>' + value.startDate + '</p>\n' +
-                    '                                <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>' + days + ' days left</p>\n' +
+                    '                                <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>' + days + '</p>\n' +
                     '                            </div>\n' +
                     '\n' +
                     '                            <!-- Location and Price -->\n' +
@@ -90,7 +95,7 @@ $(function () {
                     '                                <!-- Date -->\n' +
                     '                                <div class="d-flex justify-content-between w-100">\n' +
                     '                                    <p class="dark-grey-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>' + value.startDate + '</p>\n' +
-                    '                                    <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>' + days + ' days left</p>\n' +
+                    '                                    <p class="dark-grey-text"><i class="fa fa-clock-o pr-2"></i>' + days + '</p>\n' +
                     '                                </div>\n' +
                     '                                <!-- Location and Price -->\n' +
                     '                                <div class="d-flex justify-content-between w-100">\n' +

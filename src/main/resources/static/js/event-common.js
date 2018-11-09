@@ -12,7 +12,7 @@ const loadEvent = async (element, allEvent) => {
         let today = new Date();
         let days = Date.daysBetween(today, toJSDate(value.startDate));
         if (days <= 0) {
-            days = 'Ongoing';
+            days = '0 days left';
         } else {
             days = days + 'days left';
         }
@@ -22,7 +22,7 @@ const loadEvent = async (element, allEvent) => {
             '\n' +
             '                                <!-- Card image -->\n' +
             '                                <div class="view overlay">\n' +
-            '                                    <img class="card-img-top h-100px"\n' +
+            '                                    <img class="card-img-top h-150px"\n' +
             '                                         src="' + imageUrl + '"\n' +
             '                                         alt="Card image cap">\n' +
             '                                    <a href="/event/detail/' + value.title + '/' + value.id + '">\n' +
@@ -37,7 +37,7 @@ const loadEvent = async (element, allEvent) => {
             '                                    <h6 class="font-weight-bold card-title"><a style="font-size: 16px; color: #333" href="/event/detail/' + value.title + '/' + value.id + '">' + value.title.substring(0, 25)+'</a></h6>\n' +
             '                                    <!-- Date -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
-            '                                        <p class="card-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>' + value.startDate +
+            '                                        <p class="card-text"><i class="fa fa-calendar pr-2  ml-3"></i>' + value.startDate +
             '                                        </p>\n' +
             '                                        <p class="card-text"><i class="fa fa-clock-o pr-2"></i>' + days + ' </p>\n' +
             '                                    </div>\n' +
