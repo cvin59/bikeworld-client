@@ -68,6 +68,7 @@ function viewCrawl(site) {
 
 let productList = [];
 let totalPage;
+let totalItem;
 let currentPage = 0;
 let pageSize = 20;
 
@@ -78,26 +79,13 @@ function getPageCount() {
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
-
-            // alert("!");
             // console.log(data);
-
-
-            let count = data;
-
-            console.log(count);
-            totalPage = count / 20 + ((count % 20) & 1);
-
+            totalItem = data;
+            // console.log(totalItem);
+            totalPage = totalItem / 20 + ((totalItem % 20) & 1);
             prepareProductList();
             productListPagination(totalPage, 1);
-
             loadAndShow(1);
-
-            // $.each(data, function(index, element) {
-            //     $('body').append($('<div>', {
-            //         text: element.name
-            //     }));
-            // })
         },
         error: function (data) {
             console.log(data);
@@ -138,15 +126,8 @@ function loadDataOnly(pageNum) {
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
-            // alert("!");
-            console.log(data);
-
+            // console.log(data);
             productList[pageNum] = data.data;
-            // $.each(data, function (index, element) {
-            //     $('body').append($('<div>', {
-            //         text: element.name
-            //     }));
-            // });
         },
         error: function (data) {
             console.log(data);
@@ -175,12 +156,15 @@ function loadAndShow(pageNum) {
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
-            // alert("!");
-            console.log(data);
-
+            // console.log(data);
             productList[pageNum] = data.data;
             showPage(pageNum);
-
+            if (1 < pageNum) {
+                loadDataOnly(pageNum - 1);
+            }
+            if (pageNum < totalPage) {
+                loadDataOnly(pageNum + 1);
+            }
         },
         error: function (data) {
             console.log(data);
@@ -190,7 +174,6 @@ function loadAndShow(pageNum) {
 
 function showPage(pageNum) {
     // alert(pageNum);
-
     let tableBody = $("#crawlTableBody");
     tableBody.empty();
     let page = productList[pageNum];
@@ -217,12 +200,6 @@ function showPage(pageNum) {
                 "                                        </div>\n" +
                 "                                    </td>");
         }
-    }
-    if (1 < pageNum) {
-        loadDataOnly(pageNum - 1);
-    }
-    if (pageNum < totalPage) {
-        loadDataOnly(pageNum + 1);
     }
 }
 
