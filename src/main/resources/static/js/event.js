@@ -348,8 +348,8 @@ $(function () {
         $("#image").val("");
         checkName = '';
         chosenImage = '';
-    }
-})
+    };
+});
 var placeSearch, autocomplete;
 
 var componentForm = {

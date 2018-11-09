@@ -56,6 +56,8 @@ function showProductList() {
                     var avatar = "";
                     if (productList[i].images != null) {
                         avatar = backendServer + productList[i].images[0];
+                    }else{
+                        avatar=backendServer+"/images/img404.jpg";
                     }
 
                     $("#show-product-list").append(" <div class=\"col-md-4 clearfix d-none d-md-block mb-3\">\n" +
@@ -133,7 +135,7 @@ function showProductList() {
                             }
                         }
                         $("#show-product-stars-" + i).html(stars);
-                    }else{
+                    } else {
                         $("#show-product-stars-" + i).html("0 Review");
                     }
                     //
@@ -211,6 +213,7 @@ function productListPagination(totalPage, currentPage) {
                 $("#productList-next").css("display", "none");
                 $("#productList-next2").css("display", "none");
             }
+            break;
         default:
             switch (currentPage) {
                 case 1:

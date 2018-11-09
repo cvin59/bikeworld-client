@@ -16,7 +16,7 @@
 <!--Main Layout-->
 <!--Search-->
 <section th:replace="header :: search-box"></section>
-<div class="container-fluid mb-5">
+<div class="container-fluid mb-5 mt-5">
     <div class="row">
         <div class="col-2">
             <div th:replace="user :: user-sidebar" class="list-group">
@@ -81,64 +81,40 @@
                                 <!--End Product Row-->
 
                                 <h3>Buyer List</h3>
-                                <table class="table table-hover table-bordered customtable" cellspacing="0"
+                                <table id="order-list-table" class="table table-hover table-bordered" cellspacing="0"
                                        width="100%">
                                     <thead>
                                     <tr class="">
+                                        <th class="th-sm">Product Name
+                                            <i class="fa fa-sort float-right"
+                                               aria-hidden="true"></i>
+                                        </th>
                                         <th class="th-sm">Buyer
-                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                        </th>
-                                        <th class="th-sm">Quantity
-                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                                        </th>
-                                        <th class="th-sm">Status
-                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                            <i class="fa fa-sort  float-right"
+                                               aria-hidden="true"></i>
                                         </th>
                                         <th class="th-sm">Order Date
-                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                            <i class="fa fa-sort float-right "
+                                               aria-hidden="true"></i>
+                                        </th>
+                                        <th class="th-sm">Quantity
+                                            <i class="fa fa-sort  float-right"
+                                               aria-hidden="true"></i>
                                         </th>
                                         <th class="th-sm">Total Price
-                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                            <i class="fa fa-sort float-right "
+                                               aria-hidden="true"></i>
+                                        </th>
+                                        <th class="th-sm">Status
+                                            <i class="fa fa-sort  float-right"
+                                               aria-hidden="true"></i>
                                         </th>
                                         <th class="th-sm">Action
-                                            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                            <i class="fa fa-sort  float-right"
+                                               aria-hidden="true"></i>
                                         </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td><a class="btn-link">Buyer Name</a></td>
-                                        <td class="text-center">2</td>
-                                        <td class="text-center">
-                                            <h6 class="text-success">Active</h6>
-                                        </td>
-                                        <td>2011/04/25</td>
-                                        <td>320,800 VND</td>
-                                        <td class="text-center"><a
-                                                class="btn-link text-danger font-weight-bold">Cancel</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a class="btn-link">Buyer Name</a></td>
-                                        <td class="text-center">2</td>
-                                        <td class="text-center">
-                                            <h6 class="text-danger">Canceled</h6>
-                                        </td>
-                                        <td>2011/04/25</td>
-                                        <td>320,800 VND</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a class="btn-link">Buyer Name</a></td>
-                                        <td class="text-center">2</td>
-                                        <td class="text-center">
-                                            <h6 class="text-dark">Done</h6>
-                                        </td>
-                                        <td>2011/04/25</td>
-                                        <td>320,800 VND</td>
-                                        <td></td>
-                                    </tr>
-                                    </tbody>
                                 </table>
 
                             </div>
@@ -149,11 +125,131 @@
             </div>
         </div>
     </div>
+    <!-- Order Detail Modal-->
+    <div class="row">
+        <div class="modal fade right" id="detail-Order-Modal" tabindex="-1"
+             role="dialog"
+             aria-labelledby="orderModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addProductModalLabel">Order Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Grid row -->
+                        <div class="row">
+                            <!-- Grid column -->
+                            <div class="col-md-12">
+                                <!-- Material input -->
+                                <div class="md-form form-group">
+                                    <input type="text" class="form-control"
+                                           id="buyerUsername"
+                                           placeholder="Receiver Name" readonly>
+                                    <label for="receiverName">Buyer</label>
+                                </div>
+                            </div>
+                            <!-- Grid column -->
+                        </div>
+                        <!-- Grid row -->
+
+                        <!-- Grid row -->
+                        <div class="row">
+                            <!-- Grid column -->
+                            <div class="col-md-12">
+                                <!-- Material input -->
+                                <div class="md-form form-group">
+                                    <input type="text" class="form-control"
+                                           id="receiverName"
+                                           placeholder="Receiver Name" readonly>
+                                    <label for="receiverName">Receiver</label>
+                                </div>
+                            </div>
+                            <!-- Grid column -->
+                        </div>
+                        <!-- Grid row -->
+
+                        <!-- Grid row -->
+                        <div class="row">
+                            <!-- Grid column -->
+                            <div class="col-md-6">
+                                <!-- Material input -->
+                                <div class="md-form form-group">
+                                    <input type="number"
+                                           class="form-control"
+                                           id="orderQuantity"
+                                           placeholder="Quantity"
+                                           min="1"
+                                           readonly>
+                                    <label for="orderQuantity">Quantity</label>
+                                </div>
+                            </div>
+                            <!-- Grid column -->
+
+                            <!-- Grid column -->
+                            <div class="col-md-6">
+                                <!-- Material input -->
+                                <div class="md-form form-group">
+                                    <input type="text" class="form-control"
+                                           id="totalPrice"
+                                           placeholder="Total Price"
+                                           min="0.1"
+                                           readonly
+                                           required>
+                                    <label for="totalPrice">Total Price</label>
+                                </div>
+                            </div>
+
+                            <!-- Grid column -->
+                        </div>
+                        <div class="row">
+                            <!-- Grid column -->
+                            <div class="col-md-6">
+                                <!-- Material input -->
+                                <div class="md-form form-group">
+                                    <input type="text" class="form-control"
+                                           id="orderAddress"
+                                           placeholder="Address" readonly>
+                                    <label for="orderAddress">Address</label>
+                                </div>
+
+                            </div>
+                            <!-- Grid column -->
+
+                            <!-- Grid column -->
+                            <div class="col-md-6">
+                                <!-- Material input -->
+                                <div class="md-form form-group">
+                                    <input type="text" class="form-control"
+                                           id="orderPhone"
+                                           placeholder="Contact Number" readonly>
+                                    <label for="orderPhone">Contact Number</label>
+                                </div>
+
+                            </div>
+                            <!-- Grid column -->
+                        </div>
+                        <!-- Grid row -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger"
+                                    data-dismiss="modal">Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Order Detail Modal-->
 </div>
 <div th:replace="footer :: footer"/>
-<script src="/js/account.js">
-</script>
+<<script src="/js/auth.js"></script>
 <script src="/js/product.js"></script>
+<script src="/js/user-tradepost-detail.js"></script>
 <script>
     var seq = $("#editProductId").val();
     showDetailPage(seq);

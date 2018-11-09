@@ -15,48 +15,52 @@
     <main>
 
         <!-- Section: Scroll-by Menu -->
-        <section class="text-center my-5">
-            <div class="container">
-                <!-- Grid row -->
-                <div class="row">
+        <div class="container background-4">
+            <section class="text-center pt-5 pb-5">
+                <div class="container">
+                    <!-- Grid row -->
+                    <div class="row">
 
-                    <!-- Grid column -->
-                    <div class="col-md-4 smooth-scroll">
-                        <a href="#eventSection" class="btn-flat w-100 black-text">
-                            <i class="fa fa-calendar fa-3x text-danger"></i>
-                            <h5 class="font-weight-bold mt-4">Event</h5>
-                            <i class="fa fa-sort-down text-danger"></i>
-                        </a>
-                    </div>
-                    <!-- Grid column -->
-                    <!-- Grid column -->
-                    <div class="col-md-4 smooth-scroll">
-                        <a href="#componentSection" class="btn-flat w-100 black-text">
-                            <i class="fa fa-wrench fa-3x orange-text"></i>
-                            <h5 class="font-weight-bold mt-4">Component</h5>
-                            <i class="fa fa-sort-down orange-text"></i>
-                        </a>
-                    </div>
-                    <!-- Grid column -->
-                    <!-- Grid column -->
-                    <div class="col-md-4 smooth-scroll">
-                        <a href="#tradingSection" class="btn-flat w-100 black-text">
-                            <i class="fa fa-tag fa-3x green-text"></i>
-                            <h5 class="font-weight-bold mt-4">Trading</h5>
-                            <i class="fa fa-sort-down green-text"></i>
-                        </a>
-                    </div>
-                    <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-4 smooth-scroll">
+                            <a href="#eventSection" class="btn-flat w-100 black-text">
+                                <i class="fa fa-calendar fa-3x text-danger"></i>
+                                <h5 class="font-weight-bold mt-4 white-text">Event</h5>
+                                <i class="fa fa-sort-down text-danger"></i>
+                            </a>
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-4 smooth-scroll">
+                            <a href="#componentSection" class="btn-flat w-100 black-text">
+                                <i class="fa fa-wrench fa-3x orange-text"></i>
+                                <h5 class="font-weight-bold mt-4 white-text">Component</h5>
+                                <i class="fa fa-sort-down orange-text"></i>
+                            </a>
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-4 smooth-scroll">
+                            <a href="#tradingSection" class="btn-flat w-100 black-text">
+                                <i class="fa fa-tag fa-3x green-text"></i>
+                                <h5 class="font-weight-bold mt-4 white-text">Trading</h5>
+                                <i class="fa fa-sort-down green-text"></i>
+                            </a>
+                        </div>
+                        <!-- Grid column -->
 
+                    </div>
+                    <!-- Grid row -->
                 </div>
-                <!-- Grid row -->
+            </section>
+            <section th:replace="header :: search-box"></section>
             </div>
-        </section>
+        </div>
+
         <!--End Section: Scroll-by Menu -->
 
         <div class="container">
             <!--Search Section-->
-            <section th:replace="header :: search-box"></section>
             <!--End Search Section-->
             <!-- Section: Event -->
             <section id="eventSection" class="magazine-section my-5">
