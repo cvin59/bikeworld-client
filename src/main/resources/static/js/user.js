@@ -7,7 +7,6 @@ $(function () {
         url: backendServer + "/api/account/profile/" + username,
         dataType: 'json',
         success(res) {
-            alert("ok");
             if (res.data != null) {
                 $("#edtFirstname").val(res.data.firstName);
                 $("#edtLastname").val(res.data.lastName);

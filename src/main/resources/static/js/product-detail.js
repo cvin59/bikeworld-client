@@ -67,11 +67,13 @@ function showStatus(stat) {
 
 function showImages(res) {
     productImgs = res.data.images;
-    if (productImgs != null) {
-        var indicators = document.getElementById("carousel-indicators");
-        var inner = document.getElementById("carousel-inner");
 
-        var img = document.createElement("img");
+    var indicators = document.getElementById("carousel-indicators");
+    var inner = document.getElementById("carousel-inner");
+
+    var img = document.createElement("img");
+
+    if (productImgs != null) {
 
         for (i = 0; i < productImgs.length; i++) {
             var li = document.createElement("li");
@@ -95,7 +97,25 @@ function showImages(res) {
             div.appendChild(img);
             inner.appendChild(div);
             indicators.appendChild(li);
+
         }
+    } else {
+        var li = document.createElement("li");
+        var div = document.createElement("div");
+        var img = document.createElement("img");
+
+        li.setAttribute("data-target", "#carousel-example-1z");
+        li.setAttribute("data-slide-to", i);
+        li.setAttribute("class", "active");
+        div.setAttribute("class", "carousel-item active");
+
+
+        img.setAttribute("class", "d-block w-100");
+        img.setAttribute("src", backendServer + "/images/img404.jpg");
+
+        div.appendChild(img);
+        inner.appendChild(div);
+        indicators.appendChild(li);
     }
 }
 
@@ -128,16 +148,23 @@ function showStars(rate, rater) {
 
 $("#btn-Order").on("click", function (e) {
     e.preventDefault();
+
     if (username == null) {
         $("#modalLRForm").modal();
     } else {
-        loadProfile();
-        $("#addOrderModal").modal();
+        username = localStorage.getItem("username");
+
+        if (seller === username) {
+            alert("You can't buy your own product")
+        } else {
+            loadProfile(username);
+            $("#addOrderModal").modal();
+        }
     }
 })
 
-function loadProfile() {
-    var username = localStorage.getItem("username");
+function loadProfile(username) {
+
     $("#edtUsername").val(username);
 
     $.ajax({
