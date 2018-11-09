@@ -265,6 +265,8 @@ function showProductList() {
                     var avatar = "";
                     if (productList[i].images != null) {
                         avatar = backendServer + productList[i].images[0];
+                    }else{
+                        avatar=backendServer+"/images/img404.jpg";
                     }
 
                     $("#show-product-list").append(
@@ -487,6 +489,7 @@ function showDetailPage(seq) {
 
     showStars(rate, rater, $("#detailProductRate"));
     showStatus(product.statusId, seq, $("#detailProductStatus"));
+    loadOrderData(product.id);
 }
 
 

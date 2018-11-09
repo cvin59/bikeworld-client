@@ -56,6 +56,8 @@ function showProductList() {
                     var avatar = "";
                     if (productList[i].images != null) {
                         avatar = backendServer + productList[i].images[0];
+                    }else{
+                        avatar=backendServer+"/images/img404.jpg";
                     }
 
                     $("#show-product-list").append(" <div class=\"col-md-4 clearfix d-none d-md-block mb-3\">\n" +
