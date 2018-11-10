@@ -5,8 +5,8 @@ new WOW().init();
 // SideNav Button Initialization
 $(".button-collapse").sideNav();
 // SideNav Scrollbar Initialization
-var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-Ps.initialize(sideNavScrollbar);
+// var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+// Ps.initialize(sideNavScrollbar);
 
 // Material Select Initialization
 $(document).ready(function () {
