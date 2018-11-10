@@ -2,6 +2,9 @@ var username;
 var seller
 var productPrice;
 var productId;
+var ratingPage = 1;
+var ratingTotal;
+
 $(function () {
     username = localStorage.getItem("username");
     let id = $("#id").val();
@@ -13,6 +16,10 @@ $(function () {
             dataType: 'json',
             success(res) {
                 if (res != null) {
+                    if (username != null) {
+                        $("#rate-user-name").text(username);
+                    }
+
                     $("#show-product-name").append(res.data.name);
                     $("#link-show-product-name").append(res.data.name);
                     $("#show-product-price").append(res.data.price + " Dollars");
@@ -32,9 +39,12 @@ $(function () {
                     var rater = res.data.totalRater
 
                     showReviews(rater);
-                    showStars(rate, rater);
+                    showStars(rate, rater, $("#show-product-rate"));
                     showImages(res);
                     showStatus(res.data.statusId);
+                    showMyRate();
+                    showRatings();
+
                 }
             }, error(e) {
                 console.log(e);
@@ -43,6 +53,30 @@ $(function () {
 
     }
 });
+
+function showMyRate() {
+    if (username == null) {
+        $('#txtRatingContent').attr("readonly", true);
+    } else {
+        $.ajax({
+            url: backendServer + "/api/product/rate?productId=" + productId +
+                "&rater=" + username,
+            type: 'GET',
+            dataType: 'json',
+            success: function (res) {
+                if (res.status_code == 1) {
+                    $('#btnRating').attr('disabled', true);
+                    $('#txtRatingContent').attr("readonly", true);
+                    $('#txtRatingContent').val(res.data.content);
+                    showStars(res.data.point, 1, $('#star-rating'));
+                }
+            }, error: function (res) {
+                console.log(res.message);
+            }
+
+        })
+    }
+}
 
 function showStatus(stat) {
     var statusId = stat.id;
@@ -127,23 +161,23 @@ function showReviews(rater) {
     }
 }
 
-function showStars(rate, rater) {
+function showStars(rate, rater, location) {
     var star = rate / rater;
     var stars = "";
     for (i = 0; i <= 4; i++) {
         if (star <= i) {
-            stars = stars + "<i class=\"fa fa-star-o\"> </i>";
+            stars = stars + "<i class=\"fa fa-star-o orange-text\"> </i>";
         }
 
         if (star > i && star < i + 1) {
-            stars = stars + "<i class=\"fa fa-star-half-o\">";
+            stars = stars + "<i class=\"fa fa-star-half-o orange-text\">";
         }
 
         if (star >= i + 1) {
-            stars = stars + ("<i class=\"fa fa-star\"></i>");
+            stars = stars + ("<i class=\"fa fa-star orange-text\"></i>");
         }
     }
-    $("#show-product-rate").html(stars);
+    location.html(stars);
 }
 
 $("#btn-Order").on("click", function (e) {
@@ -222,3 +256,117 @@ $("#create-order-form").submit(function () {
     });
 })
 
+$('#rate-product-form').submit(function (e) {
+    e.preventDefault();
+    if (username == null) {
+        $("#modalLRForm").modal();
+    } else if ($('#rating-value').val() == 0) {
+        alert("Please give rate point");
+
+    } else {
+        username = localStorage.getItem("username");
+
+        var objectData =
+            {
+                rater: username,
+                productId: productId,
+                content: $('#txtRatingContent').val(),
+                point: $('#rating-value').val(),
+            };
+
+        var objectDataString = JSON.stringify(objectData);
+        var formData = new FormData();
+        formData.append("rateModelString", objectDataString);
+
+        $.ajax({
+            type: "POST",
+            url: backendServer + "/api/product/rate",
+            dataType: "json",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function () {
+                alert("Success");
+            }, error: function (e) {
+                console.log(e);
+                alert("Error: " + e);
+            }
+        });
+    }
+})
+
+function showRatings() {
+    $.ajax({
+        url: backendServer + "/api/product/rate/" + productId +
+            "?page=" + ratingPage,
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+
+            var ratings = res.data.productRatings;
+
+            for (i = 0; i < ratings.length; i++) {
+                $("#rating-section").append("  <div class=\"row mt-2 pt-2 border-top\">\n" +
+                    "                        <div class=\"col-1\">\n" +
+                    "                            <img src=\"https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg\"\n" +
+                    "                                 class=\"rounded-circle z-depth-1-half w-100\">\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"col-11\">\n" +
+                    "                                <h4 class=\"font-weight-bold black-text\">" +
+                    ratings[i].rater + "</h4>\n" +
+                    "                            <!--Review-->\n" +
+                    "<div id=rating-stars-" + ratings[i].id + ">" +
+                    "</div>" +
+                    // "                            <i class=\"fa fa-star orange-text\"> </i>\n" +
+                    // "                            <i class=\"fa fa-star orange-text\"> </i>\n" +
+                    // "                            <i class=\"fa fa-star orange-text\"> </i>\n" +
+                    // "                            <i class=\"fa fa-star orange-text\"> </i>\n" +
+                    // "                            <i class=\"fa fa-star-half-full orange-text\"> </i>\n" +
+                    "                            <h5 class=\"mt-2\">" +
+                    ratings[i].content +
+                    "</h5>\n" +
+                    "                            <h6 class=\"grey-text\">" +
+                    ratings[i].rateDate +
+                    "</h6>\n" +
+                    "                        </div>\n" +
+                    "                    </div>"
+                );
+                var star = ratings[i].point;
+                var stars = "";
+                for (j = 0; j <= 4; j++) {
+                    if (star <= j) {
+                        stars = stars + "<i class=\"fa fa-star-o orange-text\"> </i>";
+                    }
+
+                    if (star > j && star < j + 1) {
+                        stars = stars + "<i class=\"fa fa-star-half-o orange-text\"></i>";
+                    }
+
+                    if (star >= j + 1) {
+                        stars = stars + ("<i class=\"fa fa-star orange-text\"></i>");
+                    }
+                }
+                $("#rating-stars-" + ratings[i].id).html(stars);
+            }
+
+            ratingTotal = res.data.totalPage;
+            if (ratingPage == ratingTotal) {
+                $("#btn-load-more").css("display", "none")
+            }
+        }, error: function (res) {
+
+        }
+
+    })
+}
+
+$("#txtRatingContent").click(function () {
+    if (username == null) {
+        $("#modalLRForm").modal();
+    }
+})
+
+$("#btn-load-more").click(function () {
+    ratingPage += 1;
+    showRatings();
+})

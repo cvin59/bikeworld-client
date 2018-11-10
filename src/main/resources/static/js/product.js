@@ -5,6 +5,7 @@ var deleteImgList = [];
 var productListPage = 1;
 var productListTotalPage;
 var productListSize = 5;
+var productListDirection = "";
 
 try {
     CKEDITOR.replace('inputProductDescription');
@@ -248,10 +249,22 @@ $('#product-list-link').one("click", showProductList());
 function showProductList() {
     var seller = localStorage.getItem("username");
 
-    var sort;
+    var url = backendServer + "/api/product/seller/" + seller
+        + "?page=" + productListPage
+        + "&size=" + productListSize
+        + "&sort=" + productListDirection;
+
+    var searchValue = $("#search-field").val();
+    productListDirection = $("#selectionDirection").val();
+    if (searchValue.trim() != null) {
+        url = backendServer + "/api/product/" + seller + "/search?searchValue=" + searchValue
+            + "&page=" + productListPage
+            + "&size=" + productListSize
+            + "&sort=" + productListDirection;
+    }
 
     $.ajax({
-        url: backendServer + "/api/product/seller/" + seller + "?page=" + productListPage + "&size=" + productListSize,
+        url: url,
         dataType: 'json',
         type: 'GET',
         success: function (res) {
@@ -265,8 +278,8 @@ function showProductList() {
                     var avatar = "";
                     if (productList[i].images != null) {
                         avatar = backendServer + productList[i].images[0];
-                    }else{
-                        avatar=backendServer+"/images/img404.jpg";
+                    } else {
+                        avatar = backendServer + "/images/img404.jpg";
                     }
 
                     $("#show-product-list").append(
@@ -414,7 +427,7 @@ function showEditPage(seq) {
     $("#editProductAddress").val(product.address);
     $("#editProductPrice").val(product.price);
     $("#editProductQuantity").val(product.quantity);
-   // CKEDITOR.instances.editProductDescription.setData(product.description);
+    // CKEDITOR.instances.editProductDescription.setData(product.description);
 
     var images = product.images;
     var imageId = product.ProductImgId;
@@ -636,3 +649,17 @@ $("#productList-next-page").click(function () {
     $("#show-product-list").html("");
     showProductList();
 });
+
+$("#selectionDirection").change(function () {
+    productListDirection = $("#selectionDirection").val();
+    productListPage = 1;
+    $("#show-product-list").html("");
+    showProductList();
+});
+
+$("#search-field").keypress(function (e) {
+    if (e.which == '13') {
+        $("#show-product-list").html("");
+        showProductList();
+    }
+})
