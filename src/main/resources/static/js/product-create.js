@@ -150,8 +150,8 @@ $('#create-product-form').submit(async function (e) {
             seller: localStorage.getItem("username"),
             categoryId: cate.options[cate.selectedIndex].value,
             brandId: brand.options[brand.selectedIndex].value,
-            longtitude: addrLng,
-            latitude: addrLat,
+            longtitude: $('#inputProductLng').val(),
+            latitude: $('#inputProductLat').val(),
         };
     var objectDataString = JSON.stringify(objectData);
 
@@ -219,9 +219,9 @@ function fillInAddress() {
     // Get the place details from the autocomplete object.
     var place = autocomplete.getPlace();
     console.table(place);
-    addrLat = place.geometry.location.lat();
-    addrLng = place.geometry.location.lng();
-    console.log(addrLat + "," + addrLng);
+    $("#inputProductLat").val(place.geometry.location.lat());
+    $("#inputProductLng").val(place.geometry.location.lng());
+
     // for (var component in componentForm) {
     //     document.getElementById(component).value = " ";
     //     document.getElementById(component).disabled = false;
@@ -277,3 +277,39 @@ function initMap() {
         zoom: 8
     });
 }
+
+
+$( "#btnCurrentAddr" ).click( function(e) {
+    e.preventDefault();
+
+    /* Chrome need SSL! */
+    var is_chrome = /chrom(e|ium)/.test( navigator.userAgent.toLowerCase() );
+    var is_ssl    = 'https:' == document.location.protocol;
+    if( is_chrome && ! is_ssl ){
+        return false;
+    }
+
+    /* HTML5 Geolocation */
+    navigator.geolocation.getCurrentPosition(
+        function( position ){ // success cb
+
+            /* Current Coordinate */
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            var google_map_pos = new google.maps.LatLng( lat, lng );
+
+            /* Use Geocoder to get address */
+            var google_maps_geocoder = new google.maps.Geocoder();
+            google_maps_geocoder.geocode(
+                { 'latLng': google_map_pos },
+                function( results, status ) {
+                    if ( status == google.maps.GeocoderStatus.OK && results[0] ) {
+                        console.log( results[0].formatted_address );
+                    }
+                }
+            );
+        },
+        function(){ // fail cb
+        }
+    );
+});

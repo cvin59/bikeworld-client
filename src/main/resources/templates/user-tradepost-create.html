@@ -99,26 +99,27 @@
                                 <!-- Grid row -->
                                 <div class="row">
                                     <!-- Grid column -->
-                                    <div class="col-md-12">
                                         <!-- Material input -->
-                                        <div class="col-md-10">
+                                        <div class="col-md-8">
+
                                             <div class="md-form form-group">
                                                 <input type="text" class="form-control"
-                                                       id="inputProductAddress"
-                                                       placeholder="Address" required>
-                                                <label for="inputProductAddress">Address</label>
+                                                       id="inputProductAddress" required>
+                                                <input type="text" hidden id="inputProductLat">
+                                                <input type="text" hidden id="inputProductLng">
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-4">
                                             <div class="md-form form-group">
-                                                <button type="button" id="btn-GGmap" class="btn btn-default px-3">
-                                                    <i class="fa fa-compass" aria-hidden="true"></i>
-                                                </button>
+                                                <button type="button" id="btnCurrentAddr" class="btn btn-default">Get Current Address</button>
+                                                <!--<button type="button" id="btn-GGmap" class="btn btn-default px-3">-->
+                                                    <!--<i class="fa fa-compass" aria-hidden="true"></i>-->
+                                                <!--</button>-->
                                             </div>
                                         </div>
                                     </div>
+
                                     <!-- Grid column -->
-                                </div>
                                 <!-- Grid row -->
                                 <div class="row">
                                     <!-- Grid column -->
@@ -199,6 +200,7 @@
 <div th:replace="footer :: footer"/>
 <script src="/js/auth.js"></script>
 <script src="/js/product-create.js"></script>
+<script src="/js/get-location.js"></script>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYf2K1LttcbRnaqY-9IfaDxBkpGxtC1Cw&libraries=places&callback=initialize"
         async defer></script>

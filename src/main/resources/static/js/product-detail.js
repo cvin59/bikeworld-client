@@ -40,6 +40,7 @@ $(function () {
                     var rate = res.data.totalRatePoint;
                     var rater = res.data.totalRater
 
+                    loadSellerProfile(res.data.seller);
                     showReviews(rater);
                     showStars(rate, rater, $("#show-product-rate"));
                     showImages(res);
@@ -199,6 +200,25 @@ $("#btn-Order").on("click", function (e) {
     }
 })
 
+function loadSellerProfile(username) {
+
+    $.ajax({
+        type: 'GET',
+        url: backendServer + "/api/account/profile/" + username,
+        dataType: 'json',
+        success(res) {
+            if (res.data != null) {
+                $("#sellerPhone").text(res.data.phone);
+                $("#sellerMail").text(res.data.email);
+            }
+        },
+        error(e) {
+            console.log(e);
+        }
+    });
+}
+
+
 function loadProfile(username) {
 
     $("#edtUsername").val(username);
@@ -263,7 +283,7 @@ $('#rate-product-form').submit(function (e) {
 
     if (username == null) {
         $("#modalLRForm").modal();
-    }else if (canRate!=1){
+    } else if (canRate != 1) {
         alert("You did not buy this product");
     }
     else if ($('#rating-value').val() == 0) {
@@ -374,8 +394,11 @@ function showRatings() {
             }
 
             ratingTotal = res.data.totalPage;
-            if (ratingPage == ratingTotal) {
-                $("#btn-load-more").css("display", "none")
+            if (ratingTotal == 0) {
+                $("#btn-load-more").css("display", "none");
+            }
+            else if (ratingPage == ratingTotal) {
+                $("#btn-load-more").css("display", "none");
             }
         }, error: function (res) {
 
@@ -387,7 +410,7 @@ function showRatings() {
 $("#txtRatingContent").click(function () {
     if (username == null) {
         $("#modalLRForm").modal();
-    }else{
+    } else {
         checkRate();
     }
 })
