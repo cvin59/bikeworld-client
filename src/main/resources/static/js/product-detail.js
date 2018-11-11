@@ -4,6 +4,8 @@ var productPrice;
 var productId;
 var ratingPage = 1;
 var ratingTotal;
+var canRate;
+
 
 $(function () {
     username = localStorage.getItem("username");
@@ -42,7 +44,7 @@ $(function () {
                     showStars(rate, rater, $("#show-product-rate"));
                     showImages(res);
                     showStatus(res.data.statusId);
-                    showMyRate();
+                    // showMyRate();
                     showRatings();
 
                 }
@@ -258,9 +260,13 @@ $("#create-order-form").submit(function () {
 
 $('#rate-product-form').submit(function (e) {
     e.preventDefault();
+
     if (username == null) {
         $("#modalLRForm").modal();
-    } else if ($('#rating-value').val() == 0) {
+    }else if (canRate!=1){
+        alert("You did not buy this product");
+    }
+    else if ($('#rating-value').val() == 0) {
         alert("Please give rate point");
 
     } else {
@@ -294,6 +300,24 @@ $('#rate-product-form').submit(function (e) {
         });
     }
 })
+
+function checkRate() {
+    $.ajax({
+        type: "GET",
+        url: backendServer + "/api/product/rate/right?productId=" + productId + "&rater=" + username,
+        dataType: "json",
+        success: function (res) {
+            if (res.status_code == 1) {
+                canRate = 1;
+            } else {
+                canRate = 0;
+            }
+        }, error: function (e) {
+            console.log(e);
+            canRate = 0;
+        }
+    });
+}
 
 function showRatings() {
     $.ajax({
@@ -363,6 +387,8 @@ function showRatings() {
 $("#txtRatingContent").click(function () {
     if (username == null) {
         $("#modalLRForm").modal();
+    }else{
+        checkRate();
     }
 })
 
