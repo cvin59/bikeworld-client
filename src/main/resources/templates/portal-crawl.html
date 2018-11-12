@@ -64,6 +64,9 @@
                                 <a href="" class="btn btn-success" data-toggle="modal"
                                    data-target="#addCrawlProductModal">Add
                                     Component Manually</a>
+                                <!--Here for debug only-->
+                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#editCrawlProductModal" onclick="loadModalForEdit(187)">Edit
+                                    Component Manually:(Debug Only)</a>
                             </div>
                         </div>
                         <div style="border-top-style: groove; border-top-radius: 0.5px; padding-top: 5px;">
@@ -198,13 +201,15 @@
                         <div class="form-group">
                             <label for="txtName">Name:</label>
                             <input type="text" class="form-control" id="txtName" name="name">
-                            <span id="messageName" class="help-block"></span>
+                            <span id="messageName" class="help-block" hidden></span>
                         </div>
                         <div class="form-group">
                             <label for="imageUpload">Upload images:</label>
                             <input type="file" class="form-control-file" id="imageUpload" multiple
                                    accept=".jpg,.png,.jpeg">
                             <span id="messageImage" class="help-block invisible"></span>
+                            <input type="file" class="form-control-file" id="imageUpload" multiple accept=".jpg,.png,.jpeg">
+                            <span id="messageImage" class="help-block" hidden></span>
                         </div>
 
                         <div id="imageTable" style="height:300px; overflow-y: scroll">
@@ -225,12 +230,12 @@
                         <div class="form-group">
                             <label for="txtPrice">Price($):</label>
                             <input type="number" class="form-control" id="txtPrice" name="price" min="0">
-                            <span id="messagePrice" class="help-block invisible"></span>
+                            <span id="messagePrice" class="help-block" hidden></span>
                         </div>
                         <div class="form-group">
                             <label for="txtDescription">Description:</label>
                             <textarea class="form-control" rows="5" id="txtDescription" name="description"></textarea>
-                            <span id="messageDescription" class="help-block invisible"></span>
+                            <span id="messageDescription" class="help-block" hidden></span>
                         </div>
                         <div class="form-group">
                             <label for="categoryId">Category:</label>
@@ -264,16 +269,21 @@
                 </div>
                 <div class="modal-body">
                     <form id="editForm">
+                        <input type="hidden" id="editId" name="id"
+                               value="187"/>
                         <div class="form-group">
-                            <label for="txtName">Name:</label>
+                            <label for="txtEditName">Name:</label>
                             <input type="text" class="form-control" id="txtEditName" name="name">
-                            <span id="editMessageName" class="help-block"></span>
+                            <span id="editMessageName" class="help-block" hidden></span>
                         </div>
                         <div class="form-group">
                             <label for="imageUpload">Upload images:</label>
                             <input type="file" class="form-control-file" id="imageEditUpload" multiple
                                    accept=".jpg,.png,.jpeg">
                             <span id="editMessageImage" class="help-block invisible"></span>
+                            <label for="imageEditUpload">Upload images:</label>
+                            <input type="file" class="form-control-file" id="imageEditUpload" multiple accept=".jpg,.png,.jpeg">
+                            <span id="editMessageImage" class="help-block" hidden></span>
                         </div>
 
                         <div id="imageEditTable" style="height:300px; overflow-y: scroll">
@@ -282,7 +292,7 @@
                                 <tr>
                                     <th class="text-center" scope="col">Image</th>
                                     <th class="text-center" scope="col">Name</th>
-                                    <th class="text-center" scope="col">Size</th>
+                                    <!--<th class="text-center" scope="col">Size</th>-->
                                     <th class="text-center" scope="col">Action</th>
                                 </tr>
                                 </thead>
@@ -293,28 +303,31 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="txtPrice">Price($):</label>
+                            <label for="txtEditPrice">Price($):</label>
                             <input type="number" class="form-control" id="txtEditPrice" name="price" min="0">
-                            <span id="editMessagePrice" class="help-block invisible"></span>
+                            <span id="editMessagePrice" class="help-block" hidden></span>
                         </div>
                         <div class="form-group">
                             <label for="txtDescription">Description:</label>
                             <textarea class="form-control" rows="5" id="txtEditDescription"
                                       name="description"></textarea>
                             <span id="editMessageDescription" class="help-block invisible"></span>
+                            <label for="txtEditDescription">Description:</label>
+                            <textarea class="form-control" rows="5" id="txtEditDescription" name="description"></textarea>
+                            <span id="editMessageDescription" class="help-block" hidden></span>
                         </div>
                         <div class="form-group">
-                            <label for="categoryId">Status:</label>
-                            <select class="form-control" id="editStatusId" name="category">
+                            <label for="editStatusId">Status:</label>
+                            <select class="form-control" id="editStatusId" name="status">
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="categoryId">Category:</label>
+                            <label for="editCategoryId">Category:</label>
                             <select class="form-control" id="editCategoryId" name="category">
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="brandId">Brand:</label>
+                            <label for="editBrandId">Brand:</label>
                             <select class="form-control" id="editBrandId" name="brand">
                             </select>
                         </div>
@@ -340,6 +353,7 @@
 
     let backendServer = "http://localhost:8080/";
 
+    let backendServer = "http://localhost:8080/";
     function PageCrawl(list) {
 
         this.list = list;
@@ -359,6 +373,8 @@
     //     $('#example').DataTable();
     // });
 
+
+    // var backendServer = "http://localhost:8080/";
     // $("#startCrawlRev").click(function () {
     //     runCrawl("revzilla");
     // });
@@ -434,9 +450,9 @@
     //     });
     // }
 
-    let productList = [];
-    let totalPage;
-    let totalItem;
+    // let productList = [];
+    // let totalPage;
+    // let totalItem;
 
 </script>
 
@@ -879,6 +895,9 @@
 
 
 <script src="/js/crawlTri.js"></script>
+</script>
+<!--<script src="/js/crawNghia.js"></script>-->
+<script src="/js/crawlTri.js"></script>*
 </body>
 
 </html>
