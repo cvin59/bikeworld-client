@@ -61,7 +61,8 @@
                                 </div>
                             </div>
                             <div class=" col-md-3">
-                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#addCrawlProductModal">Add
+                                <a href="" class="btn btn-success" data-toggle="modal"
+                                   data-target="#addCrawlProductModal">Add
                                     Component Manually</a>
                             </div>
                         </div>
@@ -201,7 +202,8 @@
                         </div>
                         <div class="form-group">
                             <label for="imageUpload">Upload images:</label>
-                            <input type="file" class="form-control-file" id="imageUpload" multiple accept=".jpg,.png,.jpeg">
+                            <input type="file" class="form-control-file" id="imageUpload" multiple
+                                   accept=".jpg,.png,.jpeg">
                             <span id="messageImage" class="help-block invisible"></span>
                         </div>
 
@@ -216,7 +218,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="imageTableBody">
-                                    <!--insert images previews here-->
+                                <!--insert images previews here-->
                                 </tbody>
                             </table>
                         </div>
@@ -269,7 +271,8 @@
                         </div>
                         <div class="form-group">
                             <label for="imageUpload">Upload images:</label>
-                            <input type="file" class="form-control-file" id="imageEditUpload" multiple accept=".jpg,.png,.jpeg">
+                            <input type="file" class="form-control-file" id="imageEditUpload" multiple
+                                   accept=".jpg,.png,.jpeg">
                             <span id="editMessageImage" class="help-block invisible"></span>
                         </div>
 
@@ -296,7 +299,8 @@
                         </div>
                         <div class="form-group">
                             <label for="txtDescription">Description:</label>
-                            <textarea class="form-control" rows="5" id="txtEditDescription" name="description"></textarea>
+                            <textarea class="form-control" rows="5" id="txtEditDescription"
+                                      name="description"></textarea>
                             <span id="editMessageDescription" class="help-block invisible"></span>
                         </div>
                         <div class="form-group">
@@ -376,7 +380,6 @@
     // }
 
 
-
     function runCrawl() {
         let site = $("#cbbSite").val().toLowerCase();
         $.ajax({
@@ -385,14 +388,7 @@
             data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
-
-
-                console.log(data);
-                // $.each(data, function(index, element) {
-                //     $('body').append($('<div>', {
-                //         text: element.name
-                //     }));
-                // });
+                console.log("Crawl Done");
             },
             error: function (data) {
                 console.log(data);
@@ -408,14 +404,7 @@
             data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
-
-                alert("!");
-                console.log(data);
-                // $.each(data, function(index, element) {
-                //     $('body').append($('<div>', {
-                //         text: element.name
-                //     }));
-                // });
+                console.log("Crawl Stop");
             },
             error: function (data) {
                 console.log(data);
@@ -423,27 +412,27 @@
         });
     }
 
-    function viewCrawl(site) {
-        $.ajax({
-            type: 'GET',
-            url: backendServer + 'api/crawl/view/' + site,
-            data: {get_param: 'value'},
-            dataType: 'json',
-            success: function (data) {
-
-                alert("!");
-                console.log(data);
-                // $.each(data, function(index, element) {
-                //     $('body').append($('<div>', {
-                //         text: element.name
-                //     }));
-                // });
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    }
+    // function viewCrawl(site) {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: backendServer + 'api/crawl/view/' + site,
+    //         data: {get_param: 'value'},
+    //         dataType: 'json',
+    //         success: function (data) {
+    //
+    //             // alert("!");
+    //             console.log(data);
+    //             // $.each(data, function(index, element) {
+    //             //     $('body').append($('<div>', {
+    //             //         text: element.name
+    //             //     }));
+    //             // });
+    //         },
+    //         error: function (data) {
+    //             console.log(data);
+    //         }
+    //     });
+    // }
 
     let productList = [];
     let totalPage;
@@ -482,9 +471,9 @@
                 totalPage = count / 20 + ((count % 20) & 1);
 
                 prepareProductList();
-                productListPagination(totalPage, 1);
+                // productListPagination(totalPage, 1);
 
-                loadAndShow(1);
+                // loadAndShow(1);
 
                 // $.each(data, function(index, element) {
                 //     $('body').append($('<div>', {
@@ -499,23 +488,18 @@
     }
 
     function prepareProductList() {
-        let demoPaging = $("#demoPagin");
-        demoPaging.empty();
         productList = [];
         productList.push(3);
         for (let i = 1; i <= totalPage; i++) {
             productList.push(3);
-            demoPaging.append('<li><a onclick="loadAndShow(' + i + ')">' + i + '</a></li>');
+            // demoPaging.append('<li><a onclick="loadAndShow(' + i + ')">' + i + '</a></li>');
         }
+        pagingInit(totalItem, 20);
     }
 
     // function addRow(rowData, pos) {
     //     let tableBody = $("#crawlTableBody");
     // }
-    function addRow(rowData, pos) {
-        let tableBody = $("#crawlTableBody");
-
-    }
 
 
     function loadDataOnly(pageNum) {
@@ -641,172 +625,259 @@
     // }
 
 </script>
+
+
 <script>
+    let pagingMaxIndex;
+    let pagingMaxPage;
+    let pagingPageSize;
+    let pagingCurrentIndex;
+    let pagingShowList;
+    let pagingShowListLength;
+    let pagingHolderUl = $("#demoPagin");
 
-
-    var productListPage = 1;
-    var productListTotalPage = 20;
-
-
-    function productListPagination(totalPage, currentPage) {
-
-        if (currentPage < 2) {
-            document.getElementById("productList-first-page").className = "page-item disabled";
-            document.getElementById("productList-previous-page").className = "page-item disabled";
-        } else {
-            document.getElementById("productList-first-page").className = "page-item";
-            document.getElementById("productList-previous-page").className = "page-item";
-        }
-
-        if (currentPage == totalPage) {
-            document.getElementById("productList-last-page").className = "page-item disabled";
-            document.getElementById("productList-next-page").className = "page-item disabled";
-        } else {
-            document.getElementById("productList-last-page").className = "page-item";
-            document.getElementById("productList-next-page").className = "page-item";
-        }
-
-        switch (totalPage) {
-            case 1:
-                $("#productList-back2").css("display", "none");
-                $("#productList-back").css("display", "none");
-                $("#productList-next").css("display", "none");
-                $("#productList-next2").css("display", "none");
-                break;
-            case 2:
-                if (currentPage == 1) {
-                    $("#productList-back2").css("display", "none");
-                    $("#productList-back").css("display", "none");
-                    $("#productList-next").css("display", "block");
-                    $("#productList-next2").css("display", "none");
-                } else if (currentPage == 2) {
-                    $("#productList-back2").css("display", "none");
-                    $("#productList-back").css("display", "block");
-                    $("#productList-next").css("display", "none");
-                    $("#productList-next2").css("display", "none");
-                }
-            default:
-                switch (currentPage) {
-                    case 1:
-                        $("#productList-back2").css("display", "none");
-                        $("#productList-back").css("display", "none");
-                        $("#productList-next").css("display", "block");
-                        $("#productList-next2").css("display", "block");
-                        break;
-                    case 2:
-                        $("#productList-back2").css("display", "none");
-                        $("#productList-back").css("display", "block");
-                        $("#productList-next").css("display", "block");
-                        $("#productList-next2").css("display", "block");
-                        break;
-                    default:
-                        if (totalPage - currentPage == 0) {
-                            $("#productList-back2").css("display", "block");
-                            $("#productList-back").css("display", "block");
-                            $("#productList-next").css("display", "none");
-                            $("#productList-next2").css("display", "none");
-                        } else if (totalPage - currentPage == 1) {
-                            $("#productList-back2").css("display", "block");
-                            $("#productList-back").css("display", "block");
-                            $("#productList-next").css("display", "block");
-                            $("#productList-next2").css("display", "none");
-                        } else {
-                            $("#productList-next").css("display", "block");
-                            $("#productList-next2").css("display", "blcck");
-                            $("#productList-back2").css("display", "block");
-                            $("#productList-back").css("display", "block");
-                        }
-                        break;
-                }
-        }
-
-
-        var back2 = currentPage - 2;
-        $("#productList-back2").html("  <a class=\"page-link\">" + back2 + "</a>");
-
-        var back = currentPage - 1;
-        $("#productList-back").html("  <a class=\"page-link\">" + back + "</a>");
-
-        $("#productList-current-page").html("  <a class=\"page-link\">" + currentPage + "</a>");
-
-        var next = currentPage + 1;
-        $("#productList-next").html("  <a class=\"page-link\">" + next + "</a>");
-
-        var next2 = currentPage + 2;
-        $("#productList-next2").html("  <a class=\"page-link\">" + next2 + "</a>");
+    function pagingLoadData(pageNum) {
+        loadAndShow(pageNum);
     }
 
-    $("#selectDirection").on("change", function () {
-        $("#show-product-list").html("");
-        showProductList();
-    })
 
-    $("#selectSortBy").on("change", function () {
-        $("#show-product-list").html("");
-        showProductList();
-    })
-
-    $("#productList-next").click(function () {
-        productListPage += 1;
-        $("#show-product-list").html("");
-        showProductList();
-    });
-
-    $("#productList-next2").click(function () {
-        productListPage += 2;
-        $("#show-product-list").html("");
-        showProductList();
-    });
-
-    $("#productList-back").click(function () {
-        productListPage -= 1;
-        $("#show-product-list").html("");
-        showProductList();
-    });
-
-    $("#productList-back2").click(function () {
-        productListPage -= 2;
-        $("#show-product-list").html("");
-        showProductList();
-    });
-
-    $("#productList-first-page").click(function () {
-        productListPage = 1;
-        $("#show-product-list").html("");
-        showProductList();
-    });
-
-    $("#productList-last-page").click(function () {
-        productListPage = productListTotalPage;
-        $("#show-product-list").html("");
-        showProductList();
-    });
-
-    $("#productList-previous-page").click(function () {
-        if (productListPage - 5 < 2) {
-            productListPage = 1;
+    function pagingInit(indexSize, pageSize) {
+        pagingMaxIndex = indexSize;
+        pagingPageSize = pageSize;
+        pagingMaxPage = indexSize / pageSize + ((indexSize % pageSize) & 1);
+        if (pagingPageSize > 5) {
+            pagingShowListLength = 5;
         } else {
-            productListPage -= 5;
+            pagingShowListLength = pagingMaxPage;
         }
-        $("#show-product-list").html("");
-        showProductList();
-    });
 
-    $("#productList-next-page").click(function () {
-        if (productListTotalPage - productListPage < 5) {
-            productListPage = productListTotalPage;
-        } else {
-            productListPage += 5;
+        pagingShowList = [];
+        pagingHolderUl.empty();
+        pagingHolderUl.append('<li onclick="pagingFirstPage()">First</li>');
+        pagingHolderUl.append('<li onclick="pagingPrevPage()">Prev</li>');
+        for (let i = 1; i <= pagingPageSize; i++) {
+            pagingShowList.push(i);
+            pagingHolderUl.append('<li id="pagingButton' + i + '" onclick="pagingActive(' + i - 1 + ')">' + i + '</li>');
         }
-        $("#show-product-list").html("");
-        showProductList();
-    });
+        pagingHolderUl.append('<li onclick="pagingNextPage()">Next</li>');
+        pagingHolderUl.append('<li onclick="pagingLastPage()">Last</li>');
+        pagingFirstPage();
+    }
 
+    function pagingFirstPage() {
+        for (let i = 1; i <= pagingShowListLength; i++) {
+            let pageButtonId = "#pagingButton" + (i);
+            let pageButton = $(pageButtonId);
+            pageButton.text(i);
+            pageButton.removeClass("active");
+        }
+        let pageActiveButtonId = "#pagingButton1";
+        let pageActiveButton = $(pageActiveButtonId);
+        pageActiveButton.addClass("active");
+        pagingCurrentIndex = 0;
+        pagingLoadData(1);
+    }
+
+
+    function pagingActive(index) {
+        let pageNum = pagingShowList[index];
+        let pageMin = 1;
+        let pageMax;
+        if (pagingShowListLength > 5) {
+            pageMin = pageNum - 2;
+            pageMax = pageNum + 2;
+            if (pageMin <= 1) {
+                pageMin = 1;
+                pageMax = 5;
+            }
+            if (pageMax >= pagingMaxPage) {
+                pageMax = pagingMaxPage;
+                pageMin = pageMax - 4;
+            }
+
+        }
+        for (let i = 0; i < pagingShowListLength; i++) {
+            pagingShowList[i] = pageMin + i;
+            let pageButtonId = "#pagingButton" + (i + 1);
+            let pageButton = $(pageButtonId);
+            pageButton.text(pageMin + i);
+            pageButton.removeClass("active");
+            if ((pageMin + 1) == pageNum) {
+                pageButton.addClass("active");
+                pagingCurrentIndex = i;
+            }
+        }
+        pagingLoadData(pageNum);
+    }
 
 
 </script>
-</script>
-<script src="/js/crawlNghia.js"></script>
+
+
+<!--<script>-->
+
+
+<!--var productListPage = 1;-->
+<!--var productListTotalPage = 20;-->
+
+
+<!--function productListPagination(totalPage, currentPage) {-->
+
+<!--if (currentPage < 2) {-->
+<!--document.getElementById("productList-first-page").className = "page-item disabled";-->
+<!--document.getElementById("productList-previous-page").className = "page-item disabled";-->
+<!--} else {-->
+<!--document.getElementById("productList-first-page").className = "page-item";-->
+<!--document.getElementById("productList-previous-page").className = "page-item";-->
+<!--}-->
+
+<!--if (currentPage == totalPage) {-->
+<!--document.getElementById("productList-last-page").className = "page-item disabled";-->
+<!--document.getElementById("productList-next-page").className = "page-item disabled";-->
+<!--} else {-->
+<!--document.getElementById("productList-last-page").className = "page-item";-->
+<!--document.getElementById("productList-next-page").className = "page-item";-->
+<!--}-->
+
+<!--switch (totalPage) {-->
+<!--case 1:-->
+<!--$("#productList-back2").css("display", "none");-->
+<!--$("#productList-back").css("display", "none");-->
+<!--$("#productList-next").css("display", "none");-->
+<!--$("#productList-next2").css("display", "none");-->
+<!--break;-->
+<!--case 2:-->
+<!--if (currentPage == 1) {-->
+<!--$("#productList-back2").css("display", "none");-->
+<!--$("#productList-back").css("display", "none");-->
+<!--$("#productList-next").css("display", "block");-->
+<!--$("#productList-next2").css("display", "none");-->
+<!--} else if (currentPage == 2) {-->
+<!--$("#productList-back2").css("display", "none");-->
+<!--$("#productList-back").css("display", "block");-->
+<!--$("#productList-next").css("display", "none");-->
+<!--$("#productList-next2").css("display", "none");-->
+<!--}-->
+<!--default:-->
+<!--switch (currentPage) {-->
+<!--case 1:-->
+<!--$("#productList-back2").css("display", "none");-->
+<!--$("#productList-back").css("display", "none");-->
+<!--$("#productList-next").css("display", "block");-->
+<!--$("#productList-next2").css("display", "block");-->
+<!--break;-->
+<!--case 2:-->
+<!--$("#productList-back2").css("display", "none");-->
+<!--$("#productList-back").css("display", "block");-->
+<!--$("#productList-next").css("display", "block");-->
+<!--$("#productList-next2").css("display", "block");-->
+<!--break;-->
+<!--default:-->
+<!--if (totalPage - currentPage == 0) {-->
+<!--$("#productList-back2").css("display", "block");-->
+<!--$("#productList-back").css("display", "block");-->
+<!--$("#productList-next").css("display", "none");-->
+<!--$("#productList-next2").css("display", "none");-->
+<!--} else if (totalPage - currentPage == 1) {-->
+<!--$("#productList-back2").css("display", "block");-->
+<!--$("#productList-back").css("display", "block");-->
+<!--$("#productList-next").css("display", "block");-->
+<!--$("#productList-next2").css("display", "none");-->
+<!--} else {-->
+<!--$("#productList-next").css("display", "block");-->
+<!--$("#productList-next2").css("display", "blcck");-->
+<!--$("#productList-back2").css("display", "block");-->
+<!--$("#productList-back").css("display", "block");-->
+<!--}-->
+<!--break;-->
+<!--}-->
+<!--}-->
+
+
+<!--var back2 = currentPage - 2;-->
+<!--$("#productList-back2").html("  <a class=\"page-link\">" + back2 + "</a>");-->
+
+<!--var back = currentPage - 1;-->
+<!--$("#productList-back").html("  <a class=\"page-link\">" + back + "</a>");-->
+
+<!--$("#productList-current-page").html("  <a class=\"page-link\">" + currentPage + "</a>");-->
+
+<!--var next = currentPage + 1;-->
+<!--$("#productList-next").html("  <a class=\"page-link\">" + next + "</a>");-->
+
+<!--var next2 = currentPage + 2;-->
+<!--$("#productList-next2").html("  <a class=\"page-link\">" + next2 + "</a>");-->
+<!--}-->
+
+<!--$("#selectDirection").on("change", function () {-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--})-->
+
+<!--$("#selectSortBy").on("change", function () {-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--})-->
+
+<!--$("#productList-next").click(function () {-->
+<!--productListPage += 1;-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--});-->
+
+<!--$("#productList-next2").click(function () {-->
+<!--productListPage += 2;-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--});-->
+
+<!--$("#productList-back").click(function () {-->
+<!--productListPage -= 1;-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--});-->
+
+<!--$("#productList-back2").click(function () {-->
+<!--productListPage -= 2;-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--});-->
+
+<!--$("#productList-first-page").click(function () {-->
+<!--productListPage = 1;-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--});-->
+
+<!--$("#productList-last-page").click(function () {-->
+<!--productListPage = productListTotalPage;-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--});-->
+
+<!--$("#productList-previous-page").click(function () {-->
+<!--if (productListPage - 5 < 2) {-->
+<!--productListPage = 1;-->
+<!--} else {-->
+<!--productListPage -= 5;-->
+<!--}-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--});-->
+
+<!--$("#productList-next-page").click(function () {-->
+<!--if (productListTotalPage - productListPage < 5) {-->
+<!--productListPage = productListTotalPage;-->
+<!--} else {-->
+<!--productListPage += 5;-->
+<!--}-->
+<!--$("#show-product-list").html("");-->
+<!--showProductList();-->
+<!--});-->
+<!--</script>-->
+<!--<script src = "/js/crawlNghia.js" ></script>-->
+
+
 <script src="/js/crawlTri.js"></script>
 </body>
 
