@@ -168,11 +168,8 @@ $(function () {
             // '                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima\n' +
             // '                                            veniam elit.</p>\n' +
             '<div>\n' +
-            '                        <div class="stars-outer">\n' +
-            '                            <div id="totalRatingPoints" class="stars-inner" style="width: ' + ratingStar(value.totalRatePoint)+ '"></div>\n' +
-            '                        </div>\n' +
-            '                        <span class="card-text" id="totalRates">' + value.totalRates + '</span>\n' +
-            '                    </div>'+
+            "                                        <!-- Star -->\n" +
+            "                                        <p class=\"card-text\" id=show-product-stars-" + value.id + "></p>\n" +
             '                                        <!-- Card footer -->\n' +
             '                                        <div class="card-footer px-1">\n' +
             '                                            <span class="float-left font-weight-bold">\n' +
@@ -202,6 +199,27 @@ $(function () {
                 const imageUrl = await loadImageProduct(value.id);
                 await loadProduct3(value, imageUrl, $(`#slideProduct${i}`));
 
+                var rate = value.totalRater;
+                var star = value.totalRatePoint / rate;
+                var stars = "";
+                if (rate != 0) {
+                    for (j = 0; j <= 4; j++) {
+                        if (star <= j) {
+                            stars = stars + "<i class=\"fa fa-star-o orange-text\"> </i>";
+                        }
+
+                        if (star > j && star < j + 1) {
+                            stars = stars + "<i class=\"fa fa-star-half-o orange-text\"></i>";
+                        }
+
+                        if (star >= j + 1) {
+                            stars = stars + ("<i class=\"fa fa-star orange-text\"></i>");
+                        }
+                    }
+                    $("#show-product-stars-" + value.id).html(stars);
+                } else {
+                    $("#show-product-stars-" + value.id).html("0 Review");
+                }
             }
         }
         $("#sliderProduct .carousel-item").first().addClass("active");
@@ -215,9 +233,5 @@ $(function () {
         return name;
     }
 
-    const ratingStar = (ratePoint) => {
-        const starPercentage = (ratePoint / 5) * 100;
-        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-        return starPercentageRounded;
-    }
+
 })

@@ -1,4 +1,3 @@
-
 var productListPage = 1;
 var productListTotalPage;
 var productListSize = 5;
@@ -84,11 +83,11 @@ function showProductList() {
                         "                                        </div>\n" +
                         "                                    </div>\n" +
                         "                                    <div class=\"card-footer white border-0\">\n" +
-                        "                                        <a class=\"btn btn-sm btn-primary float-right font-weight-bold\"\n" +
+                        "                                        <button class=\"btn btn-sm btn-primary float-right font-weight-bold\"\n" +
                         "                                           data-toggle=\"modal\"\n" +
-                        "                                           data-target=\"#editQuantityModal\"><i\n" +
-                        "                                                class=\"fa fa-plus mr-1\"></i>Add\n" +
-                        "                                            Quantity</a>\n" +
+                        "                                           onclick=" + '"' +
+                        'changeStatus(' + productList[i].id + ')' + '"' + ">Hide" +
+                        "                                            </button>\n" +
                         "                                        <a class=\"btn btn-sm btn-success float-right font-weight-bold \"\n" +
                         '                                           href="/user/product/edit/' + productList[i].id + '"\n' +
                         "                                                class=\"fa fa-edit mr-1\"></i>Edit</a>\n" +
@@ -147,20 +146,20 @@ function showStatus(stat, i, location) {
 
     switch (statusId) {
         case 1:
-            $(location).addClass("badge badge-success");
+            location.addClass("badge badge-success");
             break;
         case 2:
-            $(location).addClass("badge badge-warning");
+            location.addClass("badge badge-warning");
             break;
         case 3:
-            $(location).addClass("badge badge-info");
+            location.addClass("badge badge-info");
             break;
         case 4:
-            $(statusDiv).class = "badge badge-light";
+            location.class = "badge badge-light";
             break;
     }
 
-    $(location).append(status);
+    location.append(status);
 }
 
 function showStars(rate, rater, rating) {
@@ -182,89 +181,6 @@ function showStars(rate, rater, rating) {
     $(rating).html(stars);
 };
 
-function showEditPage(seq) {
-    var product = JSON.parse(localStorage.getItem('sellProduct-' + seq));
-    $("#editProductName").val(product.name);
-    $("#editProductAddress").val(product.address);
-    $("#editProductPrice").val(product.price);
-    $("#editProductQuantity").val(product.quantity);
-    // CKEDITOR.instances.editProductDescription.setData(product.description);
-
-    var images = product.images;
-    var imageId = product.ProductImgId;
-
-    $("#edit-image-table tr").remove();
-    var fileList = document.getElementById("edit-file-list");
-    deleteImgList = [];
-
-    for (i = 0; i < images.length; i++) {
-        showEditImage(images[i], imageId[i], fileList);
-    }
-}
-
-function showEditImage(image, imageId, fileList) {
-    var tr = document.createElement("tr"),
-        nameTd = document.createElement("td"), sizeTd = document.createElement("td"),
-        imgTd = document.createElement("td"), btnTd = document.createElement("td"),
-        img = document.createElement("img");
-
-    img.width = 200;
-    img.height = 100;
-    img.border = 1;
-    img.src = backendServer + image;
-
-    tr.appendChild(imgTd);
-    imgTd.appendChild(img);
-
-// Present file info and append it to the list of files
-    nameTd.innerHTML = image.split('/')[2];
-
-    btnTd.innerHTML = "<button class=\"btn-outline-danger\" type=\"button\" onclick='deleteOriginImg(this" + ',' + imageId + ")'\n" +
-        "<span>Delete</span>\n" +
-        "</button>\n";
-
-    //     fileInfo += "<p><strong>Type:</strong> " + file.type + "</p>";
-
-    tr.appendChild(nameTd);
-    tr.appendChild(sizeTd);
-    tr.appendChild(btnTd);
-
-    fileList.appendChild(tr);
-}
-
-function deleteOriginImg(btn, id) {
-    $(btn).closest('tr').remove();
-    deleteImgList.push(id);
-}
-
-$("#edit-files-upload").change(function () {
-    var edtFilesUpload = document.getElementById("edit-files-upload");
-    var edtFileList = document.getElementById("edit-file-list");
-    traverseFiles(this.files, edtFilesUpload, edtFileList);
-})
-
-function showDetailPage(seq) {
-    var product = JSON.parse(localStorage.getItem('sellProduct-' + seq));
-    $("#detailProductName").html(product.name);
-
-    $("#detailProductAvatar").attr("src", backendServer + product.images[0]);
-
-    var rate = product.totalRatePoint;
-    var rater = product.totalRater;
-
-    if (rater > 1) {
-        $("#detailProductRater").html(rater + " Reviews");
-    } else {
-        $("#detailProductRater").html(rater + " Review");
-    }
-    $("#detailProductPrice").html(product.price + " Dollar");
-    $("#detailProductQuantity").html(product.quantity);
-    $("#detailProductPostDate").html(product.postDate);
-
-    showStars(rate, rater, $("#detailProductRate"));
-    showStatus(product.statusId, seq, $("#detailProductStatus"));
-    loadOrderData(product.id);
-}
 
 
 function productListPagination(totalPage, currentPage) {
@@ -424,3 +340,16 @@ $("#search-field").keypress(function (e) {
         showProductList();
     }
 });
+
+function changeStatus(id) {
+    $.ajax({
+        url: backendServer + "/api/product/changeStatus?productId=" + id,
+        dataType: 'json',
+        type: 'PUT',
+        success: function (res) {
+            alert(res.message);
+        }, error: function (res) {
+            alert(res.message);
+        }
+    });
+}
