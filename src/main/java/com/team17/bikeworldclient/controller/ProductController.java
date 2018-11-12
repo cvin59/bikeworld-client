@@ -11,6 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/product")
 public class ProductController {
 
+    @GetMapping
+    public ModelAndView trading() {
+        return new ModelAndView("trading");
+    }
+
     @GetMapping("/detail/{id}")
     public ModelAndView viewProductDetail(@PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("tradepostdetail");

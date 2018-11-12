@@ -83,7 +83,6 @@ toJSDate = (dateTime) => {
 
     var date = dateTime[0].split("/");
     var time = dateTime[1].split(":");
-    console.log(date + time);
     //(year, month, day, hours, minutes, seconds, milliseconds)
     let dateObject = new Date(date[2], date[1] - 1, date[0], time[0], time[1]);
     return dateObject;
