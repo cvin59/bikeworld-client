@@ -560,7 +560,7 @@ function loadStatus() {
         success: function (response) {
             var array = response.data;
             if (array != null) {
-                for (var i = 0; i < array.length; i++) {
+                for (var i = 1; i < array.length; i++) {
                     $("#editStatusId").append('<option value="' + array[i].id + '">' + array[i].name + '</option>');
                 }
             }

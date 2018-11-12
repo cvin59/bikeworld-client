@@ -523,12 +523,10 @@
                     "                                    <td><span class=\"label label-warning\">Pending</span></td>\n" +
                     "                                    <td>\n" +
                     "                                        <div class=\"form-group\">\n" +
-                    "                                            <button class=\"btn btn-primary\">Edit\n" +
-                    "                                            </button>\n" +
-                    "                                            <button class=\"btn btn-success\">Approve\n" +
-                    "                                            </button>\n" +
-                    "                                            <button class=\"btn btn-danger\">Disapprove\n" +
-                    "                                            </button>\n" +
+                    "                                            <button class=\"btn btn-success\">&#10004;</button>\n" +
+                    "                                            <button class=\"btn btn-primary\" data-toggle=\"modal\"\n" +
+                    "                                   data-target=\"#editCrawlProductModal\" onclick=\"loadModalForEdit(" + rowData.id + ")\">&#9998;</button>\n" +
+                    "                                            <button class=\"btn btn-danger\">&#10008;</button>\n" +
                     "                                        </div>\n" +
                     "                                    </td>");
             }
