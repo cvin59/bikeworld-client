@@ -11,12 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/component")
 public class ComponentController {
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/detail")
     public ModelAndView viewProductDetail(@PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("componentdetail");
-        mav.addObject("id", id);
+//        mav.addObject("id", id);
         return new ModelAndView("componentdetail");
     }
+
 
 
     @GetMapping("/category/{id}")
