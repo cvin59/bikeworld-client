@@ -1,3 +1,75 @@
+$(function () {
+    var seq = $("#editProductId").val();
+    alert($("#editProductId").val());
+    showDetailPage(seq);
+    }
+)
+
+function showDetailPage(seq) {
+    var product = JSON.parse(localStorage.getItem('sellProduct-' + seq));
+    $("#detailProductName").html(product.name);
+
+    $("#detailProductAvatar").attr("src", backendServer + product.images[0]);
+
+    var rate = product.totalRatePoint;
+    var rater = product.totalRater;
+
+    if (rater > 1) {
+        $("#detailProductRater").html(rater + " Reviews");
+    } else {
+        $("#detailProductRater").html(rater + " Review");
+    }
+    $("#detailProductPrice").html(product.price + " Dollar");
+    $("#detailProductQuantity").html(product.quantity);
+    $("#detailProductPostDate").html(product.postDate);
+
+    showStars(rate, rater, $("#detailProductRate"));
+    showStatus(product.statusId, seq, $("#detailProductStatus"));
+    loadOrderData(product.id);
+}
+
+function showStatus(stat, i, location) {
+    var statusId = stat.statusId;
+    var status = stat.status;
+
+
+    switch (statusId) {
+        case 1:
+            $(location).addClass("badge badge-success");
+            break;
+        case 2:
+            $(location).addClass("badge badge-warning");
+            break;
+        case 3:
+            $(location).addClass("badge badge-info");
+            break;
+        case 4:
+            $(statusDiv).class = "badge badge-light";
+            break;
+    }
+
+    $(location).append(status);
+}
+
+function showStars(rate, rater, rating) {
+    var star = rate / rater;
+    var stars = "";
+    for (i = 0; i <= 4; i++) {
+        if (star <= i) {
+            stars = stars + "<i class=\"fa fa-star-o\"> </i>";
+        }
+
+        if (star > i && star < i + 1) {
+            stars = stars + "<i class=\"fa fa-star-half-o\">";
+        }
+
+        if (star >= i + 1) {
+            stars = stars + ("<i class=\"fa fa-star\"></i>");
+        }
+    }
+    $(rating).html(stars);
+};
+
 function renderTable(orderList) {
     let table = $('#order-list-table').dataTable({
         destroy: true,
