@@ -65,9 +65,10 @@
                                    data-target="#addCrawlProductModal">Add
                                     Component Manually</a>
                                 <!--Here for debug only-->
-                                <a href="" class="btn btn-success" data-toggle="modal"
-                                   data-target="#editCrawlProductModal" onclick="loadModalForEdit(3937)">Edit
-                                    Component Manually:(Debug Only)</a>
+
+                                <!--<a href="" class="btn btn-success" data-toggle="modal"-->
+                                <!--data-target="#editCrawlProductModal" onclick="loadModalForEdit(3937)">Edit-->
+                                <!--Component Manually:(Debug Only)</a>-->
                             </div>
                         </div>
                         <div style="border-top-style: groove; border-top-radius: 0.5px; padding-top: 5px;">
@@ -76,36 +77,16 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Category</th>
                                     <th>Price</th>
-                                    <th>Description</th>
-                                    <th>URL</th>
+                                    <th>Site</th>
                                     <th>Status</th>
                                     <th width="250px">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody id="crawlTableBody">
-                                <tr>
-                                    <td style="width: 5%">1</td>
-                                    <td>Name 1</td>
-                                    <td>$1</td>
-                                    <td>sdfsdfdsfsd</td>
-                                    <td>asdasdasd</td>
-                                    <td><span class="label label-warning">Pending</span></td>
-                                    <td>
-                                        <div class="form-group">
-                                            <button class="btn btn-primary">Edit
-                                            </button>
-                                            <button class="btn btn-success">Approve
-                                            </button>
-                                            <button class="btn btn-danger">Disapprove
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
-
-
                             <ul id="demoPagin" class="pagination"></ul>
                         </div>
                     </div>
@@ -428,8 +409,8 @@
             success: function (data) {
                 // console.log(data);
                 totalItem = data;
-                // console.log(totalItem);
-                totalPage = totalItem / 20 + ((totalItem % 20) & 1);
+                console.log(totalItem);
+                totalPage = Math.ceil(totalItem / pageSize);
                 prepareProductList();
                 // productListPagination(totalPage, 1);
                 // loadAndShow(1);
@@ -447,7 +428,7 @@
             productList.push(3);
             // demoPaging.append('<li><a onclick="loadAndShow(' + i + ')">' + i + '</a></li>');
         }
-        pagingInit(totalItem, 20);
+        pagingInit(totalPage, pageSize);
     }
 
     function loadDataOnly(pageNum) {
@@ -464,7 +445,7 @@
             dataType: 'json',
             success: function (data) {
                 productList[pageNum] = data.data;
-                console.log(data);
+                console.log("Load page " + pageNum);
                 productList[pageNum] = data.data;
             },
             error: function (data) {
@@ -488,7 +469,7 @@
             data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                console.log("Load page " + pageNum);
                 productList[pageNum] = data.data;
                 showPage(pageNum);
                 if (1 < pageNum) {
@@ -514,12 +495,16 @@
             let rowData = page[i];
             if (typeof rowData != 'undefined') {
                 let pos = (pageNum - 1) * pageSize + i + 1;
+                let siteLink = "";
+                if (typeof  rowData.siteId != 'undefined') {
+                    siteLink = rowData.siteId.link;
+                }
                 tableBody.append("                                <tr>\n" +
                     "                                    <td style=\"width: 5%\">" + pos + "</td>\n" +
                     "                                    <td>" + rowData.name + "</td>\n" +
                     "                                    <td>" + rowData.price + "</td>\n" +
                     "                                    <td></td>\n" +
-                    "                                    <td><a>" + rowData.siteId.link + rowData.url + "</a></td>\n" +
+                    "                                    <td><a>" + siteLink + rowData.url + "</a></td>\n" +
                     "                                    <td><span class=\"label label-warning\">Pending</span></td>\n" +
                     "                                    <td>\n" +
                     "                                        <div class=\"form-group\">\n" +
@@ -530,12 +515,6 @@
                     "                                        </div>\n" +
                     "                                    </td>");
             }
-        }
-        if (1 < pageNum) {
-            loadDataOnly(pageNum - 1);
-        }
-        if (pageNum < totalPage) {
-            loadDataOnly(pageNum + 1);
         }
     }
 
@@ -549,11 +528,10 @@
 
 
 <script>
-    let pagingMaxIndex;
+
     let pagingMaxPage;
-    let pagingPageSize;
-    let pagingCurrentIndex;
-    let pagingShowList;
+    let pagingCurrentPage;
+    let pagingShowFrom;
     let pagingShowListLength;
     let pagingHolderUl = $("#demoPagin");
 
@@ -561,85 +539,96 @@
         loadAndShow(pageNum);
     }
 
-
-    function pagingInit(indexSize, pageSize) {
-        pagingMaxIndex = indexSize;
-        pagingPageSize = pageSize;
-        pagingMaxPage = indexSize / pageSize + ((indexSize % pageSize) & 1);
+    function pagingInit(maxPage) {
+        pagingMaxPage = maxPage;
         if (pagingMaxPage > 5) {
             pagingShowListLength = 5;
         } else {
             pagingShowListLength = pagingMaxPage;
         }
 
-        pagingShowList = [];
+        pagingShowFrom = 1;
         pagingHolderUl.empty();
         pagingHolderUl.append('<li><a onclick="pagingFirstPage()">First</a></li>');
         pagingHolderUl.append('<li><a onclick="pagingPrevPage()">Prev</a></li>');
         for (let i = 1; i <= pagingShowListLength; i++) {
-            pagingShowList.push(i);
-            pagingHolderUl.append('<li id="pagingButton' + i + '"><a id="pagingButtonA' + i + '" onclick="pagingActive(' + (i - 1) + ')">a</a></li>');
+            pagingHolderUl.append('<li id="pagingButton' + i + '"><a id="pagingButtonA' + i + '" onclick="pagingActiveIndex(' + (i - 1) + ')">a</a></li>');
         }
         pagingHolderUl.append('<li><a onclick="pagingNextPage()">Next</a></li>');
-        pagingHolderUl.append('<li><a onclick="pagingNextPage()">Last</a></li>');
+        pagingHolderUl.append('<li><a onclick="pagingLastPage()">Last</a></li>');
+        console.log(pagingMaxPage);
         pagingFirstPage();
     }
 
-    function pagingFirstPage() {
-        for (let i = 1; i <= pagingShowListLength; i++) {
-            let pageButtonId = "#pagingButton" + (i);
-            let pageButton = $(pageButtonId);
-
-            let pageButtonAId = "#pagingButtonA" + (i);
-            let pageButtonA = $(pageButtonAId);
-
-            pageButtonA.text(i);
-            pageButton.removeClass("active");
-        }
-        let pageActiveButtonId = "#pagingButton1";
-        let pageActiveButtonAId = "#pagingButtonA1";
-        let pageActiveButton = $(pageActiveButtonId);
-        let pageActiveButtonA = $(pageActiveButtonAId);
-        pageActiveButton.addClass("active");
-
-        pagingCurrentIndex = 0;
-        pagingLoadData(1);
+    function pagingButton(index) {
+        let pageButtonId = "#pagingButton" + index;
+        let pageButton = $(pageButtonId);
+        return pageButton;
     }
 
+    function pagingButtonSetText(index, textStr) {
+        let pageButtonAId = "#pagingButtonA" + index;
+        let pageButtonA = $(pageButtonAId);
+        pageButtonA.text(textStr);
+    }
 
-    function pagingActive(index) {
-        let pageNum = pagingShowList[index];
+    function pagingFirstPage() {
+        // for (let i = 1; i <= pagingShowListLength; i++) {
+        //     pagingButtonSetText(i, i)
+        //     pagingButton(i).removeClass("active");
+        // }
+        // pagingButton(1).addClass("active");
+        // pagingCurrentPage = 1;
+        // pagingLoadData(1);
+        pagingShowPage(1);
+    }
+
+    function pagingShowPage(pageNum) {
         let pageMin = 1;
-        let pageMax;
         if (pagingMaxPage > 5) {
             pageMin = pageNum - 2;
-            pageMax = pageNum + 2;
             if (pageMin <= 1) {
                 pageMin = 1;
-                pageMax = 5;
             }
-            if (pageMax >= pagingMaxPage) {
-                pageMax = pagingMaxPage;
-                pageMin = pageMax - 4;
+            if ((pageNum + 2) >= pagingMaxPage) {
+                pageMin = pagingMaxPage - 4;
             }
-
         }
+        pagingShowFrom = pageMin;
         for (let i = 0; i < pagingShowListLength; i++) {
-            pagingShowList[i] = pageMin + i;
-            let pageButtonId = "#pagingButton" + (i + 1);
-            let pageButtonAId = "#pagingButtonA" + (i + 1);
-            let pageButton = $(pageButtonId);
-            let pageButtonA = $(pageButtonAId);
-            pageButtonA.text(pageMin + i);
+            let pageButton = pagingButton(i + 1);
+            pagingButtonSetText(i + 1, pageMin + i);
             pageButton.removeClass("active");
             if ((pageMin + i) == pageNum) {
                 pageButton.addClass("active");
-                pagingCurrentIndex = i;
             }
         }
+        pagingCurrentPage = pageNum;
         pagingLoadData(pageNum);
     }
 
+
+    function pagingActiveIndex(index) {
+        pagingShowPage(pagingShowFrom + index);
+    }
+
+
+    function pagingLastPage() {
+        pagingShowPage(pagingMaxPage);
+    }
+
+
+    function pagingPrevPage() {
+        if (pagingCurrentPage > 1) {
+            pagingShowPage(pagingCurrentPage - 1);
+        }
+    }
+
+    function pagingNextPage() {
+        if (pagingCurrentPage < pagingMaxPage) {
+            pagingShowPage(pagingCurrentPage + 1);
+        }
+    }
 
 </script>
 
