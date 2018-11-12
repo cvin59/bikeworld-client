@@ -12,8 +12,20 @@ $(function () {
     const loadImage = (id) => {
         return fetch(backendServer + "/api/event-image/event/" + id)
             .then(rs => rs.json())
-            .then(data => typeof data.data === 'undefined' ? '' : backendServer + data.data.imageLink);
+            .then(data => typeof data.data === 'undefined' ?
+                backendServer + '/images/default-product-img.png' :
+                backendServer + data.data.imageLink);
     }
+
+    const loadImageProduct = (id) => {
+        return fetch(backendServer + "/api/product-image/product/" + id)
+            .then(rs => rs.json())
+            .then(data => typeof data.data[0] === 'undefined' ?
+                backendServer + '/images/default-product-img.png' :
+                backendServer + data.data[0].imageLink);
+            // .then(data => console.table(data.data[0]));
+    }
+
 
     const loadEventHome = (events) => {
         $.each(events, async function (i, value) {
@@ -115,5 +127,85 @@ $(function () {
             }
         })
 
+    }
+
+    $.ajax({
+        type: "GET",
+        url: backendServer + "/api/product/product-home",
+        dataType: 'json',
+    }).done((res) => {
+        loadProductHome(res.data);
+    }).fail((res) => {
+        alert(res.message);
+    })
+
+    function loadProduct3(value, imageUrl, $) {
+        $.append('<div class="col-md-3">\n' +
+            '                                <!-- Card -->\n' +
+            '                                <div class="card card-cascade wider card-ecommerce">\n' +
+            '                                    <!-- Card image -->\n' +
+            '                                    <div class="view view-cascade overlay  product-avatar">\n' +
+            '                                        <img src="' + imageUrl +'"\n' +
+            '                                            class="card-img-top" alt="sample photo">\n' +
+            '                                        <a href="/product/detail/' +value.id+'">\n' +
+            '                                            <div class="mask rgba-white-slight"></div>\n' +
+            '                                        </a>\n' +
+            '                                    </div>\n' +
+            '                                    <!-- Card image -->\n' +
+            '                                    <!-- Card content -->\n' +
+            '                                    <div class="card-body card-body-cascade text-center">\n' +
+            '                                        <!-- Category & Title -->\n' +
+            // '                                        <a href="" class="text-muted">\n' +
+            //     '                                            <h5>Helemt</h5>\n' +
+            // '                                        </a>\n' +
+            '                                        <p class="card-title">\n' +
+            '                                            <strong>\n' +
+            '                                        <a href="/product/detail/' +value.id+'">\n' +
+            '' + formatName(value.name) + '</a>\n' +
+            '                                            </strong>\n' +
+            '                                        </p>\n' +
+            '                                        <!-- Description -->\n' +
+            '                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima\n' +
+            '                                            veniam elit.</p>\n' +
+            '                                        <!-- Card footer -->\n' +
+            '                                        <div class="card-footer px-1">\n' +
+            '                                            <span class="float-left font-weight-bold">\n' +
+            '                                                <strong>' + formatter.format(value.price) + '</strong>\n' +
+            '                                            </span>\n' +
+            '                                            <span class="float-right">\n' +
+            '                                                <a class="" data-toggle="tooltip" data-placement="top" title="Quick Look">\n' +
+            '                                                    Details >>\n' +
+            '                                                </a>\n' +
+            '                                            </span>\n' +
+            '                                        </div>\n' +
+            '                                    </div>\n' +
+            '                                    <!-- Card content -->\n' +
+            '                                </div>\n' +
+            '                                <!-- Card -->\n' +
+            '                            </div>');
+    }
+
+    const loadProductHome = async (products) => {
+        var i, j = 0;
+        for (i = 0; i < products.length; i += 4) {
+            $("#sliderProduct").append('<div class="carousel-item" id="slideProduct' + i + '">\n' +
+
+                '                    </div>');
+            let product3 = products.slice(i, i + 4);
+            for (value of product3) {
+                const imageUrl = await loadImageProduct(value.id);
+                await loadProduct3(value, imageUrl, $(`#slideProduct${i}`));
+
+            }
+        }
+        $("#sliderProduct .carousel-item").first().addClass("active");
+
+    }
+
+    const formatName = (name) => {
+        if (name.length >= 18) {
+            return name.substring(0, 18) + "...";
+        }
+        return name;
     }
 })

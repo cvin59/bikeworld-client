@@ -584,3 +584,18 @@ body{
     height: 440px;
     width: 100%;
 }
+
+.product-avatar {
+     height: 200px;
+     object-fit: cover;
+ }
+
+.product-avatar img{
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .carousel-multi-item .col-md-3 {
+        float: left;
+        width: 25%;
+        max-width: 100%; } }
