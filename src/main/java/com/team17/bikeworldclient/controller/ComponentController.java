@@ -35,7 +35,7 @@ public class ComponentController {
 
     @GetMapping("/list")
     public ModelAndView viewProductList() {
-        return new ModelAndView("productlist");
+        return new ModelAndView("component");
     }
 
 }

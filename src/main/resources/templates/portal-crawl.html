@@ -333,10 +333,9 @@
 
 <script>
 
-<<<<<<< HEAD
+
     let backendServer = "http://localhost:8080/";
-=======
-    let backendServer = "http://localhost:8080";
+
     function PageCrawl(list) {
 
         this.list = list;
@@ -356,8 +355,6 @@
     //     $('#example').DataTable();
     // });
 
-
-    var backendServer = "http://localhost:8080/";
     // $("#startCrawlRev").click(function () {
     //     runCrawl("revzilla");
     // });
@@ -378,7 +375,7 @@
     //     }
     // }
 
->>>>>>> b4472087aaa83043234b7f5c8114cc5285938dfa
+
 
     function runCrawl() {
         let site = $("#cbbSite").val().toLowerCase();
@@ -455,16 +452,12 @@
 </script>
 
 <script>
-    let productList = [];
-    let totalPage;
-    let currentPage = 0;
-    let pageSize = 20;
+    // let productList = [];
+    // let totalPage;
+    // let currentPage = 0;
+    // let pageSize = 20;
 
     function getPageCount() {
-        alert(1);
-
-
-
         $.ajax({
             type: 'GET',
             url: backendServer + 'api/crawl/countpending/',
