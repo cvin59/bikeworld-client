@@ -9,7 +9,7 @@
     <title>Component</title>
 </head>
 
-<body>
+<body onload="loadDataLocal(); loadCategory();">
 <!--Double navigation-->
 <header th:replace="header :: header"></header>
 
@@ -94,43 +94,42 @@
                                         <dd class="col-sm-9">10/20</dd>
                                     </dl>
 
+
                                     <!--Table-->
-                                    <table id="tablePreview" class="table-responsive">
-                                        <!--Table-->
-                                        <table id="tablePreview" class="table table-hover table-bordered table-sm res">
-                                            <!--Table head-->
-                                            <thead class="primary-color">
-                                            <tr class="white-text text-center">
-                                                <th class="font-weight-bold">Site name</th>
-                                                <th class="font-weight-bold">Price</th>
-                                                <th class="font-weight-bold w-20">Link</th>
-                                            </tr>
-                                            </thead>
-                                            <!--Table head-->
-                                            <!--Table body-->
-                                            <tbody>
-                                            <tr class="text-center">
-                                                <td class="align-middle">abc.com</td>
-                                                <td class="align-middle">100.000 VND</td>
-                                                <td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go
-                                                    to</a></td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle">abc.com</td>
-                                                <td class="align-middle">100.000 VND</td>
-                                                <td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go
-                                                    to</a></td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle">abc.com</td>
-                                                <td class="align-middle">100.000 VND</td>
-                                                <td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go
-                                                    to</a></td>
-                                            </tr>
-                                            </tbody>
-                                            <!--Table body-->
-                                        </table>
-                                        <!--Table-->
+                                    <table id="tablePreview" class="table table-hover table-bordered table-sm res">
+                                        <!--Table head-->
+                                        <thead class="primary-color">
+                                        <tr class="white-text text-center">
+                                            <th class="font-weight-bold">Site name</th>
+                                            <th class="font-weight-bold">Price</th>
+                                            <th class="font-weight-bold w-20">Link</th>
+                                        </tr>
+                                        </thead>
+                                        <!--Table head-->
+                                        <!--Table body-->
+                                        <tbody>
+                                        <tr class="text-center">
+                                            <td class="align-middle">abc.com</td>
+                                            <td class="align-middle">100.000 VND</td>
+                                            <td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go
+                                                to</a></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td class="align-middle">abc.com</td>
+                                            <td class="align-middle">100.000 VND</td>
+                                            <td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go
+                                                to</a></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td class="align-middle">abc.com</td>
+                                            <td class="align-middle">100.000 VND</td>
+                                            <td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go
+                                                to</a></td>
+                                        </tr>
+                                        </tbody>
+                                        <!--Table body-->
+                                    </table>
+                                    <!--Table-->
                                 </div>
                             </div>
                         </section>
@@ -174,12 +173,11 @@
                         </div>
 
                         <!--Category-->
-                        <div class="border-bottom mb-4 pb-4">
+                        <div id="cateDiv" class="border-bottom mb-4 pb-4">
                             <h6>Category:</h6>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="radioCategory"
-                                       name="radioGroupCategory"
-                                       value="0">
+                                       name="radioGroupCategory" value="0">
                                 <label class="form-check-label" for="radioCategory">Category 1</label>
                             </div>
                             <div class="form-check">
@@ -202,41 +200,41 @@
                             </div>
                         </div>
 
-                        <!--Manufacturer-->
-                        <div class="border-bottom mb-4 pb-4">
-                            <h6>Manufacturer:</h6>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="radioManufacturer"
-                                       name="radioGroupManufacturer"
-                                       value="0">
-                                <label class="form-check-label" for="radioManufacturer">Honda</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="radioManufacturer1"
-                                       name="radioGroupManufacturer"
-                                       value="1">
-                                <label class="form-check-label" for="radioManufacturer1">Honda</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="radioManufacturer2"
-                                       name="radioGroupManufacturer"
-                                       value="2">
-                                <label class="form-check-label" for="radioManufacturer2">Honda</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="radioManufacturer3"
-                                       name="radioGroupManufacturer"
-                                       value="4">
-                                <label class="form-check-label" for="radioManufacturer3">Honda</label>
-                            </div>
-                        </div>
+                        <!--&lt;!&ndash;Manufacturer&ndash;&gt;-->
+                        <!--<div class="border-bottom mb-4 pb-4">-->
+                        <!--<h6>Manufacturer:</h6>-->
+                        <!--<div class="form-check">-->
+                        <!--<input type="radio" class="form-check-input" id="radioManufacturer"-->
+                        <!--name="radioGroupManufacturer"-->
+                        <!--value="0">-->
+                        <!--<label class="form-check-label" for="radioManufacturer">Honda</label>-->
+                        <!--</div>-->
+                        <!--<div class="form-check">-->
+                        <!--<input type="radio" class="form-check-input" id="radioManufacturer1"-->
+                        <!--name="radioGroupManufacturer"-->
+                        <!--value="1">-->
+                        <!--<label class="form-check-label" for="radioManufacturer1">Honda</label>-->
+                        <!--</div>-->
+                        <!--<div class="form-check">-->
+                        <!--<input type="radio" class="form-check-input" id="radioManufacturer2"-->
+                        <!--name="radioGroupManufacturer"-->
+                        <!--value="2">-->
+                        <!--<label class="form-check-label" for="radioManufacturer2">Honda</label>-->
+                        <!--</div>-->
+                        <!--<div class="form-check">-->
+                        <!--<input type="radio" class="form-check-input" id="radioManufacturer3"-->
+                        <!--name="radioGroupManufacturer"-->
+                        <!--value="4">-->
+                        <!--<label class="form-check-label" for="radioManufacturer3">Honda</label>-->
+                        <!--</div>-->
+                        <!--</div>-->
 
                         <!--Sort-->
                         <div class="">
                             <h6>Sort by:</h6>
                             <select class="mdb-select md-form">
                                 <option value="1">Name</option>
-                                <option value="4">Date</option>
+                                <option value="2">Price</option>
                             </select>
                             <select class="mdb-select md-form">
                                 <option value="1">Acending</option>
@@ -363,7 +361,7 @@
                                 </h4>
                                 <!-- Description -->
                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima
-                                    veniam elit.</p>
+                                    veniam elit.4332</p>
                                 <!-- Card footer -->
                                 <div class="card-footer px-1">
                                         <span class="float-right">
@@ -404,7 +402,7 @@
                                 </h4>
                                 <!-- Description -->
                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima
-                                    veniam elit.</p>
+                                    veniam elit75675.</p>
                                 <!-- Card footer -->
                                 <div class="card-footer px-1">
                                         <span class="float-right">
@@ -420,6 +418,10 @@
                     </div>
 
                 </div>
+
+
+                <button onclick="getDataLocal()">wer</button>
+
 
                 <div class="d-flex justify-content-center mb-5">
                     <!--Pagination -->
@@ -613,18 +615,82 @@
     <!-- Footer -->
 
 </main>
-<!--Main Layout-->
-<!-- SCRIPTS -->
-<!-- JQuery -->
-<script type="text/javascript" src="../../resources/static/dist/js/jquery-3.3.1.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="../../resources/static/dist/js/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="../../resources/static/dist/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="../../resources/static/dist/js/mdb.min.js"></script>
-<!--Custom Javscript-->
-<script type="text/javascript" src="../../resources/static/dist/js/customscript.js"></script>
+<div th:replace="footer :: footer"/>
+
+<script>
+    let lastGet;
+    let crawlList;
+    let cateDiv = $('#cateDiv');
+
+
+    // let backendServer = "http://localhost:8080/";
+
+
+    function loadDataLocal() {
+        lastGet = localStorage.getItem("lastGet");
+        if (lastGet == null) {
+            lastGet = (new Date(2003, 11, 24, 10, 33, 30, 0).getTime()) / 1000;
+        }
+        let jsonStr = localStorage.getItem("crawlList");
+        if (jsonStr != null) {
+            crawlList = JSON.parse(jsonStr);
+        } else {
+            crawlList = [];
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: backendServer + '/api/crawl/showfrom/' + lastGet,
+            dataType: 'json',
+            success: function (data) {
+
+                // alert("!");
+                // console.log(data);
+                let crawls = data.data;
+                for (let i = 0; i < crawls.length; i++) {
+                    crawlList.push(crawls[i]);
+                    if (crawls[i].lastEdit > lastGet) {
+                        lastGet = crawls[i].lastEdit;
+                    }
+                }
+                localStorage.setItem("lastGet", lastGet);
+                localStorage.setItem("crawlList", JSON.stringify(crawlList));
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function loadCategory() {
+        $.ajax({
+            type: 'GET',
+            url: backendServer + "/api/common/loadCategory",
+            dataType: 'json',
+            success: function (data) {
+                let categories = data.data;
+                // alert(1);
+                if (categories != null) {
+                    cateDiv.empty();
+                    cateDiv.append('<h6>Category:</h6>');
+                    for (let i = 0; i < categories.length; i++) {
+                        let category = categories[i];
+                        cateDiv.append('<div class="form-check">');
+                        cateDiv.append('<input type="radio" class="form-check-input" id="radioCategory' + i + '" name="radioGroupCategory" value="' + category.id + '">');
+                        cateDiv.append('<label class="form-check-label" for="radioCategory' + i + '">' + category.name + '</label>');
+                        cateDiv.append('</div>');
+                    }
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+
+
+</script>
 </body>
 
 </html>
