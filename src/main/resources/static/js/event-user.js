@@ -26,7 +26,7 @@ $(function () {
             '                                <div class="card-body">\n' +
             '\n' +
             '                                    <!-- Title -->\n' +
-            '                                    <h6 class="font-weight-bold card-title"><a style="font-size: 16px; color: #333" href="/event/detail/' + value.title + '/' + value.id + '">' + value.title.substring(0, 25) + '</a></h6>\n' +
+            '                                    <h6 class="font-weight-bold card-title"><a style="font-size: 16px; color: #333" href="/event/detail/' + value.title + '/' + value.id + '">' + formatName(value.title) + '</a></h6>\n' +
             '                                    <!-- Date -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
             '                                        <p class="card-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>' + value.startDate +
@@ -36,7 +36,7 @@ $(function () {
             '                                    <!-- Location and Price -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
             '                                        <p class="card-text"><i\n' +
-            '                                                class="fa fa-map-marker pr-2 ml-3"></i>' + value.location.substring(0, 20) + '</p>\n' +
+            '                                                class="fa fa-map-marker pr-2 ml-3"></i>' + formatName(value.location) + '</p>\n' +
             '                                        <p class="font-weight-bold card-text"><i class="fa fa-ticket pr-2"></i>' + formatter.format(value.fee) + '</p>\n' +
             '                                    </div>\n' +
             '                                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->\n' +
@@ -76,7 +76,7 @@ $(function () {
             '                                <div class="card-body">\n' +
             '\n' +
             '                                    <!-- Title -->\n' +
-            '                                    <h6 class="font-weight-bold card-title"><a style="font-size: 16px; color: #333" href="/event/detail/' + value.title + '/' + value.id + '">' + value.title.substring(0, 25) + '</a></h6>\n' +
+            '                                    <h6 class="font-weight-bold card-title"><a style="font-size: 16px; color: #333" href="/event/detail/' + value.title + '/' + value.id + '">' + formatName(value.title) + '</a></h6>\n' +
             '                                    <!-- Date -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
             '                                        <p class="card-text"><i class="fa fa-calendar pr-2 text-danger ml-3"></i>' + value.startDate +
@@ -86,7 +86,7 @@ $(function () {
             '                                    <!-- Location and Price -->\n' +
             '                                    <div class="d-flex justify-content-between w-100">\n' +
             '                                        <p class="card-text"><i\n' +
-            '                                                class="fa fa-map-marker pr-2 ml-3"></i>' + value.location.substring(0, 20) + '</p>\n' +
+            '                                                class="fa fa-map-marker pr-2 ml-3"></i>' + formatName(value.location) + '</p>\n' +
             '                                        <p class="font-weight-bold card-text"><i class="fa fa-ticket pr-2"></i>' + formatter.format(value.fee) + '</p>\n' +
             '                                    </div>\n' +
             '                                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->\n' +
@@ -290,6 +290,13 @@ $(function () {
 
         // Convert back to days and return
         return Math.round(difference_ms / one_day);
+    }
+
+    const formatName = (name) => {
+        if (name.length >= 25) {
+            return name.substring(0, 25) + "...";
+        }
+        return name;
     }
 })
 

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ComponentController {
 
     @GetMapping("/detail")
-    public ModelAndView viewProductDetail(@PathVariable Integer id) {
+    public ModelAndView viewProductDetail() {
         ModelAndView mav = new ModelAndView("componentdetail");
 //        mav.addObject("id", id);
         return new ModelAndView("componentdetail");
@@ -20,21 +20,21 @@ public class ComponentController {
 
 
 
-    @GetMapping("/category/{id}")
-    public ModelAndView viewProductCategory(@PathVariable Integer id) {
-        ModelAndView mav = new ModelAndView("");
-        mav.addObject("id", id);
-        return new ModelAndView("");
-    }
+//    @GetMapping("/category/{id}")
+//    public ModelAndView viewProductCategory(@PathVariable Integer id) {
+//        ModelAndView mav = new ModelAndView("");
+//        mav.addObject("id", id);
+//        return new ModelAndView("");
+//    }
+//
+//    @GetMapping("/search")
+//    public ModelAndView searchEvent(@RequestParam("searchValue") String searchValue){
+//        ModelAndView mav = new ModelAndView("trading-search");
+//        mav.addObject("searchValue", searchValue);
+//        return mav;
+//    }
 
-    @GetMapping("/search")
-    public ModelAndView searchEvent(@RequestParam("searchValue") String searchValue){
-        ModelAndView mav = new ModelAndView("trading-search");
-        mav.addObject("searchValue", searchValue);
-        return mav;
-    }
-
-    @GetMapping("/list")
+    @GetMapping("")
     public ModelAndView viewProductList() {
         return new ModelAndView("component");
     }

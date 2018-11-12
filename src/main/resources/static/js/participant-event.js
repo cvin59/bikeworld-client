@@ -9,7 +9,7 @@ $(function () {
         let result;
         await $.ajax({
             type: "GET",
-            url: backendServer + "/api/participant/" + username + "?page=" + 1 + "&sort=" + 'registerDate' + "&direction=" + 1,
+            url: backendServer + "/api/participant/" + username + "?page=" + productListPage + "&sort=" + 'registerDate' + "&direction=" + 1,
             dataType: 'json',
         }).done((res) => {
             result = res;
@@ -23,9 +23,9 @@ $(function () {
     var loadFirstPage = async () => {
         let allEvent = await getParticipant();
         await loadParticipant($("#participantsView"), allEvent.content);
-        // totalPage = allEvent.totalPage;
-        // currentPage = allEvent.currPage;
-        // await loadPaging(allEvent.totalPage, allEvent.currPage);
+        totalPage = allEvent.totalPage;
+        currentPage = allEvent.currPage;
+        await productListPagination(allEvent.totalPage, allEvent.currPage);
     }
 
     loadFirstPage();
@@ -86,147 +86,148 @@ $(function () {
         }
         return ret;
     }
-})
 
-function productListPagination(totalPage, currentPage) {
+    function productListPagination(totalPage, currentPage) {
 
-    if (currentPage < 2) {
-        document.getElementById("productList-first-page").className = "page-item disabled";
-        document.getElementById("productList-previous-page").className = "page-item disabled";
-    } else {
-        document.getElementById("productList-first-page").className = "page-item";
-        document.getElementById("productList-previous-page").className = "page-item";
-    }
+        if (currentPage < 2) {
+            document.getElementById("productList-first-page").className = "page-item disabled";
+            document.getElementById("productList-previous-page").className = "page-item disabled";
+        } else {
+            document.getElementById("productList-first-page").className = "page-item";
+            document.getElementById("productList-previous-page").className = "page-item";
+        }
 
-    if (currentPage == totalPage) {
-        document.getElementById("productList-last-page").className = "page-item disabled";
-        document.getElementById("productList-next-page").className = "page-item disabled";
-    } else {
-        document.getElementById("productList-last-page").className = "page-item";
-        document.getElementById("productList-next-page").className = "page-item";
-    }
+        if (currentPage == totalPage) {
+            document.getElementById("productList-last-page").className = "page-item disabled";
+            document.getElementById("productList-next-page").className = "page-item disabled";
+        } else {
+            document.getElementById("productList-last-page").className = "page-item";
+            document.getElementById("productList-next-page").className = "page-item";
+        }
 
-    switch (totalPage) {
-        case 1:
-            $("#productList-back2").css("display", "none");
-            $("#productList-back").css("display", "none");
-            $("#productList-next").css("display", "none");
-            $("#productList-next2").css("display", "none");
-            break;
-        case 2:
-            if (currentPage == 1) {
+        switch (totalPage) {
+            case 1:
                 $("#productList-back2").css("display", "none");
                 $("#productList-back").css("display", "none");
-                $("#productList-next").css("display", "block");
-                $("#productList-next2").css("display", "none");
-            } else if (currentPage == 2) {
-                $("#productList-back2").css("display", "none");
-                $("#productList-back").css("display", "block");
                 $("#productList-next").css("display", "none");
                 $("#productList-next2").css("display", "none");
-            }
-        default:
-            switch (currentPage) {
-                case 1:
+                break;
+            case 2:
+                if (currentPage == 1) {
                     $("#productList-back2").css("display", "none");
                     $("#productList-back").css("display", "none");
                     $("#productList-next").css("display", "block");
-                    $("#productList-next2").css("display", "block");
-                    break;
-                case 2:
+                    $("#productList-next2").css("display", "none");
+                } else if (currentPage == 2) {
                     $("#productList-back2").css("display", "none");
                     $("#productList-back").css("display", "block");
-                    $("#productList-next").css("display", "block");
-                    $("#productList-next2").css("display", "block");
-                    break;
-                default:
-                    if (totalPage - currentPage == 0) {
-                        $("#productList-back2").css("display", "block");
-                        $("#productList-back").css("display", "block");
-                        $("#productList-next").css("display", "none");
-                        $("#productList-next2").css("display", "none");
-                    } else if (totalPage - currentPage == 1) {
-                        $("#productList-back2").css("display", "block");
+                    $("#productList-next").css("display", "none");
+                    $("#productList-next2").css("display", "none");
+                }
+            default:
+                switch (currentPage) {
+                    case 1:
+                        $("#productList-back2").css("display", "none");
+                        $("#productList-back").css("display", "none");
+                        $("#productList-next").css("display", "block");
+                        $("#productList-next2").css("display", "block");
+                        break;
+                    case 2:
+                        $("#productList-back2").css("display", "none");
                         $("#productList-back").css("display", "block");
                         $("#productList-next").css("display", "block");
-                        $("#productList-next2").css("display", "none");
-                    } else {
-                        $("#productList-next").css("display", "block");
-                        $("#productList-next2").css("display", "blcck");
-                        $("#productList-back2").css("display", "block");
-                        $("#productList-back").css("display", "block");
-                    }
-                    break;
-            }
+                        $("#productList-next2").css("display", "block");
+                        break;
+                    default:
+                        if (totalPage - currentPage == 0) {
+                            $("#productList-back2").css("display", "block");
+                            $("#productList-back").css("display", "block");
+                            $("#productList-next").css("display", "none");
+                            $("#productList-next2").css("display", "none");
+                        } else if (totalPage - currentPage == 1) {
+                            $("#productList-back2").css("display", "block");
+                            $("#productList-back").css("display", "block");
+                            $("#productList-next").css("display", "block");
+                            $("#productList-next2").css("display", "none");
+                        } else {
+                            $("#productList-next").css("display", "block");
+                            $("#productList-next2").css("display", "blcck");
+                            $("#productList-back2").css("display", "block");
+                            $("#productList-back").css("display", "block");
+                        }
+                        break;
+                }
+        }
+        var back2 = currentPage - 2;
+        $("#productList-back2").html("  <a class=\"page-link\">" + back2 + "</a>");
+
+        var back = currentPage - 1;
+        $("#productList-back").html("  <a class=\"page-link\">" + back + "</a>");
+
+        $("#productList-current-page").html("  <a class=\"page-link\">" + currentPage + "</a>");
+
+        var next = currentPage + 1;
+        $("#productList-next").html("  <a class=\"page-link\">" + next + "</a>");
+
+        var next2 = currentPage + 2;
+        $("#productList-next2").html("  <a class=\"page-link\">" + next2 + "</a>");
     }
-    var back2 = currentPage - 2;
-    $("#productList-back2").html("  <a class=\"page-link\">" + back2 + "</a>");
-
-    var back = currentPage - 1;
-    $("#productList-back").html("  <a class=\"page-link\">" + back + "</a>");
-
-    $("#productList-current-page").html("  <a class=\"page-link\">" + currentPage + "</a>");
-
-    var next = currentPage + 1;
-    $("#productList-next").html("  <a class=\"page-link\">" + next + "</a>");
-
-    var next2 = currentPage + 2;
-    $("#productList-next2").html("  <a class=\"page-link\">" + next2 + "</a>");
-}
 
 
-$("#productList-next").click(function () {
-    productListPage += 1;
-    $("#show-product-list").html("");
-    showProductList();
-});
+    $("#productList-next").click(function () {
+        productListPage += 1;
+        $("#participantsView").html("");
+        loadFirstPage();
+    });
 
-$("#productList-next2").click(function () {
-    productListPage += 2;
-    $("#show-product-list").html("");
-    showProductList();
-});
+    $("#productList-next2").click(function () {
+        productListPage += 2;
+        $("#participantsView").html("");
+        loadFirstPage();
+    });
 
-$("#productList-back").click(function () {
-    productListPage -= 1;
-    $("#show-product-list").html("");
-    showProductList();
-});
+    $("#productList-back").click(function () {
+        productListPage -= 1;
+        $("#participantsView").html("");
+        loadFirstPage();
+    });
 
-$("#productList-back2").click(function () {
-    productListPage -= 2;
-    $("#show-product-list").html("");
-    showProductList();
-});
+    $("#productList-back2").click(function () {
+        productListPage -= 2;
+        $("#participantsView").html("");
+        loadFirstPage();
+    });
 
-$("#productList-first-page").click(function () {
-    productListPage = 1;
-    $("#show-product-list").html("");
-    showProductList();
-});
-
-$("#productList-last-page").click(function () {
-    productListPage = productListTotalPage;
-    $("#show-product-list").html("");
-    showProductList();
-});
-
-$("#productList-previous-page").click(function () {
-    if (productListPage - 5 < 2) {
+    $("#productList-first-page").click(function () {
         productListPage = 1;
-    } else {
-        productListPage -= 5;
-    }
-    $("#show-product-list").html("");
-    showProductList();
-});
+        $("#participantsView").html("");
+        loadFirstPage();
+    });
 
-$("#productList-next-page").click(function () {
-    if (productListTotalPage - productListPage < 5) {
+    $("#productList-last-page").click(function () {
         productListPage = productListTotalPage;
-    } else {
-        productListPage += 5;
-    }
-    $("#show-product-list").html("");
-    showProductList();
-});
+        $("#participantsView").html("");
+        loadFirstPage();
+    });
+
+    $("#productList-previous-page").click(function () {
+        if (productListPage - 5 < 2) {
+            productListPage = 1;
+        } else {
+            productListPage -= 5;
+        }
+        $("#participantsView").html("");
+        loadFirstPage();
+    });
+
+    $("#productList-next-page").click(function () {
+        if (productListTotalPage - productListPage < 5) {
+            productListPage = productListTotalPage;
+        } else {
+            productListPage += 5;
+        }
+        $("#participantsView").html("");
+        loadFirstPage();
+    });
+})
+

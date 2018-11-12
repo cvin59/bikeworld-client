@@ -41,7 +41,8 @@ function loadModalFromProductModel(product) {
     //clean up modal
     cleanUpEditModal();
 
-    $("editId").val(product.id);
+    $("#editId").val(product.id);
+    console.log(product.id);
     $('#txtEditName').val(product.name);
     $('#txtEditPrice').val(product.price);
     CKEDITOR.instances['txtEditDescription'].setData(product.description);
@@ -129,8 +130,15 @@ function loadImagesForEdit(images) {
         btnTd.style.textAlign = "center";
 
         //get image url from imageLink from database
-         var   imageURL = backendServer + "images/crawlProduct/" + images[i].imageLink;
-        
+        var imageURL;
+
+        if (images[i].imageLink.includes("http")){
+            imageURL = images[i].imageLink;
+        }
+        else {
+            imageURL = backendServer + "images/" + images[i].imageLink;
+        }
+
         img.style.width = "100%";
         img.classList.add("img-fluid");
         img.src = imageURL;
@@ -461,7 +469,7 @@ $('#editForm').submit((function (e) {
         var brand = parseInt(brandSelect.options[brandSelect.selectedIndex].value);
 
         var objectData = {
-            id : parseInt(document.getElementById('editId').value),
+            id : $("#editId").val(),
             name : document.getElementById('txtEditName').value,
             categoryId : category,
             branId : brand,
@@ -476,7 +484,7 @@ $('#editForm').submit((function (e) {
         console.log("objectDataString: "+ objectDataString);
         for (var i = 0; i < addedImageList.length; i++) {
             if (addedImageList[i] !== null) {
-                console.log("Iran");
+                console.log(addedImageList[i]);
                 formData.append('addedImages', addedImageList[i]);
             }
         }
@@ -552,7 +560,7 @@ function loadStatus() {
         success: function (response) {
             var array = response.data;
             if (array != null) {
-                for (var i = 0; i < array.length; i++) {
+                for (var i = 1; i < array.length; i++) {
                     $("#editStatusId").append('<option value="' + array[i].id + '">' + array[i].name + '</option>');
                 }
             }
