@@ -6,7 +6,7 @@ $(function () {
     }).done((res) => {
         loadEventHome(res.data);
     }).fail((res) => {
-        alert(res.message);
+        console.log(res);
     })
 
     const loadImage = (id) => {
@@ -136,7 +136,7 @@ $(function () {
     }).done((res) => {
         loadProductHome(res.data);
     }).fail((res) => {
-        alert(res.message);
+        console.log(res);
     })
 
     function loadProduct3(value, imageUrl, $) {
@@ -165,15 +165,21 @@ $(function () {
             '                                            </strong>\n' +
             '                                        </p>\n' +
             '                                        <!-- Description -->\n' +
-            '                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima\n' +
-            '                                            veniam elit.</p>\n' +
+            // '                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima\n' +
+            // '                                            veniam elit.</p>\n' +
+            '<div>\n' +
+            '                        <div class="stars-outer">\n' +
+            '                            <div id="totalRatingPoints" class="stars-inner" style="width: ' + ratingStar(value.totalRatePoint)+ '"></div>\n' +
+            '                        </div>\n' +
+            '                        <span class="card-text" id="totalRates">' + value.totalRates + '</span>\n' +
+            '                    </div>'+
             '                                        <!-- Card footer -->\n' +
             '                                        <div class="card-footer px-1">\n' +
             '                                            <span class="float-left font-weight-bold">\n' +
             '                                                <strong>' + formatter.format(value.price) + '</strong>\n' +
             '                                            </span>\n' +
             '                                            <span class="float-right">\n' +
-            '                                                <a class="" data-toggle="tooltip" data-placement="top" title="Quick Look">\n' +
+            '                                                <a class="" href="/product/detail/' +value.id+'" data-toggle="tooltip" data-placement="top" title="Quick Look">\n' +
             '                                                    Details >>\n' +
             '                                                </a>\n' +
             '                                            </span>\n' +
@@ -207,5 +213,11 @@ $(function () {
             return name.substring(0, 18) + "...";
         }
         return name;
+    }
+
+    const ratingStar = (ratePoint) => {
+        const starPercentage = (ratePoint / 5) * 100;
+        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+        return starPercentageRounded;
     }
 })
