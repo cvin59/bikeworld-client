@@ -41,6 +41,7 @@ $(function () {
                     var rater = res.data.totalRater
 
                     loadSellerProfile(res.data.seller);
+                    loadRelevant(res.data.name,res.data.categoryId);
                     showReviews(rater);
                     showStars(rate, rater, $("#show-product-rate"));
                     showImages(res);
@@ -419,3 +420,106 @@ $("#btn-load-more").click(function () {
     ratingPage += 1;
     showRatings();
 })
+
+function loadRelevant(productName, categoryId) {
+    $.ajax({
+        type: "GET",
+        url: backendServer + "/api/product/relevant?productName=" + productName + "&categoryId=" + categoryId,
+        dataType: 'json',
+        success(res) {
+            var productList = res.data;
+
+            if (productList != null) {
+                for (i = 1; i < productList.length; i++) {
+                    var avatar = "";
+                    if (productList[i].images != null) {
+                        avatar = backendServer + productList[i].images[0];
+                    } else {
+                        avatar = backendServer + "/images/img404.jpg";
+                    }
+
+                    $("#show-relevant").append(" <div class=\"col-md-4 clearfix d-none d-md-block mb-3\">\n" +
+                        "                                <!-- Card -->\n" +
+                        "                                <div class=\"card card-cascade wider card-ecommerce\">\n" +
+                        "                                    <!-- Card image -->\n" +
+                        "                                    <div class=\"view view-cascade overlay\">\n" +
+                        "                                        <img src=" + '"' + avatar + '"' + "\n" +
+                        "                                            class=\"card-img-top\" alt=\"sample photo\">\n" +
+                        "                                        <a" +
+                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
+                        ">\n" +
+                        "                                            <div class=\"mask rgba-white-slight\"></div>\n" +
+                        "                                        </a>\n" +
+                        "                                    </div>\n" +
+                        "                                    <!-- Card image -->\n" +
+                        "                                    <!-- Card content -->\n" +
+                        "                                    <div class=\"card-body card-body-cascade text-center\">\n" +
+                        "                                        <!-- Category & Title -->\n" +
+                        "                                        <a" +
+                        " href=" + '"' + frontendServer + "/product/category/" + productList[i].categoryId + '"' +
+                        "" +
+                        "class=\"text-muted\">\n" +
+                        "                                            <h5>" +
+                        productList[i].category +
+                        "</h5>\n" +
+                        "                                        </a>\n" +
+                        "                                        <h4 class=\"card-title\">\n" +
+                        "                                            <strong>\n" +
+                        "                                                <a" +
+                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
+                        ">" +
+                        productList[i].name +
+                        "</a>\n" +
+                        "                                            </strong>\n" +
+                        "                                        </h4>\n" +
+                        "                                        <!-- Star -->\n" +
+                        "                                        <p class=\"card-text\" id=show-product-stars-" + i + "></p>\n" +
+                        "                                        <!-- Card footer -->\n" +
+                        "                                        <div class=\"card-footer px-1\">\n" +
+                        "                                            <span class=\"float-left font-weight-bold\">\n" +
+                        "                                                <strong>" +
+                        productList[i].price +
+                        "</strong>\n" +
+                        "                                            </span>\n" +
+                        "                                            <span class=\"float-right\">\n" +
+                        "                                                <a class=\"\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Quick Look\"" +
+                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
+                        ">\n" +
+                        "                                                    Details >>\n" +
+                        "                                                </a>\n" +
+                        "                                            </span>\n" +
+                        "                                        </div>\n" +
+                        "                                    </div>\n" +
+                        "                                    <!-- Card content -->\n" +
+                        "                                </div>\n" +
+                        "                                <!-- Card -->\n" +
+                        "                            </div>");
+                    var rate = productList[i].totalRater;
+                    var star = productList[i].totalRatePoint / rate;
+                    var stars = "";
+                    if (rate != 0) {
+                        for (j = 0; j <= 4; j++) {
+                            if (star <= j) {
+                                stars = stars + "<i class=\"fa fa-star-o orange-text\"> </i>";
+                            }
+
+                            if (star > j && star < j + 1) {
+                                stars = stars + "<i class=\"fa fa-star-half-o orange-text\"></i>";
+                            }
+
+                            if (star >= j + 1) {
+                                stars = stars + ("<i class=\"fa fa-star orange-text\"></i>");
+                            }
+                        }
+                        $("#show-product-stars-" + i).html(stars);
+                    } else {
+                        $("#show-product-stars-" + i).html("0 Review");
+                    }
+                }
+            }
+        },
+        error(e) {
+            console.log(e);
+        }
+    })
+}
