@@ -1,4 +1,3 @@
-var backendServer = 'http://localhost:8080';
 var productListSize = 12;
 var productListPage = 1;
 var productListTotalPage = "";
@@ -7,31 +6,62 @@ var searchValue;
 
 $(function () {
 
-    var selectSortBy = $("#selectSortBy");
-    var selectDirection = $("#selectDirection");
-
-    const getUrlParameter = (sParam) => {
-        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-            sURLVariables = sPageURL.split('&'),
-            sParameterName,
-            i;
-
-        for (i = 0; i < sURLVariables.length; i++) {
-            sParameterName = sURLVariables[i].split('=');
-
-            if (sParameterName[0] === sParam) {
-                return sParameterName[1] === undefined ? true : sParameterName[1];
+    $.ajax({
+        url: backendServer + "/api/common/loadBrand",
+        dataType: 'json',
+        type: 'GET',
+        success: function (response) {
+            var array = response.data;
+            if (array != '') {
+                for (i = 0; i < array.length; i++) {
+                    $("#productBrand").append("<div class=\"form-check\">\n" +
+                        "                                <input type=\"radio\" class=\"form-check-input\" id=\"" +
+                        "radioManufacturer" + array[i].id +
+                        "\"\n" +
+                        "                                       name=\"radioGroupManufacturer\"\n" +
+                        "                                       value=\"0\">\n" +
+                        "                                <label class=\"form-check-label\" for=\"" +
+                        "radioManufacturer" + array[i].id +
+                        "\">" +
+                        array[i].name +
+                        "</array></label>\n" +
+                        "                            </div>");
+                }
             }
+        },
+        error: function (e) {
+            alert("ERROR load: ", e);
         }
-    };
-
-
-    $("#selectSearchType").val('2').change();
-
-    searchValue = getUrlParameter('searchValue');
-    var sort;
-    showProductList();
-
+    }).done($.ajax({
+            url: backendServer + "/api/common/loadCategory",
+            dataType: 'json',
+            type: 'GET',
+            success: function (response) {
+                var array = response.data;
+                if (array != '') {
+                    for (i = 0; i < array.length; i++) {
+                        $("#productCategory").append("<div class=\"form-check\">\n" +
+                            "                                <input type=\"radio\" class=\"form-check-input\" id=\"" +
+                            "radioCategory" + array[i].id + "\"\n" +
+                            "                                       name=\"radioGroupCategory\"\n" +
+                            "                                       value=\"" +
+                            array[i].id +
+                            "\">\n" +
+                            "                                <label class=\"form-check-label\" for=\"" +
+                            "radioCategory" + array[i].id + "\">" +
+                            array[i].name +
+                            "</label>\n" +
+                            "                            </div>");
+                    }
+                }
+            },
+            error: function (e) {
+                alert("ERROR load: ", e);
+            }
+        })
+    )
+    searchValue = "";
+    showProductList()
 });
 
 function showProductList() {
@@ -56,11 +86,11 @@ function showProductList() {
                     var avatar = "";
                     if (productList[i].images != null) {
                         avatar = backendServer + productList[i].images[0];
-                    }else{
-                        avatar=backendServer+"/images/img404.jpg";
+                    } else {
+                        avatar = backendServer + "/images/img404.jpg";
                     }
 
-                    $("#show-product-list").append(" <div class=\"col-md-3 clearfix d-none d-md-block mb-3\">\n" +
+                    $("#show-product-list").append(" <div class=\"col-md-4 clearfix d-none d-md-block mb-3\">\n" +
                         "                                <!-- Card -->\n" +
                         "                                <div class=\"card card-cascade wider card-ecommerce\">\n" +
                         "                                    <!-- Card image -->\n" +
@@ -151,7 +181,6 @@ function showProductList() {
 
     })
 };
-
 
 function showStatus(stat, i, location) {
     var statusId = stat.id;

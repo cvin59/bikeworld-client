@@ -40,7 +40,7 @@ public class ProductController {
 
     @GetMapping("/list")
     public ModelAndView viewProductList() {
-        return new ModelAndView("productlist");
+        return new ModelAndView("product-home");
     }
 
 }
