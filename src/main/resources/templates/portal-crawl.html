@@ -65,88 +65,29 @@
                                    data-target="#addCrawlProductModal">Add
                                     Component Manually</a>
                                 <!--Here for debug only-->
-                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#editCrawlProductModal" onclick="loadModalForEdit(831)">Edit
-                                    Component Manually:(Debug Only)</a>
+
+                                <!--<a href="" class="btn btn-success" data-toggle="modal"-->
+                                <!--data-target="#editCrawlProductModal" onclick="loadModalForEdit(3937)">Edit-->
+                                <!--Component Manually:(Debug Only)</a>-->
                             </div>
                         </div>
                         <div style="border-top-style: groove; border-top-radius: 0.5px; padding-top: 5px;">
-                            <table width="100%" class="table table-striped table-bordered table-hover"
-                                   id="example">
+                            <table width="100%" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Category</th>
                                     <th>Price</th>
-                                    <th>Description</th>
-                                    <th>URL</th>
+                                    <th>Site</th>
                                     <th>Status</th>
                                     <th width="250px">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody id="crawlTableBody">
-                                <tr>
-                                    <td style="width: 5%">1</td>
-                                    <td>Name 1</td>
-                                    <td>$1</td>
-                                    <td>sdfsdfdsfsd</td>
-                                    <td>asdasdasd</td>
-                                    <td><span class="label label-warning">Pending</span></td>
-                                    <td>
-                                        <div class="form-group">
-                                            <button class="btn btn-primary">Edit
-                                            </button>
-                                            <button class="btn btn-success">Approve
-                                            </button>
-                                            <button class="btn btn-danger">Disapprove
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
-
-
-                            <ul id="demoPagin" class="pagination">
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-
-                            </ul>
-
-                            <ul class="pagination pagination-circle pg-blue">
-                                <li id="productList-first-page">
-                                    <a class="page-link">First</a></li>
-                                <li id="productList-previous-page">
-                                    <a class="page-link" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item" id="productList-back2">
-                                    <a class="page-link"></a>
-                                </li>
-                                <li class="page-item" id="productList-back">
-                                    <a class="page-link"></a>
-                                </li>
-                                <li class="page-item active" id="productList-current-page">
-                                    <a class="page-link"></a>
-                                </li>
-                                <li class="page-item" id="productList-next">
-                                    <a class="page-link"></a>
-                                </li>
-                                <li class="page-item" id="productList-next2">
-                                    <a class="page-link"></a>
-                                </li>
-
-                                <li id="productList-next-page">
-                                    <a class="page-link" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                                <li id="productList-last-page"><a class="page-link">Last</a></li>
-                            </ul>
+                            <ul id="demoPagin" class="pagination"></ul>
                         </div>
                     </div>
 
@@ -206,7 +147,8 @@
                         <div class="form-group">
                             <label for="imageUpload">Upload images:</label>
 
-                            <input type="file" class="form-control-file" id="imageUpload" multiple accept=".jpg,.png,.jpeg">
+                            <input type="file" class="form-control-file" id="imageUpload" multiple
+                                   accept=".jpg,.png,.jpeg">
                             <span id="messageImage" class="help-block" hidden></span>
 
                         </div>
@@ -268,8 +210,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="editForm">
-                        <input type="hidden" id="editId" name="id"
-                               value="187"/>
+                        <input type="hidden" id="editId" name="id"/>
                         <div class="form-group">
                             <label for="txtEditName">Name:</label>
                             <input type="text" class="form-control" id="txtEditName" name="name">
@@ -278,7 +219,8 @@
                         <div class="form-group">
 
                             <label for="imageEditUpload">Upload images:</label>
-                            <input type="file" class="form-control-file" id="imageEditUpload" multiple accept=".jpg,.png,.jpeg">
+                            <input type="file" class="form-control-file" id="imageEditUpload" multiple
+                                   accept=".jpg,.png,.jpeg">
                             <span id="editMessageImage" class="help-block" hidden></span>
 
                         </div>
@@ -307,7 +249,8 @@
                         <div class="form-group">
 
                             <label for="txtEditDescription">Description:</label>
-                            <textarea class="form-control" rows="5" id="txtEditDescription" name="description"></textarea>
+                            <textarea class="form-control" rows="5" id="txtEditDescription"
+                                      name="description"></textarea>
                             <span id="editMessageDescription" class="help-block" hidden></span>
 
                         </div>
@@ -345,7 +288,10 @@
 
 <script>
 
+
     let backendServer = "http://localhost:8080/";
+
+    // let backendServer = "http://localhost:8080/";
     function PageCrawl(list) {
 
         this.list = list;
@@ -449,10 +395,10 @@
 </script>
 
 <script>
-    // let productList = [];
-    // let totalPage;
-    // let currentPage = 0;
-    // let pageSize = 20;
+    let productList = [];
+    let totalPage;
+    let currentPage = 0;
+    let pageSize = 20;
 
     function getPageCount() {
         $.ajax({
@@ -463,31 +409,11 @@
             success: function (data) {
                 // console.log(data);
                 totalItem = data;
-                // console.log(totalItem);
-                totalPage = totalItem / 20 + ((totalItem % 20) & 1);
-                prepareProductList();
-                productListPagination(totalPage, 1);
-                loadAndShow(1);
-
-                // alert("!");
-                // console.log(data);
-
-
-                let count = data;
-
-                console.log(count);
-                totalPage = count / 20 + ((count % 20) & 1);
-
+                console.log(totalItem);
+                totalPage = Math.ceil(totalItem / pageSize);
                 prepareProductList();
                 // productListPagination(totalPage, 1);
-
                 // loadAndShow(1);
-
-                // $.each(data, function(index, element) {
-                //     $('body').append($('<div>', {
-                //         text: element.name
-                //     }));
-                // })
             },
             error: function (data) {
                 console.log(data);
@@ -502,20 +428,10 @@
             productList.push(3);
             // demoPaging.append('<li><a onclick="loadAndShow(' + i + ')">' + i + '</a></li>');
         }
-        pagingInit(totalItem, 20);
+        pagingInit(totalPage, pageSize);
     }
 
-    // function addRow(rowData, pos) {
-    //     let tableBody = $("#crawlTableBody");
-    // }
-
-
     function loadDataOnly(pageNum) {
-        // for (let i = 0; i < productList.length; i++) {
-        //     if (productList[i].num === page) {
-        //         return;
-        //     }
-        // }
         if (1 > pageNum || pageNum > totalPage) {
             return;
         }
@@ -528,17 +444,9 @@
             data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
-                // console.log(data);
                 productList[pageNum] = data.data;
-                // alert("!");
-                console.log(data);
-
+                console.log("Load page " + pageNum);
                 productList[pageNum] = data.data;
-                // $.each(data, function (index, element) {
-                //     $('body').append($('<div>', {
-                //         text: element.name
-                //     }));
-                // });
             },
             error: function (data) {
                 console.log(data);
@@ -548,12 +456,6 @@
 
 
     function loadAndShow(pageNum) {
-        // console.log("1");
-        // for (let i = 0; i < productList.length; i++) {
-        //     if (productList[i].num === page) {
-        //         return;
-        //     }
-        // }
         if (1 > pageNum || pageNum > totalPage) {
             return;
         }
@@ -567,7 +469,7 @@
             data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
-                // console.log(data);
+                console.log("Load page " + pageNum);
                 productList[pageNum] = data.data;
                 showPage(pageNum);
                 if (1 < pageNum) {
@@ -576,12 +478,6 @@
                 if (pageNum < totalPage) {
                     loadDataOnly(pageNum + 1);
                 }
-                // alert("!");
-                console.log(data);
-
-                productList[pageNum] = data.data;
-                showPage(pageNum);
-
             },
             error: function (data) {
                 console.log(data);
@@ -599,30 +495,26 @@
             let rowData = page[i];
             if (typeof rowData != 'undefined') {
                 let pos = (pageNum - 1) * pageSize + i + 1;
+                let siteLink = "";
+                if (typeof  rowData.siteId != 'undefined') {
+                    siteLink = rowData.siteId.link;
+                }
                 tableBody.append("                                <tr>\n" +
                     "                                    <td style=\"width: 5%\">" + pos + "</td>\n" +
                     "                                    <td>" + rowData.name + "</td>\n" +
                     "                                    <td>" + rowData.price + "</td>\n" +
                     "                                    <td></td>\n" +
-                    "                                    <td><a>" + rowData.siteId.link + rowData.url + "</a></td>\n" +
+                    "                                    <td><a>" + siteLink + rowData.url + "</a></td>\n" +
                     "                                    <td><span class=\"label label-warning\">Pending</span></td>\n" +
                     "                                    <td>\n" +
                     "                                        <div class=\"form-group\">\n" +
-                    "                                            <button class=\"btn btn-primary\">Edit\n" +
-                    "                                            </button>\n" +
-                    "                                            <button class=\"btn btn-success\">Approve\n" +
-                    "                                            </button>\n" +
-                    "                                            <button class=\"btn btn-danger\">Disapprove\n" +
-                    "                                            </button>\n" +
+                    "                                            <button class=\"btn btn-success\">&#10004;</button>\n" +
+                    "                                            <button class=\"btn btn-primary\" data-toggle=\"modal\"\n" +
+                    "                                   data-target=\"#editCrawlProductModal\" onclick=\"loadModalForEdit(" + rowData.id + ")\">&#9998;</button>\n" +
+                    "                                            <button class=\"btn btn-danger\">&#10008;</button>\n" +
                     "                                        </div>\n" +
                     "                                    </td>");
             }
-        }
-        if (1 < pageNum) {
-            loadDataOnly(pageNum - 1);
-        }
-        if (pageNum < totalPage) {
-            loadDataOnly(pageNum + 1);
         }
     }
 
@@ -636,11 +528,10 @@
 
 
 <script>
-    let pagingMaxIndex;
+
     let pagingMaxPage;
-    let pagingPageSize;
-    let pagingCurrentIndex;
-    let pagingShowList;
+    let pagingCurrentPage;
+    let pagingShowFrom;
     let pagingShowListLength;
     let pagingHolderUl = $("#demoPagin");
 
@@ -648,76 +539,96 @@
         loadAndShow(pageNum);
     }
 
-
-    function pagingInit(indexSize, pageSize) {
-        pagingMaxIndex = indexSize;
-        pagingPageSize = pageSize;
-        pagingMaxPage = indexSize / pageSize + ((indexSize % pageSize) & 1);
-        if (pagingPageSize > 5) {
+    function pagingInit(maxPage) {
+        pagingMaxPage = maxPage;
+        if (pagingMaxPage > 5) {
             pagingShowListLength = 5;
         } else {
             pagingShowListLength = pagingMaxPage;
         }
 
-        pagingShowList = [];
+        pagingShowFrom = 1;
         pagingHolderUl.empty();
-        pagingHolderUl.append('<li onclick="pagingFirstPage()">First</li>');
-        pagingHolderUl.append('<li onclick="pagingPrevPage()">Prev</li>');
-        for (let i = 1; i <= pagingPageSize; i++) {
-            pagingShowList.push(i);
-            pagingHolderUl.append('<li id="pagingButton' + i + '" onclick="pagingActive(' + i - 1 + ')">' + i + '</li>');
+        pagingHolderUl.append('<li><a onclick="pagingFirstPage()">First</a></li>');
+        pagingHolderUl.append('<li><a onclick="pagingPrevPage()">Prev</a></li>');
+        for (let i = 1; i <= pagingShowListLength; i++) {
+            pagingHolderUl.append('<li id="pagingButton' + i + '"><a id="pagingButtonA' + i + '" onclick="pagingActiveIndex(' + (i - 1) + ')">a</a></li>');
         }
-        pagingHolderUl.append('<li onclick="pagingNextPage()">Next</li>');
-        pagingHolderUl.append('<li onclick="pagingLastPage()">Last</li>');
+        pagingHolderUl.append('<li><a onclick="pagingNextPage()">Next</a></li>');
+        pagingHolderUl.append('<li><a onclick="pagingLastPage()">Last</a></li>');
+        console.log(pagingMaxPage);
         pagingFirstPage();
     }
 
-    function pagingFirstPage() {
-        for (let i = 1; i <= pagingShowListLength; i++) {
-            let pageButtonId = "#pagingButton" + (i);
-            let pageButton = $(pageButtonId);
-            pageButton.text(i);
-            pageButton.removeClass("active");
-        }
-        let pageActiveButtonId = "#pagingButton1";
-        let pageActiveButton = $(pageActiveButtonId);
-        pageActiveButton.addClass("active");
-        pagingCurrentIndex = 0;
-        pagingLoadData(1);
+    function pagingButton(index) {
+        let pageButtonId = "#pagingButton" + index;
+        let pageButton = $(pageButtonId);
+        return pageButton;
     }
 
+    function pagingButtonSetText(index, textStr) {
+        let pageButtonAId = "#pagingButtonA" + index;
+        let pageButtonA = $(pageButtonAId);
+        pageButtonA.text(textStr);
+    }
 
-    function pagingActive(index) {
-        let pageNum = pagingShowList[index];
+    function pagingFirstPage() {
+        // for (let i = 1; i <= pagingShowListLength; i++) {
+        //     pagingButtonSetText(i, i)
+        //     pagingButton(i).removeClass("active");
+        // }
+        // pagingButton(1).addClass("active");
+        // pagingCurrentPage = 1;
+        // pagingLoadData(1);
+        pagingShowPage(1);
+    }
+
+    function pagingShowPage(pageNum) {
         let pageMin = 1;
-        let pageMax;
-        if (pagingShowListLength > 5) {
+        if (pagingMaxPage > 5) {
             pageMin = pageNum - 2;
-            pageMax = pageNum + 2;
             if (pageMin <= 1) {
                 pageMin = 1;
-                pageMax = 5;
             }
-            if (pageMax >= pagingMaxPage) {
-                pageMax = pagingMaxPage;
-                pageMin = pageMax - 4;
+            if ((pageNum + 2) >= pagingMaxPage) {
+                pageMin = pagingMaxPage - 4;
             }
-
         }
+        pagingShowFrom = pageMin;
         for (let i = 0; i < pagingShowListLength; i++) {
-            pagingShowList[i] = pageMin + i;
-            let pageButtonId = "#pagingButton" + (i + 1);
-            let pageButton = $(pageButtonId);
-            pageButton.text(pageMin + i);
+            let pageButton = pagingButton(i + 1);
+            pagingButtonSetText(i + 1, pageMin + i);
             pageButton.removeClass("active");
-            if ((pageMin + 1) == pageNum) {
+            if ((pageMin + i) == pageNum) {
                 pageButton.addClass("active");
-                pagingCurrentIndex = i;
             }
         }
+        pagingCurrentPage = pageNum;
         pagingLoadData(pageNum);
     }
 
+
+    function pagingActiveIndex(index) {
+        pagingShowPage(pagingShowFrom + index);
+    }
+
+
+    function pagingLastPage() {
+        pagingShowPage(pagingMaxPage);
+    }
+
+
+    function pagingPrevPage() {
+        if (pagingCurrentPage > 1) {
+            pagingShowPage(pagingCurrentPage - 1);
+        }
+    }
+
+    function pagingNextPage() {
+        if (pagingCurrentPage < pagingMaxPage) {
+            pagingShowPage(pagingCurrentPage + 1);
+        }
+    }
 
 </script>
 
@@ -885,8 +796,8 @@
 <!--</script>-->
 <!--<script src = "/js/crawlNghia.js" ></script>-->
 
-<!--<script src="/js/crawNghia.js"></script>-->
-<script src="/js/crawlTri.js"></script>*
+
+<script src="/js/crawlTri.js"></script>
 
 </body>
 
