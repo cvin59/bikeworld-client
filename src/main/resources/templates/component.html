@@ -9,7 +9,7 @@
     <title>Component</title>
 </head>
 
-<body onload="loadDataLocal(); loadCategory();">
+<body onload="loadAll()">
 <!--Double navigation-->
 <header th:replace="header :: header"></header>
 
@@ -252,7 +252,7 @@
 
             <!--Component List-->
             <div class="col-9">
-                <div class="row">
+                <div id="showItem" class="row">
                     <div class="col-6">
                         <!-- Card -->
                         <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-5 animated wow zoomIn faster">
@@ -376,51 +376,11 @@
                         <!-- Card -->
                     </div>
 
-                    <div class="col-6">
-                        <!-- Card -->
-                        <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-5 animated wow zoomIn faster">
-                            <!-- Card image -->
-                            <div class="view view-cascade overlay">
-                                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img (55).jpg"
-                                     class="card-img-top" alt="sample photo">
-                                <a data-toggle="modal" data-target="#componentinfomodal">
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <!-- Card image -->
-                            <!-- Card content -->
-                            <div class="card-body card-body-cascade text-center">
-                                <!-- Category & Title -->
-                                <a href="" class="text-muted">
-                                    <h5>Mũ Bảo Hiểm</h5>
-                                </a>
-                                <h4 class="card-title">
-                                    <strong>
-                                        <a href="" data-toggle="modal" data-target="#componentinfomodal">Tên Sản
-                                            Phẩm</a>
-                                    </strong>
-                                </h4>
-                                <!-- Description -->
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima
-                                    veniam elit75675.</p>
-                                <!-- Card footer -->
-                                <div class="card-footer px-1">
-                                        <span class="float-right">
-                                            <a class="" data-toggle="modal" data-target="#componentinfomodal">
-                                                Details >>
-                                            </a>
-                                        </span>
-                                </div>
-                            </div>
-                            <!-- Card content -->
-                        </div>
-                        <!-- Card -->
-                    </div>
 
                 </div>
 
 
-                <button onclick="getDataLocal()">wer</button>
+                <!--<button onclick="getDataLocal()">wer</button>-->
 
 
                 <div class="d-flex justify-content-center mb-5">
@@ -625,6 +585,13 @@
 
     // let backendServer = "http://localhost:8080/";
 
+    function loadAll() {
+        loadDataLocal();
+        loadCategory();
+        searchValue = "";
+        cateSelect = 0;
+        searchName();
+    }
 
     function loadDataLocal() {
         lastGet = localStorage.getItem("lastGet");
@@ -648,10 +615,10 @@
                 // console.log(data);
                 let crawls = data.data;
                 for (let i = 0; i < crawls.length; i++) {
-                    crawlList.push(crawls[i]);
                     if (crawls[i].lastEdit > lastGet) {
                         lastGet = crawls[i].lastEdit;
                     }
+                    crawlList.push(crawls[i]);
                 }
                 localStorage.setItem("lastGet", lastGet);
                 localStorage.setItem("crawlList", JSON.stringify(crawlList));
@@ -662,6 +629,32 @@
             }
         });
     }
+
+    // function loadCategory() {
+    //     let cateList = [];
+    //     for (let i = 0; i < crawlList.length; i++) {
+    //         let cate = crawlList[i].categoryId;
+    //         if (typeof cate != 'undefined') {
+    //             console.log(cate);
+    //             if (typeof cateList[cate.id] == 'undefined') {
+    //                 cateList[cate.id] = cate;
+    //             }
+    //         }
+    //     }
+    //     console.log(cateList);
+    //     cateDiv.empty();
+    //     cateDiv.append('<h6>Category:</h6>');
+    //     for (let i = 0; i < cateList.length; i++) {
+    //         let category = cateList[i];
+    //         if (typeof category != 'undefined') {
+    //             cateDiv.append('<div class="form-check">');
+    //             cateDiv.append('<input type="radio" class="form-check-input" id="radioCategory' + i + '" name="radioGroupCategory" value="' + category.id + '">');
+    //             cateDiv.append('<label class="form-check-label" for="radioCategory' + i + '">' + category.name + '</label>');
+    //             cateDiv.append('</div>');
+    //         }
+    //     }
+    // }
+
 
     function loadCategory() {
         $.ajax({
@@ -689,6 +682,97 @@
         })
     }
 
+
+</script>
+<script>
+    let searchValue;
+    let searchFoundList;
+    let cateSelect;
+
+
+    function setCateSelect(cateId){
+        cateSelect = cateId;
+        searchName();
+    }
+
+    function cateCheck(crawl) {
+        if (cateSelect <= 0) {
+            return true;
+        }
+        let cate = crawl.categoryId;
+        if (cate == cateSelect) {
+            return true;
+        }
+        return false;
+    }
+
+    function searchName() {
+        searchFoundList = [];
+        for (let i = 0; i < crawlList.length; i++) {
+            // console.log(crawlList[i]);
+            let name = crawlList[i].name;
+            if (name.includes(searchValue) && cateCheck(crawlList[i])) {
+                searchFoundList.push(crawlList[i]);
+            }
+        }
+        // console.log(searchFoundList);
+        showPage(1);
+    }
+
+    function showPage(pageNum) {
+        let minIndex = (pageNum - 1) * 10;
+        let maxIndex = Math.min(minIndex + 9, searchFoundList.length);
+
+
+        let showRow = $('#showItem');
+        showRow.empty();
+        for (let i = minIndex; i <= maxIndex; i++) {
+            let crawlPro = searchFoundList[i];
+            let imgList = (crawlPro.images).split(" ");
+            let imgSrc = imgList[0];
+
+            let price = crawlPro.price;
+            let name = crawlPro.name;
+            showRow.append('<div class="col-6">\n' +
+                '                        <!-- Card -->\n' +
+                '                        <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-5 animated wow zoomIn faster">\n' +
+                '                            <!-- Card image -->\n' +
+                '                            <div class="view view-cascade overlay">\n' +
+                '                                <img src="'+imgSrc+'"\n' +
+                '                                     class="card-img-top" alt="sample photo">\n' +
+                '                                <a data-toggle="modal" data-target="#componentinfomodal">\n' +
+                '                                    <div class="mask rgba-white-slight"></div>\n' +
+                '                                </a>\n' +
+                '                            </div>\n' +
+                '                            <!-- Card image -->\n' +
+                '                            <!-- Card content -->\n' +
+                '                            <div class="card-body card-body-cascade text-center">\n' +
+                '                                <!-- Category & Title -->\n' +
+                '                                <a href="" class="text-muted">\n' +
+                '                                    <h5></h5>\n' +
+                '                                </a>\n' +
+                '                                <h4 class="card-title">\n' +
+                '                                    <strong>\n' +
+                '                                        <a href="" data-toggle="modal" data-target="#componentinfomodal">'+ price +'</a>\n' +
+                '                                    </strong>\n' +
+                '                                </h4>\n' +
+                '                                <!-- Description -->\n' +
+                '                                <p class="card-text">'+ name +'</p>\n' +
+                '                                <!-- Card footer -->\n' +
+                '                                <div class="card-footer px-1">\n' +
+                '                                        <span class="float-right">\n' +
+                '                                            <a class="" data-toggle="modal" data-target="#componentinfomodal">\n' +
+                '                                                Details >>\n' +
+                '                                            </a>\n' +
+                '                                        </span>\n' +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                            <!-- Card content -->\n' +
+                '                        </div>\n' +
+                '                        <!-- Card -->\n' +
+                '                    </div>');
+        }
+    }
 
 </script>
 </body>
