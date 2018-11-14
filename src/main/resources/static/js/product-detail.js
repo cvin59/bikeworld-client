@@ -272,13 +272,11 @@ $("#create-order-form").submit(async function (e) {
         data: formData,
         contentType: false,
         processData: false,
-        success: function (res) {
-            alert(res.message);
-            window.location.reload(true);
-        },
-        error: function (res) {
-            alert(res.message);
-        }
+    }).done((res) => {
+        console.log(res.data);
+        console.log(res.status_code);
+    }).fail((res) => {
+        console.log(res.message);
     });
 })
 
