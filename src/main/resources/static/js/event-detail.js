@@ -1,3 +1,4 @@
+var lat, lng, currLat, currLng;
 $(function () {
     var backendServer = "http://localhost:8080",
         frontendServer = "http://localhost:8084",
@@ -25,6 +26,9 @@ $(function () {
     }
 
     const loadInfo = async (event) => {
+        lat = parseFloat(event.latitude);
+        lng = parseFloat(event.longitude);
+
         title = event.title;
         $("#eventName").text(event.title);
         $(".event-name").text(event.title);
@@ -110,11 +114,12 @@ $(function () {
             if (res.status_code === 1) {
                 console.table(res.data);
                 let ratings = res.data;
-                for (rating of ratings) {
+                ratings.forEach(async (rating) => {
+                    let avatar = await loadAvatar(rating.accountUsename.username);
                     $("#eventReview").append(' <div class="row mt-5">\n' +
                         '                        <div class="col-1">\n' +
-                        '                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg"\n' +
-                        '                                 class="rounded-circle z-depth-1-half w-100">\n' +
+                        '                            <img src="' + avatar + '"\n' +
+                        '                                 class="z-depth-1-half avatar-rate">\n' +
                         '                        </div>\n' +
                         '                        <div class="col-11">\n' +
                         '                            <a href="/name" style="color: #333">\n' +
@@ -123,21 +128,22 @@ $(function () {
                         '                            <!--Review-->\n' +
                         '                            <div>\n' +
                         '                                <div class="stars-outer">\n' +
-                        '                                    <div id="" class="stars-inner" style="width: '+ratingStarWidth(rating.ratePoint)+'"></div>\n' +
+                        '                                    <div id="" class="stars-inner" style="width: ' + ratingStarWidth(rating.ratePoint) + '"></div>\n' +
                         '                                </div>\n' +
                         '                                <span class="card-text" ></span>\n' +
                         '                            </div>\n' +
                         '                            <p class="mt-2">' + rating.content + '</p>\n' +
-                        '                            <p class="grey-text">'+toStringDate(rating.rateDate)+'</p>\n' +
+                        '                            <p class="grey-text">' + toStringDate(rating.rateDate) + '</p>\n' +
                         '                        </div>\n' +
                         '                    </div>');
-                }
+                })
 
             }
         }).fail((res) => {
             console.log(res.message);
         });
     }
+
 
     var operators = {
         '*': function (a, b) {
@@ -330,4 +336,91 @@ $(function () {
         let fee = $("#feeEvent").val();
         $("#total").val(quantity * fee).change();
     });
+
+    $("#direction-tab-link").click((e) => {
+        e.preventDefault();
+        if (isNaN(lat) && isNaN(lng)) {
+            $("#mapError").text('Map Not Available. Sorry for the inconvenience');
+            $("#map").height('0px');
+            $(".floating-panel").hide();
+        } else {
+            getLocation();
+        }
+    })
+
+
+    function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: {lat: 0, lng: 0}
+        });
+        directionsDisplay.setMap(map);
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+        var onChangeHandler = function() {
+            calculateAndDisplayRoute(directionsService, directionsDisplay);
+        };
+        document.getElementById('mode').addEventListener('change', onChangeHandler);
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        directionsService.route({
+            origin: {lat: currLat, lng: currLng},
+            destination: {lat: lat, lng: lng},
+            travelMode: document.getElementById('mode').value,
+        }, function(response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                $("#mapError").text('Directions request failed due to ' + status);
+                $("#map").height('0px');
+                $(".floating-panel").hide();
+            }
+        });
+    }
+
+    function getLocation() {
+        console.log("Entering getLocation()");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                displayCurrentLocation,
+                displayError,
+                {
+                    maximumAge: 3000,
+                    timeout: 5000,
+                    enableHighAccuracy: true
+                });
+        } else {
+            console.log("Oops, no geolocation support");
+        }
+        console.log("Exiting getLocation()");
+    };
+
+    function displayCurrentLocation(position) {
+        console.log("Entering displayCurrentLocation");
+        currLat = position.coords.latitude;
+        currLng = position.coords.longitude;
+        console.log("Latitude " + currLat + " Longitude " + currLng);
+        console.log("Exiting displayCurrentLocation");
+        initMap()
+    }
+
+    function displayError(error) {
+        console.log("Entering ConsultantLocator.displayError()");
+        var errorType = {
+            0: "Unknown error",
+            1: "Permission denied by user",
+            2: "Position is not available",
+            3: "Request time out"
+        };
+        var errorMessage = errorType[error.code];
+        if (error.code == 0 || error.code == 2) {
+            errorMessage = errorMessage + "  " + error.message;
+            }
+        $("#mapError").text('Map Not Available. Sorry for the inconvenience');
+        $("#map").height('0px');
+        $(".floating-panel").hide();
+        console.log("Exiting ConsultantLocator.displayError()");
+    }
 })
