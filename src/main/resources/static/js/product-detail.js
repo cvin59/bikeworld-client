@@ -477,7 +477,7 @@ function loadRelevant(productName, categoryId) {
                         "                                                <a" +
                         " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
                         ">" +
-                        productList[i].name +
+                        formatName(productList[i].name) +
                         "</a>\n" +
                         "                                            </strong>\n" +
                         "                                        </h4>\n" +
@@ -613,3 +613,9 @@ $("#show-map").click(function () {
     initMap(lat, lng);
 })
 
+const formatName = (name) => {
+    if (name.length >= 18) {
+        return name.substring(0, 18) + "...";
+    }
+    return name;
+}
