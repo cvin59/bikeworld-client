@@ -33,6 +33,14 @@ $(function () {
 
                     $("#orderQuantity").attr({"max": res.data.quantity, "min": 1});
 
+                    if (res.data.latitude != null && res.data.longtitude != null) {
+                        $("#productLat").val(res.data.latitude);
+                        $("#productLng").val(res.data.longtitude);
+                    } else {
+                        $("#show-map").attr("disabled", "disabled");
+                    }
+
+
                     productId = res.data.id;
                     productPrice = res.data.price;
                     seller = res.data.seller;
@@ -584,8 +592,26 @@ function geolocate() {
 //     geolocate();
 // })
 
-$("#btn-GGmap").click(function () {
-    // $('#ggMapModel').modal();
-    // initMap();
+
+function initMap(lat, lng) {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: lat, lng: lng},
+        zoom: 16
+    });
+
+    var marker = new google.maps.Marker({
+        position:  {lat: lat, lng: lng},
+        map: map,
+        title: 'Hello World!'
+    });
+}
+
+$("#show-map").click(function () {
+    var lat = parseFloat($("#productLat").val());
+    var lng = parseFloat($("#productLng").val());
+
+    console.log(lat + "," + lng);
+    $('#ggMapModal').modal();
+    initMap(lat, lng);
 })
 

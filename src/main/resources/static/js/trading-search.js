@@ -2,14 +2,58 @@ var backendServer = 'http://localhost:8080';
 var productListSize = 12;
 var productListPage = 1;
 var productListTotalPage = "";
-
+var categories = [];
+var brands = [];
 var searchValue;
 
 $(function () {
 
-    var selectSortBy = $("#selectSortBy");
-    var selectDirection = $("#selectDirection");
+    $.ajax({
+        url: backendServer + "/api/common/loadBrand",
+        dataType: 'json',
+        type: 'GET',
+        success: function (response) {
+            var array = response.data;
+            if (array != '') {
+                for (i = 0; i < array.length; i++) {
+                    $("#productBrand").append("<div class=\"custom-control custom-checkbox\">\n" +
+                        "  <input type=\"checkbox\" class=\"custom-control-input\" id=\"" + "cbxBrand-" + array[i].id + "\" >\n" +
+                        "  <label class=\"custom-control-label\" for=\"" + "cbxBrand-" + array[i].id + "\">" +
+                        array[i].name +
+                        "</label>\n" +
+                        "</div>");
+                }
+            }
+        },
+        error: function (e) {
+            alert("ERROR load: ", e);
+        }
+    }).done($.ajax({
+            url: backendServer + "/api/common/loadCategory",
+            dataType: 'json',
+            type: 'GET',
+            success: function (response) {
+                var array = response.data;
+                if (array != '') {
+                    for (i = 0; i < array.length; i++) {
+                        $("#productCategory").append("<div class=\"custom-control custom-checkbox\">\n" +
+                            "  <input type=\"checkbox\" class=\"custom-control-input\" id=\"" + "cbxCategory-" + array[i].id + "\">\n" +
+                            "  <label class=\"custom-control-label\" for=\"" + "cbxCategory-" + array[i].id + "\">" +
+                            array[i].name +
+                            "</label>\n" +
+                            "</div>");
+                    }
+                }
+            },
+            error: function (e) {
+                alert("ERROR load: ", e);
+            }
+        })
+    )
 
+    var selectSortBy = $("#selectSortBy");
+
+    var selectDirection = $("#selectDirection");
     const getUrlParameter = (sParam) => {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
             sURLVariables = sPageURL.split('&'),
@@ -37,6 +81,8 @@ $(function () {
 function showProductList() {
     $.ajax({
         url: backendServer + "/api/product/search?searchValue=" + searchValue +
+            +"&categories" + categories +
+            +"&brand=" + brands +
             "&page=" + productListPage +
             "&size=" + productListSize +
             "&sort=" + $("#selectDirection").val() +
@@ -56,8 +102,8 @@ function showProductList() {
                     var avatar = "";
                     if (productList[i].images != null) {
                         avatar = backendServer + productList[i].images[0];
-                    }else{
-                        avatar=backendServer+"/images/img404.jpg";
+                    } else {
+                        avatar = backendServer + "/images/img404.jpg";
                     }
 
                     $("#show-product-list").append(" <div class=\"col-md-3 clearfix d-none d-md-block mb-3\">\n" +
