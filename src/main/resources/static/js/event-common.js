@@ -6,6 +6,14 @@ const loadImage = (id) => {
             backendServer + data.data.imageLink);
 }
 
+const loadAvatar = (username) => {
+    return fetch(backendServer + "/api/profile/avatar/" + username)
+        .then(rs => rs.json())
+        .then(data => typeof data.data === 'undefined' ?
+            backendServer + '/images/default-product-img.png' :
+            backendServer + data.data);
+}
+
 const loadEvent = async (element, allEvent) => {
     for (value of allEvent) {
         let imageUrl = await loadImage(value.id);
