@@ -1,6 +1,7 @@
 var orderListPage = 1;
 var orderListRecord;
 var orderListTotalPage;
+var interval;
 var username = localStorage.getItem("username");
 $(function () {
     loadOrderList();
@@ -21,6 +22,7 @@ function loadOrderList() {
 
             for (i = 0; i < order.length; i++) {
                 var key = 'order-' + order[i].id;
+                //   countDown(res.data.orders[i].expiredDate);
                 localStorage.setItem(key, JSON.stringify(order[i]));
             }
 
@@ -48,7 +50,7 @@ function loadDataTable(orderList) {
         columns: [
             {data: "productName", width: "150px"},
             {data: "buyer", width: "150px"},
-            {data: "orderDate", width: "200px"},
+            {data: "orderDate", width: "150px"},
             {data: "quantity", width: "100px"},
             {data: "total", width: "150px"},
             {
@@ -85,17 +87,20 @@ function loadDataTable(orderList) {
                     console.log(id);
                     switch (id) {
                         case 1:
-                            ret =
+                            ret = '<div class="d-flex justify-content-center">' +
                                 '<button class="btn btn-primary" type="button" onclick="showOrderDetail(' + orderId + ')">Detail</button>' +
                                 '  <button id="btn-Action" class="btn stylish-color dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
                                 '  <span class="caret"></span></button>' +
                                 '  <ul class="dropdown-menu">' +
                                 '    <li class="btn btn-success"  onclick="confirmOrder(' + orderId + ')"><a >Confirm</a></li>' +
                                 '    <li class="btn btn-danger" onclick="rejectOrder(' + orderId + ')"><a>Cancel</a></li>' +
-                                '  </ul>\n';
+                                '  </ul>\n' +
+                                '</div>';
                             break;
                         default:
-                            ret = '<button class="btn btn-primary" type="button" onclick="showOrderDetail(' + orderId + ')">Detail</button>';
+                            ret = '<div class="d-flex justify-content-center">' +
+                                '<button class="btn btn-primary" type="button" onclick="showOrderDetail(' + orderId + ')">Detail</button>' +
+                                '</div>';
                             break;
 
                     }
@@ -117,8 +122,9 @@ function showOrderDetail(orderId) {
     $("#orderPhone").val(order.phoneContact);
     $("#totalPrice").val(order.total);
     $("#orderAddress").val(order.deliveryAddr);
-
+    $("#orderExpired").val(order.expiredDate);
     $('#detail-Order-Modal').modal();
+    countDown(order.expiredDate, order.statusId);
 }
 
 function rejectOrder(id) {
@@ -129,6 +135,8 @@ function rejectOrder(id) {
         success(res) {
             alert(res.message);
             $("#btn-Action").css('display', 'none');
+            clearInterval(interval);
+            $("#orderCountDown").val("N/a");
         }, error(res) {
             alert(res.message);
         }
@@ -143,6 +151,8 @@ function confirmOrder(id) {
         success(res) {
             alert(res.message);
             $("#btn-Action").css('display', 'none');
+            clearInterval(interval);
+            $("#orderCountDown").val("N/a");
         }, error(res) {
             alert(res.message);
         }
@@ -306,4 +316,37 @@ $("#orderList-next-page").click(function () {
 $("#selectPageSize").change(function () {
     orderListPage = 1;
     loadOrderList();
-})
+});
+
+function countDown(date, statusId) {
+    if (statusId == 1) {
+        var countDownDate = new Date(date).getTime();
+    // Update the count down every 1 second
+         interval = setInterval(function () {
+            // Get todays date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            $("#orderCountDown").val(days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ");
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(interval);
+                $("#orderCountDown").val("EXPIRED");
+            }
+        }, 1000);
+    }else{
+        clearInterval(interval);
+        $("#orderCountDown").val("N/a");
+    }
+}
