@@ -137,7 +137,6 @@ $('#inputProductQuantity').on("change", function () {
 
 //Create Product
 $('#create-product-form').submit(async function (e) {
-    e.preventDefault();
     var cate = document.getElementById("inputProductCategory");
     var brand = document.getElementById("inputProductBrand");
     var objectData =
@@ -171,11 +170,11 @@ $('#create-product-form').submit(async function (e) {
         data: formData,
         contentType: false,
         processData: false,
-        success: function () {
-            alert('Success');
+        success: function (res) {
+            alert(res.message);
         },
-        error: function (e) {
-            console.log(e);
+        error: function (res) {
+            alert(res.message);
         }
     });
 });
@@ -268,12 +267,6 @@ $("#btn-GGmap").click(function () {
 })
 
 
-var map;
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-    });
-}
-
+$("#btn-close").click(function () {
+    window.location.replace("/user/product");
+})

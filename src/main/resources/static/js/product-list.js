@@ -79,14 +79,13 @@ function showProductList() {
                         "\n" +
                         "                                            </dd>\n" +
                         "                                        </dl>\n" +
-                        "                                        <div id=show-product-status-" + i + ">" +
+                        "                                        <div id=show-product-status-" + productList[i].id + ">" +
                         "                                        </div>\n" +
                         "                                    </div>\n" +
                         "                                    <div class=\"card-footer white border-0\">\n" +
-                        "                                        <button class=\"btn btn-sm btn-primary float-right font-weight-bold\"\n" +
-                        "                                           data-toggle=\"modal\"\n" +
+                        "                                        <button id=" + '"' + 'btnChangeStatus-' + productList[i].id + '"' + "class=\"btn btn-sm btn-dark float-right font-weight-bold\"\n alt=" + '"' + productList[i].statusId + '"' +
                         "                                           onclick=" + '"' +
-                        'changeStatus(' + productList[i].id + ')' + '"' + ">Hide" +
+                        'changeStatus(' + productList[i].id + "," + productList[i].quantity + ')' + '"' + ">Hide" +
                         "                                            </button>\n" +
                         "                                        <a class=\"btn btn-sm btn-success float-right font-weight-bold \"\n" +
                         '                                           href="/user/product/edit/' + productList[i].id + '"\n' +
@@ -99,7 +98,10 @@ function showProductList() {
                         "                            </div>\n" +
                         "                            <div class=\"pl-0 pr-0 mb-3 pt-3 pb-3 border-top\">"
                     );
-
+                    if (productList[i].statusId == 3) {
+                        $("#btnChangeStatus-" + productList[i].id).text("Show");
+                        $("#btnChangeStatus-" + productList[i].id).attr("class", "btn btn-sm btn-primary float-right font-weight-bold");
+                    }
                     var rate = productList[i].totalRater;
                     var star = productList[i].totalRatePoint / rate;
                     var stars = "";
@@ -126,9 +128,11 @@ function showProductList() {
 
                     $("#show-product-stars-" + i).html(stars);
 
-                    showStatus(productList[i], i, $("#show-product-status-" + i));
+                    showStatus(productList[i], $("#show-product-status-" + productList[i].id));
 
                 }
+
+
                 productListPagination(productListTotalPage, productListPage);
 
             }
@@ -139,7 +143,7 @@ function showProductList() {
     })
 };
 
-function showStatus(stat, i, location) {
+function showStatus(stat, location) {
     var statusId = stat.statusId;
     var status = stat.status;
 
@@ -180,7 +184,6 @@ function showStars(rate, rater, rating) {
     }
     $(rating).html(stars);
 };
-
 
 
 function productListPagination(totalPage, currentPage) {
@@ -341,13 +344,36 @@ $("#search-field").keypress(function (e) {
     }
 });
 
-function changeStatus(id) {
+function changeStatus(id, quantity) {
     $.ajax({
         url: backendServer + "/api/product/changeStatus?productId=" + id,
         dataType: 'json',
         type: 'PUT',
         success: function (res) {
             alert(res.message);
+
+            var statusId = $("#btnChangeStatus-" + id).attr("alt");
+
+            if (statusId == 1 || statusId == 2) {
+                $("#btnChangeStatus-" + id).text("Show");
+                $("#btnChangeStatus-" + id).attr("class", "btn btn-sm btn-primary float-right font-weight-bold");
+                $("#show-product-status-" + id).attr("class", "badge badge-info");
+                $("#show-product-status-" + id).text("HIDDEN");
+                $("#btnChangeStatus-" + id).attr("alt", "3");
+            } else {
+                $("#btnChangeStatus-" + id).text("Hide");
+                $("#btnChangeStatus-" + id).attr("class", "btn btn-sm btn-dark float-right font-weight-bold");
+                if (quantity > 0) {
+                    $("#show-product-status-" + id).attr("class", "badge badge-success");
+                    $("#show-product-status-" + id).text("AVAILABLE");
+                    $("#btnChangeStatus-" + id).attr("alt", "1");
+                } else {
+                    $("#show-product-status-" + id).attr("class", "badge badge-warning");
+                    $("#show-product-status-" + id).text("SOLD OUT");
+                    $("#btnChangeStatus-" + id).attr("alt", "2");
+                }
+
+            }
         }, error: function (res) {
             alert(res.message);
         }

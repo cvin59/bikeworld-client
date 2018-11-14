@@ -3,10 +3,54 @@ var uploadImgList = [];
 var deleteImgList = [];
 
 try {
+    CKEDITOR.replace('inputProductDescription');
+} catch (e) {
+    console.log(e);
+}
+try {
     CKEDITOR.replace('editProductDescription');
 } catch (e) {
     console.log(e);
 }
+
+$.ajax({
+    url: backendServer + "/api/common/loadBrand",
+    dataType: 'json',
+    type: 'GET',
+    success: function (response) {
+        var array = response.data;
+        if (array != '') {
+            var selectBox = document.getElementById("inputProductBrand");
+            for (i = 0; i < array.length; i++) {
+                var o = new Option(array[i].name, array[i].id);
+                $(o).html(array[i].name);
+                $("#inputProductBrand").append(o);
+            }
+        }
+    },
+    error: function (e) {
+        alert("ERROR load: ", e);
+    }
+}).done($.ajax({
+    url: backendServer + "/api/common/loadCategory",
+    dataType: 'json',
+    type: 'GET',
+    success: function (response) {
+        var array = response.data;
+        if (array != '') {
+            var selectBox = document.getElementById("inputProductCategory");
+            for (i = 0; i < array.length; i++) {
+                var o = new Option(array[i].name, array[i].id);
+                $(o).html(array[i].name);
+                $("#inputProductCategory").append(o);
+            }
+        }
+    },
+    error: function (e) {
+        alert("ERROR load: ", e);
+    }
+}));
+
 
 function uploadFile(file, filesUpload, fileList) {
     var tr = document.createElement("tr"),
@@ -68,40 +112,26 @@ function traverseFiles(files, filesUpload, fileList) {
     }
 }
 
-$("#btnClear").click(function () {
-    $("#image-table tr").remove();
-    imgSeq = 0;
-    uploadImgList = [];
-})
 
 function deleteImg(btn, seq) {
     $(btn).closest('tr').remove();
     uploadImgList.splice(seq, 1, null);
 }
 
-$("#btnClear").click(function () {
-    $("#image-table tr").remove();
-    imgSeq = 0;
-    uploadImgList = [];
-})
 
-function deleteImg(btn, seq) {
-    $(btn).closest('tr').remove();
-    uploadImgList.splice(seq, 1, null);
-}
+// Restrict number only
+$('#editProductPrice').on("change", function () {
+    var val = Math.abs(parseInt(this.value, 10) || 1);
+    this.value = val < 1 ? 1 : val;
+});
 
 $('#editProductQuantity').on("change", function () {
     var val = Math.abs(parseInt(this.value, 10) || 1);
     this.value = val > 100 ? 99 : val;
 });
 
-$('#editProductPrice').on("change", function () {
-    var val = Math.abs(parseInt(this.value, 10) || 1);
-    this.value = val < 1 ? 1 : val;
-});
-
 // Edit Product
-$('#edit-product-form').submit(function (e) {
+$('#edit-product-form').submit(async function (e) {
     e.preventDefault();
     var objectData =
         {
@@ -111,14 +141,13 @@ $('#edit-product-form').submit(function (e) {
             price: document.getElementById('editProductPrice').value,
             quantity: document.getElementById('editProductQuantity').value,
             address: document.getElementById('editProductAddress').value,
-            longtitude: $('#editProductLng').val(),
-            latitude: $('#editProductLat').val(),
         };
     var objectDataString = JSON.stringify(objectData);
     var formData = new FormData();
     formData.append("productModelString", objectDataString);
 
     var deleteImgJson = JSON.stringify(deleteImgList);
+    alert(deleteImgJson);
 
     formData.append("deleteImgList", deleteImgList);
 
@@ -134,14 +163,57 @@ $('#edit-product-form').submit(function (e) {
         data: formData,
         contentType: false,
         processData: false,
-        success: function () {
-            alert("Success");
-        }, error: function (e) {
-            console.log(e);
-            alert("Error: " + e);
+        success: function (res) {
+            alert(res.message);
+        },
+        error: function (res) {
+            alert(res.message);
         }
     });
 });
+
+
+function showStatus(stat, i, location) {
+    var statusId = stat.statusId;
+    var status = stat.status;
+
+
+    switch (statusId) {
+        case 1:
+            $(location).addClass("badge badge-success");
+            break;
+        case 2:
+            $(location).addClass("badge badge-warning");
+            break;
+        case 3:
+            $(location).addClass("badge badge-info");
+            break;
+        case 4:
+            $(statusDiv).class = "badge badge-light";
+            break;
+    }
+
+    $(location).append(status);
+}
+
+function showStars(rate, rater, rating) {
+    var star = rate / rater;
+    var stars = "";
+    for (i = 0; i <= 4; i++) {
+        if (star <= i) {
+            stars = stars + "<i class=\"fa fa-star-o\"> </i>";
+        }
+
+        if (star > i && star < i + 1) {
+            stars = stars + "<i class=\"fa fa-star-half-o\">";
+        }
+
+        if (star >= i + 1) {
+            stars = stars + ("<i class=\"fa fa-star\"></i>");
+        }
+    }
+    $(rating).html(stars);
+};
 
 function showEditPage(seq) {
     var product = JSON.parse(localStorage.getItem('sellProduct-' + seq));
@@ -203,73 +275,6 @@ $("#edit-files-upload").change(function () {
     var edtFileList = document.getElementById("edit-file-list");
     traverseFiles(this.files, edtFilesUpload, edtFileList);
 })
-
-function initialize() {
-    initAutocomplete();
-}
-
-var placeSearch, autocomplete;
-var componentForm = {
-    street_number: 'short_name',
-    route: 'long_name',
-    locality: 'long_name',
-    administrative_area_level_1: 'short_name',
-    country: 'long_name',
-};
-
-function initAutocomplete() {
-    // Create the autocomplete object, restricting the search to geographical
-    // location types.
-    autocomplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */(document.getElementById('editProductAddress')),
-        {types: ['geocode']});
-
-    // When the user selects an address from the dropdown, populate the address
-    // fields in the form.
-    autocomplete.addListener('place_changed', fillInAddress);
-
-    initMap();
-}
-
-function fillInAddress() {
-    // Get the place details from the autocomplete object.
-    var place = autocomplete.getPlace();
-    console.table(place);
-    $("#editProductLat").val(place.geometry.location.lat());
-    $("#editProductLng").val(place.geometry.location.lng());
-
-    // for (var component in componentForm) {
-    //     document.getElementById(component).value = " ";
-    //     document.getElementById(component).disabled = false;
-    // }
-
-    // Get each component of the address from the place details
-    // and fill the corresponding field on the form.
-    // for (var i = 0; i < place.address_components.length; i++) {
-    //     var addressType = place.address_components[i].types[0];
-    //     if (componentForm[addressType]) {
-    //         var val = place.address_components[i][componentForm[addressType]];
-    //         document.getElementById(addressType).value = val;
-    //     }
-    // }
-}
-
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
-function geolocate() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var geolocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle({
-                center: geolocation,
-                radius: position.coords.accuracy
-            });
-            autocomplete.setBounds(circle.getBounds());
-
-
-        });
-    }
-}
+$("#btn-close").click(function () {
+    window.location.replace("/user/product");
+})

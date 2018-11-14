@@ -113,7 +113,7 @@ function showOrderDetail(buyId) {
 function cancelOrder(id) {
     $.ajax({
         type: 'PUT',
-        url: backendServer + "/api/order/reject?orderId=" + id,
+        url: backendServer + "/api/order/cancel?orderId=" + id,
         dataType: 'json',
         success(res) {
             alert(res.message);
@@ -283,3 +283,4 @@ $("#selectPageSize").change(function () {
     buyListPage = 1;
     loadBuyList();
 })
+
