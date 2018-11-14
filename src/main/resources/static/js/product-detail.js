@@ -268,14 +268,11 @@ $("#create-order-form").submit(function () {
         data: formData,
         contentType: false,
         processData: false,
-
-        success: function (response) {
-            alert("Success")
-        },
-        error: function (e) {
-            alert("ERROR load: ", e);
-            console.log(e);
-        }
+    }).done((res) => {
+        console.log(res.data);
+        console.log(res.status_code);
+    }).fail((res) => {
+        console.log(res.message);
     });
 })
 

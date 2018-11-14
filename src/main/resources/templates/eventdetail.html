@@ -181,13 +181,16 @@
             <!--direction Event Tab-->
             <div class="tab-pane fade" id="direction-tab" role="tabpanel" aria-labelledby="direction-tab-link">
                 <div><p class="text-danger" id="mapError"></p></div>
-                <div class="floating-panel">
-                    <b>Phương tiện: </b>
+                <div class="floating-panel-mode fade">
+                    <b>Vehicle: </b>
                     <select id="mode" class="browser-default">
                         <option value="DRIVING">Driving</option>
                         <option value="WALKING">Walking</option>
                         <option value="TRANSIT">Bus</option>
                     </select>
+                </div>
+                <div class="floating-panel">
+                    <button id="showDirection" class="btn orange">Show Directions</button>
                 </div>
                 <div id="instructions"></div>
                 <div id="map"></div>
@@ -263,7 +266,7 @@
 </main>
 <div th:replace="footer :: footer"/>
 <script src="/js/event-detail.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYf2K1LttcbRnaqY-9IfaDxBkpGxtC1Cw&libraries=places"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYf2K1LttcbRnaqY-9IfaDxBkpGxtC1Cw&libraries=places&callback=initialize"></script>
 </body>
 
 </html>

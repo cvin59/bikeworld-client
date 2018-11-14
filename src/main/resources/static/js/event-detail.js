@@ -1,4 +1,12 @@
-var lat, lng, currLat, currLng;
+var map;
+
+function initialize() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: {lat: 0, lng: 0}
+    });
+}
+
 $(function () {
     var backendServer = "http://localhost:8080",
         frontendServer = "http://localhost:8084",
@@ -7,6 +15,8 @@ $(function () {
         valMin,
         username = localStorage.getItem('username'),
         checkFinish;
+    var lat, lng, currLat, currLng;
+
     let id = $("#id").val();
     let title;
     console.log(id);
@@ -74,6 +84,7 @@ $(function () {
         await checkEventRating(event.id);
         await getEventRating(event.id);
     }
+
 
     const checkParticipant = async (eventId, username) => {
         await $.ajax({
@@ -339,26 +350,46 @@ $(function () {
 
     $("#direction-tab-link").click((e) => {
         e.preventDefault();
-        if (isNaN(lat) && isNaN(lng)) {
-            $("#mapError").text('Map Not Available. Sorry for the inconvenience');
-            $("#map").height('0px');
-            $(".floating-panel").hide();
-        } else {
-            getLocation();
-        }
+        var geocoder = new google.maps.Geocoder;
+        map.setCenter({lat: lat, lng: lng});
+        geocodeLatLng(geocoder, map);
     })
+
+    $("#showDirection").click((e) => {
+        e.preventDefault();
+        $(".floating-panel-mode").removeClass('fade');
+        getLocation();
+    })
+
+    function geocodeLatLng(geocoder, map) {
+        var latlng = {lat: lat, lng: lng};
+        geocoder.geocode({'location': latlng}, function (results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    map.setZoom(15);
+                    var marker = new google.maps.Marker({
+                        position: latlng,
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                    });
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                $("#mapError").text('Map Not Available. Sorry for the inconvenience');
+                $("#map").height('0px');
+                $(".floating-panel").hide();
+            }
+        });
+    }
 
 
     function initMap() {
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 7,
-            center: {lat: 0, lng: 0}
-        });
         directionsDisplay.setMap(map);
         calculateAndDisplayRoute(directionsService, directionsDisplay);
-        var onChangeHandler = function() {
+        var onChangeHandler = function () {
             calculateAndDisplayRoute(directionsService, directionsDisplay);
         };
         document.getElementById('mode').addEventListener('change', onChangeHandler);
@@ -369,7 +400,7 @@ $(function () {
             origin: {lat: currLat, lng: currLng},
             destination: {lat: lat, lng: lng},
             travelMode: document.getElementById('mode').value,
-        }, function(response, status) {
+        }, function (response, status) {
             if (status === 'OK') {
                 directionsDisplay.setDirections(response);
             } else {
@@ -417,7 +448,7 @@ $(function () {
         var errorMessage = errorType[error.code];
         if (error.code == 0 || error.code == 2) {
             errorMessage = errorMessage + "  " + error.message;
-            }
+        }
         $("#mapError").text('Map Not Available. Sorry for the inconvenience');
         $("#map").height('0px');
         $(".floating-panel").hide();
