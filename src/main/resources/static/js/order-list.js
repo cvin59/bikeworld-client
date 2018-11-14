@@ -124,7 +124,7 @@ function showOrderDetail(orderId) {
     $("#orderAddress").val(order.deliveryAddr);
     $("#orderExpired").val(order.expiredDate);
     $('#detail-Order-Modal').modal();
-    countDown(order.expiredDate, order.statusId);
+  //  countDown(order.expiredDate, order.statusId);
 }
 
 function rejectOrder(id) {
