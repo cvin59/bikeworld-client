@@ -56,4 +56,9 @@ public class PortalController extends AbstractController {
         return new ModelAndView("portal-crawl");
     }
 
+    @GetMapping("/user")
+    public ModelAndView openUser() {
+        return new ModelAndView("portal-user");
+    }
+
 }
