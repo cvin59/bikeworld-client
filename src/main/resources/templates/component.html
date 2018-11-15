@@ -17,27 +17,27 @@
 <main>
 
     <div class="container">
-        <!--Search Section-->
-        <!--<section class="p-3 pl-5 pr-5">-->
-        <!--&lt;!&ndash; Search form &ndash;&gt;-->
-        <!--<div class="form-inline d-flex justify-content-center md-form form-sm">-->
-        <!--&lt;!&ndash; Search form &ndash;&gt;-->
-        <!--<input id="searchField" class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search"-->
-        <!--aria-label="Search">-->
+        Search Section
+        <section class="p-3 pl-5 pr-5">
+        <!-- Search form -->
+        <div class="form-inline d-flex justify-content-center md-form form-sm">
+        <!-- Search form -->
+        <input id="searchField" class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search"
+        aria-label="Search">
         <!--<select class="mdb-select md-form">-->
         <!--<option value="1">Component</option>-->
         <!--<option value="2">Trading</option>-->
         <!--<option value="3">Event</option>-->
         <!--</select>-->
-        <!--<div>-->
-        <!--<button onclick="setSearchValue()" class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"-->
-        <!--aria-hidden="true"></i>Search-->
-        <!--</button>-->
-        <!--</div>-->
+        <div>
+        <button onclick="setSearchValue()" class="btn btn-rounded btn-danger font-weight-bold"><i class="fa fa-search mr-2"
+        aria-hidden="true"></i>Search
+        </button>
+        </div>
 
-        <!--</div>-->
-        <!--</section>-->
-        <!--End Search Section-->
+        </div>
+        </section>
+        End Search Section
 
         <!--Bread Crum Menu-->
         <div class="container">
@@ -1186,6 +1186,8 @@
         }
         // console.log(searchFoundList);
         showPage(1);
+        let totalPage = Math.ceil(searchFoundList.length / 10);
+        pagingInit(totalPage);
     }
 
     function showPage(pageNum) {
@@ -1276,7 +1278,7 @@
     let pagingHolderUl = $("#demoPagin");
 
     function pagingLoadData(pageNum) {
-        loadAndShow(pageNum);
+        showPage(pageNum);
     }
 
     function pagingInit(maxPage) {
@@ -1289,13 +1291,13 @@
 
         pagingShowFrom = 1;
         pagingHolderUl.empty();
-        pagingHolderUl.append('<li><a onclick="pagingFirstPage()">First</a></li>');
-        pagingHolderUl.append('<li><a onclick="pagingPrevPage()">Prev</a></li>');
+        pagingHolderUl.append('<li class="page-item"><a class="page-link" onclick="pagingFirstPage()">First</a></li>');
+        pagingHolderUl.append('<li class="page-item"><a class="page-link" onclick="pagingPrevPage()">Prev</a></li>');
         for (let i = 1; i <= pagingShowListLength; i++) {
-            pagingHolderUl.append('<li id="pagingButton' + i + '"><a id="pagingButtonA' + i + '" onclick="pagingActiveIndex(' + (i - 1) + ')">a</a></li>');
+            pagingHolderUl.append('<li class="page-item" id="pagingButton' + i + '"><a class="page-link" id="pagingButtonA' + i + '" onclick="pagingActiveIndex(' + (i - 1) + ')">a</a></li>');
         }
-        pagingHolderUl.append('<li><a onclick="pagingNextPage()">Next</a></li>');
-        pagingHolderUl.append('<li><a onclick="pagingLastPage()">Last</a></li>');
+        pagingHolderUl.append('<li class="page-item"><a class="page-link" onclick="pagingNextPage()">Next</a></li>');
+        pagingHolderUl.append('<li class="page-item"><a class="page-link" onclick="pagingLastPage()">Last</a></li>');
         console.log(pagingMaxPage);
         pagingFirstPage();
     }
