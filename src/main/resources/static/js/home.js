@@ -23,7 +23,7 @@ $(function () {
             .then(data => typeof data.data[0] === 'undefined' ?
                 backendServer + '/images/default-product-img.png' :
                 backendServer + data.data[0].imageLink);
-            // .then(data => console.table(data.data[0]));
+        // .then(data => console.table(data.data[0]));
     }
 
 
@@ -145,9 +145,9 @@ $(function () {
             '                                <div class="card card-cascade wider card-ecommerce">\n' +
             '                                    <!-- Card image -->\n' +
             '                                    <div class="view view-cascade overlay  product-avatar">\n' +
-            '                                        <img src="' + imageUrl +'"\n' +
+            '                                        <img src="' + imageUrl + '"\n' +
             '                                            class="card-img-top" alt="sample photo">\n' +
-            '                                        <a href="/product/detail/' +value.id+'">\n' +
+            '                                        <a href="/product/detail/' + value.id + '">\n' +
             '                                            <div class="mask rgba-white-slight"></div>\n' +
             '                                        </a>\n' +
             '                                    </div>\n' +
@@ -160,7 +160,7 @@ $(function () {
             // '                                        </a>\n' +
             '                                        <p class="card-title">\n' +
             '                                            <strong>\n' +
-            '                                        <a href="/product/detail/' +value.id+'">\n' +
+            '                                        <a href="/product/detail/' + value.id + '">\n' +
             '' + formatName(value.name) + '</a>\n' +
             '                                            </strong>\n' +
             '                                        </p>\n' +
@@ -176,7 +176,7 @@ $(function () {
             '                                                <strong>' + formatter.format(value.price) + '</strong>\n' +
             '                                            </span>\n' +
             '                                            <span class="float-right">\n' +
-            '                                                <a class="" href="/product/detail/' +value.id+'" data-toggle="tooltip" data-placement="top" title="Quick Look">\n' +
+            '                                                <a class="" href="/product/detail/' + value.id + '" data-toggle="tooltip" data-placement="top" title="Quick Look">\n' +
             '                                                    Details >>\n' +
             '                                                </a>\n' +
             '                                            </span>\n' +
@@ -188,7 +188,68 @@ $(function () {
             '                            </div>');
     }
 
+
+    function loadComponentCateDetail(value, imageUrl, mainDiv) {
+        mainDiv.append('<div class="col-md-3">\n' +
+            '                                <!-- Card -->\n' +
+            '                                <div class="card card-cascade wider card-ecommerce">\n' +
+            '                                    <!-- Card image -->\n' +
+            '                                    <div class="view view-cascade overlay  product-avatar">\n' +
+            '                                        <img src="' + imageUrl + '"\n' +
+            '                                            class="card-img-top" alt="sample photo">\n' +
+            '                                        <a href="/product/detail/' + value.id + '">\n' +
+            '                                            <div class="mask rgba-white-slight"></div>\n' +
+            '                                        </a>\n' +
+            '                                    </div>\n' +
+            '                                    <!-- Card image -->\n' +
+            '                                    <!-- Card content -->\n' +
+            '                                    <div class="card-body card-body-cascade text-center">\n' +
+            '                                        <!-- Category & Title -->\n' +
+            // '                                        <a href="" class="text-muted">\n' +
+            //     '                                            <h5>Helemt</h5>\n' +
+            // '                                        </a>\n' +
+            '                                        <p class="card-title">\n' +
+            '                                            <strong>\n' +
+            '                                        <a href="/product/detail/' + value.id + '">\n' +
+            '' + formatName(value.name) + '</a>\n' +
+            '                                            </strong>\n' +
+            '                                        </p>\n' +
+            '                                        <!-- Description -->\n' +
+            // '                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima\n' +
+            // '                                            veniam elit.</p>\n' +
+            '<div>\n' +
+            "                                        <!-- Star -->\n" +
+            "                                        <p class=\"card-text\" id=show-product-stars-" + value.id + "></p>\n" +
+            '                                        <!-- Card footer -->\n' +
+            '                                        <div class="card-footer px-1">\n' +
+            '                                            <span class="float-left font-weight-bold">\n' +
+            '                                                <strong>' + formatter.format(value.price) + '</strong>\n' +
+            '                                            </span>\n' +
+            '                                            <span class="float-right">\n' +
+            '                                                <a class="" href="/product/detail/' + value.id + '" data-toggle="tooltip" data-placement="top" title="Quick Look">\n' +
+            '                                                    Details >>\n' +
+            '                                                </a>\n' +
+            '                                            </span>\n' +
+            '                                        </div>\n' +
+            '                                    </div>\n' +
+            '                                    <!-- Card content -->\n' +
+            '                                </div>\n' +
+            '                                <!-- Card -->\n' +
+            '                            </div>');
+    }
+
+
+
+    function loadComponentCate() {
+        let div = $('#componentCateDiv');
+        alert(1);
+        loadComponentCateDetail("", "https://ynebikers.com.my/upload/productimage/27b7612d40184fc8ca78950e676e3b7b-medium.jpg0", div);
+
+    }
+
+
     const loadProductHome = async (products) => {
+        loadComponentCate();
         var i, j = 0;
         for (i = 0; i < products.length; i += 4) {
             $("#sliderProduct").append('<div class="carousel-item" id="slideProduct' + i + '">\n' +
@@ -223,6 +284,7 @@ $(function () {
             }
         }
         $("#sliderProduct .carousel-item").first().addClass("active");
+
 
     }
 
