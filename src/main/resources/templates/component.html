@@ -66,69 +66,70 @@
                             <div class="row">
                                 <!--Product Image Preview-->
                                 <div class="col-lg-7 col-md-12 col-sm-12 view zoom">
-                                    <img class="img-fluid"
+                                    <img id="crawlDetailImg" class="img-fluid"
                                          src=""
                                          alt="First slide">
                                 </div>
                                 <!--End Product Image Preview-->
 
                                 <div class="col-lg-5 col-md-12 col-sm-12">
-                                    <p class="font-weight-bold h3">Product Name Goes Here</p>
+                                    <p id="crawlDetailName" class="font-weight-bold h3">Product Name Goes Here</p>
 
-                                    <p>Short description sfjkskdfhsdkf fsksjdhfk dskf jskdf ksdhf fsdfs fs
-                                        ksfkshfd sdfsdfj skdf ks
-                                        fjsdf hjks gdhsd.</p>
+                                    <p id="crawlDetailDecs" ></p>
 
                                     <dl class="row mt-2">
-                                        <dt class="col-sm-3">Category:</dt>
-                                        <dd class="col-sm-9"><a href="" class="text-danger"><span
-                                                class="badge primary-color">Bike</span></a></dd>
+                                        <!--<dt class="col-sm-3">Category:</dt>-->
+                                        <!--<dd class="col-sm-9">-->
+                                            <!--<a href="" class="text-danger">-->
+                                                <!--<span id="crawlDetailCate" class="badge primary-color">Bike</span>-->
+                                            <!--</a>-->
+                                        <!--</dd>-->
 
-                                        <dt class="col-sm-3">Location:</dt>
-                                        <dd class="col-sm-9">abdspodjfdsdsf</dd>
+                                        <dt class="col-sm-3">Price:</dt>
+                                        <dd class="col-sm-9" id="crawlDetailPrice">abdspodjfdsdsf</dd>
 
-                                        <dt class="col-sm-3">Manufaturer</dt>
-                                        <dd class="col-sm-9">Honda</dd>
+                                        <!--<dt class="col-sm-3">Manufaturer</dt>-->
+                                        <!--<dd class="col-sm-9">Honda</dd>-->
 
-                                        <dt class="col-sm-3">Quantity</dt>
-                                        <dd class="col-sm-9">10/20</dd>
+                                        <!--<dt class="col-sm-3">Quantity</dt>-->
+                                        <!--<dd class="col-sm-9">10/20</dd>-->
                                     </dl>
 
 
                                     <!--Table-->
-                                    <table id="tablePreview" class="table table-hover table-bordered table-sm res">
-                                        <!--Table head-->
-                                        <thead class="primary-color">
-                                        <tr class="white-text text-center">
-                                            <th class="font-weight-bold">Site name</th>
-                                            <th class="font-weight-bold">Price</th>
-                                            <th class="font-weight-bold w-20">Link</th>
-                                        </tr>
-                                        </thead>
-                                        <!--Table head-->
-                                        <!--Table body-->
-                                        <tbody>
-                                        <tr class="text-center">
-                                            <td class="align-middle">abc.com</td>
-                                            <td class="align-middle">100.000 VND</td>
-                                            <td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go
-                                                to</a></td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td class="align-middle">abc.com</td>
-                                            <td class="align-middle">100.000 VND</td>
-                                            <td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go
-                                                to</a></td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td class="align-middle">abc.com</td>
-                                            <td class="align-middle">100.000 VND</td>
-                                            <td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go
-                                                to</a></td>
-                                        </tr>
-                                        </tbody>
-                                        <!--Table body-->
-                                    </table>
+                                    <!--<table id="tablePreview" class="table table-hover table-bordered table-sm res">-->
+                                    <!--&lt;!&ndash;Table head&ndash;&gt;-->
+                                    <!--<thead class="primary-color">-->
+                                    <!--<tr class="white-text text-center">-->
+                                    <!--<th class="font-weight-bold">Site name</th>-->
+                                    <!--<th class="font-weight-bold">Price</th>-->
+                                    <!--<th class="font-weight-bold w-20">Link</th>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--&lt;!&ndash;Table head&ndash;&gt;-->
+                                    <!--&lt;!&ndash;Table body&ndash;&gt;-->
+                                    <!--<tbody>-->
+                                    <!--<tr class="text-center">-->
+                                    <!--<td class="align-middle">abc.com</td>-->
+                                    <!--<td class="align-middle">100.000 VND</td>-->
+                                    <!--<td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go-->
+                                    <!--to</a></td>-->
+                                    <!--</tr>-->
+                                    <!--<tr class="text-center">-->
+                                    <!--<td class="align-middle">abc.com</td>-->
+                                    <!--<td class="align-middle">100.000 VND</td>-->
+                                    <!--<td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go-->
+                                    <!--to</a></td>-->
+                                    <!--</tr>-->
+                                    <!--<tr class="text-center">-->
+                                    <!--<td class="align-middle">abc.com</td>-->
+                                    <!--<td class="align-middle">100.000 VND</td>-->
+                                    <!--<td class="align-middle"><a class="btn btn-danger btn-sm w-100">Go-->
+                                    <!--to</a></td>-->
+                                    <!--</tr>-->
+                                    <!--</tbody>-->
+                                    <!--&lt;!&ndash;Table body&ndash;&gt;-->
+                                    <!--</table>-->
                                     <!--Table-->
                                 </div>
                             </div>
@@ -137,24 +138,152 @@
                     </div>
 
                     <!--Item Description-->
-                    <div class="container p-5 border-bottom">
-                        <h1>Đây là chỗ nhúng Raw HTML vào</h1>
-                        <p>The area was a retreat for Hawaiian royalty in the 1800s who enjoyed surfing there
-                            on early forms of
-                            longboards.[2]
 
-                            A few small hotels opened in the 1880s. In 1893, Greek-American George Lycurgus
-                            leased the guest house
-                            of Allen Herbert and renamed it the "Sans Souci" (French for "without worries")
-                            creating one of the
-                            first beach resorts. Later that year Robert Louis Stevenson stayed at the resort;
-                            subsequently it
-                            became a popular destination for mainland tourists.[3] The area at coordinates
-                            21°15′49″N 157°49′17″W
-                            is still called "Sans Souci Beach".[4]
+                    <!-- Section: Recommend-->
+                    <section class="mt-5">
+                        <div class="container-fluid pb-3">
+                            <div class="container pb-5 pl-5 pr-5">
+                                <!-- Section heading -->
+                                <h3 class="h1-responsive mb-4 text-dark: text-center ">RECOMMENDED PRODUCTS</h3>
+                                <div class="row">
+                                    <div class="col-md-4 ">
+                                        <!-- Card -->
+                                        <div class="card card-cascade card-ecommerce">
+                                            <!-- Card image -->
+                                            <div class="view view-cascade overlay">
+                                                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img (55).jpg"
+                                                     class="card-img-top" alt="sample photo">
+                                                <a>
+                                                    <div class="mask rgba-white-slight"></div>
+                                                </a>
+                                            </div>
+                                            <!-- Card image -->
+                                            <!-- Card content -->
+                                            <div class="card-body card-body-cascade text-center">
+                                                <!-- Category & Title -->
+                                                <a href="" class="text-muted">
+                                                    <h5>Helmet</h5>
+                                                </a>
+                                                <h4 class="card-title">
+                                                    <strong>
+                                                        <a href="">Tên Sản Phẩm</a>
+                                                    </strong>
+                                                </h4>
+                                                <!-- Description -->
+                                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                                    minima
+                                                    veniam
+                                                    elit.</p>
+                                                <!-- Card footer -->
+                                                <div class="card-footer px-1">
+                                        <span class="float-left font-weight-bold">
+                                            <strong>100.000 VNĐ</strong>
+                                        </span>
+                                                    <span class="float-right">
+                                            <a class="" data-toggle="tooltip" data-placement="top" title="Quick Look">
+                                                Details >>
+                                            </a>
+                                        </span>
+                                                </div>
+                                            </div>
+                                            <!-- Card content -->
+                                        </div>
+                                        <!-- Card -->
+                                    </div>
 
-                        </p>
-                    </div>
+                                    <div class="col-md-4 clearfix d-none d-md-block">
+                                        <!-- Card -->
+                                        <div class="card card-cascade card-ecommerce">
+                                            <!-- Card image -->
+                                            <div class="view view-cascade overlay">
+                                                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img (55).jpg"
+                                                     class="card-img-top" alt="sample photo">
+                                                <a>
+                                                    <div class="mask rgba-white-slight"></div>
+                                                </a>
+                                            </div>
+                                            <!-- Card image -->
+                                            <!-- Card content -->
+                                            <div class="card-body card-body-cascade text-center">
+                                                <!-- Category & Title -->
+                                                <a href="" class="text-muted">
+                                                    <h5>Helmet</h5>
+                                                </a>
+                                                <h4 class="card-title">
+                                                    <strong>
+                                                        <a href="">Tên Sản Phẩm</a>
+                                                    </strong>
+                                                </h4>
+                                                <!-- Description -->
+                                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                                    minima
+                                                    veniam
+                                                    elit.</p>
+                                                <!-- Card footer -->
+                                                <div class="card-footer px-1">
+                                        <span class="float-left font-weight-bold">
+                                            <strong>100.000 VNĐ</strong>
+                                        </span>
+                                                    <span class="float-right">
+                                            <a class="" data-toggle="tooltip" data-placement="top" title="Quick Look">
+                                                Details >>
+                                            </a>
+                                        </span>
+                                                </div>
+                                            </div>
+                                            <!-- Card content -->
+                                        </div>
+                                        <!-- Card -->
+                                    </div>
+
+                                    <div class="col-md-4 clearfix d-none d-md-block">
+                                        <!-- Card -->
+                                        <div class="card card-cascade card-ecommerce">
+                                            <!-- Card image -->
+                                            <div class="view view-cascade overlay">
+                                                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img (55).jpg"
+                                                     class="card-img-top" alt="sample photo">
+                                                <a>
+                                                    <div class="mask rgba-white-slight"></div>
+                                                </a>
+                                            </div>
+                                            <!-- Card image -->
+                                            <!-- Card content -->
+                                            <div class="card-body card-body-cascade text-center">
+                                                <!-- Category & Title -->
+                                                <a href="" class="text-muted">
+                                                    <h5>Helmet</h5>
+                                                </a>
+                                                <h4 class="card-title">
+                                                    <strong>
+                                                        <a href="">Tên Sản Phẩm</a>
+                                                    </strong>
+                                                </h4>
+                                                <!-- Description -->
+                                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                                    minima
+                                                    veniam
+                                                    elit.</p>
+                                                <!-- Card footer -->
+                                                <div class="card-footer px-1">
+                                        <span class="float-left font-weight-bold">
+                                            <strong>100.000 VNĐ</strong>
+                                        </span>
+                                                    <span class="float-right">
+                                            <a class="" data-toggle="tooltip" data-placement="top" title="Quick Look">
+                                                Details >>
+                                            </a>
+                                        </span>
+                                                </div>
+                                            </div>
+                                            <!-- Card content -->
+                                        </div>
+                                        <!-- Card -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                     <!--End Item Description-->
                 </div>
             </div>
@@ -1014,6 +1143,8 @@
 
 
 </script>
+
+
 <script>
     let searchValue;
     let searchFoundList;
@@ -1072,7 +1203,7 @@
             let name = crawlPro.name;
 
 
-            showRow.append('<div class="col-6">\n' +
+            showRow.append('<div onclick="setModalData(' + crawlPro.id + ')" class="col-6">\n' +
                 '                        <!-- Card -->\n' +
                 '                        <div class="card card-cascade card-ecommerce ml-2 mr-2 mb-5 animated wow zoomIn faster">\n' +
                 '                            <!-- Card image -->\n' +
@@ -1114,7 +1245,27 @@
     }
 
 </script>
+<script>
+    function setModalData(id) {
+        // alert(id);
+        let tagImg = $('#crawlDetailImg');
+        let tagName = $('#crawlDetailName');
+        let tagCate = $('#crawlDetailCate');
+        let tagPrice = $('#crawlDetailPrice');
 
+
+        for (let i = 0; i < crawlList.length; i++) {
+            let crawl = crawlList[i];
+            if (crawl.id == id) {
+                let imgList = (crawl.images).split(" ");
+                let imgSrc = imgList[0];
+                tagImg.attr("src", imgSrc);
+                tagName.text(crawl.name);
+                tagPrice.text(crawl.price);
+            }
+        }
+    }
+</script>
 
 </body>
 
