@@ -543,14 +543,14 @@
         });
     }
 
-    function activateCrawl(pageNum, pos) {
+    function deactivateCrawl(pageNum, pos) {
         let page = productList[pageNum];
         let crawl = page[pos];
         let crwId = crawl.status.id;
 
         $.ajax({
             type: 'GET',
-            url: backendServer + 'api/crawl/activate/' + crwId,
+            url: backendServer + 'api/crawl/deactivate/' + crwId,
             data: {get_param: 'value'},
             dataType: 'json',
             success: function (data) {
