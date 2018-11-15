@@ -51,11 +51,8 @@
                                    id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Location</th>
-                                    <th>StartDate</th>
-                                    <th>EndDate</th>
-                                    <th>Participants</th>
+                                    <th>Username</th>
+                                    <th>Email Address</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -85,14 +82,11 @@
             autoWidth: false,
             data: events,
             columns: [
-                {data: "title", width: "200px"},
-                {data: "location", width: "200px"},
-                {data: "startDate"},
-                {data: "endDate"},
+                {data: "username", width: "200px"},
                 {
                     data: null,
                     render: function (data, type, row) {
-                        let ret = row.currentSlot + "/" + row.totalSlots;
+                        let ret = ((row || {}).profileId || {}).email;
                         return ret;
                     }
                 },
@@ -100,21 +94,14 @@
                     data: null,
                     render: function (data, type, row) {
                         let ret;
-                        const id = ((row || {}).eventStautsid || {}).id;
+                        const id = row.isActive;
                         switch (id) {
                             case 1:
-                                ret = '<span class="label label-info ">Inactive</span>';
+                                ret = '<span class="label label-success ">Active</span>';
                                 break;
-                            case 2:
-                                ret = '<span class="label label-primary">Active</span>';
+                            case 0:
+                                ret = '<span class="label label-default">Banned</span>';
                                 break;
-                            case 3:
-                                ret = '<span class="label label-success">Finish</span>';
-                                break;
-                            case 4:
-                                ret = '<span class="label label-danger">Canceled</span>';
-                                break;
-
                         }
                         return ret;
                     }
@@ -123,53 +110,32 @@
                     data: null,
                     render: function (data, type, row) {
                         let ret;
-                        const id = ((row || {}).eventStautsid || {}).id;
+                        const id = row.isActive;
                         switch (id) {
                             case 1:
                                 ret = '<div class="dropdown">' +
                                     '  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
                                     '  <span class="caret"></span></button>' +
                                     '  <ul class="dropdown-menu">' +
-                                    '    <li><a href="event/' + row.id + '">Update</a></li>' +
-                                    '    <li><a  onclick="activateEvent(' + row.id + ')">Open</a></li>' +
-                                    '    <li><a  onclick="deactivateEvent(' + row.id + ')">Cancel</a></li>' +
+                                    '    <li><a href="user/' + row.username + '">View Detail</a></li>' +
+                                    '    <li><a  onclick="banUser(\'' + row.username + '\')">Ban</a></li>' +
                                     '  </ul>\n' +
-                                    '</div>';;
+                                    '</div>';
+                                ;
                                 break;
-                            case 2:
+                            case 0:
                                 ret = '<div class="dropdown">' +
                                     '  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
                                     '  <span class="caret"></span></button>' +
                                     '  <ul class="dropdown-menu">' +
-                                    '    <li><a href="event/' + row.id + '">Update</a></li>' +
-                                    '    <li><a  onclick="deactivateEvent(' + row.id + ')">Cancel</a></li>' +
+                                    '    <li><a href="event/' + row.username + '">View Detail</a></li>' +
+                                    '    <li><a  onclick="unbanUser(\'' + row.username + '\')">Unban</a></li>' +
                                     '  </ul>\n' +
-                                    '</div>';;
+                                    '</div>';
+                                ;
                                 break;
-                            case 3:
-                                ret = '<div class="dropdown">' +
-                                    '  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
-                                    '  <span class="caret"></span></button>' +
-                                    '  <ul class="dropdown-menu">' +
-                                    '    <li><a href="event/' + row.id + '">Update</a></li>' +
-                                    '    <li><a  onclick="activateEvent(' + row.id + ')">Open</a></li>' +
-                                    '    <li><a  onclick="deactivateEvent(' + row.id + ')">Cancel</a></li>' +
-                                    '  </ul>\n' +
-                                    '</div>';;
-                                break;
-                            case 4:
-                                ret = '<div class="dropdown">' +
-                                    '  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Choose Action\n' +
-                                    '  <span class="caret"></span></button>' +
-                                    '  <ul class="dropdown-menu">' +
-                                    '    <li><a href="event/' + row.id + '">Update</a></li>' +
-                                    '    <li><a  onclick="activateEvent(' + row.id + ')">Open</a></li>' +
-                                    '  </ul>\n' +
-                                    '</div>';;
-                                break;
-
                         }
-                        return ret;
+                                return ret;
                     }
                 }
             ],
@@ -181,7 +147,7 @@
     const loadData = () => {
         $.ajax({
             type: "GET",
-                url: backendServer + "/api/event",
+            url: backendServer + "/api/user",
             dataType: 'json',
         }).done((res) => {
             console.table(res.data);
@@ -193,7 +159,7 @@
 
     loadData();
 
-    deactivateEvent = (id) => {
+    banUser = (username) => {
         $('#confirm').modal({
             backdrop: 'static',
             keyboard: false
@@ -201,7 +167,7 @@
             .one('click', '#delete', function(e) {
                 $.ajax({
                     type: "GET",
-                    url: backendServer + "/api/event/deactivate-event/" + id,
+                    url: backendServer + "/api/user/ban-user/" + username,
                     dataType: 'json',
                 }).done((res) => {
                     alert(res.message);
@@ -214,7 +180,7 @@
 
     }
 
-    activateEvent = (id) => {
+    unbanUser = (username) => {
         $('#confirm').modal({
             backdrop: 'static',
             keyboard: false
@@ -223,7 +189,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: backendServer + "/api/event/activate-event/" + id,
+                    url: backendServer + "/api/user/unban-user/" + username,
                     dataType: 'json',
                 }).done((res) => {
                     alert(res.message);

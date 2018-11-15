@@ -33,6 +33,14 @@ $(function () {
 
                     $("#orderQuantity").attr({"max": res.data.quantity, "min": 1});
 
+                    if (res.data.latitude != null && res.data.longtitude != null) {
+                        $("#productLat").val(res.data.latitude);
+                        $("#productLng").val(res.data.longtitude);
+                    } else {
+                        $("#show-map").attr("disabled", "disabled");
+                    }
+
+
                     productId = res.data.id;
                     productPrice = res.data.price;
                     seller = res.data.seller;
@@ -41,12 +49,12 @@ $(function () {
                     var rater = res.data.totalRater
 
                     loadSellerProfile(res.data.seller);
-                    loadRelevant(res.data.name,res.data.categoryId);
+                    loadRelevant(res.data.name, res.data.categoryId);
                     showReviews(rater);
                     showStars(rate, rater, $("#show-product-rate"));
                     showImages(res);
                     showStatus(res.data.statusId);
-                    // showMyRate();
+                    showMyRate();
                     showRatings();
 
                 }
@@ -230,7 +238,9 @@ function loadProfile(username) {
         dataType: 'json',
         success(res) {
             if (res.data != null) {
-                $("#receiverName").val(res.data.firstName + " " + res.data.lastName);
+                if (res.data.firstName != null && res.data.lastName != null) {
+                    $("#receiverName").val(res.data.firstName + " " + res.data.lastName);
+                }
                 $("#orderPhone").val(res.data.phone);
                 $("#orderAddress").val(res.data.address);
             }
@@ -246,7 +256,8 @@ $("#orderQuantity").on("change", function () {
     $("#totalPrice").val(price);
 })
 
-$("#create-order-form").submit(function () {
+$("#create-order-form").submit(async function (e) {
+    e.preventDefault();
     var objectData = {
         reciever: $("#receiverName").val(),
         deliveryAddr: $("#orderAddress").val(),
@@ -260,28 +271,25 @@ $("#create-order-form").submit(function () {
 
     var objectDataString = JSON.stringify(objectData);
     var formData = new FormData();
+
     formData.append('orderModelString', objectDataString);
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: backendServer + "/api/order",
-        dataType: 'json',
+        dataType: "json",
         data: formData,
         contentType: false,
         processData: false,
-
-        success: function (response) {
-            alert("Success")
-        },
-        error: function (e) {
-            alert("ERROR load: ", e);
-            console.log(e);
-        }
+    }).done((res) => {
+        console.log(res.data);
+        console.log(res.status_code);
+    }).fail((res) => {
+        console.log(res.message);
     });
 })
 
-$('#rate-product-form').submit(function (e) {
+$('#rate-product-form').submit(async function (e) {
     e.preventDefault();
-
     if (username == null) {
         $("#modalLRForm").modal();
     } else if (canRate != 1) {
@@ -312,11 +320,12 @@ $('#rate-product-form').submit(function (e) {
             data: formData,
             contentType: false,
             processData: false,
-            success: function () {
-                alert("Success");
-            }, error: function (e) {
-                console.log(e);
-                alert("Error: " + e);
+            success: function (res) {
+                alert(res.message);
+                window.location.reload(true);
+            },
+            error: function (res) {
+                alert(res.message);
             }
         });
     }
@@ -468,7 +477,7 @@ function loadRelevant(productName, categoryId) {
                         "                                                <a" +
                         " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
                         ">" +
-                        productList[i].name +
+                        formatName(productList[i].name) +
                         "</a>\n" +
                         "                                            </strong>\n" +
                         "                                        </h4>\n" +
@@ -522,4 +531,91 @@ function loadRelevant(productName, categoryId) {
             console.log(e);
         }
     })
+}
+
+function initialize() {
+    initAutocomplete();
+}
+
+var placeSearch, autocomplete;
+var componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
+};
+
+function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */(document.getElementById('orderAddress')),
+        {types: ['geocode']});
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', fillInAddress);
+
+    initMap();
+}
+
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var geolocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+                center: geolocation,
+                radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+
+
+        });
+    }
+}
+
+
+// $("#orderAddress").on("focus", function () {
+//     geolocate();
+// })
+
+
+function initMap(lat, lng) {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: lat, lng: lng},
+        zoom: 16
+    });
+
+    var marker = new google.maps.Marker({
+        position:  {lat: lat, lng: lng},
+        map: map,
+        title: 'Hello World!'
+    });
+}
+
+$("#show-map").click(function () {
+    var lat = parseFloat($("#productLat").val());
+    var lng = parseFloat($("#productLng").val());
+
+    console.log(lat + "," + lng);
+    $('#ggMapModal').modal();
+    initMap(lat, lng);
+})
+
+const formatName = (name) => {
+    if (name.length >= 18) {
+        return name.substring(0, 18) + "...";
+    }
+    return name;
 }

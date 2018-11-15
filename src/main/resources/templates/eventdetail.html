@@ -151,33 +151,57 @@
             <!-- Grid row -->
         </div>
     </section>
-    <!-- Section: Information -->
-    <!--Team Div-->
-    <!--<div class="w-100 mt-5">-->
-    <!--<div>-->
-    <!--&lt;!&ndash;Grid column&ndash;&gt;-->
-    <!--<div class="mb-4">-->
-    <!--<div class="jarallax" data-jarallax-video="https://youtu.be/xJIlTbBWxek?list=PLGmxyVGSCDKvmLInHxJ9VdiwEb82Lxd2E">-->
-    <!--<div class="text-white text-center py-5 px-4">-->
-    <!--<div class="container">-->
-    <!---->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;Grid column&ndash;&gt;-->
 
-    <!--</div>-->
-    <!--&lt;!&ndash;Grid row&ndash;&gt;-->
-    <!--</div>-->
-    <!--End Team Div-->
-    <!--Contain Div-->
+    <div class="container classic-tabs">
+        <!--Tab Menu Links-->
+        <ul class="nav tabs-elegant" id="myClassicTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link waves-light active show" id="description-tab-link" data-toggle="tab"
+                   href="#description-tab"
+                   role="tab" aria-selected="true">Description</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" id="direction-tab-link" data-toggle="tab" href="#direction-tab"
+                   role="tab" aria-controls="follow-classic" aria-selected="false">Directions</a>
+            </li>
+        </ul>
+        <!--End Tab Menu Links-->
+
+        <!--Tab Content-->
+        <div class="tab-content white border-right border-bottom border-left rounded-bottom" id="myTabContent">
+            <!--description Tab-->
+            <div class="tab-pane fade active show" id="description-tab" role="tabpanel"
+                 aria-labelledby="description-tab-link">
+                <div class="text-justify mt-3" id="eventDescription">
+
+                </div>
+            </div>
+            <!--End description Tab-->
+
+            <!--direction Event Tab-->
+            <div class="tab-pane fade" id="direction-tab" role="tabpanel" aria-labelledby="direction-tab-link">
+                <div><p class="text-danger" id="mapError"></p></div>
+                <div class="floating-panel-mode fade">
+                    <b>Vehicle: </b>
+                    <select id="mode" class="browser-default">
+                        <option value="DRIVING">Driving</option>
+                        <option value="WALKING">Walking</option>
+                        <option value="TRANSIT">Bus</option>
+                    </select>
+                </div>
+                <div class="floating-panel">
+                    <button id="showDirection" class="btn orange">Show Directions</button>
+                </div>
+                <div id="instructions"></div>
+                <div id="map"></div>
+            </div>
+            <!--End direction Event Tab-->
+        </div>
+    </div>
+
     <div class="container mt-5 mb-5">
         <div class="card card-cascade wider reverse">
-            <h4 class="text-capitalize">DESCRIPTION</h4>
-            <div class="text-justify mt-3" id="eventDescription">
 
-            </div>
         </div>
     </div>
     <!--End Contain Div-->
@@ -242,6 +266,7 @@
 </main>
 <div th:replace="footer :: footer"/>
 <script src="/js/event-detail.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYf2K1LttcbRnaqY-9IfaDxBkpGxtC1Cw&libraries=places&callback=initialize"></script>
 </body>
 
 </html>

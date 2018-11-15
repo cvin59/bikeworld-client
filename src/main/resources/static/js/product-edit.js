@@ -3,6 +3,11 @@ var uploadImgList = [];
 var deleteImgList = [];
 
 try {
+    CKEDITOR.replace('inputProductDescription');
+} catch (e) {
+    console.log(e);
+}
+try {
     CKEDITOR.replace('editProductDescription');
 } catch (e) {
     console.log(e);
@@ -68,40 +73,26 @@ function traverseFiles(files, filesUpload, fileList) {
     }
 }
 
-$("#btnClear").click(function () {
-    $("#image-table tr").remove();
-    imgSeq = 0;
-    uploadImgList = [];
-})
 
 function deleteImg(btn, seq) {
     $(btn).closest('tr').remove();
     uploadImgList.splice(seq, 1, null);
 }
 
-$("#btnClear").click(function () {
-    $("#image-table tr").remove();
-    imgSeq = 0;
-    uploadImgList = [];
-})
 
-function deleteImg(btn, seq) {
-    $(btn).closest('tr').remove();
-    uploadImgList.splice(seq, 1, null);
-}
+// Restrict number only
+$('#editProductPrice').on("change", function () {
+    var val = Math.abs(parseInt(this.value, 10) || 1);
+    this.value = val < 1 ? 1 : val;
+});
 
 $('#editProductQuantity').on("change", function () {
     var val = Math.abs(parseInt(this.value, 10) || 1);
     this.value = val > 100 ? 99 : val;
 });
 
-$('#editProductPrice').on("change", function () {
-    var val = Math.abs(parseInt(this.value, 10) || 1);
-    this.value = val < 1 ? 1 : val;
-});
-
 // Edit Product
-$('#edit-product-form').submit(function (e) {
+$('#edit-product-form').submit(async function (e) {
     e.preventDefault();
     var objectData =
         {
@@ -111,9 +102,22 @@ $('#edit-product-form').submit(function (e) {
             price: document.getElementById('editProductPrice').value,
             quantity: document.getElementById('editProductQuantity').value,
             address: document.getElementById('editProductAddress').value,
-            longtitude: $('#editProductLng').val(),
-            latitude: $('#editProductLat').val(),
         };
+
+    if ($('#editProductLng').val()!=null && $('#editProductLat').val()!=null){
+        objectData =
+            {
+                id: document.getElementById("editProductId").value,
+                name: document.getElementById('editProductName').value,
+                description: CKEDITOR.instances['editProductDescription'].getData(),
+                price: document.getElementById('editProductPrice').value,
+                quantity: document.getElementById('editProductQuantity').value,
+                address: document.getElementById('editProductAddress').value,
+                longtitude: $('#editProductLng').val(),
+                latitude: $('#editProductLat').val(),
+            };
+    }
+
     var objectDataString = JSON.stringify(objectData);
     var formData = new FormData();
     formData.append("productModelString", objectDataString);
@@ -134,14 +138,57 @@ $('#edit-product-form').submit(function (e) {
         data: formData,
         contentType: false,
         processData: false,
-        success: function () {
-            alert("Success");
-        }, error: function (e) {
-            console.log(e);
-            alert("Error: " + e);
+        success: function (res) {
+            alert(res.message);
+        },
+        error: function (res) {
+            alert(res.message);
         }
     });
 });
+
+
+function showStatus(stat, i, location) {
+    var statusId = stat.statusId;
+    var status = stat.status;
+
+
+    switch (statusId) {
+        case 1:
+            $(location).addClass("badge badge-success");
+            break;
+        case 2:
+            $(location).addClass("badge badge-warning");
+            break;
+        case 3:
+            $(location).addClass("badge badge-info");
+            break;
+        case 4:
+            $(statusDiv).class = "badge badge-light";
+            break;
+    }
+
+    $(location).append(status);
+}
+
+function showStars(rate, rater, rating) {
+    var star = rate / rater;
+    var stars = "";
+    for (i = 0; i <= 4; i++) {
+        if (star <= i) {
+            stars = stars + "<i class=\"fa fa-star-o\"> </i>";
+        }
+
+        if (star > i && star < i + 1) {
+            stars = stars + "<i class=\"fa fa-star-half-o\">";
+        }
+
+        if (star >= i + 1) {
+            stars = stars + ("<i class=\"fa fa-star\"></i>");
+        }
+    }
+    $(rating).html(stars);
+};
 
 function showEditPage(seq) {
     var product = JSON.parse(localStorage.getItem('sellProduct-' + seq));
@@ -149,6 +196,7 @@ function showEditPage(seq) {
     $("#editProductAddress").val(product.address);
     $("#editProductPrice").val(product.price);
     $("#editProductQuantity").val(product.quantity);
+
     // CKEDITOR.instances.editProductDescription.setData(product.description);
 
     var images = product.images;
@@ -203,6 +251,9 @@ $("#edit-files-upload").change(function () {
     var edtFileList = document.getElementById("edit-file-list");
     traverseFiles(this.files, edtFilesUpload, edtFileList);
 })
+$("#btn-close").click(function () {
+    window.location.replace("/user/product");
+})
 
 function initialize() {
     initAutocomplete();
@@ -228,7 +279,6 @@ function initAutocomplete() {
     // fields in the form.
     autocomplete.addListener('place_changed', fillInAddress);
 
-    initMap();
 }
 
 function fillInAddress() {
@@ -273,3 +323,14 @@ function geolocate() {
         });
     }
 }
+
+
+$("#editProductAddress").on("focus", function () {
+    geolocate();
+})
+
+
+
+$("#btn-close").click(function () {
+    window.location.replace("/user/product");
+})

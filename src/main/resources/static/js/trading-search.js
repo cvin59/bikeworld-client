@@ -2,14 +2,56 @@ var backendServer = 'http://localhost:8080';
 var productListSize = 12;
 var productListPage = 1;
 var productListTotalPage = "";
-
 var searchValue;
 
 $(function () {
 
-    var selectSortBy = $("#selectSortBy");
-    var selectDirection = $("#selectDirection");
+    $.ajax({
+        url: backendServer + "/api/common/loadBrand",
+        dataType: 'json',
+        type: 'GET',
+        success: function (response) {
+            var array = response.data;
+            if (array != '') {
+                for (i = 0; i < array.length; i++) {
+                    $("#productBrand").append("<div class=\"custom-control custom-checkbox\">\n" +
+                        "  <input type=\"checkbox\" class=\"custom-control-input\" value=" + '"' + array[i].id + '"' + " name='cbxBrand' id=\"" + "cbxBrand-" + array[i].id + "\" checked>\n" +
+                        "  <label class=\"custom-control-label\" for=\"" + "cbxBrand-" + array[i].id + "\">" +
+                        array[i].name +
+                        "</label>\n" +
+                        "</div>");
+                }
+            }
+        },
+        error: function (e) {
+            alert("ERROR load: ", e);
+        }
+    }).done($.ajax({
+            url: backendServer + "/api/common/loadCategory",
+            dataType: 'json',
+            type: 'GET',
+            success: function (response) {
+                var array = response.data;
+                if (array != '') {
+                    for (i = 0; i < array.length; i++) {
+                        $("#productCategory").append("<div class=\"custom-control custom-checkbox\">\n" +
+                            "  <input type=\"checkbox\" class=\"custom-control-input\" value=" + '"' + array[i].id + '"' + " name='cbxCategory' id=\"" + "cbxCategory-" + array[i].id + "\" checked>\n" +
+                            "  <label class=\"custom-control-label\" for=\"" + "cbxCategory-" + array[i].id + "\">" +
+                            array[i].name +
+                            "</label>\n" +
+                            "</div>");
+                    }
+                }
+            },
+            error: function (e) {
+                alert("ERROR load: ", e);
+            }
+        })
+    )
 
+    var selectSortBy = $("#selectSortBy");
+
+    var selectDirection = $("#selectDirection");
     const getUrlParameter = (sParam) => {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
             sURLVariables = sPageURL.split('&'),
@@ -35,13 +77,27 @@ $(function () {
 });
 
 function showProductList() {
-    $.ajax({
-        url: backendServer + "/api/product/search?searchValue=" + searchValue +
-            "&page=" + productListPage +
-            "&size=" + productListSize +
-            "&sort=" + $("#selectDirection").val() +
-            "&sortBy=" + $("#selectSortBy").val(),
+    var categories = [];
+    var brands = [];
 
+    $('input[name="cbxCategory"]:checked').each(function () {
+        categories.push(this.value);
+    });
+
+    $('input[name="cbxBrand"]:checked').each(function () {
+        brands.push(this.value);
+    });
+
+    var url = backendServer + "/api/product/search?searchValue=" + searchValue +
+        "&categories=" + categories.toString() +
+        "&brands=" + brands.toString() +
+        "&page=" + productListPage +
+        "&size=" + productListSize +
+        "&sort=" + $("#selectDirection").val() +
+        "&sortBy=" + $("#selectSortBy").val();
+
+    $.ajax({
+        url: url,
         //  url: "http://localhost:8080/api/product/search?searchValue=a",
         dataType: 'json',
         type: 'GET',
@@ -51,101 +107,106 @@ function showProductList() {
             productListTotalPage = res.data.totalPage;
 
             if (productList != null) {
-                for (i = 0; i < productList.length; i++) {
-                    localStorage.setItem('sellProduct-' + productList[i].id, JSON.stringify(productList[i]));
-                    var avatar = "";
-                    if (productList[i].images != null) {
-                        avatar = backendServer + productList[i].images[0];
-                    }else{
-                        avatar=backendServer+"/images/img404.jpg";
-                    }
-
-                    $("#show-product-list").append(" <div class=\"col-md-3 clearfix d-none d-md-block mb-3\">\n" +
-                        "                                <!-- Card -->\n" +
-                        "                                <div class=\"card card-cascade wider card-ecommerce\">\n" +
-                        "                                    <!-- Card image -->\n" +
-                        "                                    <div class=\"view view-cascade overlay\">\n" +
-                        "                                        <img src=" + '"' + avatar + '"' + "\n" +
-                        "                                            class=\"card-img-top\" alt=\"sample photo\">\n" +
-                        "                                        <a" +
-                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
-                        ">\n" +
-                        "                                            <div class=\"mask rgba-white-slight\"></div>\n" +
-                        "                                        </a>\n" +
-                        "                                    </div>\n" +
-                        "                                    <!-- Card image -->\n" +
-                        "                                    <!-- Card content -->\n" +
-                        "                                    <div class=\"card-body card-body-cascade text-center\">\n" +
-                        "                                        <!-- Category & Title -->\n" +
-                        "                                        <a" +
-                        " href=" + '"' + frontendServer + "/product/category/" + productList[i].categoryId + '"' +
-                        "" +
-                        "class=\"text-muted\">\n" +
-                        "                                            <h5>" +
-                        productList[i].category +
-                        "</h5>\n" +
-                        "                                        </a>\n" +
-                        "                                        <h4 class=\"card-title\">\n" +
-                        "                                            <strong>\n" +
-                        "                                                <a" +
-                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
-                        ">" +
-                        formatName(productList[i].name) +
-                        "</a>\n" +
-                        "                                            </strong>\n" +
-                        "                                        </h4>\n" +
-                        "                                        <!-- Star -->\n" +
-                        "                                        <p class=\"card-text\" id=show-product-stars-" + i + "></p>\n" +
-                        "                                        <!-- Card footer -->\n" +
-                        "                                        <div class=\"card-footer px-1\">\n" +
-                        "                                            <span class=\"float-left font-weight-bold\">\n" +
-                        "                                                <strong>" +
-                        productList[i].price +
-                        "</strong>\n" +
-                        "                                            </span>\n" +
-                        "                                            <span class=\"float-right\">\n" +
-                        "                                                <a class=\"\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Quick Look\"" +
-                        " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
-                        ">\n" +
-                        "                                                    Details >>\n" +
-                        "                                                </a>\n" +
-                        "                                            </span>\n" +
-                        "                                        </div>\n" +
-                        "                                    </div>\n" +
-                        "                                    <!-- Card content -->\n" +
-                        "                                </div>\n" +
-                        "                                <!-- Card -->\n" +
-                        "                            </div>");
-
-                    var rate = productList[i].totalRater;
-                    var star = productList[i].totalRatePoint / rate;
-                    var stars = "";
-                    if (rate != 0) {
-                        for (j = 0; j <= 4; j++) {
-                            if (star <= j) {
-                                stars = stars + "<i class=\"fa fa-star-o orange-text\"> </i>";
-                            }
-
-                            if (star > j && star < j + 1) {
-                                stars = stars + "<i class=\"fa fa-star-half-o orange-text\"></i>";
-                            }
-
-                            if (star >= j + 1) {
-                                stars = stars + ("<i class=\"fa fa-star orange-text\"></i>");
-                            }
+                if (productList.length > 0) {
+                    for (i = 0; i < productList.length; i++) {
+                        localStorage.setItem('sellProduct-' + productList[i].id, JSON.stringify(productList[i]));
+                        var avatar = "";
+                        if (productList[i].images != null) {
+                            avatar = backendServer + productList[i].images[0];
+                        } else {
+                            avatar = backendServer + "/images/img404.jpg";
                         }
-                        $("#show-product-stars-" + i).html(stars);
-                    } else {
-                        $("#show-product-stars-" + i).html("0 Review");
-                    }
-                    //
-                    // showStatus(productList[i].statusId, i, $("#show-product-status-" + i));
-                }
-                productListPagination(productListTotalPage, productListPage);
 
+                        $("#show-product-list").append(" <div class=\"col-md-4 clearfix d-none d-md-block mb-3\">\n" +
+                            "                                <!-- Card -->\n" +
+                            "                                <div class=\"card card-cascade wider card-ecommerce\">\n" +
+                            "                                    <!-- Card image -->\n" +
+                            "                                    <div class=\"view view-cascade overlay\">\n" +
+                            "                                        <img src=" + '"' + avatar + '"' + "\n" +
+                            "                                            class=\"card-img-top\" alt=\"sample photo\">\n" +
+                            "                                        <a" +
+                            " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
+                            ">\n" +
+                            "                                            <div class=\"mask rgba-white-slight\"></div>\n" +
+                            "                                        </a>\n" +
+                            "                                    </div>\n" +
+                            "                                    <!-- Card image -->\n" +
+                            "                                    <!-- Card content -->\n" +
+                            "                                    <div class=\"card-body card-body-cascade text-center\">\n" +
+                            "                                        <!-- Category & Title -->\n" +
+                            "                                        <a" +
+                            " href=" + '"' + frontendServer + "/product/category/" + productList[i].categoryId + '"' +
+                            "" +
+                            "class=\"text-muted\">\n" +
+                            "                                            <h5>" +
+                            productList[i].category +
+                            "</h5>\n" +
+                            "                                        </a>\n" +
+                            "                                        <h4 class=\"card-title\">\n" +
+                            "                                            <strong>\n" +
+                            "                                                <a" +
+                            " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
+                            ">" +
+                            formatName(productList[i].name) +
+                            "</a>\n" +
+                            "                                            </strong>\n" +
+                            "                                        </h4>\n" +
+                            "                                        <!-- Star -->\n" +
+                            "                                        <p class=\"card-text\" id=show-product-stars-" + i + "></p>\n" +
+                            "                                        <!-- Card footer -->\n" +
+                            "                                        <div class=\"card-footer px-1\">\n" +
+                            "                                            <span class=\"float-left font-weight-bold\">\n" +
+                            "                                                <strong>" +
+                            productList[i].price +
+                            "</strong>\n" +
+                            "                                            </span>\n" +
+                            "                                            <span class=\"float-right\">\n" +
+                            "                                                <a class=\"\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Quick Look\"" +
+                            " href=" + '"' + frontendServer + "/product/detail/" + productList[i].id + '"' +
+                            ">\n" +
+                            "                                                    Details >>\n" +
+                            "                                                </a>\n" +
+                            "                                            </span>\n" +
+                            "                                        </div>\n" +
+                            "                                    </div>\n" +
+                            "                                    <!-- Card content -->\n" +
+                            "                                </div>\n" +
+                            "                                <!-- Card -->\n" +
+                            "                            </div>");
+
+                        var rate = productList[i].totalRater;
+                        var star = productList[i].totalRatePoint / rate;
+                        var stars = "";
+                        if (rate != 0) {
+                            for (j = 0; j <= 4; j++) {
+                                if (star <= j) {
+                                    stars = stars + "<i class=\"fa fa-star-o orange-text\"> </i>";
+                                }
+
+                                if (star > j && star < j + 1) {
+                                    stars = stars + "<i class=\"fa fa-star-half-o orange-text\"></i>";
+                                }
+
+                                if (star >= j + 1) {
+                                    stars = stars + ("<i class=\"fa fa-star orange-text\"></i>");
+                                }
+                            }
+                            $("#show-product-stars-" + i).html(stars);
+                        } else {
+                            $("#show-product-stars-" + i).html("0 Review");
+                        }
+                        //
+                        // showStatus(productList[i].statusId, i, $("#show-product-status-" + i));
+                    }
+                    productListPagination(productListTotalPage, productListPage);
+                } else {
+                    $("#show-product-list").append("<h1>No Search Result. Let try another key</h1>");
+                    $("#pagingContent").css('visibility', 'hidden');
+                }
             }
 
         }, error: function (e) {
+
             alert(e);
         }
 
@@ -265,16 +326,6 @@ function productListPagination(totalPage, currentPage) {
     $("#productList-next2").html("  <a class=\"page-link\">" + next2 + "</a>");
 }
 
-$("#selectDirection").on("change", function () {
-    $("#show-product-list").html("");
-    showProductList();
-})
-
-$("#selectSortBy").on("change", function () {
-    $("#show-product-list").html("");
-    showProductList();
-})
-
 $("#productList-next").click(function () {
     productListPage += 1;
     $("#show-product-list").html("");
@@ -330,6 +381,12 @@ $("#productList-next-page").click(function () {
     $("#show-product-list").html("");
     showProductList();
 });
+
+
+$("#btnFilter").click(function () {
+    $("#show-product-list").html("");
+    showProductList();
+})
 
 const formatName = (name) => {
     if (name.length >= 15) {
