@@ -498,16 +498,17 @@
                 if (typeof  rowData.siteId != 'undefined') {
                     siteLink = rowData.siteId.link;
                 }
+
                 tableBody.append("                                <tr>\n" +
                     "                                    <td style=\"width: 5%\">" + pos + "</td>\n" +
-                    "                                    <td>" + rowData.name + "</td>\n" +
+                    "                                    <td><a target='_blank' href='" + siteLink + rowData.url + "'>" + rowData.name + "</a></td>\n" +
+                    "                                    <td>" + rowData.categoryId.name + "</td>\n" +
                     "                                    <td>" + rowData.price + "</td>\n" +
-                    "                                    <td></td>\n" +
-                    "                                    <td><a>" + siteLink + rowData.url + "</a></td>\n" +
-                    "                                    <td><span class=\"label label-warning\">Pending</span></td>\n" +
+                    "                                    <td><a target='_blank' href='" + siteLink + "'>" + siteLink + "</a></td>\n" +
+                    "                                    <td>" + rowData.status.name + "</td>\n" +
                     "                                    <td>\n" +
                     "                                        <div class=\"form-group\">\n" +
-                    "                                            <button class=\"btn btn-success\">&#10004;</button>\n" +
+                    "                                            <button class=\"btn btn-success\" onclick='activateCrawl(" + pageNum + ", " + pos + ")'>&#10004;</button>\n" +
                     "                                            <button class=\"btn btn-primary\" data-toggle=\"modal\"\n" +
                     "                                   data-target=\"#editCrawlProductModal\" onclick=\"loadModalForEdit(" + rowData.id + ")\">&#9998;</button>\n" +
                     "                                            <button class=\"btn btn-danger\">&#10008;</button>\n" +
@@ -517,6 +518,53 @@
         }
     }
 
+
+    function activateCrawl(pageNum, pos) {
+        let page = productList[pageNum];
+        let crawl = page[pos];
+        let crwId = crawl.status.id;
+
+        $.ajax({
+            type: 'GET',
+            url: backendServer + 'api/crawl/activate/' + crwId,
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+                // console.log("Load page " + pageNum);
+
+                crawl.status.name = "SHOW";
+                crawl.status.id = 2;
+                showPage(pageNum);
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function activateCrawl(pageNum, pos) {
+        let page = productList[pageNum];
+        let crawl = page[pos];
+        let crwId = crawl.status.id;
+
+        $.ajax({
+            type: 'GET',
+            url: backendServer + 'api/crawl/activate/' + crwId,
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+                // console.log("Load page " + pageNum);
+                crawl.status.name = "HIDE";
+                crawl.status.id = 3;
+                showPage(pageNum);
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
 
     // function viewCrawlClick() {
     //     prepareProductList();
