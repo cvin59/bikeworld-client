@@ -784,7 +784,7 @@
                 <div class="d-flex justify-content-center mb-5">
                     <!--Pagination -->
                     <nav aria-label="pagination">
-                        <ul class="pagination pagination-circle pg-blue mb-0">
+                        <ul id="demoPagin" class="pagination pagination-circle pg-blue mb-0">
 
                             <!--First-->
                             <li class="page-item disabled"><a class="page-link">First</a></li>
@@ -1265,6 +1265,111 @@
             }
         }
     }
+</script>
+
+<script>
+
+    let pagingMaxPage;
+    let pagingCurrentPage;
+    let pagingShowFrom;
+    let pagingShowListLength;
+    let pagingHolderUl = $("#demoPagin");
+
+    function pagingLoadData(pageNum) {
+        loadAndShow(pageNum);
+    }
+
+    function pagingInit(maxPage) {
+        pagingMaxPage = maxPage;
+        if (pagingMaxPage > 5) {
+            pagingShowListLength = 5;
+        } else {
+            pagingShowListLength = pagingMaxPage;
+        }
+
+        pagingShowFrom = 1;
+        pagingHolderUl.empty();
+        pagingHolderUl.append('<li><a onclick="pagingFirstPage()">First</a></li>');
+        pagingHolderUl.append('<li><a onclick="pagingPrevPage()">Prev</a></li>');
+        for (let i = 1; i <= pagingShowListLength; i++) {
+            pagingHolderUl.append('<li id="pagingButton' + i + '"><a id="pagingButtonA' + i + '" onclick="pagingActiveIndex(' + (i - 1) + ')">a</a></li>');
+        }
+        pagingHolderUl.append('<li><a onclick="pagingNextPage()">Next</a></li>');
+        pagingHolderUl.append('<li><a onclick="pagingLastPage()">Last</a></li>');
+        console.log(pagingMaxPage);
+        pagingFirstPage();
+    }
+
+    function pagingButton(index) {
+        let pageButtonId = "#pagingButton" + index;
+        let pageButton = $(pageButtonId);
+        return pageButton;
+    }
+
+    function pagingButtonSetText(index, textStr) {
+        let pageButtonAId = "#pagingButtonA" + index;
+        let pageButtonA = $(pageButtonAId);
+        pageButtonA.text(textStr);
+    }
+
+    function pagingFirstPage() {
+        // for (let i = 1; i <= pagingShowListLength; i++) {
+        //     pagingButtonSetText(i, i)
+        //     pagingButton(i).removeClass("active");
+        // }
+        // pagingButton(1).addClass("active");
+        // pagingCurrentPage = 1;
+        // pagingLoadData(1);
+        pagingShowPage(1);
+    }
+
+    function pagingShowPage(pageNum) {
+        let pageMin = 1;
+        if (pagingMaxPage > 5) {
+            pageMin = pageNum - 2;
+            if (pageMin <= 1) {
+                pageMin = 1;
+            }
+            if ((pageNum + 2) >= pagingMaxPage) {
+                pageMin = pagingMaxPage - 4;
+            }
+        }
+        pagingShowFrom = pageMin;
+        for (let i = 0; i < pagingShowListLength; i++) {
+            let pageButton = pagingButton(i + 1);
+            pagingButtonSetText(i + 1, pageMin + i);
+            pageButton.removeClass("active");
+            if ((pageMin + i) == pageNum) {
+                pageButton.addClass("active");
+            }
+        }
+        pagingCurrentPage = pageNum;
+        pagingLoadData(pageNum);
+    }
+
+
+    function pagingActiveIndex(index) {
+        pagingShowPage(pagingShowFrom + index);
+    }
+
+
+    function pagingLastPage() {
+        pagingShowPage(pagingMaxPage);
+    }
+
+
+    function pagingPrevPage() {
+        if (pagingCurrentPage > 1) {
+            pagingShowPage(pagingCurrentPage - 1);
+        }
+    }
+
+    function pagingNextPage() {
+        if (pagingCurrentPage < pagingMaxPage) {
+            pagingShowPage(pagingCurrentPage + 1);
+        }
+    }
+
 </script>
 
 </body>
